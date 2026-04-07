@@ -29,6 +29,9 @@ namespace Underground.EditorTools
         private const string FcgGeneratePrefabPath = "Assets/Fantastic City Generator/Generate.prefab";
         private const string FcgTrafficSystemPrefabPath = "Assets/Fantastic City Generator/Traffic System/Traffic System.prefab";
         private const string FcgUrpAssetPath = "Assets/Fantastic City Generator/URP Settings/UniversalRenderPipelineAsset.asset";
+        private const string ProjectSsrUrpAssetPath = "Assets/Settings/ProjectURP/PC_RPAsset.asset";
+        private const string ProjectUltraUrpAssetPath = "Assets/Settings/ProjectURP/Ultra_PipelineAsset.asset";
+        private const string ProjectDefaultVolumeProfilePath = "Assets/Settings/ProjectURP/DefaultVolumeProfile.asset";
         private const string PreferredPlayerVisualPath = "Assets/Polyeler/Simple Retro Car/Prefabs/Simple Retro Car.prefab";
         private const string FallbackPlayerVisualPath = "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26.prefab";
         private const string TaxiPrefabPath = "Assets/High Matters/Free American Sedans/Prefabs/Taxi.prefab";
@@ -43,6 +46,8 @@ namespace Underground.EditorTools
         private const string WorldSystemsPrefabPath = "Assets/Prefabs/Managers/WorldSystems.prefab";
         private const string FollowCameraPrefabPath = "Assets/Prefabs/Managers/FollowCamera.prefab";
         private const string HudPrefabPath = "Assets/Prefabs/UI/HUD.prefab";
+        private static readonly Vector3 PreferredWorldStartPosition = new Vector3(182.57f, -4.61f, 301.96f);
+        private static readonly Vector3 PreferredWorldStartEuler = new Vector3(0f, 180.169f, 0.002f);
 
         [MenuItem("Underground/Prototype/Build Full Prototype")]
         public static void BuildFullPrototype()
@@ -121,7 +126,7 @@ namespace Underground.EditorTools
                 "Assets/Scenes/Bootstrap", "Assets/Scenes/Menu", "Assets/Scenes/Garage", "Assets/Scenes/World", "Assets/Scenes/Test",
                 "Assets/Scripts/Input", "Assets/Scripts/Camera", "Assets/Scripts/TimeSystem", "Assets/Scripts/Session", "Assets/Scripts/Save",
                 "Assets/Scripts/Economy", "Assets/Scripts/Progression", "Assets/Scripts/Garage", "Assets/Scripts/Race", "Assets/Scripts/AI",
-                "Assets/Scripts/UI", "Assets/Scripts/Audio", "Assets/Scripts/Utilities",
+                "Assets/Scripts/UI", "Assets/Scripts/Audio", "Assets/Scripts/Utilities", "Assets/Scripts/World",
                 "Assets/ScriptableObjects/Vehicles", "Assets/ScriptableObjects/Upgrades", "Assets/ScriptableObjects/Races", "Assets/Settings", "Assets/Resources"
             };
 
@@ -165,7 +170,7 @@ namespace Underground.EditorTools
 
         private static void ConfigureRenderPipeline()
         {
-            RenderPipelineAsset urpAsset = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(FcgUrpAssetPath);
+            RenderPipelineAsset urpAsset = LoadFirstExistingAsset<RenderPipelineAsset>(ProjectSsrUrpAssetPath, ProjectUltraUrpAssetPath, FcgUrpAssetPath);
             if (urpAsset == null)
             {
                 return;
@@ -191,6 +196,9 @@ namespace Underground.EditorTools
 
                 qualitySettings.ApplyModifiedPropertiesWithoutUndo();
             }
+
+            EnsureSsrRendererFeatures();
+            ConfigureDefaultVolumeProfile();
         }
 
         private static void ConfigureTagsAndLayers()
@@ -245,6 +253,27 @@ namespace Underground.EditorTools
             {
                 asset.vehicleId = "starter_car";
                 asset.displayName = "Starter Coupe";
+                asset.maxMotorTorque = 540f;
+                asset.maxBrakeTorque = 4800f;
+                asset.maxSpeedKph = 136f;
+                asset.maxSteerAngle = 20.5f;
+                asset.highSpeedSteerReduction = 0.18f;
+                asset.downforce = 34f;
+                asset.lateralGripAssist = 1.15f;
+                asset.antiRollForce = 3200f;
+                asset.handbrakeGripMultiplier = 0.5f;
+                asset.centerOfMassOffset = new Vector3(0f, -0.48f, 0.03f);
+                asset.spring = 30000f;
+                asset.damper = 3900f;
+                asset.suspensionDistance = 0.18f;
+                asset.forwardStiffness = 1.28f;
+                asset.sidewaysStiffness = 1.45f;
+                asset.maxRPM = 5800f;
+                asset.shiftUpRPM = 5000f;
+                asset.shiftDownRPM = 1800f;
+                asset.finalDriveRatio = 3.85f;
+                asset.gearRatios = new[] { 0f, 2.35f, 1.82f, 1.42f, 1.08f, 0.92f, 0.74f };
+                asset.defaultMass = 1480f;
             });
         }
 

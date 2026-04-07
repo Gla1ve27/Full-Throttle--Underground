@@ -174,6 +174,11 @@ namespace Underground.EditorTools
             EnsureHighStakesRaceSystem(gameplayRoot);
 
             RenderSettings.skybox = LoadDaySkyboxMaterial();
+            RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
+            RenderSettings.reflectionIntensity = 1f;
+            Lightmapping.realtimeGI = true;
+            Lightmapping.bakedGI = true;
+            CreateOrRefreshSceneReflectionProbe(environmentRoot, builtHugeCity ? new Vector3(0f, 45f, 0f) : new Vector3(0f, 18f, 0f), builtHugeCity ? new Vector3(1200f, 220f, 1200f) : new Vector3(420f, 80f, 420f));
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
@@ -223,6 +228,29 @@ namespace Underground.EditorTools
                 : new GameObject("WorldSystems");
             worldSystems.name = "WorldSystems";
             worldSystems.transform.SetParent(parent, false);
+        }
+
+        private static void CreateOrRefreshSceneReflectionProbe(Transform parent, Vector3 center, Vector3 size)
+        {
+            Transform existing = parent.Find("SceneReflectionProbe");
+            if (existing != null)
+            {
+                Object.DestroyImmediate(existing.gameObject);
+            }
+
+            GameObject probeObject = new GameObject("SceneReflectionProbe");
+            probeObject.transform.SetParent(parent, false);
+            probeObject.transform.localPosition = center;
+
+            ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
+            probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
+            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.EveryFrame;
+            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
+            probe.size = size;
+            probe.center = Vector3.zero;
+            probe.boxProjection = true;
+            probe.intensity = 1f;
+            probe.importance = 1000;
         }
 
         private static bool TryGenerateHugeFcgCity(Transform parent)
@@ -294,11 +322,13 @@ namespace Underground.EditorTools
                 if (trafficSystem != null)
                 {
                     trafficSystem.player = playerTransform;
-                    trafficSystem.maxVehiclesWithPlayer = 72;
-                    trafficSystem.around = 260f;
+                    trafficSystem.maxVehiclesWithPlayer = 120;
+                    trafficSystem.around = 420f;
                     trafficSystem.trafficLightHand = 0;
                     EditorUtility.SetDirty(trafficSystem);
                 }
+
+                trafficSystemObject.AddComponent<TrafficNightLightingInstaller>();
 
                 return;
             }
@@ -381,7 +411,8 @@ namespace Underground.EditorTools
             entrance.transform.SetPositionAndRotation(pose.position, pose.rotation);
             BoxCollider collider = entrance.AddComponent<BoxCollider>();
             collider.isTrigger = true;
-            collider.size = new Vector3(10f, 5f, 6f);
+            collider.size = new Vector3(12f, 5f, 10f);
+            collider.center = new Vector3(0f, 0f, -10f);
             entrance.AddComponent<GarageEntranceTrigger>();
         }
 
@@ -457,17 +488,22 @@ namespace Underground.EditorTools
                 pointsProperty.GetArrayElementAtIndex(i).objectReferenceValue = waypoints[i];
             }
             aiSo.ApplyModifiedPropertiesWithoutUndo();
+
+            VehicleNightLightingController lightingController = trafficCar.GetComponent<VehicleNightLightingController>() ?? trafficCar.AddComponent<VehicleNightLightingController>();
+            lightingController.ConfigureForTraffic(false);
         }
 
         private static WorldAnchorSet ResolveWorldAnchors()
         {
+            Pose preferredStartPose = new Pose(PreferredWorldStartPosition, Quaternion.Euler(PreferredWorldStartEuler));
+
             FCGWaypointsContainer[] roads = Object.FindObjectsByType<FCGWaypointsContainer>(FindObjectsSortMode.None)
                 .Where(container => container != null && container.transform.childCount > 2)
                 .ToArray();
 
             if (roads.Length < 4)
             {
-                return WorldAnchorSet.Fallback;
+                return WorldAnchorSet.FromPreferredStart(preferredStartPose);
             }
 
             for (int i = 0; i < roads.Length; i++)
@@ -479,12 +515,12 @@ namespace Underground.EditorTools
             List<FCGWaypointsContainer> selection = SelectSpreadRoads(roads, spawnRoad, 4);
             if (selection.Count < 4)
             {
-                return WorldAnchorSet.Fallback;
+                return WorldAnchorSet.FromPreferredStart(preferredStartPose);
             }
 
-            Pose playerSpawn = CreateRoadPose(selection[0], 1.1f, 0);
-            Pose garagePose = OffsetPose(playerSpawn, new Vector3(-8f, 1.2f, -14f));
-            Pose respawnPose = CreateRoadPose(selection[0], 0.6f, 1);
+            Pose playerSpawn = preferredStartPose;
+            Pose garagePose = preferredStartPose;
+            Pose respawnPose = preferredStartPose;
             Pose dayRacePose = CreateRoadPose(selection[1], 0.25f, 0);
             Pose nightRacePose = CreateRoadPose(selection[2], 0.25f, 0);
             Pose wagerRacePose = CreateRoadPose(selection[3], 0.25f, 0);
@@ -556,13 +592,19 @@ namespace Underground.EditorTools
 
         private readonly struct WorldAnchorSet
         {
-            public static WorldAnchorSet Fallback => new WorldAnchorSet(
-                new Pose(new Vector3(0f, 1.2f, -20f), Quaternion.identity),
-                new Pose(new Vector3(0f, 2f, -32f), Quaternion.identity),
-                new Pose(new Vector3(0f, 0.5f, 18f), Quaternion.identity),
+            public static WorldAnchorSet Fallback => FromPreferredStart(
+                new Pose(new Vector3(0f, 1.2f, -20f), Quaternion.identity));
+
+            public static WorldAnchorSet FromPreferredStart(Pose startPose)
+            {
+                return new WorldAnchorSet(
+                startPose,
+                startPose,
+                startPose,
                 new Pose(new Vector3(8f, 0.2f, 48f), Quaternion.identity),
                 new Pose(new Vector3(22f, 0.2f, 94f), Quaternion.identity),
                 new Pose(new Vector3(-18f, 0.2f, 94f), Quaternion.identity));
+            }
 
             public WorldAnchorSet(Pose playerSpawnPose, Pose garagePose, Pose respawnPose, Pose dayRacePose, Pose nightRacePose, Pose wagerRacePose)
             {

@@ -9,6 +9,7 @@ namespace Underground.Audio
         [SerializeField] private GearboxSystem gearbox;
         [SerializeField] private VehicleDynamicsController vehicle;
         [SerializeField] private AudioSource engineSource;
+        [SerializeField] private AudioSource whineSource;
         [SerializeField] private float minPitch = 0.8f;
         [SerializeField] private float maxPitch = 2f;
         [SerializeField] private float minVolume = 0.2f;
@@ -44,11 +45,20 @@ namespace Underground.Audio
                 return;
             }
 
-            float pitchT = Mathf.InverseLerp(900f, 7200f, gearbox.CurrentRPM);
-            engineSource.pitch = Mathf.Lerp(minPitch, maxPitch, pitchT);
+            float minRpm = vehicle != null && vehicle.RuntimeStats != null ? vehicle.RuntimeStats.IdleRPM : 900f;
+            float maxRpm = vehicle != null && vehicle.RuntimeStats != null ? vehicle.RuntimeStats.MaxRPM : 7200f;
+            float rpmT = Mathf.InverseLerp(minRpm, maxRpm, gearbox.CurrentRPM);
+            float pitchCurve = 1f + (rpmT * 0.5f);
+            engineSource.pitch = Mathf.Lerp(minPitch, maxPitch, rpmT) * pitchCurve;
 
-            float speedT = vehicle != null ? Mathf.InverseLerp(0f, 220f, vehicle.SpeedKph) : pitchT;
-            engineSource.volume = Mathf.Lerp(minVolume, maxVolume, speedT);
+            float speedT = vehicle != null ? Mathf.InverseLerp(0f, 220f, vehicle.SpeedKph) : rpmT;
+            engineSource.volume = Mathf.Lerp(minVolume, maxVolume, Mathf.Max(speedT, rpmT * 0.8f));
+
+            if (whineSource != null)
+            {
+                whineSource.pitch = Mathf.Lerp(1.05f, 1.65f, rpmT);
+                whineSource.volume = rpmT > 0.9f ? Mathf.InverseLerp(0.9f, 1f, rpmT) * 0.35f : 0f;
+            }
         }
 
         private void RouteAudioSource()
@@ -59,6 +69,7 @@ namespace Underground.Audio
             }
 
             settingsManager?.RouteAudioSource(engineSource, "SFX");
+            settingsManager?.RouteAudioSource(whineSource, "SFX");
         }
     }
 }

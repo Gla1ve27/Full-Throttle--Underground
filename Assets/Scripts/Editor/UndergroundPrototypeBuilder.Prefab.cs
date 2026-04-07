@@ -31,12 +31,13 @@ namespace Underground.EditorTools
             GearboxSystem gearbox = carRoot.AddComponent<GearboxSystem>();
             VehicleDynamicsController controller = carRoot.AddComponent<VehicleDynamicsController>();
             carRoot.AddComponent<VehicleDamageSystem>();
+            carRoot.AddComponent<VehicleNightLightingController>();
             CarRespawn respawn = carRoot.AddComponent<CarRespawn>();
 
             Transform modelRoot = CreateEmptyChild(carRoot.transform, "ModelRoot", Vector3.zero);
             Transform wheelColliderRoot = CreateEmptyChild(carRoot.transform, "WheelColliders", Vector3.zero);
             Transform centerOfMass = CreateEmptyChild(carRoot.transform, "CenterOfMass", new Vector3(0f, -0.3f, 0.1f));
-            CreateEmptyChild(carRoot.transform, "CameraTarget", new Vector3(0f, 1.25f, -0.15f));
+            CreateEmptyChild(carRoot.transform, "CameraTarget", new Vector3(0f, 1.08f, -0.02f));
             Transform spawnPoint = CreateEmptyChild(carRoot.transform, "SpawnPoint", Vector3.zero);
 
             ImportedVehicleVisual importedVisual = AttachImportedPlayerVisual(
@@ -49,14 +50,19 @@ namespace Underground.EditorTools
 
             WheelBuild fl = CreateWheel(modelRoot, wheelColliderRoot, "FL", "Front", true, true, true, false, frontLeftWheelPosition, wheelRadius, importedVisual.frontLeftWheel);
             WheelBuild fr = CreateWheel(modelRoot, wheelColliderRoot, "FR", "Front", false, true, true, false, frontRightWheelPosition, wheelRadius, importedVisual.frontRightWheel);
-            WheelBuild rl = CreateWheel(modelRoot, wheelColliderRoot, "RL", "Rear", true, false, true, true, rearLeftWheelPosition, wheelRadius, importedVisual.rearLeftWheel);
-            WheelBuild rr = CreateWheel(modelRoot, wheelColliderRoot, "RR", "Rear", false, false, true, true, rearRightWheelPosition, wheelRadius, importedVisual.rearRightWheel);
+            WheelBuild rl = CreateWheel(modelRoot, wheelColliderRoot, "RL", "Rear", true, false, false, true, rearLeftWheelPosition, wheelRadius, importedVisual.rearLeftWheel);
+            WheelBuild rr = CreateWheel(modelRoot, wheelColliderRoot, "RR", "Rear", false, false, false, true, rearRightWheelPosition, wheelRadius, importedVisual.rearRightWheel);
 
             GameObject audioRoot = new GameObject("AudioRoot");
             audioRoot.transform.SetParent(carRoot.transform, false);
             AudioSource audioSource = audioRoot.AddComponent<AudioSource>();
             audioSource.loop = true;
             audioSource.playOnAwake = false;
+            GameObject whineRoot = new GameObject("Whine");
+            whineRoot.transform.SetParent(audioRoot.transform, false);
+            AudioSource whineSource = whineRoot.AddComponent<AudioSource>();
+            whineSource.loop = true;
+            whineSource.playOnAwake = false;
             VehicleAudioController audioController = audioRoot.AddComponent<VehicleAudioController>();
 
             SerializedObject controllerSo = new SerializedObject(controller);
@@ -83,6 +89,7 @@ namespace Underground.EditorTools
             audioSo.FindProperty("gearbox").objectReferenceValue = gearbox;
             audioSo.FindProperty("vehicle").objectReferenceValue = controller;
             audioSo.FindProperty("engineSource").objectReferenceValue = audioSource;
+            audioSo.FindProperty("whineSource").objectReferenceValue = whineSource;
             audioSo.ApplyModifiedPropertiesWithoutUndo();
 
             PrefabUtility.SaveAsPrefabAsset(carRoot, PlayerCarPrefabPath);

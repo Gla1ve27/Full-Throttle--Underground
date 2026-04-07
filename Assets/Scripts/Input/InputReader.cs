@@ -19,8 +19,8 @@ namespace Underground.Vehicle
         [SerializeField] private KeyCode alternateReverseKey = KeyCode.DownArrow;
 
         [Header("Response")]
-        [SerializeField, Range(1f, 20f)] private float steeringResponsiveness = 10f;
-        [SerializeField, Range(1f, 20f)] private float pedalResponsiveness = 12f;
+        [SerializeField, Range(1f, 20f)] private float steeringResponsiveness = 4.1f;
+        [SerializeField, Range(1f, 20f)] private float pedalResponsiveness = 5.2f;
         [SerializeField, Range(0.1f, 0.6f)] private float reverseDoubleTapWindow = 0.3f;
 
         public float Throttle { get; private set; }

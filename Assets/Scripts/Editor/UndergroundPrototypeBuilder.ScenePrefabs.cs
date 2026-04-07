@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using Underground.Core;
 using Underground.Progression;
@@ -8,6 +9,7 @@ using Underground.Session;
 using Underground.TimeSystem;
 using Underground.UI;
 using Underground.Vehicle;
+using Underground.World;
 
 namespace Underground.EditorTools
 {
@@ -61,12 +63,30 @@ namespace Underground.EditorTools
             Light sunLight = sunObject.AddComponent<Light>();
             sunLight.type = LightType.Directional;
             sunLight.intensity = 1.15f;
+            sunLight.shadows = LightShadows.Soft;
+            sunLight.shadowStrength = 1f;
+            sunLight.shadowBias = 0.06f;
+            sunLight.shadowNormalBias = 0.65f;
 
             DayNightCycleController dayNight = worldSystems.AddComponent<DayNightCycleController>();
             SetObjectReference(dayNight, "sunPivot", sunPivot);
             SetObjectReference(dayNight, "sunLight", sunLight);
             SetObjectReference(dayNight, "daySkyboxMaterial", LoadDaySkyboxMaterial());
             SetObjectReference(dayNight, "nightSkyboxMaterial", LoadNightSkyboxMaterial());
+
+            GameObject reflectionProbeObject = new GameObject("WorldReflectionProbe");
+            reflectionProbeObject.transform.SetParent(worldSystems.transform, false);
+            ReflectionProbe reflectionProbe = reflectionProbeObject.AddComponent<ReflectionProbe>();
+            reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Baked;
+            reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
+            reflectionProbe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
+            reflectionProbe.size = new Vector3(600f, 180f, 600f);
+            reflectionProbe.center = new Vector3(0f, 35f, 0f);
+            reflectionProbe.boxProjection = true;
+            reflectionProbe.importance = 1;
+            reflectionProbe.intensity = 1.15f;
+
+            AttachGlobalVolume(worldSystems.transform, "GlobalVolume");
 
             PrefabUtility.SaveAsPrefabAsset(worldSystems, WorldSystemsPrefabPath);
             Object.DestroyImmediate(worldSystems);
@@ -82,8 +102,11 @@ namespace Underground.EditorTools
 
             Camera camera = cameraObject.AddComponent<Camera>();
             camera.fieldOfView = 60f;
+            camera.renderingPath = RenderingPath.UsePlayerSettings;
+            EnablePostProcessing(camera);
             cameraObject.AddComponent<AudioListener>();
             cameraObject.AddComponent<VehicleCameraFollow>();
+            cameraObject.AddComponent<VehicleSpeedEffectsController>();
 
             PrefabUtility.SaveAsPrefabAsset(cameraObject, FollowCameraPrefabPath);
             Object.DestroyImmediate(cameraObject);

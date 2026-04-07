@@ -1,11 +1,17 @@
+using System;
 using UnityEngine;
 
 namespace Underground.Vehicle
 {
     public class GearboxSystem : MonoBehaviour
     {
+        [SerializeField] private float minTimeBetweenShifts = 0.4f;
+
+        public event Action<int, int> GearChanged;
+
         public int CurrentGear { get; private set; } = 1;
         public float CurrentRPM { get; private set; }
+        public float LastShiftTime { get; private set; } = -999f;
 
         public void UpdateAutomatic(float wheelRpm, VehicleStatsData stats)
         {
@@ -16,14 +22,23 @@ namespace Underground.Vehicle
 
             float currentRatio = GetCurrentDriveRatio(stats);
             CurrentRPM = CalculateEngineRpm(wheelRpm, currentRatio, stats);
+            int previousGear = CurrentGear;
+            bool canShift = Time.time - LastShiftTime >= minTimeBetweenShifts;
 
-            if (CurrentRPM > stats.shiftUpRPM && CurrentGear < stats.gearRatios.Length - 1)
+            if (canShift && CurrentRPM > stats.shiftUpRPM && CurrentGear < stats.gearRatios.Length - 1)
             {
                 CurrentGear++;
             }
-            else if (CurrentRPM < stats.shiftDownRPM && CurrentGear > 1)
+            else if (canShift && CurrentRPM < stats.shiftDownRPM && CurrentGear > 1)
             {
                 CurrentGear--;
+            }
+
+            if (CurrentGear != previousGear)
+            {
+                LastShiftTime = Time.time;
+                CurrentRPM = CalculateEngineRpm(wheelRpm, GetCurrentDriveRatio(stats), stats);
+                GearChanged?.Invoke(previousGear, CurrentGear);
             }
         }
 

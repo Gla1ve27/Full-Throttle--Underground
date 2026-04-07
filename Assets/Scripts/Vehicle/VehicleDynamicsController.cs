@@ -22,14 +22,31 @@ namespace Underground.Vehicle
         [SerializeField] private float maxHandbrakeTorque = 6500f;
         [SerializeField] private float reverseEngageSpeedKph = 3f;
         [SerializeField] private float reverseReleaseSpeedKph = 1.5f;
+        [SerializeField] private float aerodynamicDragCoefficient = 0.36f;
+
+        [Header("Feel")]
+        [SerializeField] private float steerAngleResponse = 72f;
+        [SerializeField] private float motorTorqueResponse = 2600f;
+        [SerializeField] private float baseLoadGripBias = 0.92f;
+        [SerializeField] private float maxLoadGripBias = 1.08f;
+        [SerializeField] private float slipGripPenalty = 0.18f;
+        [SerializeField] private float slideSlipAngleThreshold = 15f;
+        [SerializeField] private float fullSlideSlipAngle = 28f;
+        [SerializeField] private float slideSideFrictionMultiplier = 0.7f;
+        [SerializeField] private float slideForwardFrictionMultiplier = 0.96f;
+        [SerializeField] private float counterSteerAssistTorque = 1.15f;
+        [SerializeField] private float counterSteerAssistSpeedStartKph = 35f;
 
         public Rigidbody Rigidbody { get; private set; }
         public VehicleStatsData BaseStats => baseStats;
         public RuntimeVehicleStats RuntimeStats => runtimeStats;
         public float SpeedKph { get; private set; }
         public float ForwardSpeedKph { get; private set; }
+        public float SlipAngleDegrees { get; private set; }
+        public float SignedSlipAngleDegrees { get; private set; }
         public bool IsGrounded { get; private set; }
         public bool IsReversing { get; private set; }
+        public bool IsSliding { get; private set; }
 
         private void Awake()
         {
@@ -67,8 +84,11 @@ namespace Underground.Vehicle
             ApplyDrive();
             ApplyBraking();
             ApplyAntiRoll();
+            ApplyDynamicTireGrip();
             ApplyDownforce();
+            ApplyAerodynamicDrag();
             ApplyLateralGripAssist();
+            ApplyCounterSteerAssist();
         }
 
         private void LateUpdate()
@@ -189,6 +209,7 @@ namespace Underground.Vehicle
             SpeedKph = Rigidbody.linearVelocity.magnitude * 3.6f;
             ForwardSpeedKph = Vector3.Dot(Rigidbody.linearVelocity, transform.forward) * 3.6f;
             IsGrounded = false;
+            UpdateSlipAngleState();
 
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -203,8 +224,10 @@ namespace Underground.Vehicle
         private void ApplySteering()
         {
             float speedFactor = Mathf.InverseLerp(0f, Mathf.Max(1f, runtimeStats.MaxSpeedKph), Mathf.Abs(ForwardSpeedKph));
+            float steeringLockT = Mathf.InverseLerp(20f, 200f, Mathf.Abs(ForwardSpeedKph));
+            float dynamicSteerLock = Mathf.Lerp(40f, 8f, steeringLockT);
             float steerReduction = Mathf.Lerp(1f, runtimeStats.HighSpeedSteerReduction, speedFactor);
-            float steerAngle = input.Steering * runtimeStats.MaxSteerAngle * steerReduction;
+            float targetSteerAngle = input.Steering * Mathf.Min(dynamicSteerLock, runtimeStats.MaxSteerAngle * steerReduction);
 
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -214,7 +237,10 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                wheel.collider.steerAngle = steerAngle;
+                wheel.collider.steerAngle = Mathf.MoveTowards(
+                    wheel.collider.steerAngle,
+                    targetSteerAngle,
+                    steerAngleResponse * Time.fixedDeltaTime);
             }
         }
 
@@ -303,7 +329,11 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                wheel.collider.motorTorque = wheel.drive && canApplyTorque ? torquePerWheel : 0f;
+                float targetTorque = wheel.drive && canApplyTorque ? torquePerWheel : 0f;
+                wheel.collider.motorTorque = Mathf.MoveTowards(
+                    wheel.collider.motorTorque,
+                    targetTorque,
+                    motorTorqueResponse * Time.fixedDeltaTime);
             }
         }
 
@@ -380,6 +410,19 @@ namespace Underground.Vehicle
             Rigidbody.AddForce(-transform.up * SpeedKph * runtimeStats.Downforce, ForceMode.Force);
         }
 
+        private void ApplyAerodynamicDrag()
+        {
+            Vector3 planarVelocity = Vector3.ProjectOnPlane(Rigidbody.linearVelocity, Vector3.up);
+            float speedMs = planarVelocity.magnitude;
+            if (speedMs < 0.5f)
+            {
+                return;
+            }
+
+            Vector3 dragForce = -planarVelocity.normalized * speedMs * speedMs * aerodynamicDragCoefficient;
+            Rigidbody.AddForce(dragForce, ForceMode.Force);
+        }
+
         private void ApplyLateralGripAssist()
         {
             if (!IsGrounded)
@@ -391,6 +434,63 @@ namespace Underground.Vehicle
             float handbrakeGripReduction = input.Handbrake ? runtimeStats.HandbrakeGripMultiplier : 1f;
             Vector3 correctiveForce = -transform.right * localVelocity.x * runtimeStats.LateralGripAssist * handbrakeGripReduction;
             Rigidbody.AddForce(correctiveForce, ForceMode.Acceleration);
+        }
+
+        private void ApplyDynamicTireGrip()
+        {
+            if (wheels == null || runtimeStats == null)
+            {
+                return;
+            }
+
+            float slideT = GetSlideBlend();
+            float slideSideMultiplier = Mathf.Lerp(1f, slideSideFrictionMultiplier, slideT);
+            float slideForwardMultiplier = Mathf.Lerp(1f, slideForwardFrictionMultiplier, slideT);
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null)
+                {
+                    continue;
+                }
+
+                float loadBias = 1f;
+                float slipPenalty = 1f;
+
+                if (wheel.collider.GetGroundHit(out WheelHit hit))
+                {
+                    float travel = CalculateSuspensionTravel(wheel.collider, hit);
+                    loadBias = Mathf.Lerp(maxLoadGripBias, baseLoadGripBias, travel);
+                    float combinedSlip = Mathf.Abs(hit.sidewaysSlip);
+                    slipPenalty = Mathf.Clamp01(1f - (combinedSlip * slipGripPenalty));
+                }
+
+                WheelFrictionCurve forward = wheel.collider.forwardFriction;
+                forward.stiffness = runtimeStats.ForwardStiffness * loadBias * slipPenalty * slideForwardMultiplier;
+                wheel.collider.forwardFriction = forward;
+
+                WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
+                sideways.stiffness = runtimeStats.SidewaysStiffness * loadBias * slipPenalty * slideSideMultiplier;
+                wheel.collider.sidewaysFriction = sideways;
+            }
+        }
+
+        private void ApplyCounterSteerAssist()
+        {
+            if (!IsGrounded || !IsSliding)
+            {
+                return;
+            }
+
+            float speedAssistT = Mathf.InverseLerp(counterSteerAssistSpeedStartKph, 150f, Mathf.Abs(ForwardSpeedKph));
+            if (speedAssistT <= 0f)
+            {
+                return;
+            }
+
+            float desiredYawAssist = -SignedSlipAngleDegrees * counterSteerAssistTorque * speedAssistT;
+            Rigidbody.AddTorque(Vector3.up * desiredYawAssist, ForceMode.Acceleration);
         }
 
         private void SyncWheelVisuals()
@@ -445,6 +545,34 @@ namespace Underground.Vehicle
             float suspensionDistance = Mathf.Max(0.001f, wheel.suspensionDistance);
             float travel = (-wheel.transform.InverseTransformPoint(hit.point).y - wheel.radius) / suspensionDistance;
             return Mathf.Clamp01(travel);
+        }
+
+        private void UpdateSlipAngleState()
+        {
+            Vector3 planarVelocity = Vector3.ProjectOnPlane(Rigidbody.linearVelocity, Vector3.up);
+            if (planarVelocity.sqrMagnitude < 1f)
+            {
+                SlipAngleDegrees = 0f;
+                SignedSlipAngleDegrees = 0f;
+                IsSliding = false;
+                return;
+            }
+
+            Vector3 planarForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 planarVelocityDirection = planarVelocity.normalized;
+            SlipAngleDegrees = Vector3.Angle(planarForward, planarVelocityDirection);
+            SignedSlipAngleDegrees = Vector3.SignedAngle(planarForward, planarVelocityDirection, Vector3.up);
+            IsSliding = SlipAngleDegrees >= slideSlipAngleThreshold;
+        }
+
+        private float GetSlideBlend()
+        {
+            if (SlipAngleDegrees <= slideSlipAngleThreshold)
+            {
+                return 0f;
+            }
+
+            return Mathf.InverseLerp(slideSlipAngleThreshold, Mathf.Max(slideSlipAngleThreshold + 0.01f, fullSlideSlipAngle), SlipAngleDegrees);
         }
 
         private static void UpdateWheelPose(WheelCollider wheel, Transform visual)

@@ -14,35 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleId: starter_car
   displayName: Starter Coupe
-  maxMotorTorque: 2200
-  maxBrakeTorque: 5000
-  maxSpeedKph: 220
-  maxSteerAngle: 30
-  highSpeedSteerReduction: 0.45
-  downforce: 60
-  lateralGripAssist: 2.5
-  antiRollForce: 4500
-  handbrakeGripMultiplier: 0.55
+  maxMotorTorque: 540
+  maxBrakeTorque: 4800
+  maxSpeedKph: 136
+  maxSteerAngle: 20.5
+  highSpeedSteerReduction: 0.18
+  downforce: 34
+  lateralGripAssist: 1.15
+  antiRollForce: 3200
+  handbrakeGripMultiplier: 0.5
   resetLift: 1.2
-  centerOfMassOffset: {x: 0, y: -0.45, z: 0}
-  spring: 35000
-  damper: 4500
-  suspensionDistance: 0.2
-  forwardStiffness: 1.6
-  sidewaysStiffness: 2
+  centerOfMassOffset: {x: 0, y: -0.48, z: 0.03}
+  spring: 30000
+  damper: 3900
+  suspensionDistance: 0.18
+  forwardStiffness: 1.28
+  sidewaysStiffness: 1.45
   idleRPM: 900
-  maxRPM: 7200
-  shiftUpRPM: 6500
-  shiftDownRPM: 2200
-  finalDriveRatio: 3.7
+  maxRPM: 5800
+  shiftUpRPM: 5000
+  shiftDownRPM: 1800
+  finalDriveRatio: 3.85
   gearRatios:
   - 0
-  - 3.2
-  - 2.1
-  - 1.5
-  - 1.15
+  - 2.35
+  - 1.82
+  - 1.42
+  - 1.08
   - 0.92
-  - 0.75
-  defaultMass: 1350
+  - 0.74
+  defaultMass: 1480
   baseValue: 15000
   repairCostPerDamagePoint: 20

@@ -7,6 +7,8 @@ namespace Underground.UI
 {
     public class HudRadarController : MonoBehaviour
     {
+        private static Sprite fallbackSprite;
+
         [SerializeField] private VehicleDynamicsController vehicle;
         [SerializeField] private RectTransform radarBounds;
         [SerializeField] private RectTransform markerLayer;
@@ -82,12 +84,12 @@ namespace Underground.UI
         private void RegisterMarkersWithTag(string tag, Color color, Vector2 size)
         {
             GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
-            Sprite sprite = Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+            Sprite sprite = CreateFallbackSprite();
 
             for (int i = 0; i < taggedObjects.Length; i++)
             {
                 GameObject taggedObject = taggedObjects[i];
-                if (taggedObject == null || taggedObject == vehicle.gameObject)
+                if (taggedObject == null || (vehicle != null && taggedObject == vehicle.gameObject))
                 {
                     continue;
                 }
@@ -107,6 +109,21 @@ namespace Underground.UI
                     icon = rectTransform
                 });
             }
+        }
+
+        private static Sprite CreateFallbackSprite()
+        {
+            if (fallbackSprite == null)
+            {
+                Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+                texture.SetPixel(0, 0, Color.white);
+                texture.Apply();
+                texture.hideFlags = HideFlags.HideAndDontSave;
+                fallbackSprite = Sprite.Create(texture, new Rect(0f, 0f, 1f, 1f), new Vector2(0.5f, 0.5f), 1f);
+                fallbackSprite.name = "GeneratedRadarSprite";
+            }
+
+            return fallbackSprite;
         }
 
         private void UpdatePlayerMarker()

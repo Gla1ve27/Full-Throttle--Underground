@@ -166,6 +166,9 @@ namespace Underground.EditorTools
                 pointsProperty.GetArrayElementAtIndex(i).objectReferenceValue = waypoints[i];
             }
             aiSo.ApplyModifiedPropertiesWithoutUndo();
+
+            VehicleNightLightingController lightingController = trafficCar.GetComponent<VehicleNightLightingController>() ?? trafficCar.AddComponent<VehicleNightLightingController>();
+            lightingController.ConfigureForTraffic(false);
         }
 
         private static void CreatePoliceSetpiece()

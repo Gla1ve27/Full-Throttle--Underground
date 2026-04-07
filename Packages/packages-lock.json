@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.limworks.urpssrpackage": {
+      "version": "file:com.limworks.urpssrpackage",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.7",
       "depth": 0,

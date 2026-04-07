@@ -25,8 +25,8 @@ namespace FCG
         public int nVehicles = 0;
         public int maxVehiclesWithPlayer = 50;
 
-        [Range(100, 200)]
-        public float around = 150;
+        [Range(100, 600)]
+        public float around = 320;
 
         private ArrayList spawnsPoints;
 
@@ -264,7 +264,7 @@ namespace FCG
 
             if (player && Application.isPlaying)
             {
-                InvokeRepeating(nameof(LoadCars2), 0f, 5);
+                InvokeRepeating(nameof(LoadCars2), 0f, 2f);
             }
             else
                 LoadCars2();

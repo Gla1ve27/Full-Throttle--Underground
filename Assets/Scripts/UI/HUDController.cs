@@ -110,7 +110,7 @@ namespace Underground.UI
                 }
             }
 
-            int speedKph = vehicle != null ? Mathf.RoundToInt(vehicle.SpeedKph) : 0;
+            int speedKph = vehicle != null ? Mathf.RoundToInt(Mathf.Abs(vehicle.ForwardSpeedKph)) : 0;
             float normalizedSpeed = 0f;
             if (vehicle != null && vehicle.RuntimeStats != null)
             {

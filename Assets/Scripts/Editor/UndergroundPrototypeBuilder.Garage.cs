@@ -13,8 +13,8 @@ namespace Underground.EditorTools
     {
         private static void ComposeGarageShowroomScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade)
         {
-            GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.2f, 0f, true);
-            ConfigureShowroomController(backdrop.showroomController, true, -34f, -0.16f, 0f);
+            GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.05f, 0f, true);
+            ConfigureShowroomController(backdrop.showroomController, true, 34f, -0.22f, 0f);
 
             GameObject systemsRoot = new GameObject("GarageSystems");
             GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
@@ -32,13 +32,6 @@ namespace Underground.EditorTools
             SetObjectReference(upgradeAction, "upgradeSystem", upgradeSystem);
             SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
 
-            uiBuild.bankButton.onClick.AddListener(garageUi.BankProgress);
-            uiBuild.repairButton.onClick.AddListener(garageUi.RepairCar);
-            uiBuild.upgradeButton.onClick.AddListener(garageUi.BuyEngineUpgrade);
-            uiBuild.continueButton.onClick.AddListener(garageUi.ExitGarage);
-            uiBuild.rotateLeftButton.onClick.AddListener(garageUi.RotateLeft);
-            uiBuild.rotateRightButton.onClick.AddListener(garageUi.RotateRight);
-
             SerializedObject uiSo = new SerializedObject(garageUi);
             uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;
             uiSo.FindProperty("repairSystem").objectReferenceValue = repairSystem;
@@ -55,6 +48,12 @@ namespace Underground.EditorTools
             uiSo.FindProperty("accelerationFill").objectReferenceValue = uiBuild.accelerationFill;
             uiSo.FindProperty("topSpeedFill").objectReferenceValue = uiBuild.topSpeedFill;
             uiSo.FindProperty("handlingFill").objectReferenceValue = uiBuild.handlingFill;
+            uiSo.FindProperty("bankButton").objectReferenceValue = uiBuild.bankButton;
+            uiSo.FindProperty("repairButton").objectReferenceValue = uiBuild.repairButton;
+            uiSo.FindProperty("upgradeButton").objectReferenceValue = uiBuild.upgradeButton;
+            uiSo.FindProperty("continueButton").objectReferenceValue = uiBuild.continueButton;
+            uiSo.FindProperty("rotateLeftButton").objectReferenceValue = uiBuild.rotateLeftButton;
+            uiSo.FindProperty("rotateRightButton").objectReferenceValue = uiBuild.rotateRightButton;
             uiSo.ApplyModifiedPropertiesWithoutUndo();
         }
 
@@ -62,8 +61,8 @@ namespace Underground.EditorTools
         {
             RemoveExistingGarageBackdrop();
             ConfigureGarageBackdropCamera();
-            GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "MainMenuGarageBackdrop", "MenuDisplayTurntable", 1.15f, 0f, false);
-            ConfigureShowroomController(backdrop.showroomController, false, 152f, -0.16f, 0f);
+            GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "MainMenuGarageBackdrop", "MenuDisplayTurntable", 1.05f, 0f, false);
+            ConfigureShowroomController(backdrop.showroomController, false, 34f, -0.22f, 0f);
         }
 
         private static GarageBackdropBuild ComposeGarageBackdrop(GameObject playerCarPrefab, string rootName, string displayRootName, float displayZ, float autoRotateSpeed, bool configureCamera)
@@ -82,6 +81,8 @@ namespace Underground.EditorTools
             GameObject showroomRoot = new GameObject(rootName);
             CreateGarageEnvironment(showroomRoot.transform, wallMaterial, floorMaterial, platformMaterial, accentMaterial, trimMaterial);
             CreateGarageLighting(showroomRoot.transform);
+            CreateGarageReflectionProbe(showroomRoot.transform);
+            AttachGlobalVolume(showroomRoot.transform, "GarageGlobalVolume");
 
             if (configureCamera)
             {
@@ -174,14 +175,15 @@ namespace Underground.EditorTools
         {
             GameObject cameraObject = new GameObject("Main Camera");
             cameraObject.tag = "MainCamera";
-            cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 2.35f, -9.1f), Quaternion.Euler(9f, 0f, 0f));
+            cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 2.15f, -8.2f), Quaternion.Euler(8f, 0f, 0f));
 
             Camera camera = cameraObject.AddComponent<Camera>();
-            camera.fieldOfView = 34f;
+            camera.fieldOfView = 30f;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.012f, 0.014f, 0.02f, 1f);
             camera.nearClipPlane = 0.1f;
             camera.farClipPlane = 250f;
+            EnablePostProcessing(camera);
 
             cameraObject.AddComponent<AudioListener>();
         }
@@ -195,15 +197,16 @@ namespace Underground.EditorTools
 
             cameraObject.name = "Main Camera";
             cameraObject.tag = "MainCamera";
-            cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 2.35f, -9.1f), Quaternion.Euler(9f, 0f, 0f));
+            cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 2.15f, -8.2f), Quaternion.Euler(8f, 0f, 0f));
 
             camera ??= cameraObject.GetComponent<Camera>() ?? cameraObject.AddComponent<Camera>();
-            camera.fieldOfView = 34f;
+            camera.fieldOfView = 30f;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.012f, 0.014f, 0.02f, 1f);
             camera.nearClipPlane = 0.1f;
             camera.farClipPlane = 250f;
             camera.cullingMask = ~0;
+            EnablePostProcessing(camera);
 
             AudioListener listener = cameraObject.GetComponent<AudioListener>();
             if (listener == null)
@@ -247,6 +250,22 @@ namespace Underground.EditorTools
                 lightComponent.spotAngle = spotAngle;
                 lightComponent.innerSpotAngle = spotAngle * 0.6f;
             }
+        }
+
+        private static void CreateGarageReflectionProbe(Transform parent)
+        {
+            GameObject probeObject = new GameObject("GarageReflectionProbe");
+            probeObject.transform.SetParent(parent, false);
+            probeObject.transform.localPosition = new Vector3(0f, 2.9f, 1.4f);
+
+            ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
+            probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
+            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.EveryFrame;
+            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
+            probe.size = new Vector3(30f, 10f, 26f);
+            probe.boxProjection = true;
+            probe.intensity = 1.15f;
+            probe.importance = 1000;
         }
 
         private static GarageUiBuild CreateGarageShowroomUi(Transform parent)

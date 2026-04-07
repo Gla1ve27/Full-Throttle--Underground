@@ -25,6 +25,13 @@ namespace Underground.UI
         [SerializeField] private Image accelerationFill;
         [SerializeField] private Image topSpeedFill;
         [SerializeField] private Image handlingFill;
+        [SerializeField] private Button bankButton;
+        [SerializeField] private Button repairButton;
+        [SerializeField] private Button upgradeButton;
+        [SerializeField] private Button continueButton;
+        [SerializeField] private Button rotateLeftButton;
+        [SerializeField] private Button rotateRightButton;
+        [SerializeField] private bool buttonsBound;
 
         private void Awake()
         {
@@ -57,6 +64,9 @@ namespace Underground.UI
             {
                 displayedVehicle = FindFirstObjectByType<VehicleDynamicsController>();
             }
+
+            ResolveButtons();
+            BindButtons();
         }
 
         private void OnEnable()
@@ -149,6 +159,57 @@ namespace Underground.UI
             {
                 statusText.text = message;
             }
+        }
+
+        private void ResolveButtons()
+        {
+            if (bankButton == null) bankButton = FindButton("Bank Progress");
+            if (repairButton == null) repairButton = FindButton("Repair Car");
+            if (upgradeButton == null) upgradeButton = FindButton("Buy Engine");
+            if (continueButton == null) continueButton = FindButton("Continue");
+            if (rotateLeftButton == null) rotateLeftButton = FindButton("<");
+            if (rotateRightButton == null) rotateRightButton = FindButton(">");
+        }
+
+        private void BindButtons()
+        {
+            if (buttonsBound)
+            {
+                return;
+            }
+
+            BindButton(bankButton, BankProgress);
+            BindButton(repairButton, RepairCar);
+            BindButton(upgradeButton, BuyEngineUpgrade);
+            BindButton(continueButton, ExitGarage);
+            BindButton(rotateLeftButton, RotateLeft);
+            BindButton(rotateRightButton, RotateRight);
+            buttonsBound = true;
+        }
+
+        private void BindButton(Button button, UnityEngine.Events.UnityAction action)
+        {
+            if (button == null || action == null)
+            {
+                return;
+            }
+
+            button.onClick.RemoveListener(action);
+            button.onClick.AddListener(action);
+        }
+
+        private Button FindButton(string objectName)
+        {
+            Button[] buttons = GetComponentsInChildren<Button>(true);
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i] != null && buttons[i].name == objectName)
+                {
+                    return buttons[i];
+                }
+            }
+
+            return null;
         }
     }
 }
