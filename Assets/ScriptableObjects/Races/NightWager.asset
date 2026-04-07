@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f7e04ed71119944808aa7460433543, type: 3}
+  m_Name: NightWager
+  m_EditorClassIdentifier: 
+  raceId: wager_run
+  displayName: Neon Pinkslip
+  raceType: 4
+  nightOnly: 1
+  entryFee: 0
+  rewardMoney: 4000
+  rewardReputation: 60
+  minReputation: 200
+  laps: 1
+  allowsCarWager: 1

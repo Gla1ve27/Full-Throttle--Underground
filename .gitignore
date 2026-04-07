@@ -19,3 +19,9 @@
 *.booproj
 
 Assets/AssetStoreTools*
+Assets/FCG/FCG-URP.unitypackage
+Assets/FCG/FCG-HDRP.unitypackage
+Assets/FCG/FCG-Standard.unitypackage
+Assets/FCG/FCG-URP.unitypackage.meta
+Assets/FCG/FCG-HDRP.unitypackage.meta
+Assets/FCG/FCG-Standard.unitypackage.meta

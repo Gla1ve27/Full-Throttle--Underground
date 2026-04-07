@@ -1,95 +1,74 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using Underground.Progression;
 
 namespace Underground.Vehicle
 {
     [RequireComponent(typeof(Rigidbody))]
     public class VehicleDynamicsController : MonoBehaviour
     {
-        [Serializable]
-        public class WheelAxle
-        {
-            public string label = "Axle";
-            public WheelCollider leftWheel;
-            public WheelCollider rightWheel;
-            public Transform leftVisual;
-            public Transform rightVisual;
-            public bool steering;
-            public bool powered;
-            public bool handbrake;
-        }
+        [Header("Data")]
+        [SerializeField] private VehicleStatsData baseStats;
+        [SerializeField] private RuntimeVehicleStats runtimeStats = new RuntimeVehicleStats();
+        [SerializeField] private UpgradeDefinition[] startupUpgrades;
 
         [Header("References")]
-        public VehicleInput inputSource;
-        public Transform centerOfMassOverride;
+        [SerializeField] private InputReader input;
+        [SerializeField] private EngineModel engineModel;
+        [SerializeField] private GearboxSystem gearbox;
+        [SerializeField] private Transform centerOfMassReference;
+        [SerializeField] private WheelSet[] wheels;
 
-        [Header("Axles")]
-        public List<WheelAxle> axles = new List<WheelAxle>();
-
-        [Header("Drive")]
-        public float maxMotorTorque = 2400f;
-        public float maxBrakeTorque = 3600f;
-        public float maxHandbrakeTorque = 6000f;
-        public float topSpeedKph = 180f;
-
-        [Header("Steering")]
-        public float maxSteerAngle = 32f;
-        public float steeringSpeedReferenceKph = 160f;
-        public AnimationCurve steeringBySpeed = new AnimationCurve(
-            new Keyframe(0f, 1f),
-            new Keyframe(0.5f, 0.7f),
-            new Keyframe(1f, 0.35f));
-
-        [Header("Stability")]
-        public float downforce = 90f;
-        public float lateralGripAssist = 2.5f;
-        public float antiRollForce = 4500f;
-        public float resetLift = 1.2f;
+        [Header("Braking")]
+        [SerializeField] private float maxHandbrakeTorque = 6500f;
+        [SerializeField] private float reverseEngageSpeedKph = 3f;
+        [SerializeField] private float reverseReleaseSpeedKph = 1.5f;
 
         public Rigidbody Rigidbody { get; private set; }
+        public VehicleStatsData BaseStats => baseStats;
+        public RuntimeVehicleStats RuntimeStats => runtimeStats;
         public float SpeedKph { get; private set; }
         public float ForwardSpeedKph { get; private set; }
         public bool IsGrounded { get; private set; }
+        public bool IsReversing { get; private set; }
 
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
 
-            if (inputSource == null)
+            if (input == null)
             {
-                inputSource = GetComponent<VehicleInput>();
+                input = GetComponent<InputReader>();
             }
 
-            ApplyCenterOfMass();
-            EnsureSteeringCurve();
-        }
+            if (engineModel == null)
+            {
+                engineModel = GetComponent<EngineModel>();
+            }
 
-        private void OnValidate()
-        {
-            EnsureSteeringCurve();
+            if (gearbox == null)
+            {
+                gearbox = GetComponent<GearboxSystem>();
+            }
+
+            Initialize(baseStats, startupUpgrades);
         }
 
         private void FixedUpdate()
         {
-            if (Rigidbody == null || inputSource == null || axles.Count == 0)
+            if (Rigidbody == null || input == null || gearbox == null || engineModel == null || wheels == null || wheels.Length == 0)
             {
                 return;
             }
 
             ApplyCenterOfMass();
             UpdateTelemetry();
+            UpdateReverseState();
             ApplySteering();
             ApplyDrive();
             ApplyBraking();
             ApplyAntiRoll();
             ApplyDownforce();
             ApplyLateralGripAssist();
-
-            if (inputSource.ConsumeResetRequest())
-            {
-                ResetVehiclePose();
-            }
         }
 
         private void LateUpdate()
@@ -97,26 +76,123 @@ namespace Underground.Vehicle
             SyncWheelVisuals();
         }
 
+        public void Initialize(VehicleStatsData source, params UpgradeDefinition[] upgrades)
+        {
+            baseStats = source;
+            if (runtimeStats == null)
+            {
+                runtimeStats = new RuntimeVehicleStats();
+            }
+
+            if (baseStats != null)
+            {
+                runtimeStats.LoadFromBase(baseStats);
+            }
+
+            if (upgrades != null)
+            {
+                for (int i = 0; i < upgrades.Length; i++)
+                {
+                    runtimeStats.ApplyUpgrade(upgrades[i]);
+                }
+            }
+
+            ApplyStatsToVehicle();
+        }
+
+        public RuntimeVehicleStats GetRuntimeStats()
+        {
+            return runtimeStats;
+        }
+
+        public void ApplyUpgrade(UpgradeDefinition definition)
+        {
+            runtimeStats.ApplyUpgrade(definition);
+            ApplyStatsToVehicle();
+        }
+
+        public void ApplyStatsToVehicle()
+        {
+            if (Rigidbody == null || baseStats == null || runtimeStats == null)
+            {
+                return;
+            }
+
+            Rigidbody.mass = runtimeStats.Mass;
+            Rigidbody.linearDamping = 0.12f;
+            Rigidbody.angularDamping = 1.5f;
+            Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            Rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            Rigidbody.centerOfMass = centerOfMassReference != null
+                ? transform.InverseTransformPoint(centerOfMassReference.position)
+                : runtimeStats.CenterOfMassOffset;
+
+            if (wheels == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null)
+                {
+                    continue;
+                }
+
+                JointSpring spring = wheel.collider.suspensionSpring;
+                spring.spring = runtimeStats.Spring;
+                spring.damper = runtimeStats.Damper;
+                spring.targetPosition = 0.45f;
+                wheel.collider.suspensionSpring = spring;
+                wheel.collider.suspensionDistance = runtimeStats.SuspensionDistance;
+
+                WheelFrictionCurve forward = wheel.collider.forwardFriction;
+                forward.stiffness = runtimeStats.ForwardStiffness;
+                wheel.collider.forwardFriction = forward;
+
+                WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
+                sideways.stiffness = runtimeStats.SidewaysStiffness;
+                wheel.collider.sidewaysFriction = sideways;
+            }
+        }
+
+        public void ResetVehicle(Transform respawnPoint)
+        {
+            if (respawnPoint == null)
+            {
+                return;
+            }
+
+            Rigidbody.linearVelocity = Vector3.zero;
+            Rigidbody.angularVelocity = Vector3.zero;
+            transform.SetPositionAndRotation(respawnPoint.position, respawnPoint.rotation);
+            Rigidbody.position += Vector3.up * runtimeStats.ResetLift;
+            IsReversing = false;
+            gearbox?.ResetToFirstGear();
+        }
+
         private void ApplyCenterOfMass()
         {
-            if (centerOfMassOverride != null)
+            if (centerOfMassReference != null)
             {
-                Rigidbody.centerOfMass = transform.InverseTransformPoint(centerOfMassOverride.position);
+                Rigidbody.centerOfMass = transform.InverseTransformPoint(centerOfMassReference.position);
+            }
+            else if (runtimeStats != null)
+            {
+                Rigidbody.centerOfMass = runtimeStats.CenterOfMassOffset;
             }
         }
 
         private void UpdateTelemetry()
         {
-            SpeedKph = Rigidbody.velocity.magnitude * 3.6f;
-            ForwardSpeedKph = Vector3.Dot(Rigidbody.velocity, transform.forward) * 3.6f;
+            SpeedKph = Rigidbody.linearVelocity.magnitude * 3.6f;
+            ForwardSpeedKph = Vector3.Dot(Rigidbody.linearVelocity, transform.forward) * 3.6f;
             IsGrounded = false;
 
-            for (int i = 0; i < axles.Count; i++)
+            for (int i = 0; i < wheels.Length; i++)
             {
-                WheelAxle axle = axles[i];
-
-                if ((axle.leftWheel != null && axle.leftWheel.isGrounded) ||
-                    (axle.rightWheel != null && axle.rightWheel.isGrounded))
+                if (wheels[i] != null && wheels[i].collider != null && wheels[i].collider.isGrounded)
                 {
                     IsGrounded = true;
                     return;
@@ -126,125 +202,140 @@ namespace Underground.Vehicle
 
         private void ApplySteering()
         {
-            float speedFactor = Mathf.Clamp01(Mathf.Abs(ForwardSpeedKph) / Mathf.Max(1f, steeringSpeedReferenceKph));
-            float steeringMultiplier = steeringBySpeed.Evaluate(speedFactor);
-            float steerAngle = inputSource.Steering * maxSteerAngle * steeringMultiplier;
+            float speedFactor = Mathf.InverseLerp(0f, Mathf.Max(1f, runtimeStats.MaxSpeedKph), Mathf.Abs(ForwardSpeedKph));
+            float steerReduction = Mathf.Lerp(1f, runtimeStats.HighSpeedSteerReduction, speedFactor);
+            float steerAngle = input.Steering * runtimeStats.MaxSteerAngle * steerReduction;
 
-            for (int i = 0; i < axles.Count; i++)
+            for (int i = 0; i < wheels.Length; i++)
             {
-                WheelAxle axle = axles[i];
-                if (!axle.steering)
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null || !wheel.steer)
                 {
                     continue;
                 }
 
-                if (axle.leftWheel != null)
+                wheel.collider.steerAngle = steerAngle;
+            }
+        }
+
+        private void UpdateReverseState()
+        {
+            if (input == null)
+            {
+                return;
+            }
+
+            if (input.Throttle > 0.05f)
+            {
+                IsReversing = false;
+                return;
+            }
+
+            if (!IsReversing)
+            {
+                if (input.ConsumeReverseRequest() && Mathf.Abs(ForwardSpeedKph) <= reverseEngageSpeedKph)
                 {
-                    axle.leftWheel.steerAngle = steerAngle;
+                    IsReversing = true;
+                    gearbox?.ResetToFirstGear();
                 }
 
-                if (axle.rightWheel != null)
-                {
-                    axle.rightWheel.steerAngle = steerAngle;
-                }
+                return;
+            }
+
+            if (ForwardSpeedKph > reverseEngageSpeedKph)
+            {
+                IsReversing = false;
+                return;
+            }
+
+            if (!input.ReverseHeld && Mathf.Abs(ForwardSpeedKph) <= reverseReleaseSpeedKph)
+            {
+                IsReversing = false;
             }
         }
 
         private void ApplyDrive()
         {
-            int poweredWheelCount = 0;
+            int drivenCount = 0;
+            float averageDrivenWheelRpm = 0f;
 
-            for (int i = 0; i < axles.Count; i++)
+            for (int i = 0; i < wheels.Length; i++)
             {
-                if (!axles[i].powered)
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null || !wheel.drive)
                 {
                     continue;
                 }
 
-                if (axles[i].leftWheel != null)
-                {
-                    poweredWheelCount++;
-                }
-
-                if (axles[i].rightWheel != null)
-                {
-                    poweredWheelCount++;
-                }
+                averageDrivenWheelRpm += wheel.collider.rpm;
+                drivenCount++;
             }
 
-            if (poweredWheelCount == 0)
+            if (drivenCount == 0)
             {
                 return;
             }
 
-            float topSpeedLimiter = 1f - Mathf.Clamp01(Mathf.InverseLerp(topSpeedKph * 0.85f, topSpeedKph, Mathf.Abs(ForwardSpeedKph)));
-            float handbrakeCut = Mathf.Lerp(1f, 0.2f, inputSource.Handbrake);
-            float torquePerWheel = (inputSource.Throttle * maxMotorTorque * topSpeedLimiter * handbrakeCut) / poweredWheelCount;
-
-            for (int i = 0; i < axles.Count; i++)
+            averageDrivenWheelRpm /= drivenCount;
+            float driveRatio = IsReversing ? GetReverseDriveRatio() : gearbox.GetCurrentDriveRatio(baseStats);
+            if (IsReversing)
             {
-                WheelAxle axle = axles[i];
-                if (!axle.powered)
+                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, driveRatio);
+            }
+            else
+            {
+                gearbox.UpdateAutomatic(averageDrivenWheelRpm, baseStats);
+            }
+
+            float normalizedRpm = Mathf.InverseLerp(runtimeStats.IdleRPM, runtimeStats.MaxRPM, gearbox.CurrentRPM);
+            float torqueCurveSample = engineModel.EvaluateNormalizedTorque(normalizedRpm);
+            float driveInput = IsReversing && input.ReverseHeld ? -input.Brake : input.Throttle;
+            float torquePerWheel = driveInput * runtimeStats.MaxMotorTorque * torqueCurveSample * driveRatio / drivenCount;
+            bool canApplyTorque = driveInput >= 0f
+                ? SpeedKph < runtimeStats.MaxSpeedKph || driveInput < 0.05f
+                : ForwardSpeedKph > -runtimeStats.MaxSpeedKph || Mathf.Abs(driveInput) < 0.05f;
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null)
                 {
-                    if (axle.leftWheel != null)
-                    {
-                        axle.leftWheel.motorTorque = 0f;
-                    }
-
-                    if (axle.rightWheel != null)
-                    {
-                        axle.rightWheel.motorTorque = 0f;
-                    }
-
                     continue;
                 }
 
-                if (axle.leftWheel != null)
-                {
-                    axle.leftWheel.motorTorque = torquePerWheel;
-                }
-
-                if (axle.rightWheel != null)
-                {
-                    axle.rightWheel.motorTorque = torquePerWheel;
-                }
+                wheel.collider.motorTorque = wheel.drive && canApplyTorque ? torquePerWheel : 0f;
             }
         }
 
         private void ApplyBraking()
         {
-            float footBrakeTorque = inputSource.Brake * maxBrakeTorque;
-            float handbrakeTorque = inputSource.Handbrake * maxHandbrakeTorque;
+            float footBrakeTorque = IsReversing && input.ReverseHeld ? 0f : input.Brake * runtimeStats.MaxBrakeTorque;
+            float handbrakeTorque = input.Handbrake ? maxHandbrakeTorque : 0f;
 
-            for (int i = 0; i < axles.Count; i++)
+            for (int i = 0; i < wheels.Length; i++)
             {
-                WheelAxle axle = axles[i];
-                float totalBrakeTorque = footBrakeTorque;
-
-                if (axle.handbrake)
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null)
                 {
-                    totalBrakeTorque += handbrakeTorque;
+                    continue;
                 }
 
-                if (axle.leftWheel != null)
-                {
-                    axle.leftWheel.brakeTorque = totalBrakeTorque;
-                }
-
-                if (axle.rightWheel != null)
-                {
-                    axle.rightWheel.brakeTorque = totalBrakeTorque;
-                }
+                wheel.collider.brakeTorque = footBrakeTorque + (wheel.handbrake ? handbrakeTorque : 0f);
             }
         }
 
         private void ApplyAntiRoll()
         {
-            for (int i = 0; i < axles.Count; i++)
+            for (int i = 0; i < wheels.Length; i++)
             {
-                WheelAxle axle = axles[i];
+                WheelSet leftWheel = wheels[i];
+                if (leftWheel == null || leftWheel.collider == null || !leftWheel.leftSide)
+                {
+                    continue;
+                }
 
-                if (axle.leftWheel == null || axle.rightWheel == null)
+                WheelSet rightWheel = FindAxlePartner(leftWheel.axleId, false);
+                if (rightWheel == null || rightWheel.collider == null)
                 {
                     continue;
                 }
@@ -252,29 +343,29 @@ namespace Underground.Vehicle
                 float leftTravel = 1f;
                 float rightTravel = 1f;
 
-                bool leftGrounded = axle.leftWheel.GetGroundHit(out WheelHit leftHit);
-                bool rightGrounded = axle.rightWheel.GetGroundHit(out WheelHit rightHit);
+                bool leftGrounded = leftWheel.collider.GetGroundHit(out WheelHit leftHit);
+                bool rightGrounded = rightWheel.collider.GetGroundHit(out WheelHit rightHit);
 
                 if (leftGrounded)
                 {
-                    leftTravel = CalculateSuspensionTravel(axle.leftWheel, leftHit);
+                    leftTravel = CalculateSuspensionTravel(leftWheel.collider, leftHit);
                 }
 
                 if (rightGrounded)
                 {
-                    rightTravel = CalculateSuspensionTravel(axle.rightWheel, rightHit);
+                    rightTravel = CalculateSuspensionTravel(rightWheel.collider, rightHit);
                 }
 
-                float antiRoll = (leftTravel - rightTravel) * antiRollForce;
+                float antiRoll = (leftTravel - rightTravel) * runtimeStats.AntiRollForce;
 
                 if (leftGrounded)
                 {
-                    Rigidbody.AddForceAtPosition(axle.leftWheel.transform.up * -antiRoll, axle.leftWheel.transform.position);
+                    Rigidbody.AddForceAtPosition(leftWheel.collider.transform.up * -antiRoll, leftWheel.collider.transform.position);
                 }
 
                 if (rightGrounded)
                 {
-                    Rigidbody.AddForceAtPosition(axle.rightWheel.transform.up * antiRoll, axle.rightWheel.transform.position);
+                    Rigidbody.AddForceAtPosition(rightWheel.collider.transform.up * antiRoll, rightWheel.collider.transform.position);
                 }
             }
         }
@@ -286,7 +377,7 @@ namespace Underground.Vehicle
                 return;
             }
 
-            Rigidbody.AddForce(-transform.up * SpeedKph * downforce, ForceMode.Force);
+            Rigidbody.AddForce(-transform.up * SpeedKph * runtimeStats.Downforce, ForceMode.Force);
         }
 
         private void ApplyLateralGripAssist()
@@ -296,27 +387,57 @@ namespace Underground.Vehicle
                 return;
             }
 
-            Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.velocity);
-            float handbrakeGripReduction = Mathf.Lerp(1f, 0.35f, inputSource.Handbrake);
-            Vector3 correctiveForce = -transform.right * localVelocity.x * lateralGripAssist * handbrakeGripReduction;
+            Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.linearVelocity);
+            float handbrakeGripReduction = input.Handbrake ? runtimeStats.HandbrakeGripMultiplier : 1f;
+            Vector3 correctiveForce = -transform.right * localVelocity.x * runtimeStats.LateralGripAssist * handbrakeGripReduction;
             Rigidbody.AddForce(correctiveForce, ForceMode.Acceleration);
-        }
-
-        private void ResetVehiclePose()
-        {
-            Rigidbody.velocity = Vector3.zero;
-            Rigidbody.angularVelocity = Vector3.zero;
-            Rigidbody.position += Vector3.up * resetLift;
-            Rigidbody.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
         }
 
         private void SyncWheelVisuals()
         {
-            for (int i = 0; i < axles.Count; i++)
+            if (wheels == null)
             {
-                UpdateWheelPose(axles[i].leftWheel, axles[i].leftVisual);
-                UpdateWheelPose(axles[i].rightWheel, axles[i].rightVisual);
+                return;
             }
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                if (wheels[i] == null)
+                {
+                    continue;
+                }
+
+                UpdateWheelPose(wheels[i].collider, wheels[i].mesh);
+            }
+        }
+
+        private float GetReverseDriveRatio()
+        {
+            if (baseStats == null || baseStats.gearRatios == null || baseStats.gearRatios.Length <= 1)
+            {
+                return 1f;
+            }
+
+            return Mathf.Abs(baseStats.gearRatios[1] * baseStats.finalDriveRatio);
+        }
+
+        private WheelSet FindAxlePartner(string axleId, bool leftSide)
+        {
+            if (wheels == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel != null && wheel.axleId == axleId && wheel.leftSide == leftSide)
+                {
+                    return wheel;
+                }
+            }
+
+            return null;
         }
 
         private static float CalculateSuspensionTravel(WheelCollider wheel, WheelHit hit)
@@ -336,17 +457,6 @@ namespace Underground.Vehicle
             wheel.GetWorldPose(out Vector3 worldPosition, out Quaternion worldRotation);
             visual.position = worldPosition;
             visual.rotation = worldRotation;
-        }
-
-        private void EnsureSteeringCurve()
-        {
-            if (steeringBySpeed == null || steeringBySpeed.length == 0)
-            {
-                steeringBySpeed = new AnimationCurve(
-                    new Keyframe(0f, 1f),
-                    new Keyframe(0.5f, 0.7f),
-                    new Keyframe(1f, 0.35f));
-            }
         }
     }
 }
