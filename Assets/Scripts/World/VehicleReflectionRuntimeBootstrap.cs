@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Underground.Vehicle;
@@ -21,6 +22,8 @@ namespace Underground.World
 
         private static void EnsureSceneVehicleReflections()
         {
+            HashSet<int> processedTargets = new HashSet<int>();
+
             VehicleDynamicsController[] vehicles = Object.FindObjectsByType<VehicleDynamicsController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int index = 0; index < vehicles.Length; index++)
             {
@@ -30,7 +33,7 @@ namespace Underground.World
                     continue;
                 }
 
-                EnsureController(vehicle.gameObject, false);
+                EnsureController(vehicle.gameObject, false, processedTargets);
             }
 
             try
@@ -38,17 +41,42 @@ namespace Underground.World
                 GameObject[] trafficObjects = GameObject.FindGameObjectsWithTag("Traffic");
                 for (int index = 0; index < trafficObjects.Length; index++)
                 {
-                    EnsureController(trafficObjects[index], false);
+                    EnsureController(trafficObjects[index], false, processedTargets);
                 }
             }
             catch (UnityException)
             {
             }
+
+            Transform[] transforms = Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            for (int index = 0; index < transforms.Length; index++)
+            {
+                Transform candidate = transforms[index];
+                if (candidate == null || candidate.parent != null)
+                {
+                    continue;
+                }
+
+                GameObject root = candidate.gameObject;
+                if (root.GetComponent<PlayerCarAppearanceController>() != null ||
+                    !VehicleReflectionRuntimeController.IsVehicleLikeObject(root))
+                {
+                    continue;
+                }
+
+                EnsureController(root, root.CompareTag("Player"), processedTargets);
+            }
         }
 
-        private static void EnsureController(GameObject target, bool allowRealtimeProbe)
+        private static void EnsureController(GameObject target, bool allowRealtimeProbe, HashSet<int> processedTargets)
         {
             if (target == null)
+            {
+                return;
+            }
+
+            int instanceId = target.GetInstanceID();
+            if (processedTargets != null && !processedTargets.Add(instanceId))
             {
                 return;
             }

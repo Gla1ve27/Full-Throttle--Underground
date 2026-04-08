@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 382095425544050812}
   - component: {fileID: 5469488680233034531}
   - component: {fileID: 336901455497432056}
+  - component: {fileID: 6681347643424698568}
   m_Layer: 8
   m_Name: PlayerCar
   m_TagString: Player
@@ -425,6 +426,22 @@ MonoBehaviour:
   input: {fileID: 1552560372699505951}
   defaultRespawnPoint: {fileID: 6568442864178502620}
   fallBelowY: -25
+--- !u!114 &6681347643424698568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514037285254658882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e815970bfd5c149a7ebdea7043c0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowRealtimeProbe: 0
+  probeOffset: {x: 0, y: 4.5, z: 0}
+  probeSize: {x: 96, y: 28, z: 96}
+  probeIntensity: 1.1
 --- !u!1 &731656588683410048
 GameObject:
   m_ObjectHideFlags: 0

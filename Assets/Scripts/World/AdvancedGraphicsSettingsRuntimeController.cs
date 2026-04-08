@@ -301,9 +301,9 @@ namespace Underground.World
             PlayerReflectionProbeController[] probes = FindObjectsByType<PlayerReflectionProbeController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             Vector3 probeSize = settingsManager.CarReflectionDetail switch
             {
-                0 => new Vector3(72f, 22f, 72f),
-                1 => new Vector3(96f, 28f, 96f),
-                _ => new Vector3(120f, 36f, 120f)
+                0 => new Vector3(84f, 24f, 84f),
+                1 => new Vector3(108f, 30f, 108f),
+                _ => new Vector3(132f, 40f, 132f)
             };
             float refreshInterval = settingsManager.CarReflectionUpdateRate switch
             {
@@ -313,15 +313,15 @@ namespace Underground.World
             };
             int probeResolution = settingsManager.CarReflectionDetail switch
             {
-                0 => 64,
-                1 => 128,
-                _ => 256
+                0 => 128,
+                1 => 256,
+                _ => 512
             };
             float probeIntensity = settingsManager.CarReflectionDetail switch
             {
-                0 => 0.95f,
-                1 => 1.05f,
-                _ => 1.2f
+                0 => 1.05f,
+                1 => 1.2f,
+                _ => 1.35f
             };
 
             for (int index = 0; index < probes.Length; index++)
@@ -336,11 +336,17 @@ namespace Underground.World
                 controller.Configure(target, new Vector3(0f, 5f, 0f), probeSize, 10f, refreshInterval, 6f);
 
                 ReflectionProbe probe = controller.GetComponent<ReflectionProbe>();
+                if (probe == null)
+                {
+                    probe = controller.gameObject.AddComponent<ReflectionProbe>();
+                }
+
                 if (probe != null)
                 {
                     probe.size = probeSize;
                     probe.resolution = probeResolution;
                     probe.intensity = probeIntensity;
+                    probe.blendDistance = 6f;
                 }
             }
 

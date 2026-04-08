@@ -8,63 +8,76 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: -8679921383154817045, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 858ea830c54234e40a91f9ca2ad70ede,
-        type: 3}
+    - target: {fileID: 919132149155446097, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
       propertyPath: m_Name
       value: Car 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1781612642502530112}
   m_SourcePrefab: {fileID: 100100000, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
+--- !u!1 &6473530635534466421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 858ea830c54234e40a91f9ca2ad70ede, type: 3}
+  m_PrefabInstance: {fileID: 6131633306681131044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1781612642502530112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473530635534466421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e815970bfd5c149a7ebdea7043c0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowRealtimeProbe: 0
+  probeOffset: {x: 0, y: 4.5, z: 0}
+  probeSize: {x: 96, y: 28, z: 96}
+  probeIntensity: 1.1

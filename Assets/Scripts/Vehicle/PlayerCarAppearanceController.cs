@@ -316,7 +316,7 @@ namespace Underground.Vehicle
             probeObject.transform.localRotation = Quaternion.identity;
 
             RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = Mathf.Max(RenderSettings.reflectionIntensity, 0.9f);
+            RenderSettings.reflectionIntensity = Mathf.Max(RenderSettings.reflectionIntensity, 0.95f);
 
             GameSettingsManager settingsManager = GameSettingsManager.Instance ?? FindFirstObjectByType<GameSettingsManager>();
             Vector3 probeSize = settingsManager != null
@@ -343,19 +343,20 @@ namespace Underground.Vehicle
                 {
                     0 => 0.95f,
                     1 => 1.05f,
-                    _ => 1.2f
+                    _ => 1.15f
                 }
-                : 1.2f;
+                : 1.05f;
             probe.boxProjection = true;
+            probe.blendDistance = 6f;
             probe.size = probeSize;
             probe.resolution = settingsManager != null
                 ? settingsManager.CarReflectionDetail switch
                 {
-                    0 => 64,
-                    1 => 128,
-                    _ => 256
+                    0 => 128,
+                    1 => 256,
+                    _ => 512
                 }
-                : 128;
+                : 256;
 
             int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
             probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
@@ -1439,8 +1440,8 @@ namespace Underground.Vehicle
             float normalScale = GetMaterialFloat(sourceMaterial, 1f, "_NormalScale", "_BumpScale");
             bool hasEmissiveMap = emissiveMap != null;
             bool isRmCar = IsRmCarFamily(carId);
-            bool isPaintMaterial = IsPaintMaterial(sourceMaterial.name);
-            bool isBodyMaterial = IsBodyMaterial(sourceMaterial.name);
+            bool isPaintMaterial = IsPaintMaterial(sourceMaterial.name) || IsKnownRosterPaintMaterial(sourceMaterial.name, carId);
+            bool isBodyMaterial = IsBodyMaterial(sourceMaterial.name) || IsKnownRosterBodyMaterial(sourceMaterial.name, carId);
 
             baseColor.r = Mathf.Clamp01(baseColor.r);
             baseColor.g = Mathf.Clamp01(baseColor.g);
@@ -1450,12 +1451,12 @@ namespace Underground.Vehicle
             if (isPaintMaterial)
             {
                 metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.03f : 0.08f);
-                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.84f, 0.94f) : Mathf.Clamp(smoothness, 0.8f, 0.92f);
+                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.88f, 0.96f) : Mathf.Clamp(smoothness, 0.78f, 0.9f);
             }
             else if (isBodyMaterial)
             {
                 metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.08f : 0.18f);
-                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.72f, 0.86f) : Mathf.Clamp(smoothness, 0.68f, 0.84f);
+                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.84f, 0.92f) : Mathf.Clamp(smoothness, 0.72f, 0.84f);
             }
 
             if (!hasEmissiveMap)
@@ -1609,7 +1610,7 @@ namespace Underground.Vehicle
 
             if (normalizedMaterial.HasProperty("_CoatMask"))
             {
-                normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 1f : isBodyMaterial ? 0.35f : 0f);
+                normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 0.9f : isBodyMaterial ? 0.45f : 0f);
             }
 
             normalizedMaterial.DisableKeyword("_DISABLE_SSR");
@@ -1625,17 +1626,20 @@ namespace Underground.Vehicle
                 return false;
             }
 
-            if (sourceMaterial.shader != targetShader)
-            {
-                return true;
-            }
-
             if (IsTransparentMaterial(sourceMaterial.name) || IsLightMaterial(sourceMaterial.name))
             {
                 return false;
             }
 
-            return IsPaintMaterial(sourceMaterial.name) || IsBodyMaterial(sourceMaterial.name);
+            if (sourceMaterial.shader != targetShader)
+            {
+                return true;
+            }
+
+            return IsPaintMaterial(sourceMaterial.name) ||
+                   IsBodyMaterial(sourceMaterial.name) ||
+                   IsKnownRosterPaintMaterial(sourceMaterial.name, carId) ||
+                   IsKnownRosterBodyMaterial(sourceMaterial.name, carId);
         }
 
         private static bool IsRmCarFamily(string carId)
@@ -1648,8 +1652,10 @@ namespace Underground.Vehicle
             return !string.IsNullOrEmpty(materialName) &&
                    (materialName.IndexOf("paint", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                     materialName.IndexOf("color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("colour", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                     materialName.IndexOf("police", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("taxi", System.StringComparison.OrdinalIgnoreCase) >= 0);
+                    materialName.IndexOf("taxi", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("atlas", System.StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private static bool IsBodyMaterial(string materialName)
@@ -1658,7 +1664,71 @@ namespace Underground.Vehicle
                    (materialName.IndexOf("body", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                     materialName.IndexOf("car_color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
                     materialName.IndexOf("car colour", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("car color", System.StringComparison.OrdinalIgnoreCase) >= 0);
+                    materialName.IndexOf("car color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("traffic-car", System.StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private static bool IsKnownRosterPaintMaterial(string materialName, string carId)
+        {
+            if (string.IsNullOrEmpty(materialName) || string.IsNullOrEmpty(carId))
+            {
+                return false;
+            }
+
+            string normalizedCarId = NormalizeName(carId);
+            string normalizedMaterialName = NormalizeName(materialName);
+            if (string.IsNullOrEmpty(normalizedMaterialName))
+            {
+                return false;
+            }
+
+            if (normalizedCarId == "simpleretrocar")
+            {
+                return normalizedMaterialName == "plane" ||
+                       normalizedMaterialName == "lightblue" ||
+                       normalizedMaterialName == "lightbrown";
+            }
+
+            if (normalizedCarId.StartsWith("arcadecar"))
+            {
+                return normalizedMaterialName.StartsWith("body");
+            }
+
+            if (normalizedCarId.StartsWith("americansedan"))
+            {
+                return normalizedMaterialName.Contains("carcolor") ||
+                       normalizedMaterialName == "taximat" ||
+                       normalizedMaterialName == "policemat";
+            }
+
+            return false;
+        }
+
+        private static bool IsKnownRosterBodyMaterial(string materialName, string carId)
+        {
+            if (string.IsNullOrEmpty(materialName) || string.IsNullOrEmpty(carId))
+            {
+                return false;
+            }
+
+            string normalizedCarId = NormalizeName(carId);
+            string normalizedMaterialName = NormalizeName(materialName);
+            if (string.IsNullOrEmpty(normalizedMaterialName))
+            {
+                return false;
+            }
+
+            if (normalizedCarId.StartsWith("arcadecar"))
+            {
+                return normalizedMaterialName.StartsWith("body");
+            }
+
+            if (normalizedCarId.StartsWith("americansedan"))
+            {
+                return normalizedMaterialName.Contains("carcolor");
+            }
+
+            return false;
         }
 
         private static bool IsTransparentMaterial(string materialName)
@@ -1669,8 +1739,34 @@ namespace Underground.Vehicle
 
         private static bool IsLightMaterial(string materialName)
         {
-            return !string.IsNullOrEmpty(materialName) &&
-                   materialName.IndexOf("light", System.StringComparison.OrdinalIgnoreCase) >= 0;
+            if (string.IsNullOrEmpty(materialName))
+            {
+                return false;
+            }
+
+            string normalizedName = NormalizeName(materialName);
+            if (string.IsNullOrEmpty(normalizedName) ||
+                normalizedName == "lightblue" ||
+                normalizedName == "lightbrown" ||
+                normalizedName == "lightgray" ||
+                normalizedName == "lightgrey" ||
+                normalizedName == "lightgreen" ||
+                normalizedName == "lightred")
+            {
+                return false;
+            }
+
+            return normalizedName == "light" ||
+                   normalizedName.Contains("headlight") ||
+                   normalizedName.Contains("taillight") ||
+                   normalizedName.Contains("brakelight") ||
+                   normalizedName.Contains("reverselight") ||
+                   normalizedName.Contains("foglight") ||
+                   normalizedName.Contains("indicator") ||
+                   normalizedName.Contains("turnsignal") ||
+                   normalizedName.Contains("illumination") ||
+                   normalizedName.Contains("emissive") ||
+                   normalizedName.Contains("lamp");
         }
 
         // ------------------------------------------------------------------

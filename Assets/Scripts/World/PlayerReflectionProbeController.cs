@@ -26,7 +26,7 @@ namespace Underground.World
             snapDistance = snapStep;
             refreshInterval = interval;
             minMoveDistance = moveDistance;
-            reflectionProbe ??= GetComponent<ReflectionProbe>();
+            reflectionProbe = GetOrCreateProbe();
             ConfigureProbe();
             hasRendered = false;
             nextRefreshTime = 0f;
@@ -34,13 +34,13 @@ namespace Underground.World
 
         private void Awake()
         {
-            reflectionProbe = GetComponent<ReflectionProbe>();
+            reflectionProbe = GetOrCreateProbe();
             ConfigureProbe();
         }
 
         private void OnEnable()
         {
-            reflectionProbe ??= GetComponent<ReflectionProbe>();
+            reflectionProbe = GetOrCreateProbe();
             ConfigureProbe();
             hasRendered = false;
             nextRefreshTime = 0f;
@@ -62,6 +62,12 @@ namespace Underground.World
             bool movedEnough = sqrMoveDistance >= (minMoveDistance * minMoveDistance);
             if (!hasRendered || movedEnough || Time.time >= nextRefreshTime)
             {
+                reflectionProbe ??= GetOrCreateProbe();
+                if (reflectionProbe == null)
+                {
+                    return;
+                }
+
                 reflectionProbe.RenderProbe();
                 lastRefreshPosition = transform.position;
                 nextRefreshTime = Time.time + Mathf.Max(0.05f, refreshInterval);
@@ -81,6 +87,12 @@ namespace Underground.World
             reflectionProbe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
             reflectionProbe.boxProjection = true;
             reflectionProbe.size = probeSize;
+        }
+
+        private ReflectionProbe GetOrCreateProbe()
+        {
+            ReflectionProbe probe = GetComponent<ReflectionProbe>();
+            return probe != null ? probe : gameObject.AddComponent<ReflectionProbe>();
         }
 
         private bool ResolveTarget()
