@@ -23,6 +23,27 @@ namespace Underground.UI
         private const string SteeringSensitivityKey = "UG_SteeringSensitivity";
         private const string PedalSensitivityKey = "UG_PedalSensitivity";
         private const string ReverseTapWindowKey = "UG_ReverseTapWindow";
+        private const string CarReflectionUpdateRateKey = "UG_CarReflectionUpdateRate";
+        private const string CarReflectionDetailKey = "UG_CarReflectionDetail";
+        private const string CarShadowDetailKey = "UG_CarShadowDetail";
+        private const string CarHeadlightsEnabledKey = "UG_CarHeadlightsEnabled";
+        private const string CarGeometryDetailKey = "UG_CarGeometryDetail";
+        private const string CrowdsEnabledKey = "UG_CrowdsEnabled";
+        private const string WorldDetailKey = "UG_WorldDetail";
+        private const string RoadReflectionDetailKey = "UG_RoadReflectionDetail";
+        private const string LightTrailsEnabledKey = "UG_LightTrailsEnabled";
+        private const string LightGlowEnabledKey = "UG_LightGlowEnabled";
+        private const string ParticleSystemsEnabledKey = "UG_ParticleSystemsEnabled";
+        private const string MotionBlurEnabledKey = "UG_MotionBlurEnabled";
+        private const string FogEnabledKey = "UG_FogEnabled";
+        private const string DepthOfFieldEnabledKey = "UG_DepthOfFieldEnabled";
+        private const string FullScreenAntiAliasingKey = "UG_FullScreenAntiAliasing";
+        private const string TintingEnabledKey = "UG_TintingEnabled";
+        private const string HorizonFogEnabledKey = "UG_HorizonFogEnabled";
+        private const string OverBrightEnabledKey = "UG_OverBrightEnabled";
+        private const string AdvancedContrastEnabledKey = "UG_AdvancedContrastEnabled";
+        private const string RainSplatterEnabledKey = "UG_RainSplatterEnabled";
+        private const string TextureFilteringKey = "UG_TextureFiltering";
 
         private static GameSettingsManager instance;
 
@@ -53,6 +74,27 @@ namespace Underground.UI
         public float SteeringSensitivity { get; private set; }
         public float PedalSensitivity { get; private set; }
         public float ReverseDoubleTapWindow { get; private set; }
+        public int CarReflectionUpdateRate { get; private set; }
+        public int CarReflectionDetail { get; private set; }
+        public int CarShadowDetail { get; private set; }
+        public bool CarHeadlightsEnabled { get; private set; }
+        public int CarGeometryDetail { get; private set; }
+        public bool CrowdsEnabled { get; private set; }
+        public int WorldDetail { get; private set; }
+        public int RoadReflectionDetail { get; private set; }
+        public bool LightTrailsEnabled { get; private set; }
+        public bool LightGlowEnabled { get; private set; }
+        public bool ParticleSystemsEnabled { get; private set; }
+        public bool MotionBlurEnabled { get; private set; }
+        public bool FogEnabled { get; private set; }
+        public bool DepthOfFieldEnabled { get; private set; }
+        public int FullScreenAntiAliasing { get; private set; }
+        public bool TintingEnabled { get; private set; }
+        public bool HorizonFogEnabled { get; private set; }
+        public bool OverBrightEnabled { get; private set; }
+        public bool AdvancedContrastEnabled { get; private set; }
+        public bool RainSplatterEnabled { get; private set; }
+        public int TextureFiltering { get; private set; }
         public Vector2 ReferenceResolution => referenceResolution;
         public static GameSettingsManager Instance => instance;
 
@@ -123,6 +165,66 @@ namespace Underground.UI
                 0 => "Low",
                 1 => "Medium",
                 _ => "High"
+            };
+        }
+
+        public string GetCarReflectionUpdateRateLabel()
+        {
+            return CarReflectionUpdateRate switch
+            {
+                0 => "Low",
+                1 => "Medium",
+                _ => "High"
+            };
+        }
+
+        public string GetCarReflectionDetailLabel()
+        {
+            return GetThreeLevelLabel(CarReflectionDetail);
+        }
+
+        public string GetCarShadowDetailLabel()
+        {
+            return CarShadowDetail switch
+            {
+                0 => "Off",
+                1 => "Low",
+                _ => "High"
+            };
+        }
+
+        public string GetCarGeometryDetailLabel()
+        {
+            return GetThreeLevelLabel(CarGeometryDetail);
+        }
+
+        public string GetWorldDetailLabel()
+        {
+            return GetThreeLevelLabel(WorldDetail);
+        }
+
+        public string GetRoadReflectionDetailLabel()
+        {
+            return GetThreeLevelLabel(RoadReflectionDetail);
+        }
+
+        public string GetFullScreenAntiAliasingLabel()
+        {
+            return FullScreenAntiAliasing switch
+            {
+                0 => "Off",
+                1 => "Low",
+                _ => "High"
+            };
+        }
+
+        public string GetTextureFilteringLabel()
+        {
+            return TextureFiltering switch
+            {
+                0 => "Bilinear",
+                1 => "Trilinear",
+                _ => "Anisotropic"
             };
         }
 
@@ -273,6 +375,258 @@ namespace Underground.UI
             NotifySettingsChanged();
         }
 
+        public void CycleCarReflectionUpdateRate(int direction)
+        {
+            SetCarReflectionUpdateRate(CycleValue(CarReflectionUpdateRate, direction, 3));
+        }
+
+        public void SetCarReflectionUpdateRate(int value)
+        {
+            CarReflectionUpdateRate = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(CarReflectionUpdateRateKey, CarReflectionUpdateRate);
+            NotifySettingsChanged();
+        }
+
+        public void CycleCarReflectionDetail(int direction)
+        {
+            SetCarReflectionDetail(CycleValue(CarReflectionDetail, direction, 3));
+        }
+
+        public void SetCarReflectionDetail(int value)
+        {
+            CarReflectionDetail = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(CarReflectionDetailKey, CarReflectionDetail);
+            NotifySettingsChanged();
+        }
+
+        public void CycleCarShadowDetail(int direction)
+        {
+            SetCarShadowDetail(CycleValue(CarShadowDetail, direction, 3));
+        }
+
+        public void SetCarShadowDetail(int value)
+        {
+            CarShadowDetail = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(CarShadowDetailKey, CarShadowDetail);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleCarHeadlights()
+        {
+            SetCarHeadlightsEnabled(!CarHeadlightsEnabled);
+        }
+
+        public void SetCarHeadlightsEnabled(bool enabled)
+        {
+            CarHeadlightsEnabled = enabled;
+            PlayerPrefs.SetInt(CarHeadlightsEnabledKey, CarHeadlightsEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void CycleCarGeometryDetail(int direction)
+        {
+            SetCarGeometryDetail(CycleValue(CarGeometryDetail, direction, 3));
+        }
+
+        public void SetCarGeometryDetail(int value)
+        {
+            CarGeometryDetail = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(CarGeometryDetailKey, CarGeometryDetail);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleCrowds()
+        {
+            SetCrowdsEnabled(!CrowdsEnabled);
+        }
+
+        public void SetCrowdsEnabled(bool enabled)
+        {
+            CrowdsEnabled = enabled;
+            PlayerPrefs.SetInt(CrowdsEnabledKey, CrowdsEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void CycleWorldDetail(int direction)
+        {
+            SetWorldDetail(CycleValue(WorldDetail, direction, 3));
+        }
+
+        public void SetWorldDetail(int value)
+        {
+            WorldDetail = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(WorldDetailKey, WorldDetail);
+            NotifySettingsChanged();
+        }
+
+        public void CycleRoadReflectionDetail(int direction)
+        {
+            SetRoadReflectionDetail(CycleValue(RoadReflectionDetail, direction, 3));
+        }
+
+        public void SetRoadReflectionDetail(int value)
+        {
+            RoadReflectionDetail = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(RoadReflectionDetailKey, RoadReflectionDetail);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleLightTrails()
+        {
+            SetLightTrailsEnabled(!LightTrailsEnabled);
+        }
+
+        public void SetLightTrailsEnabled(bool enabled)
+        {
+            LightTrailsEnabled = enabled;
+            PlayerPrefs.SetInt(LightTrailsEnabledKey, LightTrailsEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleLightGlow()
+        {
+            SetLightGlowEnabled(!LightGlowEnabled);
+        }
+
+        public void SetLightGlowEnabled(bool enabled)
+        {
+            LightGlowEnabled = enabled;
+            PlayerPrefs.SetInt(LightGlowEnabledKey, LightGlowEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleParticleSystems()
+        {
+            SetParticleSystemsEnabled(!ParticleSystemsEnabled);
+        }
+
+        public void SetParticleSystemsEnabled(bool enabled)
+        {
+            ParticleSystemsEnabled = enabled;
+            PlayerPrefs.SetInt(ParticleSystemsEnabledKey, ParticleSystemsEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleMotionBlur()
+        {
+            SetMotionBlurEnabled(!MotionBlurEnabled);
+        }
+
+        public void SetMotionBlurEnabled(bool enabled)
+        {
+            MotionBlurEnabled = enabled;
+            PlayerPrefs.SetInt(MotionBlurEnabledKey, MotionBlurEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleFog()
+        {
+            SetFogEnabled(!FogEnabled);
+        }
+
+        public void SetFogEnabled(bool enabled)
+        {
+            FogEnabled = enabled;
+            PlayerPrefs.SetInt(FogEnabledKey, FogEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleDepthOfField()
+        {
+            SetDepthOfFieldEnabled(!DepthOfFieldEnabled);
+        }
+
+        public void SetDepthOfFieldEnabled(bool enabled)
+        {
+            DepthOfFieldEnabled = enabled;
+            PlayerPrefs.SetInt(DepthOfFieldEnabledKey, DepthOfFieldEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void CycleFullScreenAntiAliasing(int direction)
+        {
+            SetFullScreenAntiAliasing(CycleValue(FullScreenAntiAliasing, direction, 3));
+        }
+
+        public void SetFullScreenAntiAliasing(int value)
+        {
+            FullScreenAntiAliasing = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(FullScreenAntiAliasingKey, FullScreenAntiAliasing);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleTinting()
+        {
+            SetTintingEnabled(!TintingEnabled);
+        }
+
+        public void SetTintingEnabled(bool enabled)
+        {
+            TintingEnabled = enabled;
+            PlayerPrefs.SetInt(TintingEnabledKey, TintingEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleHorizonFog()
+        {
+            SetHorizonFogEnabled(!HorizonFogEnabled);
+        }
+
+        public void SetHorizonFogEnabled(bool enabled)
+        {
+            HorizonFogEnabled = enabled;
+            PlayerPrefs.SetInt(HorizonFogEnabledKey, HorizonFogEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleOverBright()
+        {
+            SetOverBrightEnabled(!OverBrightEnabled);
+        }
+
+        public void SetOverBrightEnabled(bool enabled)
+        {
+            OverBrightEnabled = enabled;
+            PlayerPrefs.SetInt(OverBrightEnabledKey, OverBrightEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleAdvancedContrast()
+        {
+            SetAdvancedContrastEnabled(!AdvancedContrastEnabled);
+        }
+
+        public void SetAdvancedContrastEnabled(bool enabled)
+        {
+            AdvancedContrastEnabled = enabled;
+            PlayerPrefs.SetInt(AdvancedContrastEnabledKey, AdvancedContrastEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void ToggleRainSplatter()
+        {
+            SetRainSplatterEnabled(!RainSplatterEnabled);
+        }
+
+        public void SetRainSplatterEnabled(bool enabled)
+        {
+            RainSplatterEnabled = enabled;
+            PlayerPrefs.SetInt(RainSplatterEnabledKey, RainSplatterEnabled ? 1 : 0);
+            NotifySettingsChanged();
+        }
+
+        public void CycleTextureFiltering(int direction)
+        {
+            SetTextureFiltering(CycleValue(TextureFiltering, direction, 3));
+        }
+
+        public void SetTextureFiltering(int value)
+        {
+            TextureFiltering = Mathf.Clamp(value, 0, 2);
+            PlayerPrefs.SetInt(TextureFilteringKey, TextureFiltering);
+            NotifySettingsChanged();
+        }
+
         public void ToggleHud()
         {
             SetShowHud(!ShowHud);
@@ -400,6 +754,27 @@ namespace Underground.UI
             SteeringSensitivity = PlayerPrefs.GetFloat(SteeringSensitivityKey, 1f);
             PedalSensitivity = PlayerPrefs.GetFloat(PedalSensitivityKey, 1f);
             ReverseDoubleTapWindow = PlayerPrefs.GetFloat(ReverseTapWindowKey, 0.3f);
+            CarReflectionUpdateRate = Mathf.Clamp(PlayerPrefs.GetInt(CarReflectionUpdateRateKey, 2), 0, 2);
+            CarReflectionDetail = Mathf.Clamp(PlayerPrefs.GetInt(CarReflectionDetailKey, 2), 0, 2);
+            CarShadowDetail = Mathf.Clamp(PlayerPrefs.GetInt(CarShadowDetailKey, 2), 0, 2);
+            CarHeadlightsEnabled = PlayerPrefs.GetInt(CarHeadlightsEnabledKey, 1) != 0;
+            CarGeometryDetail = Mathf.Clamp(PlayerPrefs.GetInt(CarGeometryDetailKey, 2), 0, 2);
+            CrowdsEnabled = PlayerPrefs.GetInt(CrowdsEnabledKey, 1) != 0;
+            WorldDetail = Mathf.Clamp(PlayerPrefs.GetInt(WorldDetailKey, 2), 0, 2);
+            RoadReflectionDetail = Mathf.Clamp(PlayerPrefs.GetInt(RoadReflectionDetailKey, 2), 0, 2);
+            LightTrailsEnabled = PlayerPrefs.GetInt(LightTrailsEnabledKey, 0) != 0;
+            LightGlowEnabled = PlayerPrefs.GetInt(LightGlowEnabledKey, 1) != 0;
+            ParticleSystemsEnabled = PlayerPrefs.GetInt(ParticleSystemsEnabledKey, 1) != 0;
+            MotionBlurEnabled = PlayerPrefs.GetInt(MotionBlurEnabledKey, 1) != 0;
+            FogEnabled = PlayerPrefs.GetInt(FogEnabledKey, 0) != 0;
+            DepthOfFieldEnabled = PlayerPrefs.GetInt(DepthOfFieldEnabledKey, 0) != 0;
+            FullScreenAntiAliasing = Mathf.Clamp(PlayerPrefs.GetInt(FullScreenAntiAliasingKey, 1), 0, 2);
+            TintingEnabled = PlayerPrefs.GetInt(TintingEnabledKey, 0) != 0;
+            HorizonFogEnabled = PlayerPrefs.GetInt(HorizonFogEnabledKey, 0) != 0;
+            OverBrightEnabled = PlayerPrefs.GetInt(OverBrightEnabledKey, 0) != 0;
+            AdvancedContrastEnabled = PlayerPrefs.GetInt(AdvancedContrastEnabledKey, 0) != 0;
+            RainSplatterEnabled = PlayerPrefs.GetInt(RainSplatterEnabledKey, 0) != 0;
+            TextureFiltering = Mathf.Clamp(PlayerPrefs.GetInt(TextureFilteringKey, 2), 0, 2);
 
             int qualityCount = Mathf.Max(1, QualitySettings.names.Length);
             QualityLevel = Mathf.Clamp(PlayerPrefs.GetInt(QualityLevelKey, Mathf.Clamp(QualitySettings.GetQualityLevel(), 0, qualityCount - 1)), 0, qualityCount - 1);
@@ -423,6 +798,7 @@ namespace Underground.UI
             QualitySettings.SetQualityLevel(QualityLevel, true);
             ApplyShadowQuality();
             ApplyTextureQuality();
+            ApplyAdvancedGraphicsSettings();
             ApplyAudioSettings();
 
             if (notifyListeners)
@@ -468,6 +844,37 @@ namespace Underground.UI
         private void ApplyTextureQuality()
         {
             QualitySettings.globalTextureMipmapLimit = TextureQuality switch
+            {
+                0 => 2,
+                1 => 1,
+                _ => 0
+            };
+        }
+
+        private void ApplyAdvancedGraphicsSettings()
+        {
+            QualitySettings.antiAliasing = FullScreenAntiAliasing switch
+            {
+                0 => 0,
+                1 => 2,
+                _ => 4
+            };
+
+            QualitySettings.anisotropicFiltering = TextureFiltering switch
+            {
+                0 => AnisotropicFiltering.Disable,
+                1 => AnisotropicFiltering.Enable,
+                _ => AnisotropicFiltering.ForceEnable
+            };
+
+            QualitySettings.lodBias = WorldDetail switch
+            {
+                0 => 0.6f,
+                1 => 1f,
+                _ => 1.6f
+            };
+
+            QualitySettings.maximumLODLevel = WorldDetail switch
             {
                 0 => 2,
                 1 => 1,
@@ -563,6 +970,36 @@ namespace Underground.UI
             }
 
             return bestIndex;
+        }
+
+        private static int CycleValue(int current, int direction, int count)
+        {
+            if (count <= 0)
+            {
+                return 0;
+            }
+
+            int nextValue = current + Math.Sign(direction);
+            if (nextValue < 0)
+            {
+                nextValue = count - 1;
+            }
+            else if (nextValue >= count)
+            {
+                nextValue = 0;
+            }
+
+            return nextValue;
+        }
+
+        private static string GetThreeLevelLabel(int value)
+        {
+            return value switch
+            {
+                0 => "Low",
+                1 => "Medium",
+                _ => "High"
+            };
         }
 
         private static float ToDecibels(float normalizedValue)

@@ -181,7 +181,47 @@ namespace Underground.EditorTools
             }
 
             ConfigureSurface(material, source.isTransparent || IsTransparentMaterial(material.name));
+            ConfigureHdrpReflectionResponse(material, source.isTransparent || IsTransparentMaterial(material.name));
             return !alreadyHdrp || source.hasSerializedData;
+        }
+
+        private static void ConfigureHdrpReflectionResponse(Material material, bool isTransparent)
+        {
+            if (material == null)
+            {
+                return;
+            }
+
+            bool paintLike = IsPaintLikeMaterial(material.name);
+            bool bodyLike = IsBodyLikeMaterial(material.name);
+
+            if (!isTransparent)
+            {
+                SetFloatIfPresent(material, "_ReceivesSSR", 1f);
+                SetFloatIfPresent(material, "_EnvironmentReflections", 1f);
+                SetFloatIfPresent(material, "_GlossyReflections", 1f);
+                SetFloatIfPresent(material, "_SpecularHighlights", 1f);
+            }
+
+            SetFloatIfPresent(material, "_ReceivesSSRTransparent", isTransparent ? 1f : 0f);
+            SetFloatIfPresent(material, "_EnableCoat", paintLike || bodyLike ? 1f : 0f);
+            SetFloatIfPresent(material, "_CoatMask", paintLike ? 1f : bodyLike ? 0.35f : 0f);
+
+            material.DisableKeyword("_DISABLE_SSR");
+            material.DisableKeyword("_DISABLE_SSR_TRANSPARENT");
+        }
+
+        private static bool IsPaintLikeMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   (materialName.IndexOf("paint", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("color", StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private static bool IsBodyLikeMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   materialName.IndexOf("body", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static MaterialSourceData ReadSourceData(Material material)

@@ -14,6 +14,8 @@ namespace Underground.Garage
         [SerializeField] private DayNightCycleController dayNightCycle;
         [SerializeField] private string worldSceneName = "World";
 
+        private bool autoSavedOnGarageEntry;
+
         private void Awake()
         {
             if (sessionManager == null)
@@ -35,6 +37,11 @@ namespace Underground.Garage
             }
         }
 
+        private void Start()
+        {
+            AutoSaveOnGarageEntry();
+        }
+
         public void SaveAndBankProgress()
         {
             float currentTime = dayNightCycle != null
@@ -53,6 +60,17 @@ namespace Underground.Garage
             persistentProgress?.SaveNow(currentTime, worldSceneName);
             sessionManager?.BeginSession();
             SceneManager.LoadScene(worldSceneName);
+        }
+
+        private void AutoSaveOnGarageEntry()
+        {
+            if (autoSavedOnGarageEntry)
+            {
+                return;
+            }
+
+            autoSavedOnGarageEntry = true;
+            SaveAndBankProgress();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Underground.UI
     public class MenuInputHandler : MonoBehaviour
     {
         [SerializeField] private MainMenuFlowManager flowManager;
+        [SerializeField] private MainMenuNewGraphicsMenuController graphicsMenuController;
         [SerializeField] private EventSystem eventSystem;
         [SerializeField] private float navigationRepeatDelay = 0.18f;
 
@@ -20,6 +21,11 @@ namespace Underground.UI
             {
                 flowManager = GetComponent<MainMenuFlowManager>();
             }
+
+            if (graphicsMenuController == null)
+            {
+                graphicsMenuController = GetComponent<MainMenuNewGraphicsMenuController>();
+            }
         }
 
         private void Update()
@@ -29,11 +35,47 @@ namespace Underground.UI
                 return;
             }
 
+            if (graphicsMenuController == null)
+            {
+                graphicsMenuController = GetComponent<MainMenuNewGraphicsMenuController>();
+            }
+
             if (flowManager.currentState == MenuState.Splash)
             {
                 if (Input.anyKeyDown)
                 {
                     flowManager.AdvanceFromSplash();
+                }
+
+                return;
+            }
+
+            if (graphicsMenuController != null && graphicsMenuController.IsOpen)
+            {
+                EnsureSelection();
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    graphicsMenuController.StepBackOrClose();
+                    return;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    SubmitCurrentSelection();
+                    return;
+                }
+
+                if (Time.unscaledTime < nextNavigationTime)
+                {
+                    return;
+                }
+
+                MoveDirection overlayDirection = ReadMoveDirection();
+                if (overlayDirection != MoveDirection.None)
+                {
+                    ExecuteMove(overlayDirection);
+                    nextNavigationTime = Time.unscaledTime + navigationRepeatDelay;
                 }
 
                 return;
@@ -82,6 +124,17 @@ namespace Underground.UI
 
             if (eventSystem == null || eventSystem.currentSelectedGameObject != null)
             {
+                return;
+            }
+
+            if (graphicsMenuController != null && graphicsMenuController.IsOpen)
+            {
+                Selectable graphicsDefault = graphicsMenuController.DefaultSelectable;
+                if (graphicsDefault != null)
+                {
+                    eventSystem.SetSelectedGameObject(graphicsDefault.gameObject);
+                }
+
                 return;
             }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Underground.World;
 
 namespace Underground.AI
 {
@@ -23,7 +24,9 @@ namespace Underground.AI
                 }
 
                 int index = Random.Range(0, trafficPrefabs.Length);
-                Instantiate(trafficPrefabs[index], point.position, point.rotation);
+                GameObject trafficCar = Instantiate(trafficPrefabs[index], point.position, point.rotation);
+                VehicleReflectionRuntimeController reflectionController = trafficCar.GetComponent<VehicleReflectionRuntimeController>() ?? trafficCar.AddComponent<VehicleReflectionRuntimeController>();
+                reflectionController.Configure(false);
             }
         }
     }

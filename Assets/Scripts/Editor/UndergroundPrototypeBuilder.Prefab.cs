@@ -8,8 +8,13 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        private static GameObject CreateOrUpdatePlayerCarPrefab(VehicleStatsData starterStats)
+        private static GameObject CreateOrUpdatePlayerCarPrefab(VehicleStatsData starterStats, bool preserveExistingAsset = false)
         {
+            if (preserveExistingAsset && AssetExistsAtPath<GameObject>(PlayerCarPrefabPath))
+            {
+                return AssetDatabase.LoadAssetAtPath<GameObject>(PlayerCarPrefabPath);
+            }
+
             const float wheelRadius = 0.34f;
             Vector3 frontLeftWheelPosition = new Vector3(-0.85f, 0.2f, 1.38f);
             Vector3 frontRightWheelPosition = new Vector3(0.85f, 0.2f, 1.38f);

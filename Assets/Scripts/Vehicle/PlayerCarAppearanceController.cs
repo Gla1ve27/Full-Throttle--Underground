@@ -4,6 +4,8 @@ using System.IO;
 using UnityEngine;
 using Underground.Garage;
 using Underground.Save;
+using Underground.UI;
+using Underground.World;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,6 +15,8 @@ namespace Underground.Vehicle
 {
     public class PlayerCarAppearanceController : MonoBehaviour
     {
+        private const string GameplayReflectionProbeName = "GameplayReflectionProbe";
+
         [SerializeField] private PersistentProgressManager progressManager;
         [SerializeField] private VehicleDynamicsController vehicle;
         [SerializeField] private Transform modelRoot;
@@ -104,6 +108,7 @@ namespace Underground.Vehicle
                 BindWheelVisuals(null, null, null, null, false);
                 currentCarDisplayName = definition.DisplayName;
                 ApplyPerCarStats(definition);
+                EnsureGameplayReflectionProbe(isGarageShowroom);
                 return true;
             }
 
@@ -156,7 +161,7 @@ namespace Underground.Vehicle
                 rearRightTarget = rearRightWheelRoot != null ? rearRightWheelRoot.localPosition : rearRightTarget;
             }
 
-            NormalizeImportedMaterials(visualInstance);
+            NormalizeImportedMaterials(visualInstance, definition.CarId, isGarageShowroom);
 
             bool hasResolvedWheelSources =
                 sourceFrontLeft != null &&
@@ -230,6 +235,7 @@ namespace Underground.Vehicle
             currentAppliedAsShowroom = isGarageShowroom;
 
             ApplyPerCarStats(definition);
+            EnsureGameplayReflectionProbe(isGarageShowroom);
             AppearanceChanged?.Invoke();
             return true;
         }
@@ -279,6 +285,83 @@ namespace Underground.Vehicle
         private bool IsGarageShowroomContext()
         {
             return showroomPresentationMode || GetComponentInParent<GarageShowroomController>() != null;
+        }
+
+        private void EnsureGameplayReflectionProbe(bool isGarageShowroom)
+        {
+            Transform existingProbeTransform = transform.Find(GameplayReflectionProbeName);
+            if (isGarageShowroom)
+            {
+                if (existingProbeTransform != null)
+                {
+                    existingProbeTransform.gameObject.SetActive(false);
+                }
+
+                return;
+            }
+
+            GameObject probeObject;
+            if (existingProbeTransform != null)
+            {
+                probeObject = existingProbeTransform.gameObject;
+                probeObject.SetActive(true);
+            }
+            else
+            {
+                probeObject = new GameObject(GameplayReflectionProbeName);
+                probeObject.transform.SetParent(transform, false);
+            }
+
+            probeObject.transform.localPosition = new Vector3(0f, 5f, 0f);
+            probeObject.transform.localRotation = Quaternion.identity;
+
+            RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
+            RenderSettings.reflectionIntensity = Mathf.Max(RenderSettings.reflectionIntensity, 0.9f);
+
+            GameSettingsManager settingsManager = GameSettingsManager.Instance ?? FindFirstObjectByType<GameSettingsManager>();
+            Vector3 probeSize = settingsManager != null
+                ? settingsManager.CarReflectionDetail switch
+                {
+                    0 => new Vector3(72f, 22f, 72f),
+                    1 => new Vector3(96f, 28f, 96f),
+                    _ => new Vector3(120f, 36f, 120f)
+                }
+                : new Vector3(120f, 36f, 120f);
+            float refreshInterval = settingsManager != null
+                ? settingsManager.CarReflectionUpdateRate switch
+                {
+                    0 => 0.55f,
+                    1 => 0.3f,
+                    _ => 0.16f
+                }
+                : 0.2f;
+
+            ReflectionProbe probe = probeObject.GetComponent<ReflectionProbe>() ?? probeObject.AddComponent<ReflectionProbe>();
+            probe.importance = 1000;
+            probe.intensity = settingsManager != null
+                ? settingsManager.CarReflectionDetail switch
+                {
+                    0 => 0.95f,
+                    1 => 1.05f,
+                    _ => 1.2f
+                }
+                : 1.2f;
+            probe.boxProjection = true;
+            probe.size = probeSize;
+            probe.resolution = settingsManager != null
+                ? settingsManager.CarReflectionDetail switch
+                {
+                    0 => 64,
+                    1 => 128,
+                    _ => 256
+                }
+                : 128;
+
+            int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
+            probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
+
+            PlayerReflectionProbeController controller = probeObject.GetComponent<PlayerReflectionProbeController>() ?? probeObject.AddComponent<PlayerReflectionProbeController>();
+            controller.Configure(transform, new Vector3(0f, 5f, 0f), probeSize, 10f, refreshInterval, 6f);
         }
 
         // ------------------------------------------------------------------
@@ -534,6 +617,10 @@ namespace Underground.Vehicle
                 return;
             }
 
+#if UNITY_EDITOR
+            RedirectEditorSelectionAwayFromTransientVisuals();
+#endif
+
             for (int i = modelRoot.childCount - 1; i >= 0; i--)
             {
                 Transform child = modelRoot.GetChild(i);
@@ -551,6 +638,63 @@ namespace Underground.Vehicle
             ClearChildren(rearLeftWheelRoot);
             ClearChildren(rearRightWheelRoot);
         }
+
+#if UNITY_EDITOR
+        private void RedirectEditorSelectionAwayFromTransientVisuals()
+        {
+            Transform activeTransform = Selection.activeTransform;
+            if (activeTransform == null || !WillDestroyTransform(activeTransform))
+            {
+                return;
+            }
+
+            Selection.activeGameObject = gameObject;
+        }
+
+        private bool WillDestroyTransform(Transform candidate)
+        {
+            if (candidate == null || modelRoot == null || !candidate.IsChildOf(modelRoot))
+            {
+                return false;
+            }
+
+            if (candidate == frontLeftWheelRoot || candidate == frontRightWheelRoot || candidate == rearLeftWheelRoot || candidate == rearRightWheelRoot)
+            {
+                return false;
+            }
+
+            if (frontLeftWheelRoot != null && candidate.IsChildOf(frontLeftWheelRoot))
+            {
+                return true;
+            }
+
+            if (frontRightWheelRoot != null && candidate.IsChildOf(frontRightWheelRoot))
+            {
+                return true;
+            }
+
+            if (rearLeftWheelRoot != null && candidate.IsChildOf(rearLeftWheelRoot))
+            {
+                return true;
+            }
+
+            if (rearRightWheelRoot != null && candidate.IsChildOf(rearRightWheelRoot))
+            {
+                return true;
+            }
+
+            Transform rootChild = candidate;
+            while (rootChild.parent != null && rootChild.parent != modelRoot)
+            {
+                rootChild = rootChild.parent;
+            }
+
+            return rootChild != frontLeftWheelRoot &&
+                   rootChild != frontRightWheelRoot &&
+                   rootChild != rearLeftWheelRoot &&
+                   rootChild != rearRightWheelRoot;
+        }
+#endif
 
         private static void ClearChildren(Transform root)
         {
@@ -1220,7 +1364,7 @@ namespace Underground.Vehicle
         // Material normalization
         // ------------------------------------------------------------------
 
-        private static void NormalizeImportedMaterials(GameObject root)
+        private static void NormalizeImportedMaterials(GameObject root, string carId, bool isGarageShowroom)
         {
             if (root == null)
             {
@@ -1257,15 +1401,16 @@ namespace Underground.Vehicle
                         continue;
                     }
 
-                    if (material.shader == targetShader)
+                    Material sourceMaterial = materialIndex < sharedMaterials.Length && sharedMaterials[materialIndex] != null
+                        ? sharedMaterials[materialIndex]
+                        : material;
+
+                    if (!ShouldNormalizeMaterial(sourceMaterial, targetShader, carId))
                     {
                         continue;
                     }
 
-                    Material sourceMaterial = materialIndex < sharedMaterials.Length && sharedMaterials[materialIndex] != null
-                        ? sharedMaterials[materialIndex]
-                        : material;
-                    materials[materialIndex] = CreateNormalizedMaterial(sourceMaterial, targetShader);
+                    materials[materialIndex] = CreateNormalizedMaterial(sourceMaterial, targetShader, carId, isGarageShowroom);
                     hasChanges = true;
                 }
 
@@ -1276,7 +1421,7 @@ namespace Underground.Vehicle
             }
         }
 
-        private static Material CreateNormalizedMaterial(Material sourceMaterial, Shader targetShader)
+        private static Material CreateNormalizedMaterial(Material sourceMaterial, Shader targetShader, string carId, bool isGarageShowroom)
         {
             if (sourceMaterial == null || targetShader == null)
             {
@@ -1290,14 +1435,28 @@ namespace Underground.Vehicle
             Color baseColor = GetMaterialColor(sourceMaterial, "_BaseColor", "_Color");
             Color emissiveColor = GetMaterialColor(sourceMaterial, "_EmissiveColor", "_EmissionColor");
             float metallic = GetMaterialFloat(sourceMaterial, 0f, "_Metallic");
-            float smoothness = Mathf.Clamp(GetMaterialFloat(sourceMaterial, 0.55f, "_Smoothness", "_Glossiness"), 0.15f, 0.72f);
+            float smoothness = Mathf.Clamp(GetMaterialFloat(sourceMaterial, 0.55f, "_Smoothness", "_Glossiness"), 0.15f, 0.95f);
             float normalScale = GetMaterialFloat(sourceMaterial, 1f, "_NormalScale", "_BumpScale");
             bool hasEmissiveMap = emissiveMap != null;
+            bool isRmCar = IsRmCarFamily(carId);
+            bool isPaintMaterial = IsPaintMaterial(sourceMaterial.name);
+            bool isBodyMaterial = IsBodyMaterial(sourceMaterial.name);
 
             baseColor.r = Mathf.Clamp01(baseColor.r);
             baseColor.g = Mathf.Clamp01(baseColor.g);
             baseColor.b = Mathf.Clamp01(baseColor.b);
             baseColor.a = Mathf.Clamp01(baseColor.a <= 0f ? 1f : baseColor.a);
+
+            if (isPaintMaterial)
+            {
+                metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.03f : 0.08f);
+                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.84f, 0.94f) : Mathf.Clamp(smoothness, 0.8f, 0.92f);
+            }
+            else if (isBodyMaterial)
+            {
+                metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.08f : 0.18f);
+                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.72f, 0.86f) : Mathf.Clamp(smoothness, 0.68f, 0.84f);
+            }
 
             if (!hasEmissiveMap)
             {
@@ -1413,7 +1572,105 @@ namespace Underground.Vehicle
                 normalizedMaterial.SetFloat("_Surface", 0f);
             }
 
+            if (normalizedMaterial.HasProperty("_ReceivesSSR"))
+            {
+                normalizedMaterial.SetFloat("_ReceivesSSR", 1f);
+            }
+
+            if (normalizedMaterial.HasProperty("_ReceivesSSRTransparent"))
+            {
+                normalizedMaterial.SetFloat("_ReceivesSSRTransparent", 0f);
+            }
+
+            if (normalizedMaterial.HasProperty("_EnvironmentReflections"))
+            {
+                normalizedMaterial.SetFloat("_EnvironmentReflections", 1f);
+            }
+
+            if (normalizedMaterial.HasProperty("_GlossyReflections"))
+            {
+                normalizedMaterial.SetFloat("_GlossyReflections", 1f);
+            }
+
+            if (normalizedMaterial.HasProperty("_SpecularHighlights"))
+            {
+                normalizedMaterial.SetFloat("_SpecularHighlights", 1f);
+            }
+
+            if (normalizedMaterial.HasProperty("_TransmissionEnable"))
+            {
+                normalizedMaterial.SetFloat("_TransmissionEnable", 0f);
+            }
+
+            if (normalizedMaterial.HasProperty("_EnableCoat"))
+            {
+                normalizedMaterial.SetFloat("_EnableCoat", isPaintMaterial || isBodyMaterial ? 1f : 0f);
+            }
+
+            if (normalizedMaterial.HasProperty("_CoatMask"))
+            {
+                normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 1f : isBodyMaterial ? 0.35f : 0f);
+            }
+
+            normalizedMaterial.DisableKeyword("_DISABLE_SSR");
+            normalizedMaterial.DisableKeyword("_DISABLE_SSR_TRANSPARENT");
+
             return normalizedMaterial;
+        }
+
+        private static bool ShouldNormalizeMaterial(Material sourceMaterial, Shader targetShader, string carId)
+        {
+            if (sourceMaterial == null || targetShader == null)
+            {
+                return false;
+            }
+
+            if (sourceMaterial.shader != targetShader)
+            {
+                return true;
+            }
+
+            if (IsTransparentMaterial(sourceMaterial.name) || IsLightMaterial(sourceMaterial.name))
+            {
+                return false;
+            }
+
+            return IsPaintMaterial(sourceMaterial.name) || IsBodyMaterial(sourceMaterial.name);
+        }
+
+        private static bool IsRmCarFamily(string carId)
+        {
+            return !string.IsNullOrEmpty(carId) && carId.StartsWith("RMCar26", System.StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsPaintMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   (materialName.IndexOf("paint", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("police", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("taxi", System.StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private static bool IsBodyMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   (materialName.IndexOf("body", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("car_color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("car colour", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    materialName.IndexOf("car color", System.StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private static bool IsTransparentMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   materialName.IndexOf("glass", System.StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsLightMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName) &&
+                   materialName.IndexOf("light", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         // ------------------------------------------------------------------

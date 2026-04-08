@@ -1,5 +1,6 @@
 using UnityEngine;
 using Underground.Progression;
+using Underground.World;
 
 namespace Underground.Vehicle
 {
@@ -70,6 +71,11 @@ namespace Underground.Vehicle
             if (CompareTag("Player") && GetComponent<PlayerCarAppearanceController>() == null)
             {
                 gameObject.AddComponent<PlayerCarAppearanceController>();
+            }
+
+            if (GetComponent<PlayerCarAppearanceController>() == null && GetComponent<VehicleReflectionRuntimeController>() == null)
+            {
+                gameObject.AddComponent<VehicleReflectionRuntimeController>();
             }
 
             Initialize(baseStats, startupUpgrades);

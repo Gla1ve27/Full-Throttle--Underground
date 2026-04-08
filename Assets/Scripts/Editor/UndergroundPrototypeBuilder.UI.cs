@@ -154,6 +154,13 @@ namespace Underground.EditorTools
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        private static void SetVector3Value(Component component, string propertyName, Vector3 value)
+        {
+            SerializedObject serializedObject = new SerializedObject(component);
+            serializedObject.FindProperty(propertyName).vector3Value = value;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         private static void SetBoolValue(Component component, string propertyName, bool value)
         {
             SerializedObject serializedObject = new SerializedObject(component);

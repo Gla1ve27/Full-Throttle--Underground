@@ -85,14 +85,14 @@ namespace Underground.EditorTools
             RaceDefinition nightRace = CreateOrUpdateNightRace();
             RaceDefinition wagerRace = CreateOrUpdateWagerRace();
 
-            GameObject playerCarPrefab = CreateOrUpdatePlayerCarPrefab(starterStats);
-            CreateSceneSupportPrefabs();
+            GameObject playerCarPrefab = CreateOrUpdatePlayerCarPrefab(starterStats, preserveExistingAsset: true);
+            CreateSceneSupportPrefabs(preserveExistingAssets: true);
 
-            CreateBootstrapScene();
-            CreateMainMenuScene(playerCarPrefab);
-            CreateGarageScene(playerCarPrefab, engineUpgrade);
-            CreateWorldScene(playerCarPrefab, dayRace, nightRace, wagerRace);
-            CreateVehicleTestScene(playerCarPrefab);
+            CreateBootstrapScene(preserveExistingScene: true);
+            CreateMainMenuScene(playerCarPrefab, preserveExistingScene: true);
+            CreateGarageScene(playerCarPrefab, engineUpgrade, preserveExistingScene: true);
+            CreateWorldScene(playerCarPrefab, dayRace, nightRace, wagerRace, preserveExistingScene: true);
+            CreateVehicleTestScene(playerCarPrefab, preserveExistingScene: true);
             ConfigureBuildSettings();
 
             AssetDatabase.SaveAssets();
@@ -717,6 +717,11 @@ namespace Underground.EditorTools
             }
 
             return null;
+        }
+
+        private static bool AssetExistsAtPath<T>(string path) where T : UnityEngine.Object
+        {
+            return !string.IsNullOrWhiteSpace(path) && AssetDatabase.LoadAssetAtPath<T>(path) != null;
         }
 
         private static bool HasImportedFcg()

@@ -26,16 +26,21 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        private static void CreateSceneSupportPrefabs()
+        private static void CreateSceneSupportPrefabs(bool preserveExistingAssets = false)
         {
-            CreateOrUpdateRuntimeRootPrefab();
-            CreateOrUpdateWorldSystemsPrefab();
-            CreateOrUpdateFollowCameraPrefab();
-            CreateOrUpdateHudPrefab();
+            CreateOrUpdateRuntimeRootPrefab(preserveExistingAssets);
+            CreateOrUpdateWorldSystemsPrefab(preserveExistingAssets);
+            CreateOrUpdateFollowCameraPrefab(preserveExistingAssets);
+            CreateOrUpdateHudPrefab(preserveExistingAssets);
         }
 
-        private static GameObject CreateOrUpdateRuntimeRootPrefab()
+        private static GameObject CreateOrUpdateRuntimeRootPrefab(bool preserveExistingAsset = false)
         {
+            if (preserveExistingAsset && AssetExistsAtPath<GameObject>(RuntimeRootPrefabPath))
+            {
+                return AssetDatabase.LoadAssetAtPath<GameObject>(RuntimeRootPrefabPath);
+            }
+
             GameObject root = new GameObject("RuntimeRoot");
             root.AddComponent<PersistentRuntimeRoot>();
             root.AddComponent<SaveSystem>();
@@ -52,8 +57,13 @@ namespace Underground.EditorTools
             return AssetDatabase.LoadAssetAtPath<GameObject>(RuntimeRootPrefabPath);
         }
 
-        private static GameObject CreateOrUpdateWorldSystemsPrefab()
+        private static GameObject CreateOrUpdateWorldSystemsPrefab(bool preserveExistingAsset = false)
         {
+            if (preserveExistingAsset && AssetExistsAtPath<GameObject>(WorldSystemsPrefabPath))
+            {
+                return AssetDatabase.LoadAssetAtPath<GameObject>(WorldSystemsPrefabPath);
+            }
+
             GameObject worldSystems = new GameObject("WorldSystems");
             Transform sunPivot = CreateEmptyChild(worldSystems.transform, "SunPivot", Vector3.zero);
 
@@ -94,8 +104,13 @@ namespace Underground.EditorTools
             return AssetDatabase.LoadAssetAtPath<GameObject>(WorldSystemsPrefabPath);
         }
 
-        private static GameObject CreateOrUpdateFollowCameraPrefab()
+        private static GameObject CreateOrUpdateFollowCameraPrefab(bool preserveExistingAsset = false)
         {
+            if (preserveExistingAsset && AssetExistsAtPath<GameObject>(FollowCameraPrefabPath))
+            {
+                return AssetDatabase.LoadAssetAtPath<GameObject>(FollowCameraPrefabPath);
+            }
+
             GameObject cameraObject = new GameObject("Main Camera");
             cameraObject.tag = "MainCamera";
             cameraObject.transform.position = new Vector3(0f, 3f, -7f);
@@ -115,8 +130,13 @@ namespace Underground.EditorTools
             return AssetDatabase.LoadAssetAtPath<GameObject>(FollowCameraPrefabPath);
         }
 
-        private static GameObject CreateOrUpdateHudPrefab()
+        private static GameObject CreateOrUpdateHudPrefab(bool preserveExistingAsset = false)
         {
+            if (preserveExistingAsset && AssetExistsAtPath<GameObject>(HudPrefabPath))
+            {
+                return AssetDatabase.LoadAssetAtPath<GameObject>(HudPrefabPath);
+            }
+
             Canvas canvas = CreateCanvas("HUD");
             canvas.transform.localScale = Vector3.one;
             StylizedHudComposer composer = canvas.gameObject.AddComponent<StylizedHudComposer>();

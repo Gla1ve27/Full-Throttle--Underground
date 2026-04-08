@@ -18,27 +18,44 @@ namespace Underground.UI
         private Camera menuCamera;
         private GameObject settingsOverlay;
         private Action refreshSettingsView;
+        private bool isInitialized;
 
         private void Start()
         {
+            EnsureInitialized();
+        }
+
+        public void EnsureInitialized()
+        {
+            if (isInitialized)
+            {
+                return;
+            }
+
             menuController ??= FindFirstObjectByType<MainMenuController>();
             settingsManager ??= FindFirstObjectByType<GameSettingsManager>();
             slimMenu = GetComponentInChildren<UIMenuManager>(true);
             menuCamera = ResolveMenuCamera();
             rootCanvas = ResolveSettingsCanvas();
 
-            if (slimMenu == null || menuController == null || rootCanvas == null)
+            if (menuController == null || settingsManager == null || rootCanvas == null)
             {
                 return;
             }
 
             NormalizeMenuCameraRig();
-            NormalizeSlimUiInstance();
-            DisableDemoSettingsScripts();
-            ConfigureMenuState(slimMenu);
-            ConfigurePrimaryButtons(slimMenu);
+
+            if (slimMenu != null)
+            {
+                NormalizeSlimUiInstance();
+                DisableDemoSettingsScripts();
+                ConfigureMenuState(slimMenu);
+                ConfigurePrimaryButtons(slimMenu);
+            }
+
             ConfigureAudioSources();
             BuildSettingsOverlay();
+            isInitialized = settingsOverlay != null;
         }
 
         private void NormalizeSlimUiInstance()
@@ -239,54 +256,51 @@ namespace Underground.UI
             overlayRect.anchorMax = Vector2.one;
             overlayRect.offsetMin = Vector2.zero;
             overlayRect.offsetMax = Vector2.zero;
-            settingsOverlay.GetComponent<Image>().color = new Color(0.03f, 0.05f, 0.08f, 0.82f);
+            settingsOverlay.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.26f);
             settingsOverlay.SetActive(false);
 
-            GameObject panel = CreateUiObject("Panel", settingsOverlay.transform, out RectTransform panelRect, typeof(Image), typeof(VerticalLayoutGroup));
-            panelRect.anchorMin = new Vector2(0.5f, 0.5f);
-            panelRect.anchorMax = new Vector2(0.5f, 0.5f);
+            GameObject panel = CreateUiObject("Panel", settingsOverlay.transform, out RectTransform panelRect, typeof(Image), typeof(Outline));
+            panelRect.anchorMin = new Vector2(0.46f, 0.5f);
+            panelRect.anchorMax = new Vector2(0.46f, 0.5f);
             panelRect.pivot = new Vector2(0.5f, 0.5f);
-            panelRect.sizeDelta = new Vector2(1120f, 760f);
-            panel.GetComponent<Image>().color = new Color(0.08f, 0.1f, 0.14f, 0.96f);
-
-            VerticalLayoutGroup layout = panel.GetComponent<VerticalLayoutGroup>();
-            layout.padding = new RectOffset(28, 28, 24, 24);
-            layout.spacing = 18f;
-            layout.childControlWidth = true;
-            layout.childControlHeight = false;
-            layout.childForceExpandWidth = true;
-            layout.childForceExpandHeight = false;
+            panelRect.sizeDelta = new Vector2(700f, 470f);
+            panel.GetComponent<Image>().color = new Color(0.42f, 0.44f, 0.46f, 0.82f);
+            Outline panelOutline = panel.GetComponent<Outline>();
+            panelOutline.effectColor = new Color(1f, 1f, 1f, 0.28f);
+            panelOutline.effectDistance = new Vector2(1f, -1f);
 
             CreateHeader(panel.transform);
             CreateScrollContent(panel.transform, out Transform contentRoot);
             CreateFooter(panel.transform);
 
-            CreateGraphicsSection(contentRoot);
-            CreateAudioSection(contentRoot);
-            CreateCameraSection(contentRoot);
-            CreateControlsSection(contentRoot);
-            CreateGameplaySection(contentRoot);
-            CreateHelpSection(contentRoot);
+            CreateDisplaySection(contentRoot);
+            CreateVehicleGraphicsSection(contentRoot);
+            CreatePostEffectsSection(contentRoot);
+            CreateGraphicsExtrasSection(contentRoot);
 
             refreshSettingsView?.Invoke();
         }
 
         private void CreateHeader(Transform parent)
         {
-            TMP_Text header = CreateText("Header", parent, "UNDERGROUND SETTINGS", 34f, FontStyles.Bold, TextAlignmentOptions.Left);
-            LayoutElement element = header.gameObject.AddComponent<LayoutElement>();
-            element.preferredHeight = 48f;
+            TMP_Text header = CreateText("Header", parent, "Display", 26f, FontStyles.Bold, TextAlignmentOptions.Left);
+            RectTransform headerRect = header.rectTransform;
+            headerRect.anchorMin = new Vector2(0f, 1f);
+            headerRect.anchorMax = new Vector2(1f, 1f);
+            headerRect.pivot = new Vector2(0f, 1f);
+            headerRect.anchoredPosition = new Vector2(18f, -14f);
+            headerRect.sizeDelta = new Vector2(-36f, 32f);
         }
 
         private void CreateScrollContent(Transform parent, out Transform contentRoot)
         {
-            GameObject scrollRoot = CreateUiObject("ScrollView", parent, out RectTransform scrollRectTransform, typeof(Image), typeof(Mask), typeof(ScrollRect), typeof(LayoutElement));
-            scrollRoot.GetComponent<Image>().color = new Color(0.11f, 0.13f, 0.17f, 0.94f);
+            GameObject scrollRoot = CreateUiObject("ScrollView", parent, out RectTransform scrollRectTransform, typeof(Image), typeof(Mask), typeof(ScrollRect));
+            scrollRoot.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.06f);
             scrollRoot.GetComponent<Mask>().showMaskGraphic = false;
-            scrollRoot.GetComponent<LayoutElement>().flexibleHeight = 1f;
-            scrollRectTransform.anchorMin = Vector2.zero;
-            scrollRectTransform.anchorMax = Vector2.one;
-            scrollRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            scrollRectTransform.anchorMin = new Vector2(0f, 0f);
+            scrollRectTransform.anchorMax = new Vector2(1f, 1f);
+            scrollRectTransform.offsetMin = new Vector2(18f, 64f);
+            scrollRectTransform.offsetMax = new Vector2(-34f, -56f);
 
             GameObject viewport = CreateUiObject("Viewport", scrollRoot.transform, out RectTransform viewportRect, typeof(Image), typeof(Mask));
             viewportRect.anchorMin = Vector2.zero;
@@ -304,10 +318,10 @@ namespace Underground.UI
             contentRect.sizeDelta = new Vector2(0f, 0f);
 
             VerticalLayoutGroup layout = content.GetComponent<VerticalLayoutGroup>();
-            layout.padding = new RectOffset(20, 20, 20, 20);
-            layout.spacing = 16f;
+            layout.padding = new RectOffset(10, 10, 10, 10);
+            layout.spacing = 10f;
             layout.childControlWidth = true;
-            layout.childControlHeight = false;
+            layout.childControlHeight = true;
             layout.childForceExpandWidth = true;
             layout.childForceExpandHeight = false;
 
@@ -322,14 +336,47 @@ namespace Underground.UI
             scrollRect.vertical = true;
             scrollRect.scrollSensitivity = 28f;
 
+            GameObject scrollbarObject = CreateUiObject("Scrollbar", scrollRoot.transform, out RectTransform scrollbarRect, typeof(Image), typeof(Scrollbar));
+            scrollbarRect.anchorMin = new Vector2(1f, 0f);
+            scrollbarRect.anchorMax = new Vector2(1f, 1f);
+            scrollbarRect.pivot = new Vector2(1f, 1f);
+            scrollbarRect.sizeDelta = new Vector2(14f, 0f);
+            scrollbarRect.offsetMin = new Vector2(-14f, 6f);
+            scrollbarRect.offsetMax = new Vector2(0f, -6f);
+            scrollbarObject.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.18f);
+
+            GameObject slidingArea = CreateUiObject("Sliding Area", scrollbarObject.transform, out RectTransform slidingAreaRect);
+            slidingAreaRect.anchorMin = Vector2.zero;
+            slidingAreaRect.anchorMax = Vector2.one;
+            slidingAreaRect.offsetMin = new Vector2(2f, 2f);
+            slidingAreaRect.offsetMax = new Vector2(-2f, -2f);
+
+            GameObject handle = CreateUiObject("Handle", slidingArea.transform, out RectTransform handleRect, typeof(Image));
+            handleRect.anchorMin = new Vector2(0f, 1f);
+            handleRect.anchorMax = new Vector2(1f, 1f);
+            handleRect.pivot = new Vector2(0.5f, 1f);
+            handleRect.sizeDelta = new Vector2(0f, 48f);
+            handle.GetComponent<Image>().color = new Color(0.78f, 0.8f, 0.82f, 0.92f);
+
+            Scrollbar scrollbar = scrollbarObject.GetComponent<Scrollbar>();
+            scrollbar.direction = Scrollbar.Direction.BottomToTop;
+            scrollbar.handleRect = handleRect;
+            scrollbar.targetGraphic = handle.GetComponent<Image>();
+            scrollRect.verticalScrollbar = scrollbar;
+            scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+            scrollRect.verticalScrollbarSpacing = 8f;
+
             contentRoot = content.transform;
         }
 
         private void CreateFooter(Transform parent)
         {
-            GameObject footer = CreateUiObject("Footer", parent, out RectTransform footerRect, typeof(HorizontalLayoutGroup), typeof(LayoutElement));
-            footerRect.sizeDelta = new Vector2(0f, 64f);
-            footer.GetComponent<LayoutElement>().preferredHeight = 64f;
+            GameObject footer = CreateUiObject("Footer", parent, out RectTransform footerRect, typeof(HorizontalLayoutGroup));
+            footerRect.anchorMin = new Vector2(1f, 0f);
+            footerRect.anchorMax = new Vector2(1f, 0f);
+            footerRect.pivot = new Vector2(1f, 0f);
+            footerRect.anchoredPosition = new Vector2(-18f, 14f);
+            footerRect.sizeDelta = new Vector2(220f, 40f);
 
             HorizontalLayoutGroup layout = footer.GetComponent<HorizontalLayoutGroup>();
             layout.spacing = 16f;
@@ -339,19 +386,56 @@ namespace Underground.UI
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            CreateActionButton(footer.transform, "Apply", () => settingsManager.RefreshAll(), new Color(0.2f, 0.44f, 0.26f, 0.95f));
-            CreateActionButton(footer.transform, "Back", CloseSettings, new Color(0.18f, 0.2f, 0.24f, 0.95f));
+            CreateActionButton(footer.transform, "Apply", () => settingsManager.RefreshAll(), new Color(0.28f, 0.48f, 0.24f, 0.95f));
+            CreateActionButton(footer.transform, "Back", CloseSettings, new Color(0.28f, 0.3f, 0.34f, 0.95f));
         }
 
-        private void CreateGraphicsSection(Transform parent)
+        private void CreateDisplaySection(Transform parent)
         {
-            Transform section = CreateSection(parent, "Graphics");
+            Transform section = CreateSection(parent, "Display");
             CreateCycleRow(section, "Resolution", () => settingsManager.CycleResolution(-1), () => settingsManager.CycleResolution(1), () => settingsManager.GetCurrentResolutionLabel());
+            CreateCycleRow(section, "Level Of Detail", () => settingsManager.CycleWorldDetail(-1), () => settingsManager.CycleWorldDetail(1), () => settingsManager.GetWorldDetailLabel());
             CreateToggleRow(section, "Fullscreen", settingsManager.ToggleFullscreen, () => settingsManager.Fullscreen ? "On" : "Off");
             CreateToggleRow(section, "VSync", settingsManager.ToggleVSync, () => settingsManager.VSyncEnabled ? "On" : "Off");
             CreateCycleRow(section, "Quality", () => settingsManager.CycleQualityLevel(-1), () => settingsManager.CycleQualityLevel(1), () => settingsManager.GetQualityLabel());
             CreateCycleRow(section, "Shadows", () => settingsManager.CycleShadowQuality(-1), () => settingsManager.CycleShadowQuality(1), () => settingsManager.GetShadowQualityLabel());
             CreateCycleRow(section, "Textures", () => settingsManager.CycleTextureQuality(-1), () => settingsManager.CycleTextureQuality(1), () => settingsManager.GetTextureQualityLabel());
+        }
+
+        private void CreateVehicleGraphicsSection(Transform parent)
+        {
+            Transform section = CreateSection(parent, "Customize Display Settings");
+            CreateCycleRow(section, "Car Reflection Update Rate", () => settingsManager.CycleCarReflectionUpdateRate(-1), () => settingsManager.CycleCarReflectionUpdateRate(1), () => settingsManager.GetCarReflectionUpdateRateLabel());
+            CreateCycleRow(section, "Car Reflection Detail", () => settingsManager.CycleCarReflectionDetail(-1), () => settingsManager.CycleCarReflectionDetail(1), () => settingsManager.GetCarReflectionDetailLabel());
+            CreateCycleRow(section, "Car Shadow / Neon", () => settingsManager.CycleCarShadowDetail(-1), () => settingsManager.CycleCarShadowDetail(1), () => settingsManager.GetCarShadowDetailLabel());
+            CreateToggleRow(section, "Car Headlight", settingsManager.ToggleCarHeadlights, () => settingsManager.CarHeadlightsEnabled ? "On" : "Off");
+            CreateCycleRow(section, "Car Geometry Detail", () => settingsManager.CycleCarGeometryDetail(-1), () => settingsManager.CycleCarGeometryDetail(1), () => settingsManager.GetCarGeometryDetailLabel());
+            CreateToggleRow(section, "Crowds", settingsManager.ToggleCrowds, () => settingsManager.CrowdsEnabled ? "On" : "Off");
+            CreateCycleRow(section, "World Detail", () => settingsManager.CycleWorldDetail(-1), () => settingsManager.CycleWorldDetail(1), () => settingsManager.GetWorldDetailLabel());
+            CreateCycleRow(section, "Road Reflection Detail", () => settingsManager.CycleRoadReflectionDetail(-1), () => settingsManager.CycleRoadReflectionDetail(1), () => settingsManager.GetRoadReflectionDetailLabel());
+        }
+
+        private void CreatePostEffectsSection(Transform parent)
+        {
+            Transform section = CreateSection(parent, "Post Effects");
+            CreateToggleRow(section, "Light Trails", settingsManager.ToggleLightTrails, () => settingsManager.LightTrailsEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Light Glow", settingsManager.ToggleLightGlow, () => settingsManager.LightGlowEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Particle System", settingsManager.ToggleParticleSystems, () => settingsManager.ParticleSystemsEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Motion Blur", settingsManager.ToggleMotionBlur, () => settingsManager.MotionBlurEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Fog", settingsManager.ToggleFog, () => settingsManager.FogEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Depth Of Field", settingsManager.ToggleDepthOfField, () => settingsManager.DepthOfFieldEnabled ? "On" : "Off");
+            CreateCycleRow(section, "Full Screen Anti-Aliasing", () => settingsManager.CycleFullScreenAntiAliasing(-1), () => settingsManager.CycleFullScreenAntiAliasing(1), () => settingsManager.GetFullScreenAntiAliasingLabel());
+            CreateToggleRow(section, "Tinting", settingsManager.ToggleTinting, () => settingsManager.TintingEnabled ? "On" : "Off");
+        }
+
+        private void CreateGraphicsExtrasSection(Transform parent)
+        {
+            Transform section = CreateSection(parent, "Advanced Display Settings");
+            CreateToggleRow(section, "Horizon Fog", settingsManager.ToggleHorizonFog, () => settingsManager.HorizonFogEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Over Bright", settingsManager.ToggleOverBright, () => settingsManager.OverBrightEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Advanced Contrast", settingsManager.ToggleAdvancedContrast, () => settingsManager.AdvancedContrastEnabled ? "On" : "Off");
+            CreateToggleRow(section, "Rain Splatter", settingsManager.ToggleRainSplatter, () => settingsManager.RainSplatterEnabled ? "On" : "Off");
+            CreateCycleRow(section, "Texture Filtering", () => settingsManager.CycleTextureFiltering(-1), () => settingsManager.CycleTextureFiltering(1), () => settingsManager.GetTextureFilteringLabel());
         }
 
         private void CreateAudioSection(Transform parent)
@@ -394,7 +478,7 @@ namespace Underground.UI
         private Transform CreateSection(Transform parent, string title)
         {
             GameObject section = CreateUiObject(title, parent, out _, typeof(Image), typeof(VerticalLayoutGroup), typeof(LayoutElement), typeof(ContentSizeFitter));
-            section.GetComponent<Image>().color = new Color(0.12f, 0.15f, 0.2f, 0.96f);
+            section.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.18f);
             section.GetComponent<LayoutElement>().minHeight = 80f;
 
             VerticalLayoutGroup layout = section.GetComponent<VerticalLayoutGroup>();
@@ -409,9 +493,9 @@ namespace Underground.UI
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            TMP_Text header = CreateText($"{title}_Header", section.transform, title, 26f, FontStyles.Bold, TextAlignmentOptions.Left);
+            TMP_Text header = CreateText($"{title}_Header", section.transform, title, 20f, FontStyles.Bold | FontStyles.Italic, TextAlignmentOptions.Left);
             LayoutElement headerLayout = header.gameObject.AddComponent<LayoutElement>();
-            headerLayout.preferredHeight = 34f;
+            headerLayout.preferredHeight = 28f;
             return section.transform;
         }
 
@@ -489,22 +573,24 @@ namespace Underground.UI
 
         private GameObject CreateRow(Transform parent, string label, out TMP_Text valueText)
         {
-            GameObject row = CreateUiObject($"{label}_Row", parent, out _, typeof(HorizontalLayoutGroup), typeof(LayoutElement));
-            row.GetComponent<LayoutElement>().preferredHeight = 52f;
+            GameObject row = CreateUiObject($"{label}_Row", parent, out _, typeof(Image), typeof(HorizontalLayoutGroup), typeof(LayoutElement));
+            row.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0.26f);
+            row.GetComponent<LayoutElement>().preferredHeight = 38f;
 
             HorizontalLayoutGroup layout = row.GetComponent<HorizontalLayoutGroup>();
-            layout.spacing = 14f;
+            layout.padding = new RectOffset(10, 10, 4, 4);
+            layout.spacing = 10f;
             layout.childAlignment = TextAnchor.MiddleLeft;
             layout.childControlWidth = false;
             layout.childControlHeight = true;
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = false;
 
-            TMP_Text labelText = CreateText($"{label}_Label", row.transform, label, 20f, FontStyles.Normal, TextAlignmentOptions.Left);
+            TMP_Text labelText = CreateText($"{label}_Label", row.transform, label, 16f, FontStyles.Italic, TextAlignmentOptions.Left);
             LayoutElement labelLayout = labelText.gameObject.AddComponent<LayoutElement>();
-            labelLayout.preferredWidth = 340f;
+            labelLayout.preferredWidth = 320f;
 
-            valueText = CreateText($"{label}_Value", row.transform, string.Empty, 20f, FontStyles.Bold, TextAlignmentOptions.Right);
+            valueText = CreateText($"{label}_Value", row.transform, string.Empty, 16f, FontStyles.Bold, TextAlignmentOptions.Right);
             LayoutElement valueLayout = valueText.gameObject.AddComponent<LayoutElement>();
             valueLayout.flexibleWidth = 1f;
             valueLayout.minWidth = 140f;
@@ -574,8 +660,9 @@ namespace Underground.UI
             CreateActionButton(parent, label, action, new Color(0.19f, 0.28f, 0.36f, 0.95f), 56f);
         }
 
-        private void OpenSettings()
+        public void OpenSettings()
         {
+            EnsureInitialized();
             if (settingsOverlay == null)
             {
                 return;
@@ -584,11 +671,12 @@ namespace Underground.UI
             SetPrimaryMenuVisibility(false);
             AnimateSlimUiCamera(toSettings: true);
 
+            settingsOverlay.transform.SetAsLastSibling();
             settingsOverlay.SetActive(true);
             refreshSettingsView?.Invoke();
         }
 
-        private void CloseSettings()
+        public void CloseSettings()
         {
             if (settingsOverlay != null)
             {
@@ -624,6 +712,11 @@ namespace Underground.UI
 
         private void SetPrimaryMenuVisibility(bool visible)
         {
+            if (slimMenu == null)
+            {
+                return;
+            }
+
             if (slimMenu.firstMenu != null)
             {
                 slimMenu.firstMenu.SetActive(visible);
@@ -730,6 +823,15 @@ namespace Underground.UI
             Canvas[] canvases = slimMenu != null && slimMenu.mainCanvas != null
                 ? slimMenu.mainCanvas.GetComponentsInChildren<Canvas>(true)
                 : GetComponentsInChildren<Canvas>(true);
+
+            if (canvases == null || canvases.Length == 0)
+            {
+                Canvas parentCanvas = GetComponentInParent<Canvas>();
+                if (parentCanvas != null)
+                {
+                    return parentCanvas.rootCanvas != null ? parentCanvas.rootCanvas : parentCanvas;
+                }
+            }
 
             if (canvases == null || canvases.Length == 0)
             {

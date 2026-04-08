@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using TMPro;
 using UnityEditor;
@@ -7,12 +8,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Underground.UI;
+using Object = UnityEngine.Object;
 
 namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
         private const string MainMenuNewScenePath = "Assets/Scenes/Menu/MainMenuNew.unity";
+        private const string MainMenuNewCanvasName = "Canvas";
         private const string MainMenuNewMarkerName = "MainMenuUI";
         private const string MainMenuNewAutoBuildSessionKey = "Underground.MainMenuNewScene.AutoBuilt";
 
@@ -63,6 +66,11 @@ namespace Underground.EditorTools
             }
 
             string sceneText = File.ReadAllText(MainMenuNewScenePath);
+            if (HasPreservedMainMenuNewUiSceneContent(sceneText))
+            {
+                return true;
+            }
+
             return sceneText.Contains("SplashPanel")
                 && sceneText.Contains("MainMenuPanel")
                 && sceneText.Contains("CareerPanel")
@@ -74,9 +82,14 @@ namespace Underground.EditorTools
 
         private static void CreateMainMenuNewScene(GameObject playerCarPrefab)
         {
-            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(MainMenuNewScenePath) != null)
+            SceneAsset existingSceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(MainMenuNewScenePath);
+            if (existingSceneAsset != null)
             {
-                AssetDatabase.DeleteAsset(MainMenuNewScenePath);
+                Scene existingScene = EditorSceneManager.OpenScene(MainMenuNewScenePath, OpenSceneMode.Single);
+                RemoveMissingScriptsFromScene(existingScene);
+                RebuildMainMenuNewScenePreservingExistingUi(existingScene, playerCarPrefab);
+                EditorSceneManager.SaveScene(existingScene, MainMenuNewScenePath);
+                return;
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -96,25 +109,110 @@ namespace Underground.EditorTools
 
             MainMenuFlowManager flowManager = mainMenuUI.AddComponent<MainMenuFlowManager>();
             flowManager.Initialize(menuController, quickRaceFlowManager);
+            if (mainMenuUI.GetComponent<MainMenuNewGraphicsMenuController>() == null)
+            {
+                mainMenuUI.AddComponent<MainMenuNewGraphicsMenuController>();
+            }
 
             mainMenuUI.AddComponent<MenuInputHandler>();
 
-            GameObject splashPanel = CreateStatePanel(mainMenuUI.transform, "SplashPanel");
+            BuildFreshMainMenuNewUi(mainMenuUI.transform, flowManager);
+
+            EditorSceneManager.SaveScene(scene, MainMenuNewScenePath);
+        }
+
+        private static void RebuildMainMenuNewScenePreservingExistingUi(Scene scene, GameObject playerCarPrefab)
+        {
+            ClearMainMenuNewRootsExceptPreservedUi(scene);
+
+            CreateRuntimeRoot(false);
+            EnsureEventSystem();
+            ComposeGarageBackdropForMenu(playerCarPrefab);
+
+            MainMenuController menuController = Object.FindFirstObjectByType<MainMenuController>(FindObjectsInactive.Include);
+            if (menuController == null)
+            {
+                menuController = new GameObject("MainMenuController").AddComponent<MainMenuController>();
+            }
+
+            SetBoolValue(menuController, "allowRuntimeFallbackMenu", false);
+            SetBoolValue(menuController, "preferRuntimeStyledMenu", false);
+
+            QuickRaceFlowManager quickRaceFlowManager = Object.FindFirstObjectByType<QuickRaceFlowManager>(FindObjectsInactive.Include);
+            if (quickRaceFlowManager == null)
+            {
+                quickRaceFlowManager = new GameObject("QuickRaceFlowManager").AddComponent<QuickRaceFlowManager>();
+            }
+
+            quickRaceFlowManager.Initialize(menuController);
+
+            Canvas canvas = FindPreservedMainMenuCanvas();
+            GameObject mainMenuUI = FindPreservedMainMenuUi(canvas);
+            if (mainMenuUI == null && canvas != null)
+            {
+                mainMenuUI = CreatePanelRoot(canvas.transform, MainMenuNewMarkerName);
+            }
+
+            MainMenuFlowManager flowManager = mainMenuUI != null
+                ? mainMenuUI.GetComponent<MainMenuFlowManager>() ?? mainMenuUI.AddComponent<MainMenuFlowManager>()
+                : null;
+            flowManager?.Initialize(menuController, quickRaceFlowManager);
+            if (mainMenuUI != null)
+            {
+                if (mainMenuUI.GetComponent<MainMenuNewGraphicsMenuController>() == null)
+                {
+                    mainMenuUI.AddComponent<MainMenuNewGraphicsMenuController>();
+                }
+                SlimUiMainMenuBinder legacyBinder = mainMenuUI.GetComponent<SlimUiMainMenuBinder>();
+                if (legacyBinder != null)
+                {
+                    Object.DestroyImmediate(legacyBinder);
+                }
+            }
+
+            if (canvas == null || mainMenuUI == null)
+            {
+                canvas = CreateMainMenuCanvas();
+                mainMenuUI = CreatePanelRoot(canvas.transform, MainMenuNewMarkerName);
+                flowManager = mainMenuUI.GetComponent<MainMenuFlowManager>() ?? mainMenuUI.AddComponent<MainMenuFlowManager>();
+                flowManager.Initialize(menuController, quickRaceFlowManager);
+                if (mainMenuUI.GetComponent<MainMenuNewGraphicsMenuController>() == null)
+                {
+                    mainMenuUI.AddComponent<MainMenuNewGraphicsMenuController>();
+                }
+                BuildFreshMainMenuNewUi(mainMenuUI.transform, flowManager);
+            }
+            else
+            {
+                RebindMainMenuNewUi(flowManager, mainMenuUI.transform);
+            }
+
+            if (mainMenuUI.GetComponent<MenuInputHandler>() == null)
+            {
+                mainMenuUI.AddComponent<MenuInputHandler>();
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+
+        private static void BuildFreshMainMenuNewUi(Transform mainMenuUiRoot, MainMenuFlowManager flowManager)
+        {
+            GameObject splashPanel = CreateStatePanel(mainMenuUiRoot, "SplashPanel");
             BuildSplashPanel(splashPanel.transform);
 
-            GameObject mainMenuPanel = CreateStatePanel(mainMenuUI.transform, "MainMenuPanel");
+            GameObject mainMenuPanel = CreateStatePanel(mainMenuUiRoot, "MainMenuPanel");
             Button mainMenuDefault = BuildMainMenuPanel(mainMenuPanel.transform, flowManager);
 
-            GameObject careerPanel = CreateStatePanel(mainMenuUI.transform, "CareerPanel");
+            GameObject careerPanel = CreateStatePanel(mainMenuUiRoot, "CareerPanel");
             Button careerDefault = BuildCareerPanel(careerPanel.transform, flowManager);
 
-            GameObject quickRacePanel = CreateStatePanel(mainMenuUI.transform, "QuickRacePanel");
+            GameObject quickRacePanel = CreateStatePanel(mainMenuUiRoot, "QuickRacePanel");
             Button quickRaceDefault = BuildQuickRacePanel(quickRacePanel.transform, flowManager);
 
-            GameObject customizePanel = CreateStatePanel(mainMenuUI.transform, "CustomizePanel");
+            GameObject customizePanel = CreateStatePanel(mainMenuUiRoot, "CustomizePanel");
             Button customizeDefault = BuildCustomizePanel(customizePanel.transform, flowManager);
 
-            GameObject optionsPanel = CreateStatePanel(mainMenuUI.transform, "OptionsPanel");
+            GameObject optionsPanel = CreateStatePanel(mainMenuUiRoot, "OptionsPanel");
             Button optionsDefault = BuildOptionsPanel(optionsPanel.transform, flowManager);
 
             flowManager.splashPanel = splashPanel;
@@ -124,8 +222,93 @@ namespace Underground.EditorTools
             flowManager.customizePanel = customizePanel;
             flowManager.optionsPanel = optionsPanel;
             flowManager.SetDefaultSelectables(mainMenuDefault, careerDefault, quickRaceDefault, customizeDefault, optionsDefault);
+        }
 
-            EditorSceneManager.SaveScene(scene, MainMenuNewScenePath);
+        private static void ClearMainMenuNewRootsExceptPreservedUi(Scene scene)
+        {
+            GameObject[] roots = scene.GetRootGameObjects();
+            for (int i = 0; i < roots.Length; i++)
+            {
+                if (ShouldPreserveMainMenuNewRoot(roots[i]))
+                {
+                    continue;
+                }
+
+                Object.DestroyImmediate(roots[i]);
+            }
+        }
+
+        private static bool ShouldPreserveMainMenuNewRoot(GameObject root)
+        {
+            if (root == null)
+            {
+                return false;
+            }
+
+            return string.Equals(root.name, MainMenuNewCanvasName, StringComparison.Ordinal)
+                && root.transform.Find(MainMenuNewMarkerName) != null;
+        }
+
+        private static Canvas FindPreservedMainMenuCanvas()
+        {
+            GameObject root = GameObject.Find(MainMenuNewCanvasName);
+            if (root == null || root.transform.Find(MainMenuNewMarkerName) == null)
+            {
+                return null;
+            }
+
+            return root.GetComponent<Canvas>();
+        }
+
+        private static GameObject FindPreservedMainMenuUi(Canvas canvas)
+        {
+            if (canvas == null)
+            {
+                return null;
+            }
+
+            Transform mainMenuUiTransform = canvas.transform.Find(MainMenuNewMarkerName);
+            return mainMenuUiTransform != null ? mainMenuUiTransform.gameObject : null;
+        }
+
+        private static void RebindMainMenuNewUi(MainMenuFlowManager flowManager, Transform mainMenuUiRoot)
+        {
+            flowManager.splashPanel = FindChildGameObject(mainMenuUiRoot, "SplashPanel");
+            flowManager.mainMenuPanel = FindChildGameObject(mainMenuUiRoot, "MainMenuPanel");
+            flowManager.careerPanel = FindChildGameObject(mainMenuUiRoot, "CareerPanel");
+            flowManager.quickRacePanel = FindChildGameObject(mainMenuUiRoot, "QuickRacePanel");
+            flowManager.customizePanel = FindChildGameObject(mainMenuUiRoot, "CustomizePanel");
+            flowManager.optionsPanel = FindChildGameObject(mainMenuUiRoot, "OptionsPanel");
+
+            flowManager.SetDefaultSelectables(
+                FindFirstSelectable(flowManager.mainMenuPanel),
+                FindFirstSelectable(flowManager.careerPanel),
+                FindFirstSelectable(flowManager.quickRacePanel),
+                FindFirstSelectable(flowManager.customizePanel),
+                FindFirstSelectable(flowManager.optionsPanel));
+        }
+
+        private static GameObject FindChildGameObject(Transform parent, string childName)
+        {
+            Transform child = parent != null ? parent.Find(childName) : null;
+            return child != null ? child.gameObject : null;
+        }
+
+        private static Selectable FindFirstSelectable(GameObject root)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            Selectable[] selectables = root.GetComponentsInChildren<Selectable>(true);
+            return selectables.Length > 0 ? selectables[0] : null;
+        }
+
+        private static bool HasPreservedMainMenuNewUiSceneContent(string sceneText)
+        {
+            return sceneText.Contains(MainMenuNewCanvasName)
+                && sceneText.Contains(MainMenuNewMarkerName);
         }
 
         private static Canvas CreateMainMenuCanvas()

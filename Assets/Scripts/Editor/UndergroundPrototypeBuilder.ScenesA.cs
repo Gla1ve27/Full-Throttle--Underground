@@ -18,15 +18,25 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        private static void CreateBootstrapScene()
+        private static void CreateBootstrapScene(bool preserveExistingScene = false)
         {
+            if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(BootstrapScenePath))
+            {
+                return;
+            }
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             CreateRuntimeRoot(true);
             EditorSceneManager.SaveScene(scene, BootstrapScenePath);
         }
 
-        private static void CreateMainMenuScene(GameObject playerCarPrefab)
+        private static void CreateMainMenuScene(GameObject playerCarPrefab, bool preserveExistingScene = false)
         {
+            if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(MainMenuScenePath))
+            {
+                return;
+            }
+
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(SlimUiDemoScenePath) != null)
             {
                 CreateMainMenuSceneFromSlimUiDemo(playerCarPrefab);
@@ -105,8 +115,13 @@ namespace Underground.EditorTools
             EditorSceneManager.SaveScene(scene, MainMenuScenePath);
         }
 
-        private static void CreateGarageScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade)
+        private static void CreateGarageScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade, bool preserveExistingScene = false)
         {
+            if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(GarageScenePath))
+            {
+                return;
+            }
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             CreateRuntimeRoot(false);
             EnsureEventSystem();

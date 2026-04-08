@@ -254,6 +254,7 @@ namespace Underground.EditorTools
 
             WorldAnchorSet anchors = ResolveWorldAnchors();
             GameObject playerCar = CreatePlayerCarInstance(gameplayRoot, playerCarPrefab, anchors.playerSpawnPose);
+            CreateDynamicWorldReflectionProbe(gameplayRoot, playerCar.transform);
             CreateFollowCameraUnder(generatedRoot.transform, playerCar);
             CreateHudCanvasUnder(uiRoot);
             CreateGarageEntranceUnder(gameplayRoot, anchors.garagePose);
@@ -272,7 +273,7 @@ namespace Underground.EditorTools
             RenderSettings.ambientLight = new Color(0.19f, 0.19f, 0.2f, 1f);
             RenderSettings.ambientIntensity = 0.11f;
             RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = 0.08f;
+            RenderSettings.reflectionIntensity = 0.9f;
             RenderSettings.fog = false;
             Lightmapping.realtimeGI = true;
             Lightmapping.bakedGI = true;
@@ -348,7 +349,7 @@ namespace Underground.EditorTools
             worldSystems.transform.SetParent(parent, false);
         }
 
-        private static void CreateOrRefreshSceneReflectionProbe(Transform parent, Vector3 center, Vector3 size)
+        private static ReflectionProbe CreateOrRefreshSceneReflectionProbe(Transform parent, Vector3 center, Vector3 size)
         {
             Transform existing = parent.Find("SceneReflectionProbe");
             if (existing != null)
@@ -367,8 +368,33 @@ namespace Underground.EditorTools
             probe.size = size;
             probe.center = Vector3.zero;
             probe.boxProjection = true;
-            probe.intensity = 0.08f;
+            probe.intensity = 1.2f;
             probe.importance = 1000;
+            int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
+            probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
+            return probe;
+        }
+
+        private static void CreateDynamicWorldReflectionProbe(Transform parent, Transform target)
+        {
+            if (parent == null || target == null)
+            {
+                return;
+            }
+
+            ReflectionProbe probe = CreateOrRefreshSceneReflectionProbe(parent, target.localPosition + new Vector3(0f, 5f, 0f), new Vector3(120f, 36f, 120f));
+            if (probe == null)
+            {
+                return;
+            }
+
+            PlayerReflectionProbeController controller = GetOrAddComponent<PlayerReflectionProbeController>(probe.gameObject);
+            SetObjectReference(controller, "target", target);
+            SetVector3Value(controller, "probeOffset", new Vector3(0f, 5f, 0f));
+            SetVector3Value(controller, "probeSize", new Vector3(120f, 36f, 120f));
+            SetFloatValue(controller, "snapDistance", 10f);
+            SetFloatValue(controller, "refreshInterval", 0.2f);
+            SetFloatValue(controller, "minMoveDistance", 6f);
         }
 
         private static bool TryGenerateHugeFcgCity(Transform parent)

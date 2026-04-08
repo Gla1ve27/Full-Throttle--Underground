@@ -1,6 +1,7 @@
 using FCG;
 using UnityEngine;
 using Underground.TimeSystem;
+using Underground.UI;
 
 namespace Underground.Vehicle
 {
@@ -19,6 +20,7 @@ namespace Underground.Vehicle
         [SerializeField] private float brakeLightIntensity = 4.6f;
 
         private TrafficCar trafficCar;
+        private GameSettingsManager settingsManager;
         private Transform lightingRig;
         private Light leftHeadlight;
         private Light rightHeadlight;
@@ -134,6 +136,11 @@ namespace Underground.Vehicle
             {
                 trafficCar = GetComponent<TrafficCar>();
             }
+
+            if (settingsManager == null)
+            {
+                settingsManager = FindFirstObjectByType<GameSettingsManager>();
+            }
         }
 
         private void EnsureLightingRig()
@@ -176,14 +183,14 @@ namespace Underground.Vehicle
             {
                 leftHeadlight.spotAngle = headlightSpotAngle;
                 leftHeadlight.innerSpotAngle = headlightSpotAngle * 0.6f;
-                leftHeadlight.shadows = headlightShadows ? LightShadows.Soft : LightShadows.None;
+                leftHeadlight.shadows = ResolveHeadlightShadowMode();
             }
 
             if (rightHeadlight != null)
             {
                 rightHeadlight.spotAngle = headlightSpotAngle;
                 rightHeadlight.innerSpotAngle = headlightSpotAngle * 0.6f;
-                rightHeadlight.shadows = headlightShadows ? LightShadows.Soft : LightShadows.None;
+                rightHeadlight.shadows = ResolveHeadlightShadowMode();
             }
 
             leftTaillight = CreateLight("TaillightLeft", LightType.Point, new Vector3(leftX, taillightY, rearZ + 0.04f), Quaternion.identity, new Color(1f, 0.18f, 0.14f), taillightIntensity, 5.5f);
@@ -210,10 +217,37 @@ namespace Underground.Vehicle
             }
 
             float brakeFactor = GetBrakeFactor();
-            SetLightState(leftHeadlight, nightActive, headlightIntensity);
-            SetLightState(rightHeadlight, nightActive, headlightIntensity);
+            bool headlightsEnabled = settingsManager == null || settingsManager.CarHeadlightsEnabled;
+            if (leftHeadlight != null)
+            {
+                leftHeadlight.shadows = ResolveHeadlightShadowMode();
+            }
+
+            if (rightHeadlight != null)
+            {
+                rightHeadlight.shadows = ResolveHeadlightShadowMode();
+            }
+
+            SetLightState(leftHeadlight, nightActive && headlightsEnabled, headlightIntensity);
+            SetLightState(rightHeadlight, nightActive && headlightsEnabled, headlightIntensity);
             SetLightState(leftTaillight, nightActive, Mathf.Lerp(taillightIntensity, brakeLightIntensity, brakeFactor));
             SetLightState(rightTaillight, nightActive, Mathf.Lerp(taillightIntensity, brakeLightIntensity, brakeFactor));
+        }
+
+        private LightShadows ResolveHeadlightShadowMode()
+        {
+            if (!headlightShadows)
+            {
+                return LightShadows.None;
+            }
+
+            int shadowDetail = settingsManager != null ? settingsManager.CarShadowDetail : 2;
+            return shadowDetail switch
+            {
+                0 => LightShadows.None,
+                1 => LightShadows.Hard,
+                _ => LightShadows.Soft
+            };
         }
 
         private float GetBrakeFactor()

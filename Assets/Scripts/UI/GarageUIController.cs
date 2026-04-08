@@ -25,13 +25,14 @@ namespace Underground.UI
         [SerializeField] private Image accelerationFill;
         [SerializeField] private Image topSpeedFill;
         [SerializeField] private Image handlingFill;
-        [SerializeField] private Button bankButton;
         [SerializeField] private Button repairButton;
         [SerializeField] private Button upgradeButton;
         [SerializeField] private Button continueButton;
         [SerializeField] private Button rotateLeftButton;
         [SerializeField] private Button rotateRightButton;
         [SerializeField] private bool buttonsBound;
+
+        private string lastResolvedCarId;
 
         private void Awake()
         {
@@ -71,11 +72,17 @@ namespace Underground.UI
             }
 
             ResolveButtons();
+            RemoveLegacyBankButton();
             BindButtons();
         }
 
         private void OnEnable()
         {
+            if (showroomController == null)
+            {
+                showroomController = FindFirstObjectByType<GarageShowroomController>();
+            }
+
             if (showroomController != null)
             {
                 showroomController.VehicleChanged += HandleVehicleChanged;
@@ -92,13 +99,33 @@ namespace Underground.UI
             }
         }
 
+        private void LateUpdate()
+        {
+            string resolvedCarId = ResolveCurrentCarId();
+            if (!string.IsNullOrEmpty(resolvedCarId) && resolvedCarId != lastResolvedCarId)
+            {
+                Refresh();
+            }
+        }
+
         public void Refresh()
         {
+            if (progressManager == null)
+            {
+                progressManager = FindFirstObjectByType<PersistentProgressManager>();
+            }
+
+            if (showroomController == null)
+            {
+                showroomController = FindFirstObjectByType<GarageShowroomController>();
+            }
+
             if (progressManager == null)
             {
                 return;
             }
 
+            string resolvedCarId = ResolveCurrentCarId();
             VehicleDynamicsController activeVehicle = showroomController != null && showroomController.CurrentVehicle != null
                 ? showroomController.CurrentVehicle
                 : displayedVehicle;
@@ -155,13 +182,8 @@ namespace Underground.UI
                 if (handlingFill != null) handlingFill.fillAmount = handling;
                 if (ratingText != null) ratingText.text = overallRating.ToString("0.00");
             }
-        }
 
-        public void BankProgress()
-        {
-            garageManager?.SaveAndBankProgress();
-            SetStatus("Progress banked.");
-            Refresh();
+            lastResolvedCarId = resolvedCarId;
         }
 
         public void ExitGarage()
@@ -216,7 +238,6 @@ namespace Underground.UI
 
         private void ResolveButtons()
         {
-            if (bankButton == null) bankButton = FindButton("Bank Progress");
             if (repairButton == null) repairButton = FindButton("Repair Car");
             if (upgradeButton == null) upgradeButton = FindButton("Buy Engine");
             if (continueButton == null) continueButton = FindButton("Continue");
@@ -231,13 +252,21 @@ namespace Underground.UI
                 return;
             }
 
-            BindButton(bankButton, BankProgress);
             BindButton(repairButton, RepairCar);
             BindButton(upgradeButton, BuyEngineUpgrade);
             BindButton(continueButton, ExitGarage);
             BindButton(rotateLeftButton, SelectPreviousCar);
             BindButton(rotateRightButton, SelectNextCar);
             buttonsBound = true;
+        }
+
+        private void RemoveLegacyBankButton()
+        {
+            Button legacyBankButton = FindButton("Bank Progress");
+            if (legacyBankButton != null)
+            {
+                Destroy(legacyBankButton.gameObject);
+            }
         }
 
         private void BindButton(Button button, UnityEngine.Events.UnityAction action)
@@ -269,6 +298,18 @@ namespace Underground.UI
         {
             displayedVehicle = newVehicle;
             Refresh();
+        }
+
+        private string ResolveCurrentCarId()
+        {
+            if (showroomController != null && !string.IsNullOrEmpty(showroomController.CurrentCarId))
+            {
+                return showroomController.CurrentCarId;
+            }
+
+            return progressManager != null
+                ? PlayerCarCatalog.MigrateCarId(progressManager.CurrentOwnedCarId)
+                : string.Empty;
         }
 
         private static string ResolveDisplayName(string carId)

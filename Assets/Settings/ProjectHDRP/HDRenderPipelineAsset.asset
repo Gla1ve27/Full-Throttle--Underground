@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RenderPipelineSettings:
     supportShadowMask: 1
-    supportSSR: 0
-    supportSSRTransparent: 0
+    supportSSR: 1
+    supportSSRTransparent: 1
     supportSSAO: 1
     supportSSGI: 0
     supportSubsurfaceScattering: 1
@@ -359,7 +359,7 @@ MonoBehaviour:
     enableShadow: 0
     enableContactShadows: 0
     enableShadowMask: 0
-    enableSSR: 0
+    enableSSR: 1
     enableSSAO: 0
     enableSubsurfaceScattering: 0
     enableTransmission: 0
@@ -404,7 +404,7 @@ MonoBehaviour:
     enableShadow: 0
     enableContactShadows: 0
     enableShadowMask: 0
-    enableSSR: 0
+    enableSSR: 1
     enableSSAO: 0
     enableSubsurfaceScattering: 0
     enableTransmission: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
     enableShadow: 0
     enableContactShadows: 0
     enableShadowMask: 0
-    enableSSR: 0
+    enableSSR: 1
     enableSSAO: 0
     enableSubsurfaceScattering: 0
     enableTransmission: 0

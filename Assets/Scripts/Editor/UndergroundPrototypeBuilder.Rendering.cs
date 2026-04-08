@@ -28,27 +28,37 @@ namespace Underground.EditorTools
         public static void ConfigureSsrt3FromMenu()
         {
             EnsureProjectFolders();
+            ConfigureHdrpReflectionSupport();
             RegisterSsrtInHdrpGlobalSettings();
+            VolumeProfile worldProfile = LoadOrCreateVolumeProfile(ProjectWorldVolumeProfilePath);
             VolumeProfile garageProfile = LoadOrCreateVolumeProfile(ProjectGarageVolumeProfilePath);
 
+            ConfigureHdrpScreenSpaceReflections(worldProfile, false);
+            ConfigureHdrpScreenSpaceReflections(garageProfile, true);
             ConfigureSsrt(garageProfile, true);
+            ConfigureSsrt(worldProfile, false);
+            EditorUtility.SetDirty(worldProfile);
             EditorUtility.SetDirty(garageProfile);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("SSRT3 Configured",
                 "SSRT3 integration complete:\n\n" +
                 "• SSRT_HDRP registered in HDRP Global Settings (After Opaque And Sky)\n" +
-                "• SSRT override added to GarageVolumeProfile with racing-optimized defaults\n\n" +
-                "Tip: In the Garage scene, increase Rotation Count to 4 for extra visual depth.",
+                "• HDRP SSR enabled on the project pipeline asset\n" +
+                "• Reflection overrides added to WorldVolumeProfile and GarageVolumeProfile\n\n" +
+                "Tip: Garage uses the sharper reflection preset; World uses the longer-range preset.",
                 "OK");
         }
 
         private static void EnsureSsrRendererFeatures()
         {
-            if (!HasHdrpPackageInstalled())
+            if (HasHdrpPackageInstalled())
             {
-                ConfigureUrpCompatibilityMode();
+                ConfigureHdrpReflectionSupport();
+                return;
             }
+
+            ConfigureUrpCompatibilityMode();
         }
 
         private static void ConfigureDefaultVolumeProfile()
@@ -61,7 +71,10 @@ namespace Underground.EditorTools
 
             if (HasHdrpPackageInstalled())
             {
+                ConfigureHdrpScreenSpaceReflections(worldProfile, false);
+                ConfigureHdrpScreenSpaceReflections(garageProfile, true);
                 RegisterSsrtInHdrpGlobalSettings();
+                ConfigureSsrt(worldProfile, false);
                 ConfigureSsrt(garageProfile, true);
             }
 
@@ -88,16 +101,15 @@ namespace Underground.EditorTools
             ConfigureTonemapping(profile);
             DisableWorldVolumeLookOverrides(profile);
             ConfigureHdrpSky(profile, LoadDaySkyCubemap(), ResolveSkyExposure(LoadDaySkyboxMaterial(), 0.95f), 1f);
-            DisableSsrt(profile);
         }
 
         private static void ConfigureGarageVolumeProfile(VolumeProfile profile)
         {
-            ConfigureBloom(profile, 1.35f, 0.025f, 0.38f);
-            ConfigureColorAdjustments(profile, -0.55f, -3f, -2f);
-            ConfigureHdrpExposure(profile, 7.6f, -1.8f);
+            ConfigureBloom(profile, 2.2f, 0.008f, 0.18f);
+            ConfigureColorAdjustments(profile, -0.45f, -5f, -4f);
+            ConfigureHdrpExposure(profile, 7f, -2.4f);
             ConfigureTonemapping(profile);
-            ConfigureVignette(profile, 0.06f, 0.25f);
+            ConfigureVignette(profile, 0.025f, 0.18f);
             ConfigureChromaticAberration(profile, 0f);
             ConfigureMotionBlur(profile, 0f, 0.02f, 0.02f);
             ConfigureHdrpSky(profile, null, 0f, 0f);
@@ -200,6 +212,44 @@ namespace Underground.EditorTools
             EditorUtility.SetDirty(globalSettings);
         }
 
+        private static void ConfigureHdrpReflectionSupport()
+        {
+            RenderPipelineAsset pipelineAsset = LoadHdrpRenderPipelineAsset();
+            if (pipelineAsset == null)
+            {
+                return;
+            }
+
+            SerializedObject serializedObject = new SerializedObject(pipelineAsset);
+            bool changed = false;
+
+            changed |= SetSerializedBoolIfPresent(serializedObject, "m_RenderPipelineSettings.supportSSR", true);
+            changed |= SetSerializedBoolIfPresent(serializedObject, "m_RenderPipelineSettings.supportSSRTransparent", true);
+            changed |= SetSerializedBoolIfPresent(serializedObject, "m_ObsoleteFrameSettings.enableSSR", true);
+            changed |= SetSerializedBoolIfPresent(serializedObject, "m_ObsoleteBakedOrCustomReflectionFrameSettings.enableSSR", true);
+            changed |= SetSerializedBoolIfPresent(serializedObject, "m_ObsoleteRealtimeReflectionFrameSettings.enableSSR", true);
+
+            if (!changed)
+            {
+                return;
+            }
+
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(pipelineAsset);
+        }
+
+        private static bool SetSerializedBoolIfPresent(SerializedObject serializedObject, string propertyPath, bool value)
+        {
+            SerializedProperty property = serializedObject.FindProperty(propertyPath);
+            if (property == null || property.propertyType != SerializedPropertyType.Boolean || property.boolValue == value)
+            {
+                return false;
+            }
+
+            property.boolValue = value;
+            return true;
+        }
+
         private static void ConfigureBloom(VolumeProfile profile, float threshold, float intensity, float scatter)
         {
             VolumeComponent bloom = GetOrAddVolumeComponent(
@@ -297,6 +347,32 @@ namespace Underground.EditorTools
                 SetVolumeParameter(hdriSky, "exposure", -8f);
                 SetVolumeParameter(hdriSky, "multiplier", 0f);
             }
+        }
+
+        private static void ConfigureHdrpScreenSpaceReflections(VolumeProfile profile, bool isGarageProfile)
+        {
+            VolumeComponent screenSpaceReflection = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.ScreenSpaceReflection, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (screenSpaceReflection == null)
+            {
+                return;
+            }
+
+            SetComponentActive(screenSpaceReflection);
+            SetVolumeParameter(screenSpaceReflection, "enabled", true);
+            SetVolumeParameter(screenSpaceReflection, "enabledTransparent", true);
+            SetVolumeParameter(screenSpaceReflection, "reflectSky", true);
+            SetVolumeParameter(screenSpaceReflection, "m_MinSmoothness", isGarageProfile ? 0.5f : 0.28f);
+            SetVolumeParameter(screenSpaceReflection, "m_SmoothnessFadeStart", isGarageProfile ? 0.34f : 0.16f);
+            SetVolumeParameter(screenSpaceReflection, "depthBufferThickness", isGarageProfile ? 0.02f : 0.02f);
+            SetVolumeParameter(screenSpaceReflection, "screenFadeDistance", isGarageProfile ? 0.08f : 0.06f);
+            SetVolumeParameter(screenSpaceReflection, "accumulationFactor", isGarageProfile ? 0.86f : 0.82f);
+            SetVolumeParameter(screenSpaceReflection, "m_RayLength", isGarageProfile ? 36f : 96f);
+            SetVolumeParameter(screenSpaceReflection, "m_ClampValue", isGarageProfile ? 8f : 14f);
+            SetVolumeParameter(screenSpaceReflection, "m_Denoise", true);
+            SetVolumeParameter(screenSpaceReflection, "m_DenoiserRadius", isGarageProfile ? 0.75f : 0.7f);
+            SetVolumeParameter(screenSpaceReflection, "m_FullResolution", !isGarageProfile);
         }
 
         private static float ResolveSkyExposure(Material material, float fallbackExposure)

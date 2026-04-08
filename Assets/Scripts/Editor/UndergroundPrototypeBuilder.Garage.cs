@@ -55,7 +55,6 @@ namespace Underground.EditorTools
             uiSo.FindProperty("accelerationFill").objectReferenceValue = uiBuild.accelerationFill;
             uiSo.FindProperty("topSpeedFill").objectReferenceValue = uiBuild.topSpeedFill;
             uiSo.FindProperty("handlingFill").objectReferenceValue = uiBuild.handlingFill;
-            uiSo.FindProperty("bankButton").objectReferenceValue = uiBuild.bankButton;
             uiSo.FindProperty("repairButton").objectReferenceValue = uiBuild.repairButton;
             uiSo.FindProperty("upgradeButton").objectReferenceValue = uiBuild.upgradeButton;
             uiSo.FindProperty("continueButton").objectReferenceValue = uiBuild.continueButton;
@@ -76,7 +75,9 @@ namespace Underground.EditorTools
         {
             RenderSettings.skybox = null;
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.05f, 0.055f, 0.07f, 1f);
+            RenderSettings.ambientLight = new Color(0.028f, 0.03f, 0.038f, 1f);
+            RenderSettings.ambientIntensity = 1f;
+            RenderSettings.reflectionIntensity = 0.35f;
             RenderSettings.fog = false;
 
             Texture2D floorTexture = LoadGarageSurfaceTexture(GarageFloorTexturePath, false);
@@ -88,18 +89,27 @@ namespace Underground.EditorTools
             Material floorMaterial = CreateOrUpdateGarageMaterial(
                 "Assets/Materials/Generated/GarageFloor.mat",
                 Color.white,
-                0.04f,
-                0.28f,
+                0f,
+                0.07f,
                 null,
                 floorTexture,
                 new Vector2(3.2f, 3.2f));
-            Material backWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageBackWall.mat", new Color(0.13f, 0.135f, 0.14f), 0.03f, 0.18f, null, ceilingTexture, new Vector2(1.8f, 1.4f));
-            Material leftWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageLeftWall.mat", new Color(0.12f, 0.12f, 0.13f), 0.02f, 0.16f, null, leftWallTexture, new Vector2(1.9f, 1.35f));
-            Material rightWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageRightWall.mat", new Color(0.12f, 0.12f, 0.13f), 0.02f, 0.16f, null, rightWallTexture, new Vector2(1.9f, 1.35f));
-            Material ceilingMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageCeiling.mat", new Color(0.11f, 0.11f, 0.12f), 0.01f, 0.12f, null, ceilingTexture, new Vector2(2.6f, 2.2f));
-            Material platformMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GaragePlatform.mat", new Color(0.16f, 0.16f, 0.165f), 0.22f, 0.46f, null, floorTexture, new Vector2(1.15f, 1.15f));
-            Material accentMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageAccent.mat", new Color(0.52f, 0.9f, 0.36f), 0f, 0.18f, new Color(0.08f, 0.22f, 0.06f) * 0.42f);
-            Material trimMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageTrim.mat", new Color(0.22f, 0.22f, 0.2f), 0.1f, 0.44f);
+            Material backWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageBackWall.mat", new Color(0.09f, 0.09f, 0.1f), 0f, 0.02f);
+            Material leftWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageLeftWall.mat", Color.white, 0f, 0.04f, null, leftWallTexture, new Vector2(1.9f, 1.35f));
+            Material rightWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageRightWall.mat", Color.white, 0f, 0.04f, null, rightWallTexture, new Vector2(1.9f, 1.35f));
+            Material ceilingMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageCeiling.mat", Color.white, 0f, 0.02f, null, ceilingTexture, new Vector2(2.6f, 2.2f));
+            Material platformMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GaragePlatform.mat", Color.white, 0f, 0.08f, null, floorTexture, new Vector2(1.15f, 1.15f));
+            Material accentMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageAccent.mat", new Color(0.52f, 0.9f, 0.36f), 0f, 0.04f, new Color(0.08f, 0.22f, 0.06f) * 0.35f);
+            Material trimMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageTrim.mat", new Color(0.18f, 0.18f, 0.18f), 0f, 0.08f);
+
+            ConfigureGarageSurfaceResponse(floorMaterial, false);
+            ConfigureGarageSurfaceResponse(platformMaterial, false);
+            ConfigureGarageSurfaceResponse(backWallMaterial, false);
+            ConfigureGarageSurfaceResponse(leftWallMaterial, false);
+            ConfigureGarageSurfaceResponse(rightWallMaterial, false);
+            ConfigureGarageSurfaceResponse(ceilingMaterial, false);
+            ConfigureGarageSurfaceResponse(accentMaterial, false);
+            ConfigureGarageSurfaceResponse(trimMaterial, false);
 
             GameObject showroomRoot = new GameObject(rootName);
             CreateGarageEnvironment(showroomRoot.transform, floorMaterial, backWallMaterial, leftWallMaterial, rightWallMaterial, ceilingMaterial, platformMaterial, accentMaterial, trimMaterial, backdropTexture);
@@ -219,11 +229,11 @@ namespace Underground.EditorTools
 
         private static void CreateGarageLighting(Transform parent)
         {
-            CreateGarageLight(parent, "KeyLightLeft", LightType.Spot, new Vector3(-4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, 28f, 0f), new Color(1f, 0.96f, 0.92f), 7.5f, 62f, 20f);
-            CreateGarageLight(parent, "KeyLightRight", LightType.Spot, new Vector3(4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, -28f, 0f), new Color(1f, 0.96f, 0.92f), 7.5f, 62f, 20f);
-            CreateGarageLight(parent, "RearFill", LightType.Spot, new Vector3(0f, 4.8f, 8.8f), Quaternion.Euler(46f, 180f, 0f), new Color(0.58f, 0.7f, 0.95f), 2.6f, 72f, 16f);
-            CreateGarageLight(parent, "NeonLeft", LightType.Point, new Vector3(-3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.28f, 0.6f, 0.9f), 0.22f, 0f, 5.8f);
-            CreateGarageLight(parent, "NeonRight", LightType.Point, new Vector3(3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.24f, 0.78f, 0.38f), 0.22f, 0f, 5.8f);
+            CreateGarageLight(parent, "KeyLightLeft", LightType.Spot, new Vector3(-4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, 28f, 0f), new Color(1f, 0.95f, 0.92f), 3.3f, 56f, 16f);
+            CreateGarageLight(parent, "KeyLightRight", LightType.Spot, new Vector3(4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, -28f, 0f), new Color(1f, 0.95f, 0.92f), 3.3f, 56f, 16f);
+            CreateGarageLight(parent, "RearFill", LightType.Spot, new Vector3(0f, 4.8f, 8.8f), Quaternion.Euler(46f, 180f, 0f), new Color(0.45f, 0.54f, 0.76f), 0.9f, 64f, 12f);
+            CreateGarageLight(parent, "NeonLeft", LightType.Point, new Vector3(-3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.28f, 0.6f, 0.9f), 0.04f, 0f, 4.2f);
+            CreateGarageLight(parent, "NeonRight", LightType.Point, new Vector3(3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.24f, 0.78f, 0.38f), 0.04f, 0f, 4.2f);
         }
 
         private static void CreateGarageCamera()
@@ -324,12 +334,13 @@ namespace Underground.EditorTools
 
             ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
             probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.EveryFrame;
-            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
+            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;
+            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
             probe.size = new Vector3(30f, 10f, 26f);
             probe.boxProjection = true;
-            probe.intensity = 0.32f;
+            probe.intensity = 1.1f;
             probe.importance = 1000;
+            probe.cullingMask = GetGarageReflectionProbeMask();
         }
 
         private static GarageUiBuild CreateGarageShowroomUi(Transform parent)
@@ -409,8 +420,7 @@ namespace Underground.EditorTools
             float buttonY = 0.38f;
             build.repairButton = CreateGarageButton(bottomPanel.transform, "Repair Car", new Vector2(0.62f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170f, 48f), buttonSecondary);
             build.upgradeButton = CreateGarageButton(bottomPanel.transform, "Buy Engine", new Vector2(0.74f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170f, 48f), buttonPrimary);
-            build.bankButton = CreateGarageButton(bottomPanel.transform, "Bank Progress", new Vector2(0.86f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(180f, 48f), buttonSecondary);
-            build.continueButton = CreateGarageButton(bottomPanel.transform, "Continue", new Vector2(0.96f, buttonY), new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(160f, 48f), buttonAccent);
+            build.continueButton = CreateGarageButton(bottomPanel.transform, "Continue", new Vector2(0.86f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(180f, 48f), buttonAccent);
 
             return build;
         }
@@ -547,6 +557,57 @@ namespace Underground.EditorTools
 
             EditorUtility.SetDirty(material);
             return material;
+        }
+
+        private static void ConfigureGarageSurfaceResponse(Material material, bool allowEnvironmentReflections)
+        {
+            if (material == null)
+            {
+                return;
+            }
+
+            if (material.HasProperty("_ReceivesSSR"))
+            {
+                material.SetFloat("_ReceivesSSR", 0f);
+            }
+
+            if (material.HasProperty("_ReceivesSSRTransparent"))
+            {
+                material.SetFloat("_ReceivesSSRTransparent", 0f);
+            }
+
+            if (material.HasProperty("_EnvironmentReflections"))
+            {
+                material.SetFloat("_EnvironmentReflections", allowEnvironmentReflections ? 1f : 0f);
+            }
+
+            if (material.HasProperty("_GlossyReflections"))
+            {
+                material.SetFloat("_GlossyReflections", allowEnvironmentReflections ? 1f : 0f);
+            }
+
+            if (material.HasProperty("_SpecularHighlights"))
+            {
+                material.SetFloat("_SpecularHighlights", 0f);
+            }
+
+            if (material.HasProperty("_TransmissionEnable"))
+            {
+                material.SetFloat("_TransmissionEnable", 0f);
+            }
+
+            EditorUtility.SetDirty(material);
+        }
+
+        private static int GetGarageReflectionProbeMask()
+        {
+            int worldStaticLayer = LayerMask.NameToLayer("WorldStatic");
+            if (worldStaticLayer < 0)
+            {
+                return ~0;
+            }
+
+            return 1 << worldStaticLayer;
         }
 
         private static void SetGarageMaterialTexture(Material material, Texture texture)
@@ -733,7 +794,6 @@ namespace Underground.EditorTools
             public Image accelerationFill;
             public Image topSpeedFill;
             public Image handlingFill;
-            public Button bankButton;
             public Button repairButton;
             public Button upgradeButton;
             public Button continueButton;

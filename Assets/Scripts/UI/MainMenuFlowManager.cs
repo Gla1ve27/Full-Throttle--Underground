@@ -149,7 +149,19 @@ namespace Underground.UI
 
         public void OpenGraphicsOptions()
         {
-            GameSettingsManager.Instance?.CycleQualityLevel(1);
+            MainMenuNewGraphicsMenuController graphicsMenu = FindFirstObjectByType<MainMenuNewGraphicsMenuController>(FindObjectsInactive.Include);
+            if (graphicsMenu == null)
+            {
+                graphicsMenu = GetComponent<MainMenuNewGraphicsMenuController>();
+            }
+
+            if (graphicsMenu == null)
+            {
+                graphicsMenu = gameObject.AddComponent<MainMenuNewGraphicsMenuController>();
+            }
+
+            graphicsMenu.EnsureInitialized();
+            graphicsMenu.OpenMenu();
         }
 
         public void OpenCustomizeVisualHooks()

@@ -14,15 +14,25 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        private static void CreateWorldScene(GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace)
+        private static void CreateWorldScene(GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace, bool preserveExistingScene = false)
         {
+            if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(WorldScenePath))
+            {
+                return;
+            }
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace);
             EditorSceneManager.SaveScene(scene, WorldScenePath);
         }
 
-        private static void CreateVehicleTestScene(GameObject playerCarPrefab)
+        private static void CreateVehicleTestScene(GameObject playerCarPrefab, bool preserveExistingScene = false)
         {
+            if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(VehicleTestScenePath))
+            {
+                return;
+            }
+
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             CreateRuntimeRoot(false);
             GameObject systemsRoot = new GameObject("TestSceneSystems");

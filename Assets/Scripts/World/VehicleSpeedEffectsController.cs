@@ -55,7 +55,8 @@ namespace Underground.World
                 : 0f;
             SetVolumeFloat(chromaticAberration, "intensity", Mathf.Clamp01(chromaticIntensity));
 
-            float motionBlurIntensity = effectsEnabled ? Mathf.Lerp(0f, motionBlurMax, Mathf.SmoothStep(0f, 1f, speedT)) : 0f;
+            bool motionBlurEnabled = effectsEnabled && (settingsManager == null || settingsManager.MotionBlurEnabled);
+            float motionBlurIntensity = motionBlurEnabled ? Mathf.Lerp(0f, motionBlurMax, Mathf.SmoothStep(0f, 1f, speedT)) : 0f;
             if (!SetVolumeFloat(motionBlur, "intensity", motionBlurIntensity))
             {
                 SetVolumeFloat(motionBlur, "maximumVelocity", motionBlurIntensity);
@@ -143,8 +144,6 @@ namespace Underground.World
 
                 return null;
             }
-
-            return null;
         }
 
         private static bool SetVolumeFloat(VolumeComponent component, string fieldName, float value)
