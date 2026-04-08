@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385a147c2eb717842a4a360e1f0eb4b8, type: 3}
   m_Name: StarterCarStats
   m_EditorClassIdentifier: 
-  vehicleId: starter_car
-  displayName: Starter Coupe
+  vehicleId: rmcar26
+  displayName: RMCar26
   maxMotorTorque: 540
   maxBrakeTorque: 4800
   maxSpeedKph: 136

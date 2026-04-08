@@ -16,7 +16,7 @@ namespace Underground.EditorTools
             EditorApplication.delayCall += EnsureTmpEssentials;
         }
 
-        [MenuItem("Underground/Prototype/Import TMP Essential Resources")]
+        [MenuItem("Underground/Project/Import/TMP Essential Resources")]
         private static void ImportTmpEssentialsManually()
         {
             EnsureTmpEssentials(true);

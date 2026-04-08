@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3396eda44faf6694697c33923c5e7860
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234143
+  packageName: 'SSRT3: Screen Space Ray Tracing (GI)'
+  packageVersion: 1.0.2
+  assetPath: Assets/SSRT3/HDRP/README.html
+  uploadId: 557593

@@ -1,19 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Underground.Core.Architecture;
+using Underground.Vehicle;
 
 namespace Underground.Save
 {
-    public class PersistentProgressManager : MonoBehaviour
+    public class PersistentProgressManager : MonoBehaviour, IProgressService
     {
         [SerializeField] private SaveSystem saveSystem;
-        [SerializeField] private string starterCarId = "starter_car";
+        [SerializeField] private string starterCarId = PlayerCarCatalog.StarterCarId;
         [SerializeField] private int starterMoney = 5000;
+        [SerializeField] private List<string> defaultOwnedCarIds = new List<string>(PlayerCarCatalog.DefaultOwnedCarIds);
+        [SerializeField] private List<string> ownedCarIds = new List<string>();
+        [SerializeField] private List<string> purchasedUpgradeIds = new List<string>();
 
         public int SavedMoney { get; private set; }
         public int SavedReputation { get; private set; }
         public string CurrentOwnedCarId { get; private set; }
-        public List<string> OwnedCarIds { get; private set; } = new List<string>();
-        public List<string> PurchasedUpgradeIds { get; private set; } = new List<string>();
+        public IReadOnlyList<string> OwnedCarIds => ownedCarIds;
+        public IReadOnlyList<string> PurchasedUpgradeIds => purchasedUpgradeIds;
         public float WorldTimeOfDay { get; private set; } = 12f;
         private bool hasLoadedSave;
 
@@ -21,16 +26,24 @@ namespace Underground.Save
         {
             if (saveSystem == null)
             {
-                saveSystem = GetComponent<SaveSystem>();
+                saveSystem = GetComponent<SaveSystem>() ?? ServiceLocator.ResolveOrNull<ISaveService>() as SaveSystem;
             }
 
             LoadFromDisk();
+            MigrateLegacyCarIds();
             EnsureDefaultProfile();
+            ServiceLocator.Register<IProgressService>(this);
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Unregister<IProgressService>(this);
         }
 
         public void AddMoney(int amount)
         {
             SavedMoney += Mathf.Max(0, amount);
+            ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
         }
 
         public bool SpendMoney(int amount)
@@ -41,55 +54,62 @@ namespace Underground.Save
             }
 
             SavedMoney -= amount;
+            ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
             return true;
         }
 
         public void AddReputation(int amount)
         {
             SavedReputation += Mathf.Max(0, amount);
+            ServiceLocator.EventBus.Publish(new ReputationChangedEvent(SavedReputation));
         }
 
         public bool OwnsCar(string carId)
         {
-            return !string.IsNullOrEmpty(carId) && OwnedCarIds.Contains(carId);
+            string migratedId = PlayerCarCatalog.MigrateCarId(carId);
+            return !string.IsNullOrEmpty(migratedId) && ownedCarIds.Contains(migratedId);
         }
 
         public void AddOwnedCar(string carId)
         {
+            carId = PlayerCarCatalog.MigrateCarId(carId);
             if (string.IsNullOrEmpty(carId))
             {
                 return;
             }
 
-            if (!OwnedCarIds.Contains(carId))
+            if (!ownedCarIds.Contains(carId))
             {
-                OwnedCarIds.Add(carId);
+                ownedCarIds.Add(carId);
             }
 
             if (string.IsNullOrEmpty(CurrentOwnedCarId))
             {
                 CurrentOwnedCarId = carId;
+                ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
             }
         }
 
         public void SetCurrentCar(string carId)
         {
+            carId = PlayerCarCatalog.MigrateCarId(carId);
             if (OwnsCar(carId))
             {
                 CurrentOwnedCarId = carId;
+                ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
             }
         }
 
         public bool HasPurchasedUpgrade(string upgradeId)
         {
-            return !string.IsNullOrEmpty(upgradeId) && PurchasedUpgradeIds.Contains(upgradeId);
+            return !string.IsNullOrEmpty(upgradeId) && purchasedUpgradeIds.Contains(upgradeId);
         }
 
         public void RegisterUpgrade(string upgradeId)
         {
-            if (!string.IsNullOrEmpty(upgradeId) && !PurchasedUpgradeIds.Contains(upgradeId))
+            if (!string.IsNullOrEmpty(upgradeId) && !purchasedUpgradeIds.Contains(upgradeId))
             {
-                PurchasedUpgradeIds.Add(upgradeId);
+                purchasedUpgradeIds.Add(upgradeId);
             }
         }
 
@@ -107,13 +127,14 @@ namespace Underground.Save
                 savedMoney = SavedMoney,
                 savedReputation = SavedReputation,
                 currentOwnedCarId = CurrentOwnedCarId,
-                ownedCarIds = new List<string>(OwnedCarIds),
-                purchasedUpgradeIds = new List<string>(PurchasedUpgradeIds),
+                ownedCarIds = new List<string>(ownedCarIds),
+                purchasedUpgradeIds = new List<string>(purchasedUpgradeIds),
                 worldTimeOfDay = WorldTimeOfDay,
                 lastGarageScene = garageScene
             };
 
             saveSystem.Save(data);
+            ServiceLocator.EventBus.Publish(new ProgressSavedEvent(WorldTimeOfDay, garageScene));
         }
 
         public void LoadFromDisk()
@@ -133,14 +154,21 @@ namespace Underground.Save
             SavedMoney = data.savedMoney;
             SavedReputation = data.savedReputation;
             CurrentOwnedCarId = data.currentOwnedCarId;
-            OwnedCarIds = data.ownedCarIds ?? new List<string>();
-            PurchasedUpgradeIds = data.purchasedUpgradeIds ?? new List<string>();
+            ownedCarIds = data.ownedCarIds ?? new List<string>();
+            purchasedUpgradeIds = data.purchasedUpgradeIds ?? new List<string>();
             WorldTimeOfDay = data.worldTimeOfDay;
+
+            MigrateLegacyCarIds();
+            ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
+            ServiceLocator.EventBus.Publish(new ReputationChangedEvent(SavedReputation));
+            ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, WorldTimeOfDay >= 20f || WorldTimeOfDay < 6f));
         }
 
         public void SetWorldTime(float worldTime)
         {
             WorldTimeOfDay = worldTime;
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, WorldTimeOfDay >= 20f || WorldTimeOfDay < 6f));
         }
 
         public void ResetToDefaults()
@@ -148,32 +176,106 @@ namespace Underground.Save
             SavedMoney = starterMoney;
             SavedReputation = 0;
             CurrentOwnedCarId = starterCarId;
-            OwnedCarIds = new List<string>();
-            PurchasedUpgradeIds = new List<string>();
+            ownedCarIds = new List<string>();
+            purchasedUpgradeIds = new List<string>();
             WorldTimeOfDay = 12f;
+            MigrateLegacyCarIds();
             EnsureDefaultProfile();
+            ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
+            ServiceLocator.EventBus.Publish(new ReputationChangedEvent(SavedReputation));
+            ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, false));
+        }
+
+        /// <summary>
+        /// Migrates any legacy/obsolete car IDs in owned list and current selection
+        /// to their canonical replacements (e.g. "starter_car" → "rmcar26").
+        /// Safe to call multiple times; no-ops if nothing needs migration.
+        /// </summary>
+        private void MigrateLegacyCarIds()
+        {
+            CurrentOwnedCarId = PlayerCarCatalog.MigrateCarId(CurrentOwnedCarId);
+
+            if (ownedCarIds == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < ownedCarIds.Count; i++)
+            {
+                string migrated = PlayerCarCatalog.MigrateCarId(ownedCarIds[i]);
+                if (migrated != ownedCarIds[i])
+                {
+                    // Replace with the canonical ID, avoid duplicates.
+                    if (!ownedCarIds.Contains(migrated))
+                    {
+                        ownedCarIds[i] = migrated;
+                    }
+                    else
+                    {
+                        ownedCarIds.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
         }
 
         private void EnsureDefaultProfile()
         {
-            if (OwnedCarIds == null)
+            if (ownedCarIds == null)
             {
-                OwnedCarIds = new List<string>();
+                ownedCarIds = new List<string>();
             }
 
-            if (PurchasedUpgradeIds == null)
+            if (purchasedUpgradeIds == null)
             {
-                PurchasedUpgradeIds = new List<string>();
+                purchasedUpgradeIds = new List<string>();
             }
 
-            if (string.IsNullOrEmpty(CurrentOwnedCarId))
+            if (defaultOwnedCarIds == null || defaultOwnedCarIds.Count == 0)
             {
-                CurrentOwnedCarId = starterCarId;
+                defaultOwnedCarIds = new List<string>(PlayerCarCatalog.DefaultOwnedCarIds);
+            }
+            else
+            {
+                for (int i = 0; i < PlayerCarCatalog.DefaultOwnedCarIds.Length; i++)
+                {
+                    string catalogCarId = PlayerCarCatalog.DefaultOwnedCarIds[i];
+                    if (!string.IsNullOrEmpty(catalogCarId) && !defaultOwnedCarIds.Contains(catalogCarId))
+                    {
+                        defaultOwnedCarIds.Add(catalogCarId);
+                    }
+                }
             }
 
-            if (!string.IsNullOrEmpty(starterCarId) && !OwnedCarIds.Contains(starterCarId))
+            if (string.IsNullOrEmpty(starterCarId))
             {
-                OwnedCarIds.Insert(0, starterCarId);
+                starterCarId = PlayerCarCatalog.StarterCarId;
+            }
+            else
+            {
+                starterCarId = PlayerCarCatalog.MigrateCarId(starterCarId);
+            }
+
+            for (int i = 0; i < defaultOwnedCarIds.Count; i++)
+            {
+                string carId = defaultOwnedCarIds[i];
+                if (!string.IsNullOrEmpty(carId) && !ownedCarIds.Contains(carId))
+                {
+                    ownedCarIds.Add(carId);
+                }
+            }
+
+            if (string.IsNullOrEmpty(CurrentOwnedCarId) || !ownedCarIds.Contains(CurrentOwnedCarId))
+            {
+                if (!string.IsNullOrEmpty(starterCarId) && ownedCarIds.Contains(starterCarId))
+                {
+                    CurrentOwnedCarId = starterCarId;
+                }
+                else if (ownedCarIds.Count > 0)
+                {
+                    CurrentOwnedCarId = ownedCarIds[0];
+                }
             }
 
             if (!hasLoadedSave && SavedMoney <= 0)

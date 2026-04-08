@@ -1,0 +1,377 @@
+using System;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+namespace Underground.EditorTools
+{
+    [InitializeOnLoad]
+    public static class ArcadeCarsHdrpMaterialConverter
+    {
+        private const string MaterialFolder = "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Materials";
+        private const string GroundFolder = "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Ground";
+        private const string ConversionQueuedKey = "Underground.ArcadeCarsHdrpConversionQueued";
+
+        static ArcadeCarsHdrpMaterialConverter()
+        {
+            if (NeedsConversion())
+            {
+                SessionState.SetBool(ConversionQueuedKey, true);
+                EditorApplication.delayCall += ProcessQueuedConversion;
+            }
+        }
+
+        [MenuItem("Underground/Project/Convert Arcade Cars Materials To HDRP", priority = 12)]
+        public static void ConvertMaterialsFromMenu()
+        {
+            ConvertMaterials(true);
+        }
+
+        public static void ConvertMaterials(bool showDialog)
+        {
+            if (!HasHdrpPackageInstalled())
+            {
+                if (showDialog)
+                {
+                    EditorUtility.DisplayDialog("HDRP Missing", "HDRP is not installed yet, so the arcade-car materials cannot be converted.", "OK");
+                }
+
+                return;
+            }
+
+            Shader hdrpLit = Shader.Find("HDRP/Lit");
+            if (hdrpLit == null)
+            {
+                if (showDialog)
+                {
+                    EditorUtility.DisplayDialog("HDRP Shader Missing", "HDRP/Lit could not be found. Let Unity finish importing HDRP, then run the conversion again.", "OK");
+                }
+
+                return;
+            }
+
+            string[] guids = AssetDatabase.FindAssets("t:Material", new[] { MaterialFolder, GroundFolder });
+            bool changedAny = false;
+            int convertedCount = 0;
+
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                if (material == null)
+                {
+                    continue;
+                }
+
+                if (ConvertMaterial(material, hdrpLit))
+                {
+                    EditorUtility.SetDirty(material);
+                    changedAny = true;
+                    convertedCount++;
+                }
+            }
+
+            if (changedAny)
+            {
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+
+            SessionState.SetBool(ConversionQueuedKey, false);
+
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog(
+                    "Arcade Cars Converted",
+                    changedAny
+                        ? $"Converted {convertedCount} arcade-car materials to HDRP."
+                        : "Arcade-car materials were already using HDRP-compatible shaders.",
+                    "OK");
+            }
+        }
+
+        private static void ProcessQueuedConversion()
+        {
+            if (!SessionState.GetBool(ConversionQueuedKey, false))
+            {
+                return;
+            }
+
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                EditorApplication.delayCall += ProcessQueuedConversion;
+                return;
+            }
+
+            ConvertMaterials(false);
+        }
+
+        private static bool NeedsConversion()
+        {
+            if (!HasHdrpPackageInstalled())
+            {
+                return false;
+            }
+
+            string[] guids = AssetDatabase.FindAssets("t:Material", new[] { MaterialFolder, GroundFolder });
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+                if (material == null)
+                {
+                    continue;
+                }
+
+                if (material.shader == null || !string.Equals(material.shader.name, "HDRP/Lit", StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool ConvertMaterial(Material material, Shader hdrpLit)
+        {
+            MaterialSourceData source = ReadSourceData(material);
+            bool alreadyHdrp = material.shader != null && string.Equals(material.shader.name, "HDRP/Lit", StringComparison.Ordinal);
+
+            material.shader = hdrpLit;
+            material.name = material.name;
+
+            SetColorIfPresent(material, "_BaseColor", source.baseColor);
+            SetColorIfPresent(material, "_Color", source.baseColor);
+
+            SetTextureIfPresent(material, "_BaseColorMap", source.baseColorMap);
+            SetTextureIfPresent(material, "_BaseMap", source.baseColorMap);
+            SetTextureIfPresent(material, "_MainTex", source.baseColorMap);
+
+            SetTextureIfPresent(material, "_NormalMap", source.normalMap);
+            SetTextureIfPresent(material, "_BumpMap", source.normalMap);
+            SetFloatIfPresent(material, "_NormalScale", source.normalScale);
+            SetFloatIfPresent(material, "_BumpScale", source.normalScale);
+
+            SetTextureIfPresent(material, "_MaskMap", source.maskMap);
+            SetFloatIfPresent(material, "_Metallic", source.metallic);
+            SetFloatIfPresent(material, "_Smoothness", source.smoothness);
+
+            bool emissive = source.emissiveMap != null || source.emissiveColor.maxColorComponent > 0.001f || IsLightMaterial(material.name);
+            if (emissive)
+            {
+                Color emissiveColor = source.emissiveColor.maxColorComponent > 0.001f ? source.emissiveColor : source.baseColor;
+                SetTextureIfPresent(material, "_EmissiveColorMap", source.emissiveMap);
+                SetTextureIfPresent(material, "_EmissionMap", source.emissiveMap);
+                SetColorIfPresent(material, "_EmissiveColor", emissiveColor);
+                SetColorIfPresent(material, "_EmissionColor", emissiveColor);
+                material.EnableKeyword("_EMISSION");
+            }
+            else
+            {
+                material.DisableKeyword("_EMISSION");
+            }
+
+            if (source.normalMap != null)
+            {
+                material.EnableKeyword("_NORMALMAP");
+            }
+            else
+            {
+                material.DisableKeyword("_NORMALMAP");
+            }
+
+            ConfigureSurface(material, source.isTransparent || IsTransparentMaterial(material.name));
+            return !alreadyHdrp || source.hasSerializedData;
+        }
+
+        private static MaterialSourceData ReadSourceData(Material material)
+        {
+            MaterialSourceData data = new MaterialSourceData
+            {
+                baseColor = GetSerializedColor(material, Color.white, "_BaseColor", "_Color"),
+                emissiveColor = GetSerializedColor(material, Color.black, "_EmissiveColor", "_EmissionColor"),
+                metallic = GetSerializedFloat(material, 0f, "_Metallic"),
+                smoothness = GetSerializedFloat(material, 0.5f, "_Smoothness", "_Glossiness"),
+                normalScale = Mathf.Max(0.0001f, GetSerializedFloat(material, 1f, "_NormalScale", "_BumpScale")),
+                baseColorMap = GetSerializedTexture(material, "_BaseColorMap", "_BaseMap", "_MainTex"),
+                normalMap = GetSerializedTexture(material, "_NormalMap", "_BumpMap"),
+                emissiveMap = GetSerializedTexture(material, "_EmissiveColorMap", "_EmissionMap"),
+                maskMap = GetSerializedTexture(material, "_MaskMap", "_MetallicGlossMap"),
+                hasSerializedData = true
+            };
+
+            float mode = GetSerializedFloat(material, 0f, "_Mode", "_Surface");
+            data.isTransparent = mode >= 1.5f || material.renderQueue >= (int)RenderQueue.Transparent;
+            return data;
+        }
+
+        private static Texture GetSerializedTexture(Material material, params string[] propertyNames)
+        {
+            SerializedObject serializedObject = new SerializedObject(material);
+            SerializedProperty texEnvs = serializedObject.FindProperty("m_SavedProperties.m_TexEnvs");
+            if (texEnvs == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < propertyNames.Length; i++)
+            {
+                string propertyName = propertyNames[i];
+                for (int j = 0; j < texEnvs.arraySize; j++)
+                {
+                    SerializedProperty element = texEnvs.GetArrayElementAtIndex(j);
+                    SerializedProperty keyProperty = element.FindPropertyRelative("first");
+                    if (keyProperty == null || !string.Equals(keyProperty.stringValue, propertyName, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    SerializedProperty textureProperty = element.FindPropertyRelative("second.m_Texture");
+                    return textureProperty != null ? textureProperty.objectReferenceValue as Texture : null;
+                }
+            }
+
+            return null;
+        }
+
+        private static Color GetSerializedColor(Material material, Color fallback, params string[] propertyNames)
+        {
+            SerializedObject serializedObject = new SerializedObject(material);
+            SerializedProperty colors = serializedObject.FindProperty("m_SavedProperties.m_Colors");
+            if (colors == null)
+            {
+                return fallback;
+            }
+
+            for (int i = 0; i < propertyNames.Length; i++)
+            {
+                string propertyName = propertyNames[i];
+                for (int j = 0; j < colors.arraySize; j++)
+                {
+                    SerializedProperty element = colors.GetArrayElementAtIndex(j);
+                    SerializedProperty keyProperty = element.FindPropertyRelative("first");
+                    if (keyProperty == null || !string.Equals(keyProperty.stringValue, propertyName, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    SerializedProperty colorProperty = element.FindPropertyRelative("second");
+                    return colorProperty != null ? colorProperty.colorValue : fallback;
+                }
+            }
+
+            return fallback;
+        }
+
+        private static float GetSerializedFloat(Material material, float fallback, params string[] propertyNames)
+        {
+            SerializedObject serializedObject = new SerializedObject(material);
+            SerializedProperty floats = serializedObject.FindProperty("m_SavedProperties.m_Floats");
+            if (floats == null)
+            {
+                return fallback;
+            }
+
+            for (int i = 0; i < propertyNames.Length; i++)
+            {
+                string propertyName = propertyNames[i];
+                for (int j = 0; j < floats.arraySize; j++)
+                {
+                    SerializedProperty element = floats.GetArrayElementAtIndex(j);
+                    SerializedProperty keyProperty = element.FindPropertyRelative("first");
+                    if (keyProperty == null || !string.Equals(keyProperty.stringValue, propertyName, StringComparison.Ordinal))
+                    {
+                        continue;
+                    }
+
+                    SerializedProperty valueProperty = element.FindPropertyRelative("second");
+                    return valueProperty != null ? valueProperty.floatValue : fallback;
+                }
+            }
+
+            return fallback;
+        }
+
+        private static void ConfigureSurface(Material material, bool transparent)
+        {
+            if (transparent)
+            {
+                SetFloatIfPresent(material, "_SurfaceType", 1f);
+                SetFloatIfPresent(material, "_Surface", 1f);
+                SetFloatIfPresent(material, "_BlendMode", 0f);
+                SetFloatIfPresent(material, "_AlphaCutoffEnable", 0f);
+                SetFloatIfPresent(material, "_ZWrite", 0f);
+                material.SetOverrideTag("RenderType", "Transparent");
+                material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                material.renderQueue = (int)RenderQueue.Transparent;
+                return;
+            }
+
+            SetFloatIfPresent(material, "_SurfaceType", 0f);
+            SetFloatIfPresent(material, "_Surface", 0f);
+            SetFloatIfPresent(material, "_BlendMode", 0f);
+            SetFloatIfPresent(material, "_AlphaCutoffEnable", 0f);
+            SetFloatIfPresent(material, "_ZWrite", 1f);
+            material.SetOverrideTag("RenderType", "Opaque");
+            material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+            material.renderQueue = (int)RenderQueue.Geometry;
+        }
+
+        private static bool IsTransparentMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName)
+                && materialName.IndexOf("glass", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsLightMaterial(string materialName)
+        {
+            return !string.IsNullOrEmpty(materialName)
+                && materialName.IndexOf("light", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static void SetTextureIfPresent(Material material, string propertyName, Texture texture)
+        {
+            if (texture != null && material.HasProperty(propertyName))
+            {
+                material.SetTexture(propertyName, texture);
+            }
+        }
+
+        private static void SetColorIfPresent(Material material, string propertyName, Color color)
+        {
+            if (material.HasProperty(propertyName))
+            {
+                material.SetColor(propertyName, color);
+            }
+        }
+
+        private static void SetFloatIfPresent(Material material, string propertyName, float value)
+        {
+            if (material.HasProperty(propertyName))
+            {
+                material.SetFloat(propertyName, value);
+            }
+        }
+
+        private static bool HasHdrpPackageInstalled()
+        {
+            Type hdAssetType = Type.GetType("UnityEngine.Rendering.HighDefinition.HDRenderPipelineAsset, Unity.RenderPipelines.HighDefinition.Runtime");
+            return hdAssetType != null;
+        }
+
+        private struct MaterialSourceData
+        {
+            public bool hasSerializedData;
+            public bool isTransparent;
+            public Color baseColor;
+            public Color emissiveColor;
+            public float metallic;
+            public float smoothness;
+            public float normalScale;
+            public Texture baseColorMap;
+            public Texture normalMap;
+            public Texture emissiveMap;
+            public Texture maskMap;
+        }
+    }
+}

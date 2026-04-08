@@ -314,7 +314,7 @@ namespace FCG
 
             if (!trafficSystem)
             {
-                trafficSystem = Object.FindFirstObjectByType<TrafficSystem>();
+                trafficSystem = FindObjectOfType<TrafficSystem>();
 
 #if UNITY_EDITOR
                 if (!trafficSystem)

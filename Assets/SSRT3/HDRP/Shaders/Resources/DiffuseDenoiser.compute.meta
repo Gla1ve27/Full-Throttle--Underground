@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3882bc9919745f54bb07b1f9c1d0c773
+ComputeShaderImporter:
+  externalObjects: {}
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234143
+  packageName: 'SSRT3: Screen Space Ray Tracing (GI)'
+  packageVersion: 1.0.2
+  assetPath: Assets/SSRT3/HDRP/Shaders/Resources/DiffuseDenoiser.compute
+  uploadId: 557593

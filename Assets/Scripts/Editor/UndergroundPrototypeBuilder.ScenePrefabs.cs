@@ -62,31 +62,32 @@ namespace Underground.EditorTools
             sunObject.transform.rotation = Quaternion.Euler(45f, -35f, 0f);
             Light sunLight = sunObject.AddComponent<Light>();
             sunLight.type = LightType.Directional;
-            sunLight.intensity = 1.15f;
+            sunLight.intensity = 0.34f;
             sunLight.shadows = LightShadows.Soft;
-            sunLight.shadowStrength = 1f;
+            sunLight.shadowStrength = 0.88f;
             sunLight.shadowBias = 0.06f;
             sunLight.shadowNormalBias = 0.65f;
+            sunLight.color = new Color(1f, 0.95f, 0.9f);
+
+            GameObject moonObject = new GameObject("Moon Light");
+            moonObject.transform.SetParent(sunPivot, false);
+            moonObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
+            Light moonLight = moonObject.AddComponent<Light>();
+            moonLight.type = LightType.Directional;
+            moonLight.intensity = 0.05f;
+            moonLight.color = new Color(0.5f, 0.6f, 1f);
+            moonLight.shadows = LightShadows.None;
 
             DayNightCycleController dayNight = worldSystems.AddComponent<DayNightCycleController>();
             SetObjectReference(dayNight, "sunPivot", sunPivot);
             SetObjectReference(dayNight, "sunLight", sunLight);
+            SetObjectReference(dayNight, "moonLight", moonLight);
+            SetBoolValue(dayNight, "lockVisualsToAuthoredDay", true);
+            SetBoolValue(dayNight, "overrideAmbientWithGradient", false);
             SetObjectReference(dayNight, "daySkyboxMaterial", LoadDaySkyboxMaterial());
             SetObjectReference(dayNight, "nightSkyboxMaterial", LoadNightSkyboxMaterial());
 
-            GameObject reflectionProbeObject = new GameObject("WorldReflectionProbe");
-            reflectionProbeObject.transform.SetParent(worldSystems.transform, false);
-            ReflectionProbe reflectionProbe = reflectionProbeObject.AddComponent<ReflectionProbe>();
-            reflectionProbe.mode = UnityEngine.Rendering.ReflectionProbeMode.Baked;
-            reflectionProbe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.ViaScripting;
-            reflectionProbe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
-            reflectionProbe.size = new Vector3(600f, 180f, 600f);
-            reflectionProbe.center = new Vector3(0f, 35f, 0f);
-            reflectionProbe.boxProjection = true;
-            reflectionProbe.importance = 1;
-            reflectionProbe.intensity = 1.15f;
-
-            AttachGlobalVolume(worldSystems.transform, "GlobalVolume");
+            AttachGlobalVolume(worldSystems.transform, "GlobalVolume", ProjectWorldVolumeProfilePath);
 
             PrefabUtility.SaveAsPrefabAsset(worldSystems, WorldSystemsPrefabPath);
             Object.DestroyImmediate(worldSystems);
@@ -103,6 +104,7 @@ namespace Underground.EditorTools
             Camera camera = cameraObject.AddComponent<Camera>();
             camera.fieldOfView = 60f;
             camera.renderingPath = RenderingPath.UsePlayerSettings;
+            camera.clearFlags = CameraClearFlags.Skybox;
             EnablePostProcessing(camera);
             cameraObject.AddComponent<AudioListener>();
             cameraObject.AddComponent<VehicleCameraFollow>();
@@ -116,7 +118,9 @@ namespace Underground.EditorTools
         private static GameObject CreateOrUpdateHudPrefab()
         {
             Canvas canvas = CreateCanvas("HUD");
+            canvas.transform.localScale = Vector3.one;
             StylizedHudComposer composer = canvas.gameObject.AddComponent<StylizedHudComposer>();
+            SetObjectReference(composer, "speedometerPrefab", LoadHudSpeedometerPrefab());
             composer.Compose();
 
             PrefabUtility.SaveAsPrefabAsset(canvas.gameObject, HudPrefabPath);

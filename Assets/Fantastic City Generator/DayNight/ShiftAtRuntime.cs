@@ -9,7 +9,7 @@ public class ShiftAtRuntime : MonoBehaviour
     private void Start()
     {
 
-        dayNight = Object.FindFirstObjectByType<DayNight>();
+        dayNight = FindObjectOfType<DayNight>();
 
     }
 

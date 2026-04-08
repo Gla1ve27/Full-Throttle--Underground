@@ -6,8 +6,8 @@ namespace Underground.Vehicle
     public class VehicleStatsData : ScriptableObject
     {
         [Header("Identity")]
-        public string vehicleId = "starter_car";
-        public string displayName = "Starter Coupe";
+        public string vehicleId = "rmcar26";
+        public string displayName = "RMCar26";
 
         [Header("Power")]
         public float maxMotorTorque = 540f;

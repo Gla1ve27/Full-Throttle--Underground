@@ -266,10 +266,11 @@ namespace FCG
             }
 
 
-
-            DayNight dayNight = Object.FindFirstObjectByType<DayNight>();
+            
+            DayNight dayNight = FindObjectOfType<DayNight>();
             if (dayNight)
                 dayNight.ChangeMaterial();
+            
 
         }
 
@@ -678,7 +679,7 @@ namespace FCG
 
             if (withDowntownArea)
             {
-                GameObject[] tArray = FindSceneObjectsByName("Marcador");
+                GameObject[] tArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == ("Marcador")).ToArray();
 
                 if (tArray.Length == 1)
                     center = tArray[0].transform.position;
@@ -729,13 +730,13 @@ namespace FCG
 
 
             DestroyImmediate(pB);
-
-            DayNight dayNight = Object.FindFirstObjectByType<DayNight>();
+            
+            DayNight dayNight = FindObjectOfType<DayNight>();
             if(dayNight)
             {
                 dayNight.ChangeMaterial();
             }
-
+            
 
 
         }
@@ -746,7 +747,7 @@ namespace FCG
         {
 
 
-            tempArray = FindSceneObjectsByName("Marcador");
+            tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == ("Marcador")).ToArray();
 
             foreach (GameObject lines in tempArray)
             {
@@ -1000,7 +1001,7 @@ namespace FCG
 
             int numB = 0;
 
-            tempArray = FindSceneObjectsByName("Blocks");
+            tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == ("Blocks")).ToArray();
 
             foreach (GameObject bks in tempArray)
             {
@@ -1073,7 +1074,7 @@ namespace FCG
 
             int numB = 0;
 
-            tempArray = FindSceneObjectsByName("SuperBlocks");
+            tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == ("SuperBlocks")).ToArray();
 
             foreach (GameObject bks in tempArray)
             {
@@ -1445,7 +1446,7 @@ namespace FCG
         {
             float limit;
 
-            tempArray = FindSceneObjectsByName("Double");
+            tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == ("Double")).ToArray();
 
             GameObject DB;
             GameObject mc2;
@@ -1670,7 +1671,7 @@ namespace FCG
 
         private void DestryObjetcs(string tag)
         {
-            tempArray = FindSceneObjectsByName(tag);
+            tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == (tag)).ToArray();
 
             foreach (GameObject objt in tempArray)
                 foreach (Transform child in objt.transform)
@@ -1679,11 +1680,8 @@ namespace FCG
 
 
         }
-        private static GameObject[] FindSceneObjectsByName(string objectName)
-        {
-            return GameObject.FindObjectsByType<GameObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-                .Where(gameObject => gameObject.name == objectName)
-                .ToArray();
-        }
+
+
+
     }
 }

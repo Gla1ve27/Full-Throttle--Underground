@@ -11,10 +11,17 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
+        private const string GarageBackdropTexturePath = "Assets/Art/Textures/Garage/GarageBackdrop.png";
+        private const string GarageBackdropMaterialPath = "Assets/Materials/Generated/GarageBackdropImage.mat";
+        private const string GarageFloorTexturePath = "Assets/Art/Textures/Garage/Floor.png";
+        private const string GarageCeilingTexturePath = "Assets/Art/Textures/Garage/Ceiling.png";
+        private const string GarageLeftWallTexturePath = "Assets/Art/Textures/Garage/Left Wall.png";
+        private const string GarageRightWallTexturePath = "Assets/Art/Textures/Garage/Right Wall.png";
+
         private static void ComposeGarageShowroomScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade)
         {
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.05f, 0f, true);
-            ConfigureShowroomController(backdrop.showroomController, true, 34f, -0.22f, 0f);
+            ConfigureShowroomController(backdrop.showroomController, true, 146f, -0.22f, 0f);
 
             GameObject systemsRoot = new GameObject("GarageSystems");
             GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
@@ -62,7 +69,7 @@ namespace Underground.EditorTools
             RemoveExistingGarageBackdrop();
             ConfigureGarageBackdropCamera();
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "MainMenuGarageBackdrop", "MenuDisplayTurntable", 1.05f, 0f, false);
-            ConfigureShowroomController(backdrop.showroomController, false, 34f, -0.22f, 0f);
+            ConfigureShowroomController(backdrop.showroomController, false, 146f, -0.22f, 0f);
         }
 
         private static GarageBackdropBuild ComposeGarageBackdrop(GameObject playerCarPrefab, string rootName, string displayRootName, float displayZ, float autoRotateSpeed, bool configureCamera)
@@ -72,17 +79,33 @@ namespace Underground.EditorTools
             RenderSettings.ambientLight = new Color(0.05f, 0.055f, 0.07f, 1f);
             RenderSettings.fog = false;
 
-            Material wallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageWall.mat", new Color(0.08f, 0.085f, 0.1f), 0.05f, 0.72f);
-            Material floorMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageFloor.mat", new Color(0.12f, 0.105f, 0.095f), 0.18f, 0.92f);
-            Material platformMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GaragePlatform.mat", new Color(0.16f, 0.16f, 0.165f), 0.22f, 0.88f);
-            Material accentMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageAccent.mat", new Color(0.52f, 0.9f, 0.36f), 0f, 0.42f, new Color(0.08f, 0.22f, 0.06f) * 0.65f);
-            Material trimMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageTrim.mat", new Color(0.22f, 0.22f, 0.2f), 0.1f, 0.76f);
+            Texture2D floorTexture = LoadGarageSurfaceTexture(GarageFloorTexturePath, false);
+            Texture2D ceilingTexture = LoadGarageSurfaceTexture(GarageCeilingTexturePath, false);
+            Texture2D leftWallTexture = LoadGarageSurfaceTexture(GarageLeftWallTexturePath, false);
+            Texture2D rightWallTexture = LoadGarageSurfaceTexture(GarageRightWallTexturePath, false);
+            Texture2D backdropTexture = LoadGarageSurfaceTexture(GarageBackdropTexturePath, true);
+
+            Material floorMaterial = CreateOrUpdateGarageMaterial(
+                "Assets/Materials/Generated/GarageFloor.mat",
+                Color.white,
+                0.04f,
+                0.28f,
+                null,
+                floorTexture,
+                new Vector2(3.2f, 3.2f));
+            Material backWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageBackWall.mat", new Color(0.13f, 0.135f, 0.14f), 0.03f, 0.18f, null, ceilingTexture, new Vector2(1.8f, 1.4f));
+            Material leftWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageLeftWall.mat", new Color(0.12f, 0.12f, 0.13f), 0.02f, 0.16f, null, leftWallTexture, new Vector2(1.9f, 1.35f));
+            Material rightWallMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageRightWall.mat", new Color(0.12f, 0.12f, 0.13f), 0.02f, 0.16f, null, rightWallTexture, new Vector2(1.9f, 1.35f));
+            Material ceilingMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageCeiling.mat", new Color(0.11f, 0.11f, 0.12f), 0.01f, 0.12f, null, ceilingTexture, new Vector2(2.6f, 2.2f));
+            Material platformMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GaragePlatform.mat", new Color(0.16f, 0.16f, 0.165f), 0.22f, 0.46f, null, floorTexture, new Vector2(1.15f, 1.15f));
+            Material accentMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageAccent.mat", new Color(0.52f, 0.9f, 0.36f), 0f, 0.18f, new Color(0.08f, 0.22f, 0.06f) * 0.42f);
+            Material trimMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageTrim.mat", new Color(0.22f, 0.22f, 0.2f), 0.1f, 0.44f);
 
             GameObject showroomRoot = new GameObject(rootName);
-            CreateGarageEnvironment(showroomRoot.transform, wallMaterial, floorMaterial, platformMaterial, accentMaterial, trimMaterial);
+            CreateGarageEnvironment(showroomRoot.transform, floorMaterial, backWallMaterial, leftWallMaterial, rightWallMaterial, ceilingMaterial, platformMaterial, accentMaterial, trimMaterial, backdropTexture);
             CreateGarageLighting(showroomRoot.transform);
             CreateGarageReflectionProbe(showroomRoot.transform);
-            AttachGlobalVolume(showroomRoot.transform, "GarageGlobalVolume");
+            AttachGlobalVolume(showroomRoot.transform, "GarageGlobalVolume", ProjectGarageVolumeProfilePath);
 
             if (configureCamera)
             {
@@ -144,14 +167,25 @@ namespace Underground.EditorTools
             }
         }
 
-        private static void CreateGarageEnvironment(Transform parent, Material wallMaterial, Material floorMaterial, Material platformMaterial, Material accentMaterial, Material trimMaterial)
+        private static void CreateGarageEnvironment(
+            Transform parent,
+            Material floorMaterial,
+            Material backWallMaterial,
+            Material leftWallMaterial,
+            Material rightWallMaterial,
+            Material ceilingMaterial,
+            Material platformMaterial,
+            Material accentMaterial,
+            Material trimMaterial,
+            Texture2D backdropTexture)
         {
             CreateGaragePrimitive(parent, "Floor", PrimitiveType.Cube, new Vector3(0f, -0.2f, 0f), new Vector3(28f, 0.4f, 24f), floorMaterial);
-            CreateGaragePrimitive(parent, "BackWall", PrimitiveType.Cube, new Vector3(0f, 3.8f, 10.8f), new Vector3(28f, 7.6f, 0.45f), wallMaterial);
-            CreateGaragePrimitive(parent, "LeftWall", PrimitiveType.Cube, new Vector3(-13.7f, 3.8f, 0f), new Vector3(0.45f, 7.6f, 24f), wallMaterial);
-            CreateGaragePrimitive(parent, "RightWall", PrimitiveType.Cube, new Vector3(13.7f, 3.8f, 0f), new Vector3(0.45f, 7.6f, 24f), wallMaterial);
-            CreateGaragePrimitive(parent, "Ceiling", PrimitiveType.Cube, new Vector3(0f, 7.65f, 0f), new Vector3(28f, 0.35f, 24f), wallMaterial);
+            CreateGaragePrimitive(parent, "BackWall", PrimitiveType.Cube, new Vector3(0f, 3.8f, 10.8f), new Vector3(28f, 7.6f, 0.45f), backWallMaterial);
+            CreateGaragePrimitive(parent, "LeftWall", PrimitiveType.Cube, new Vector3(-13.7f, 3.8f, 0f), new Vector3(0.45f, 7.6f, 24f), leftWallMaterial);
+            CreateGaragePrimitive(parent, "RightWall", PrimitiveType.Cube, new Vector3(13.7f, 3.8f, 0f), new Vector3(0.45f, 7.6f, 24f), rightWallMaterial);
+            CreateGaragePrimitive(parent, "Ceiling", PrimitiveType.Cube, new Vector3(0f, 7.65f, 0f), new Vector3(28f, 0.35f, 24f), ceilingMaterial);
             CreateGaragePrimitive(parent, "RearTrim", PrimitiveType.Cube, new Vector3(0f, 1.35f, 10.45f), new Vector3(18f, 2.2f, 0.35f), trimMaterial);
+            CreateGarageBackdropWall(parent, backWallMaterial, backdropTexture);
 
             GameObject platform = CreateGaragePrimitive(parent, "Turntable", PrimitiveType.Cylinder, new Vector3(0f, 0.2f, 1.2f), new Vector3(4.8f, 0.18f, 4.8f), platformMaterial);
             platform.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
@@ -162,13 +196,34 @@ namespace Underground.EditorTools
             CreateGaragePrimitive(parent, "AccentRear", PrimitiveType.Cube, new Vector3(0f, 0.12f, 8.85f), new Vector3(10f, 0.06f, 0.18f), accentMaterial);
         }
 
+        private static void CreateGarageBackdropWall(Transform parent, Material fallbackWallMaterial, Texture2D backdropTexture)
+        {
+            Material backdropMaterial = CreateOrUpdateGarageBackdropMaterial(GarageBackdropMaterialPath, backdropTexture);
+
+            GameObject backdropPlane = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            backdropPlane.name = "GarageBackdropImage";
+            backdropPlane.transform.SetParent(parent, false);
+            backdropPlane.transform.localPosition = new Vector3(0f, 3.8f, 10.55f);
+            backdropPlane.transform.localRotation = Quaternion.identity;
+            backdropPlane.transform.localScale = new Vector3(27.2f, 8.1f, 1f);
+
+            Renderer renderer = backdropPlane.GetComponent<Renderer>();
+            renderer.sharedMaterial = backdropMaterial != null ? backdropMaterial : fallbackWallMaterial;
+
+            Collider collider = backdropPlane.GetComponent<Collider>();
+            if (collider != null)
+            {
+                Object.DestroyImmediate(collider);
+            }
+        }
+
         private static void CreateGarageLighting(Transform parent)
         {
-            CreateGarageLight(parent, "KeyLightLeft", LightType.Spot, new Vector3(-4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, 28f, 0f), Color.white, 165f, 62f, 20f);
-            CreateGarageLight(parent, "KeyLightRight", LightType.Spot, new Vector3(4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, -28f, 0f), Color.white, 165f, 62f, 20f);
-            CreateGarageLight(parent, "RearFill", LightType.Spot, new Vector3(0f, 4.8f, 8.8f), Quaternion.Euler(46f, 180f, 0f), new Color(0.72f, 0.8f, 1f), 62f, 72f, 16f);
-            CreateGarageLight(parent, "NeonLeft", LightType.Point, new Vector3(-3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.45f, 0.85f, 1f), 3.2f, 0f, 5.8f);
-            CreateGarageLight(parent, "NeonRight", LightType.Point, new Vector3(3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.35f, 1f, 0.45f), 3.2f, 0f, 5.8f);
+            CreateGarageLight(parent, "KeyLightLeft", LightType.Spot, new Vector3(-4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, 28f, 0f), new Color(1f, 0.96f, 0.92f), 7.5f, 62f, 20f);
+            CreateGarageLight(parent, "KeyLightRight", LightType.Spot, new Vector3(4.6f, 5.9f, -5.8f), Quaternion.Euler(36f, -28f, 0f), new Color(1f, 0.96f, 0.92f), 7.5f, 62f, 20f);
+            CreateGarageLight(parent, "RearFill", LightType.Spot, new Vector3(0f, 4.8f, 8.8f), Quaternion.Euler(46f, 180f, 0f), new Color(0.58f, 0.7f, 0.95f), 2.6f, 72f, 16f);
+            CreateGarageLight(parent, "NeonLeft", LightType.Point, new Vector3(-3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.28f, 0.6f, 0.9f), 0.22f, 0f, 5.8f);
+            CreateGarageLight(parent, "NeonRight", LightType.Point, new Vector3(3.8f, 0.35f, 1.2f), Quaternion.identity, new Color(0.24f, 0.78f, 0.38f), 0.22f, 0f, 5.8f);
         }
 
         private static void CreateGarageCamera()
@@ -199,7 +254,16 @@ namespace Underground.EditorTools
             cameraObject.tag = "MainCamera";
             cameraObject.transform.SetPositionAndRotation(new Vector3(0f, 2.15f, -8.2f), Quaternion.Euler(8f, 0f, 0f));
 
-            camera ??= cameraObject.GetComponent<Camera>() ?? cameraObject.AddComponent<Camera>();
+            if (camera == null)
+            {
+                camera = cameraObject.GetComponent<Camera>();
+            }
+
+            if (camera == null)
+            {
+                camera = cameraObject.AddComponent<Camera>();
+            }
+
             camera.fieldOfView = 30f;
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.012f, 0.014f, 0.02f, 1f);
@@ -264,7 +328,7 @@ namespace Underground.EditorTools
             probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
             probe.size = new Vector3(30f, 10f, 26f);
             probe.boxProjection = true;
-            probe.intensity = 1.15f;
+            probe.intensity = 0.32f;
             probe.importance = 1000;
         }
 
@@ -272,34 +336,91 @@ namespace Underground.EditorTools
         {
             GarageUiBuild build = new GarageUiBuild();
 
-            GameObject topBar = CreateGaragePanel(parent, "TopBar", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -28f), new Vector2(920f, 98f), new Color(0.05f, 0.06f, 0.07f, 0.9f));
-            build.brandText = CreateAnchoredInfoText(topBar.transform, "BrandText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(34f, -14f), "UNDERGROUND GARAGE", TextAlignmentOptions.TopLeft, 18f);
-            build.displayNameText = CreateAnchoredInfoText(topBar.transform, "DisplayNameText", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -2f), "STARTER COUPE", TextAlignmentOptions.Center, 38f);
-            CreateAnchoredInfoText(topBar.transform, "SlotText", new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(34f, 16f), "Slot 1", TextAlignmentOptions.BottomLeft, 18f);
-            build.rotateLeftButton = CreateGarageButton(topBar.transform, "<", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(12f, 0f), new Vector2(46f, 46f), new Color(0.18f, 0.19f, 0.21f, 0.95f));
-            build.rotateRightButton = CreateGarageButton(topBar.transform, ">", new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-12f, 0f), new Vector2(46f, 46f), new Color(0.18f, 0.19f, 0.21f, 0.95f));
+            // ── Accent colors ──
+            Color accentGreen = new Color(0.45f, 0.92f, 0.32f, 1f);
+            Color accentCyan = new Color(0.28f, 0.82f, 0.88f, 1f);
+            Color panelDark = new Color(0.04f, 0.045f, 0.06f, 0.92f);
+            Color panelMid = new Color(0.07f, 0.075f, 0.09f, 0.88f);
+            Color buttonPrimary = new Color(0.14f, 0.38f, 0.18f, 0.96f);
+            Color buttonSecondary = new Color(0.12f, 0.14f, 0.18f, 0.94f);
+            Color buttonAccent = new Color(0.22f, 0.52f, 0.26f, 0.98f);
+            Color dimWhite = new Color(0.65f, 0.68f, 0.72f, 1f);
 
-            GameObject leftInfo = CreateGaragePanel(parent, "LeftInfo", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(24f, -24f), new Vector2(250f, 126f), new Color(0.05f, 0.06f, 0.08f, 0.78f));
-            build.moneyText = CreateAnchoredInfoText(leftInfo.transform, "MoneyText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(18f, -16f), "Money: 0", TextAlignmentOptions.TopLeft, 18f);
-            build.reputationText = CreateAnchoredInfoText(leftInfo.transform, "RepText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(18f, -44f), "Reputation: 0", TextAlignmentOptions.TopLeft, 18f);
-            build.currentCarText = CreateAnchoredInfoText(leftInfo.transform, "CarText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(18f, -72f), "Current Car: starter_car", TextAlignmentOptions.TopLeft, 18f);
+            // ═══════════════════════════════════════════════════════════
+            // TOP HEADER — Car name, brand, navigation arrows
+            // ═══════════════════════════════════════════════════════════
+            GameObject topBar = CreateGaragePanel(parent, "TopBar", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, 0f), new Vector2(1100f, 110f), panelDark);
+            // Accent stripe at bottom of header
+            CreateGaragePanel(topBar.transform, "TopBarAccent", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 0f), new Vector2(1100f, 3f), accentGreen);
 
-            GameObject ratingPanel = CreateGaragePanel(parent, "RatingPanel", new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-26f, 2f), new Vector2(180f, 186f), new Color(0.05f, 0.06f, 0.08f, 0.84f));
-            CreateAnchoredInfoText(ratingPanel.transform, "RatingHeader", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -18f), "VISUAL RATING", TextAlignmentOptions.Center, 19f);
-            build.ratingText = CreateAnchoredInfoText(ratingPanel.transform, "RatingText", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -4f), "8.56", TextAlignmentOptions.Center, 48f);
-            CreateGarageVerticalMeter(ratingPanel.transform, new Vector2(0.87f, 0.15f), new Color(0.2f, 0.25f, 0.2f, 0.9f), new Color(0.58f, 0.92f, 0.34f, 1f));
+            build.brandText = CreateAnchoredInfoText(topBar.transform, "BrandText", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -14f), "UNDERGROUND GARAGE", TextAlignmentOptions.Center, 14f);
+            SetTextColor(build.brandText, dimWhite);
+            build.displayNameText = CreateAnchoredInfoText(topBar.transform, "DisplayNameText", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -4f), "STARTER COUPE", TextAlignmentOptions.Center, 42f);
 
-            GameObject bottomPanel = CreateGaragePanel(parent, "BottomPanel", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(980f, 140f), new Color(0.05f, 0.06f, 0.08f, 0.9f));
-            build.accelerationFill = CreateGarageStatBlock(bottomPanel.transform, "ACCELERATION", new Vector2(0.17f, 0.7f), out _);
-            build.topSpeedFill = CreateGarageStatBlock(bottomPanel.transform, "TOP SPEED", new Vector2(0.5f, 0.7f), out _);
-            build.handlingFill = CreateGarageStatBlock(bottomPanel.transform, "HANDLING", new Vector2(0.83f, 0.7f), out _);
-            build.statusText = CreateAnchoredInfoText(bottomPanel.transform, "StatusText", new Vector2(0.03f, 0.18f), new Vector2(0f, 0.5f), Vector2.zero, "Right-click and drag to rotate.", TextAlignmentOptions.Left, 18f);
-            build.bankButton = CreateGarageButton(bottomPanel.transform, "Bank Progress", new Vector2(0.56f, 0.16f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(150f, 40f), new Color(0.18f, 0.24f, 0.2f, 0.94f));
-            build.repairButton = CreateGarageButton(bottomPanel.transform, "Repair Car", new Vector2(0.72f, 0.16f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(140f, 40f), new Color(0.18f, 0.22f, 0.26f, 0.94f));
-            build.upgradeButton = CreateGarageButton(bottomPanel.transform, "Buy Engine", new Vector2(0.86f, 0.16f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(140f, 40f), new Color(0.16f, 0.27f, 0.18f, 0.96f));
-            build.continueButton = CreateGarageButton(bottomPanel.transform, "Continue", new Vector2(0.97f, 0.16f), new Vector2(1f, 0.5f), new Vector2(-8f, 0f), new Vector2(118f, 40f), new Color(0.24f, 0.24f, 0.28f, 0.96f));
+            // Large navigation arrows
+            build.rotateLeftButton = CreateGarageButton(topBar.transform, "<", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(16f, -4f), new Vector2(64f, 64f), buttonSecondary);
+            build.rotateRightButton = CreateGarageButton(topBar.transform, ">", new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-16f, -4f), new Vector2(64f, 64f), buttonSecondary);
+
+            // ═══════════════════════════════════════════════════════════
+            // LEFT SIDEBAR — Money, Reputation, Current Car
+            // ═══════════════════════════════════════════════════════════
+            GameObject leftInfo = CreateGaragePanel(parent, "LeftInfo", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, -120f), new Vector2(280f, 146f), panelDark);
+            // Accent stripe on left edge
+            CreateGaragePanel(leftInfo.transform, "LeftAccent", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0f), new Vector2(3f, 146f), accentCyan);
+
+            build.moneyText = CreateAnchoredInfoText(leftInfo.transform, "MoneyText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(22f, -18f), "Money: 5,000", TextAlignmentOptions.TopLeft, 20f);
+            build.reputationText = CreateAnchoredInfoText(leftInfo.transform, "RepText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(22f, -52f), "Reputation: 0", TextAlignmentOptions.TopLeft, 20f);
+            build.currentCarText = CreateAnchoredInfoText(leftInfo.transform, "CarText", new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(22f, -86f), "Current Car: RMCar26", TextAlignmentOptions.TopLeft, 20f);
+            SetTextColor(build.moneyText, accentGreen);
+            SetTextColor(build.reputationText, accentCyan);
+
+            // ═══════════════════════════════════════════════════════════
+            // RIGHT PANEL — Overall Rating
+            // ═══════════════════════════════════════════════════════════
+            GameObject ratingPanel = CreateGaragePanel(parent, "RatingPanel", new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(0f, -120f), new Vector2(200f, 200f), panelDark);
+            // Accent stripe on right edge
+            CreateGaragePanel(ratingPanel.transform, "RightAccent", new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(0f, 0f), new Vector2(3f, 200f), accentGreen);
+
+            TMP_Text ratingHeader = CreateAnchoredInfoText(ratingPanel.transform, "RatingHeader", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -20f), "PERFORMANCE", TextAlignmentOptions.Center, 14f);
+            SetTextColor(ratingHeader, dimWhite);
+            build.ratingText = CreateAnchoredInfoText(ratingPanel.transform, "RatingText", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 6f), "8.56", TextAlignmentOptions.Center, 52f);
+            TMP_Text ratingLabel = CreateAnchoredInfoText(ratingPanel.transform, "RatingLabel", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -36f), "RATING", TextAlignmentOptions.Center, 12f);
+            SetTextColor(ratingLabel, dimWhite);
+
+            CreateGarageVerticalMeter(ratingPanel.transform, new Vector2(0.9f, 0.15f), new Color(0.15f, 0.18f, 0.15f, 0.9f), accentGreen);
+
+            // ═══════════════════════════════════════════════════════════
+            // BOTTOM PANEL — Stats + Action Buttons
+            // ═══════════════════════════════════════════════════════════
+            GameObject bottomPanel = CreateGaragePanel(parent, "BottomPanel", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 0f), new Vector2(1920f, 170f), panelDark);
+            // Top accent stripe
+            CreateGaragePanel(bottomPanel.transform, "BottomAccent", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, 0f), new Vector2(1920f, 2f), accentGreen);
+
+            // Stat bars — wider, positioned in the left 60%
+            build.accelerationFill = CreateGarageStatBlock(bottomPanel.transform, "ACCELERATION", new Vector2(0.12f, 0.65f), out _, accentGreen, panelMid);
+            build.topSpeedFill = CreateGarageStatBlock(bottomPanel.transform, "TOP SPEED", new Vector2(0.32f, 0.65f), out _, accentCyan, panelMid);
+            build.handlingFill = CreateGarageStatBlock(bottomPanel.transform, "HANDLING", new Vector2(0.52f, 0.65f), out _, accentGreen, panelMid);
+
+            // Status text
+            build.statusText = CreateAnchoredInfoText(bottomPanel.transform, "StatusText", new Vector2(0.02f, 0.15f), new Vector2(0f, 0.5f), Vector2.zero, "Use < > to browse cars. Right-click drag to rotate.", TextAlignmentOptions.Left, 16f);
+            SetTextColor(build.statusText, dimWhite);
+
+            // Action buttons — right side, larger, with clear labeling
+            float buttonY = 0.38f;
+            build.repairButton = CreateGarageButton(bottomPanel.transform, "Repair Car", new Vector2(0.62f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170f, 48f), buttonSecondary);
+            build.upgradeButton = CreateGarageButton(bottomPanel.transform, "Buy Engine", new Vector2(0.74f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170f, 48f), buttonPrimary);
+            build.bankButton = CreateGarageButton(bottomPanel.transform, "Bank Progress", new Vector2(0.86f, buttonY), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(180f, 48f), buttonSecondary);
+            build.continueButton = CreateGarageButton(bottomPanel.transform, "Continue", new Vector2(0.96f, buttonY), new Vector2(1f, 0.5f), new Vector2(-14f, 0f), new Vector2(160f, 48f), buttonAccent);
 
             return build;
+        }
+
+        private static void SetTextColor(TMP_Text text, Color color)
+        {
+            if (text != null)
+            {
+                text.color = color;
+            }
         }
 
         private static GameObject CreateGaragePanel(Transform parent, string name, Vector2 anchor, Vector2 pivot, Vector2 anchoredPosition, Vector2 sizeDelta, Color color)
@@ -324,14 +445,16 @@ namespace Underground.EditorTools
             return button;
         }
 
-        private static Image CreateGarageStatBlock(Transform parent, string title, Vector2 anchor, out TMP_Text valueText)
+        private static Image CreateGarageStatBlock(Transform parent, string title, Vector2 anchor, out TMP_Text valueText, Color fillColor, Color blockColor)
         {
-            GameObject block = CreateGaragePanel(parent, $"{title}_Block", anchor, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(250f, 66f), new Color(0.07f, 0.075f, 0.085f, 0.82f));
-            CreateAnchoredInfoText(block.transform, $"{title}_Title", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -12f), title, TextAlignmentOptions.Center, 18f);
-            valueText = CreateAnchoredInfoText(block.transform, $"{title}_Value", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 12f), string.Empty, TextAlignmentOptions.Center, 18f);
+            GameObject block = CreateGaragePanel(parent, $"{title}_Block", anchor, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(280f, 72f), blockColor);
 
-            GameObject track = CreateGaragePanel(block.transform, $"{title}_Track", new Vector2(0.5f, 0.36f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(190f, 10f), new Color(0.18f, 0.2f, 0.22f, 1f));
-            GameObject fillObject = CreateGaragePanel(track.transform, $"{title}_Fill", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(190f, 10f), new Color(0.58f, 0.92f, 0.34f, 1f));
+            TMP_Text titleText = CreateAnchoredInfoText(block.transform, $"{title}_Title", new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -10f), title, TextAlignmentOptions.Center, 14f);
+            SetTextColor(titleText, new Color(0.55f, 0.58f, 0.62f, 1f));
+            valueText = CreateAnchoredInfoText(block.transform, $"{title}_Value", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 8f), string.Empty, TextAlignmentOptions.Center, 14f);
+
+            GameObject track = CreateGaragePanel(block.transform, $"{title}_Track", new Vector2(0.5f, 0.38f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(230f, 12f), new Color(0.12f, 0.14f, 0.16f, 1f));
+            GameObject fillObject = CreateGaragePanel(track.transform, $"{title}_Fill", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), Vector2.zero, new Vector2(230f, 12f), fillColor);
             Image fill = fillObject.GetComponent<Image>();
             fill.type = Image.Type.Filled;
             fill.fillMethod = Image.FillMethod.Horizontal;
@@ -351,20 +474,41 @@ namespace Underground.EditorTools
             fill.fillAmount = 0.82f;
         }
 
-        private static Material CreateOrUpdateGarageMaterial(string path, Color baseColor, float metallic, float smoothness, Color? emissionColor = null)
+        private static Material CreateOrUpdateGarageMaterial(
+            string path,
+            Color baseColor,
+            float metallic,
+            float smoothness,
+            Color? emissionColor = null,
+            Texture texture = null,
+            Vector2? textureScale = null)
         {
             Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            Shader shader = GetPreferredLitShader();
             if (material == null)
             {
-                Shader shader = Shader.Find("Universal Render Pipeline/Lit") ?? Shader.Find("Standard");
-                material = new Material(shader);
+                material = new Material(shader ?? Shader.Find("Standard"));
                 AssetDatabase.CreateAsset(material, path);
+            }
+            else if (shader != null && material.shader != shader)
+            {
+                material.shader = shader;
             }
 
             material.color = baseColor;
+            if (texture != null)
+            {
+                material.color = Color.white;
+            }
+
             if (material.HasProperty("_BaseColor"))
             {
-                material.SetColor("_BaseColor", baseColor);
+                material.SetColor("_BaseColor", texture != null ? Color.white : baseColor);
+            }
+
+            if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", texture != null ? Color.white : baseColor);
             }
 
             if (material.HasProperty("_Metallic"))
@@ -377,6 +521,16 @@ namespace Underground.EditorTools
                 material.SetFloat("_Smoothness", smoothness);
             }
 
+            if (texture != null)
+            {
+                SetGarageMaterialTexture(material, texture);
+
+                if (textureScale.HasValue)
+                {
+                    SetGarageMaterialTextureScale(material, textureScale.Value);
+                }
+            }
+
             if (emissionColor.HasValue)
             {
                 Color color = emissionColor.Value;
@@ -385,6 +539,164 @@ namespace Underground.EditorTools
                 {
                     material.SetColor("_EmissionColor", color);
                 }
+                if (material.HasProperty("_EmissiveColor"))
+                {
+                    material.SetColor("_EmissiveColor", color);
+                }
+            }
+
+            EditorUtility.SetDirty(material);
+            return material;
+        }
+
+        private static void SetGarageMaterialTexture(Material material, Texture texture)
+        {
+            if (material == null || texture == null)
+            {
+                return;
+            }
+
+            string[] textureProperties =
+            {
+                "_BaseColorMap",
+                "_BaseMap",
+                "_MainTex"
+            };
+
+            for (int i = 0; i < textureProperties.Length; i++)
+            {
+                if (material.HasProperty(textureProperties[i]))
+                {
+                    material.SetTexture(textureProperties[i], texture);
+                }
+            }
+        }
+
+        private static Texture2D LoadGarageSurfaceTexture(string assetPath, bool clamp)
+        {
+            ConfigureGarageTextureImport(assetPath, clamp);
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(assetPath);
+        }
+
+        private static void ConfigureGarageTextureImport(string assetPath, bool clamp)
+        {
+            TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            if (importer == null)
+            {
+                return;
+            }
+
+            bool changed = false;
+
+            if (importer.textureType != TextureImporterType.Default)
+            {
+                importer.textureType = TextureImporterType.Default;
+                changed = true;
+            }
+
+            if (importer.textureShape != TextureImporterShape.Texture2D)
+            {
+                importer.textureShape = TextureImporterShape.Texture2D;
+                changed = true;
+            }
+
+            if (importer.spriteImportMode != SpriteImportMode.None)
+            {
+                importer.spriteImportMode = SpriteImportMode.None;
+                changed = true;
+            }
+
+            if (!importer.mipmapEnabled)
+            {
+                importer.mipmapEnabled = true;
+                changed = true;
+            }
+
+            if (importer.wrapMode != (clamp ? TextureWrapMode.Clamp : TextureWrapMode.Repeat))
+            {
+                importer.wrapMode = clamp ? TextureWrapMode.Clamp : TextureWrapMode.Repeat;
+                changed = true;
+            }
+
+            if (importer.filterMode != FilterMode.Trilinear)
+            {
+                importer.filterMode = FilterMode.Trilinear;
+                changed = true;
+            }
+
+            if (importer.anisoLevel != 4)
+            {
+                importer.anisoLevel = 4;
+                changed = true;
+            }
+
+            if (importer.maxTextureSize < 4096)
+            {
+                importer.maxTextureSize = 4096;
+                changed = true;
+            }
+
+            if (importer.alphaIsTransparency)
+            {
+                importer.alphaIsTransparency = false;
+                changed = true;
+            }
+
+            if (changed)
+            {
+                importer.SaveAndReimport();
+            }
+        }
+
+        private static void SetGarageMaterialTextureScale(Material material, Vector2 scale)
+        {
+            if (material == null)
+            {
+                return;
+            }
+
+            string[] textureProperties =
+            {
+                "_BaseColorMap",
+                "_BaseMap",
+                "_MainTex"
+            };
+
+            for (int i = 0; i < textureProperties.Length; i++)
+            {
+                if (material.HasProperty(textureProperties[i]))
+                {
+                    material.SetTextureScale(textureProperties[i], scale);
+                }
+            }
+        }
+
+        private static Material CreateOrUpdateGarageBackdropMaterial(string path, Texture2D backdropTexture)
+        {
+            Shader shader = Shader.Find("Unlit/Texture");
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (material == null)
+            {
+                material = new Material(shader ?? Shader.Find("Standard"));
+                AssetDatabase.CreateAsset(material, path);
+            }
+            else if (shader != null && material.shader != shader)
+            {
+                material.shader = shader;
+            }
+
+            if (backdropTexture != null)
+            {
+                if (material.HasProperty("_MainTex"))
+                {
+                    material.SetTexture("_MainTex", backdropTexture);
+                }
+
+                material.color = Color.white;
+            }
+            else
+            {
+                material.color = new Color(0.18f, 0.09f, 0.2f, 1f);
             }
 
             EditorUtility.SetDirty(material);

@@ -493,8 +493,8 @@ namespace Underground.EditorTools
                 return null;
             }
 
-            Shader urpLit = Shader.Find("Universal Render Pipeline/Lit");
-            if (urpLit == null)
+            Shader preferredLitShader = GetPreferredLitShader();
+            if (preferredLitShader == null)
             {
                 return sourceMaterial;
             }
@@ -502,15 +502,16 @@ namespace Underground.EditorTools
             string sourcePath = AssetDatabase.GetAssetPath(sourceMaterial);
             if (string.IsNullOrEmpty(sourcePath))
             {
-                return CreateTransientUrpMaterial(sourceMaterial, urpLit);
+                return CreateTransientUrpMaterial(sourceMaterial, preferredLitShader);
             }
 
             string fileName = System.IO.Path.GetFileNameWithoutExtension(sourcePath);
-            string targetPath = $"Assets/Materials/Generated/{fileName}_URP.mat";
+            string suffix = preferredLitShader.name.Contains("HDRP") ? "HDRP" : preferredLitShader.name.Contains("Universal") ? "URP" : "SRP";
+            string targetPath = $"Assets/Materials/Generated/{fileName}_{suffix}.mat";
             Material convertedMaterial = AssetDatabase.LoadAssetAtPath<Material>(targetPath);
             if (convertedMaterial == null)
             {
-                convertedMaterial = new Material(urpLit);
+                convertedMaterial = new Material(preferredLitShader);
                 AssetDatabase.CreateAsset(convertedMaterial, targetPath);
             }
 
@@ -528,7 +529,11 @@ namespace Underground.EditorTools
 
         private static void CopyMaterialProperties(Material sourceMaterial, Material targetMaterial)
         {
-            targetMaterial.shader = Shader.Find("Universal Render Pipeline/Lit");
+            Shader preferredLitShader = GetPreferredLitShader();
+            if (preferredLitShader != null)
+            {
+                targetMaterial.shader = preferredLitShader;
+            }
 
             if (TryGetTexture(sourceMaterial, out Texture baseTexture, "_BaseMap", "_MainTex"))
             {
@@ -585,9 +590,17 @@ namespace Underground.EditorTools
 
         private static void SetupOpaqueUrpMaterial(Material material)
         {
-            material.SetFloat("_Surface", 0f);
-            material.SetFloat("_Blend", 0f);
-            material.SetFloat("_AlphaClip", 0f);
+            if (material.shader != null && material.shader.name == "HDRP/Lit")
+            {
+                SetFloatIfPresent(material, "_SurfaceType", 0f);
+                SetFloatIfPresent(material, "_BlendMode", 0f);
+                SetFloatIfPresent(material, "_AlphaCutoffEnable", 0f);
+                SetFloatIfPresent(material, "_ZWrite", 1f);
+            }
+
+            SetFloatIfPresent(material, "_Surface", 0f);
+            SetFloatIfPresent(material, "_Blend", 0f);
+            SetFloatIfPresent(material, "_AlphaClip", 0f);
             material.SetOverrideTag("RenderType", "Opaque");
             material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
             material.renderQueue = (int)RenderQueue.Geometry;
@@ -595,12 +608,35 @@ namespace Underground.EditorTools
 
         private static void SetupTransparentUrpMaterial(Material material)
         {
-            material.SetFloat("_Surface", 1f);
-            material.SetFloat("_Blend", 0f);
-            material.SetFloat("_AlphaClip", 0f);
+            if (material.shader != null && material.shader.name == "HDRP/Lit")
+            {
+                SetFloatIfPresent(material, "_SurfaceType", 1f);
+                SetFloatIfPresent(material, "_BlendMode", 0f);
+                SetFloatIfPresent(material, "_AlphaCutoffEnable", 0f);
+                SetFloatIfPresent(material, "_ZWrite", 0f);
+            }
+
+            SetFloatIfPresent(material, "_Surface", 1f);
+            SetFloatIfPresent(material, "_Blend", 0f);
+            SetFloatIfPresent(material, "_AlphaClip", 0f);
             material.SetOverrideTag("RenderType", "Transparent");
             material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
             material.renderQueue = (int)RenderQueue.Transparent;
+        }
+
+        private static Shader GetPreferredLitShader()
+        {
+            return Shader.Find("HDRP/Lit")
+                ?? Shader.Find("Universal Render Pipeline/Lit")
+                ?? Shader.Find("Standard");
+        }
+
+        private static void SetFloatIfPresent(Material material, string propertyName, float value)
+        {
+            if (material.HasProperty(propertyName))
+            {
+                material.SetFloat(propertyName, value);
+            }
         }
 
         private static bool TryGetTexture(Material material, out Texture texture, params string[] propertyNames)

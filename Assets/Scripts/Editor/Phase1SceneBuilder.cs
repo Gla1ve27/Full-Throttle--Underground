@@ -4,19 +4,19 @@ namespace Underground.EditorTools
 {
     public static class Phase1SceneBuilder
     {
-        [MenuItem("Underground/Phase 1/Create Vehicle Test Scene")]
+        [MenuItem("Underground/Legacy/Phase 1/Create Vehicle Test Scene")]
         public static void CreateVehicleTestScene()
         {
             UndergroundPrototypeBuilder.BuildVehicleTestSceneOnly();
         }
 
-        [MenuItem("Underground/Phase 1/Rebuild Scene Prefabs")]
+        [MenuItem("Underground/Legacy/Phase 1/Rebuild Scene Prefabs")]
         public static void RebuildScenePrefabs()
         {
             UndergroundPrototypeBuilder.RebuildGeneratedScenePrefabs();
         }
 
-        [MenuItem("Underground/Phase 1/Build Full Prototype")]
+        [MenuItem("Underground/Legacy/Phase 1/Build Full Prototype")]
         public static void BuildFullPrototype()
         {
             UndergroundPrototypeBuilder.BuildFullPrototype();

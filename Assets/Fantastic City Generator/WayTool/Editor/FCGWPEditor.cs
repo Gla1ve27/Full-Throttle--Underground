@@ -79,7 +79,7 @@ namespace FCG
 
                         Vector3 newTilePosition = hit.point;
 
-                        FCGWaypointsContainer[] tArray = Object.FindObjectsByType<FCGWaypointsContainer>(FindObjectsSortMode.None);
+                        FCGWaypointsContainer[] tArray = GameObject.FindObjectsOfType<FCGWaypointsContainer>();
 
                         for (int f = 0; f < tArray.Length; f++)
                         {

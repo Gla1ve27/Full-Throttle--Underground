@@ -25,8 +25,8 @@ namespace FCG
         public int nVehicles = 0;
         public int maxVehiclesWithPlayer = 50;
 
-        [Range(100, 600)]
-        public float around = 320;
+        [Range(100, 200)]
+        public float around = 150;
 
         private ArrayList spawnsPoints;
 
@@ -67,7 +67,7 @@ namespace FCG
         public void UpdateAllWayPoints()
         {
 
-            FCGWaypointsContainer[] tArray = FindWaypointsContainers();
+            FCGWaypointsContainer[] tArray = GameObject.FindObjectsOfType<FCGWaypointsContainer>();
 
             for (int f = 0; f < tArray.Length; f++)
             {
@@ -98,7 +98,7 @@ namespace FCG
         public void GetWpData()
         {
 
-            FCGWaypointsContainer[] ts = FindWaypointsContainers();
+            FCGWaypointsContainer[] ts = FindObjectsOfType<FCGWaypointsContainer>();
 
             wpData.tsActive = new bool[ts.Length * 2];
             wpData.tf01 = new Vector3[ts.Length * 2];
@@ -183,7 +183,7 @@ namespace FCG
                 return;
             }
 
-            FCGWaypointsContainer[] ts = FindWaypointsContainers();
+            FCGWaypointsContainer[] ts = FindObjectsOfType<FCGWaypointsContainer>();
 
             int n = ts.Length;
             for (int i = 0; i < n; i++)
@@ -224,7 +224,7 @@ namespace FCG
 
             wpDataSpawn = new List<WpDataSpawn>();
 
-            ts = FindWaypointsContainers();
+            ts = FindObjectsOfType<FCGWaypointsContainer>();
             n = ts.Length;
 
             for (int i = 0; i < n; i++)
@@ -264,7 +264,7 @@ namespace FCG
 
             if (player && Application.isPlaying)
             {
-                InvokeRepeating(nameof(LoadCars2), 0f, 2f);
+                InvokeRepeating(nameof(LoadCars2), 0f, 5);
             }
             else
                 LoadCars2();
@@ -289,7 +289,7 @@ namespace FCG
             if (firstTime && player && nVehicles > 0)
             {
                    
-                    TrafficCar[] vcles = Object.FindObjectsByType<TrafficCar>(FindObjectsSortMode.None);
+                    TrafficCar[] vcles = FindObjectsOfType<TrafficCar>();
                     int nvcles = vcles.Length;
                     for (int i = 0; i < nvcles; i++)
                     {
@@ -406,7 +406,7 @@ namespace FCG
             }
             else
             {
-                FCGWaypointsContainer[] _ts = FindWaypointsContainers();
+                FCGWaypointsContainer[] _ts = FindObjectsOfType<FCGWaypointsContainer>();
 
                 if (_ts.Length == 0)
                 {
@@ -454,7 +454,7 @@ namespace FCG
             trafficLightHand = hand_Right;
 
             //Inverse Traffic-Lights 
-            TFShiftHand2[] TLs = Object.FindObjectsByType<TFShiftHand2>(FindObjectsSortMode.None);
+            TFShiftHand2[] TLs = FindObjectsOfType<TFShiftHand2>();
             if (TLs.Length == 0 && GameObject.Find("Traffic-Light-T"))
             {
                 Debug.LogError("It is not compatible with the previous traffic system.\nTo use the new system you need to generate the city again");
@@ -466,16 +466,16 @@ namespace FCG
                 TLs[i].RightHand(trafficLightHand);
 
             //Inverse Nodes
-            FCGWaypointsContainer[] ts = FindWaypointsContainers();
+            FCGWaypointsContainer[] ts = FindObjectsOfType<FCGWaypointsContainer>();
             for (int i = 0; i < ts.Length; i++)
                 ts[i].InvertNodesDirection(trafficLightHand);
 
-            GameObject[] roadMark = FindSceneObjectsByName("Road-Mark");
+            GameObject[] roadMark = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name.Equals("Road-Mark")).ToArray();
             for (int i = 0; i < roadMark.Length; i++)
                 if (roadMark[i].transform.Find("RoadMark"))
                     roadMark[i].transform.Find("RoadMark").gameObject.SetActive(trafficLightHand == 0);
 
-            roadMark = FindSceneObjectsByName("Road-Mark-Rev");
+            roadMark = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name.Equals("Road-Mark-Rev")).ToArray();
             for (int i = 0; i < roadMark.Length; i++)
                 if (roadMark[i].transform.Find("RoadMarkRev"))
                     roadMark[i].transform.Find("RoadMarkRev").gameObject.SetActive(trafficLightHand != 0);
@@ -484,16 +484,7 @@ namespace FCG
 
         }
 
-        private static FCGWaypointsContainer[] FindWaypointsContainers()
-        {
-            return Object.FindObjectsByType<FCGWaypointsContainer>(FindObjectsSortMode.None);
-        }
 
-        private static GameObject[] FindSceneObjectsByName(string objectName)
-        {
-            return GameObject.FindObjectsByType<GameObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-                .Where(gameObject => gameObject.name.Equals(objectName))
-                .ToArray();
-        }
     }
+
 }

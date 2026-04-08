@@ -1,4 +1,5 @@
 using UnityEngine;
+using Underground.Core.Architecture;
 
 namespace Underground.Core
 {
@@ -15,6 +16,8 @@ namespace Underground.Core
             }
 
             instance = this;
+            ServiceLocator.Reset();
+            ServiceLocator.Register<IEventBus>(ServiceLocator.EventBus);
             DontDestroyOnLoad(gameObject);
         }
     }

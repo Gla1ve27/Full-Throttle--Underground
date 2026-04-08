@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c4ae006500d57a34fb340cda7e5d0d32
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234143
+  packageName: 'SSRT3: Screen Space Ray Tracing (GI)'
+  packageVersion: 1.0.2
+  assetPath: Assets/SSRT3/HDRP/Classroom/Scenes/ClassroomScene/Post Processing Profile
+    - Day.asset
+  uploadId: 557593

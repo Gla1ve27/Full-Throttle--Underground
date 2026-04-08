@@ -1,12 +1,13 @@
 using UnityEngine;
 using Underground.Save;
+using Underground.Vehicle;
 
 namespace Underground.Progression
 {
     public class VehicleOwnershipSystem : MonoBehaviour
     {
         [SerializeField] private PersistentProgressManager progressManager;
-        [SerializeField] private string protectedStarterCarId = "starter_car";
+        [SerializeField] private string protectedStarterCarId = PlayerCarCatalog.StarterCarId;
 
         private void Awake()
         {

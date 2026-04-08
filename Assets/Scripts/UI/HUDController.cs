@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Underground.Core.Architecture;
 using Underground.Save;
 using Underground.Session;
 using Underground.TimeSystem;
+using Underground.Race;
 using Underground.Vehicle;
 
 namespace Underground.UI
@@ -20,6 +22,7 @@ namespace Underground.UI
         [SerializeField] private GameSettingsManager settingsManager;
 
         [Header("Text")]
+        [SerializeField] private global::Speedometer speedometer;
         [SerializeField] private TMP_Text speedText;
         [SerializeField] private TMP_Text gearText;
         [SerializeField] private TMP_Text bankMoneyText;
@@ -28,29 +31,34 @@ namespace Underground.UI
         [SerializeField] private TMP_Text riskText;
         [SerializeField] private TMP_Text damageText;
         [SerializeField] private TMP_Text dayNightText;
+        [SerializeField] private TMP_Text clockText;
+        [SerializeField] private TMP_Text racePromptText;
+        [SerializeField] private TMP_Text raceObjectiveText;
         [SerializeField] private TMP_Text nextLevelText;
         [SerializeField] private TMP_Text challengeText;
         [SerializeField] private Image speedGaugeFill;
         [SerializeField] private Image speedGaugeGlowFill;
         [SerializeField] private Image riskGaugeFill;
+        [SerializeField] private RectTransform riskClusterRoot;
+        [SerializeField] private RectTransform racePromptRoot;
 
         private Canvas attachedCanvas;
 
         private void Awake()
         {
-            if (vehicle == null) vehicle = FindFirstObjectByType<VehicleDynamicsController>();
-            if (gearbox == null) gearbox = FindFirstObjectByType<GearboxSystem>();
-            if (session == null) session = FindFirstObjectByType<SessionManager>();
-            if (progress == null) progress = FindFirstObjectByType<PersistentProgressManager>();
-            if (damageSystem == null) damageSystem = FindFirstObjectByType<VehicleDamageSystem>();
-            if (riskSystem == null) riskSystem = FindFirstObjectByType<RiskSystem>();
-            if (timeSystem == null) timeSystem = FindFirstObjectByType<DayNightCycleController>();
+            ResolveVehicleReferences();
+            if (session == null) session = ServiceResolver.Resolve<ISessionService>(null) as SessionManager ?? FindFirstObjectByType<SessionManager>();
+            if (progress == null) progress = ServiceResolver.Resolve<IProgressService>(null) as PersistentProgressManager ?? FindFirstObjectByType<PersistentProgressManager>();
+            if (riskSystem == null) riskSystem = ServiceResolver.Resolve<IRiskService>(null) as RiskSystem ?? FindFirstObjectByType<RiskSystem>();
+            if (timeSystem == null) timeSystem = ServiceResolver.Resolve<ITimeOfDayService>(null) as DayNightCycleController ?? FindFirstObjectByType<DayNightCycleController>();
             if (settingsManager == null) settingsManager = FindFirstObjectByType<GameSettingsManager>();
 
             attachedCanvas = GetComponent<Canvas>();
+            ResolveViewReferences();
         }
 
         public void BindView(
+            global::Speedometer speedometerValue,
             TMP_Text speedValue,
             TMP_Text gearValue,
             TMP_Text bankValue,
@@ -65,6 +73,7 @@ namespace Underground.UI
             Image speedGlowValue,
             Image riskGaugeValue)
         {
+            speedometer = speedometerValue;
             speedText = speedValue;
             gearText = gearValue;
             bankMoneyText = bankValue;
@@ -78,6 +87,11 @@ namespace Underground.UI
             speedGaugeFill = speedGaugeValue;
             speedGaugeGlowFill = speedGlowValue;
             riskGaugeFill = riskGaugeValue;
+        }
+
+        public void RefreshViewBindings()
+        {
+            ResolveViewReferences();
         }
 
         private void OnEnable()
@@ -110,11 +124,36 @@ namespace Underground.UI
                 }
             }
 
+            if (speedometer == null || clockText == null || riskClusterRoot == null || racePromptRoot == null)
+            {
+                ResolveViewReferences();
+            }
+
+            if (vehicle == null || vehicle.Rigidbody == null || !vehicle.CompareTag("Player"))
+            {
+                ResolveVehicleReferences();
+            }
+
             int speedKph = vehicle != null ? Mathf.RoundToInt(Mathf.Abs(vehicle.ForwardSpeedKph)) : 0;
             float normalizedSpeed = 0f;
             if (vehicle != null && vehicle.RuntimeStats != null)
             {
                 normalizedSpeed = Mathf.Clamp01(vehicle.SpeedKph / Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph));
+            }
+
+            bool isNight = timeSystem != null && timeSystem.IsNight;
+
+            if (speedometer != null)
+            {
+                if (vehicle != null && speedometer.target != vehicle.Rigidbody)
+                {
+                    speedometer.target = vehicle.Rigidbody;
+                }
+
+                if (vehicle != null && vehicle.RuntimeStats != null)
+                {
+                    speedometer.maxSpeed = Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph);
+                }
             }
 
             if (speedText != null)
@@ -165,7 +204,7 @@ namespace Underground.UI
 
                 if (challengeText != null)
                 {
-                    challengeText.text = riskTier > 0 ? "POLICE HEAT" : "RACER CHALLENGES";
+                    challengeText.text = isNight ? "POLICE HEAT" : "RACER CHALLENGES";
                 }
 
                 if (riskGaugeFill != null)
@@ -183,6 +222,21 @@ namespace Underground.UI
             {
                 dayNightText.text = timeSystem.IsNight ? "NIGHT" : "DAY";
             }
+
+            if (riskClusterRoot != null)
+            {
+                riskClusterRoot.gameObject.SetActive(isNight);
+            }
+
+            if (clockText != null)
+            {
+                float worldTime = timeSystem != null
+                    ? timeSystem.TimeOfDay
+                    : (progress != null ? progress.WorldTimeOfDay : 12f);
+                clockText.text = FormatGameClock(worldTime);
+            }
+
+            UpdateRacePrompt();
 
             if (speedGaugeFill != null)
             {
@@ -217,6 +271,155 @@ namespace Underground.UI
         private static int GetReputationThreshold(int level)
         {
             return Mathf.Max(1, level) * 500;
+        }
+
+        private void ResolveVehicleReferences()
+        {
+            VehicleDynamicsController playerVehicle = FindPlayerVehicle();
+            if (playerVehicle != null)
+            {
+                vehicle = playerVehicle;
+            }
+            else if (vehicle == null)
+            {
+                vehicle = FindFirstObjectByType<VehicleDynamicsController>();
+            }
+
+            if (vehicle != null)
+            {
+                gearbox = vehicle.GetComponent<GearboxSystem>() ?? gearbox;
+                damageSystem = vehicle.GetComponent<VehicleDamageSystem>() ?? damageSystem;
+            }
+            else
+            {
+                gearbox ??= FindFirstObjectByType<GearboxSystem>();
+                damageSystem ??= FindFirstObjectByType<VehicleDamageSystem>();
+            }
+        }
+
+        private void ResolveViewReferences()
+        {
+            speedometer ??= GetComponentInChildren<global::Speedometer>(true);
+            gearText ??= FindText("GearValue");
+            bankMoneyText ??= FindText("LevelDetail");
+            sessionMoneyText ??= FindText("SessionMoney");
+            reputationText ??= FindText("LevelValue");
+            riskText ??= FindText("RiskValue");
+            damageText ??= FindText("DamageValue");
+            dayNightText ??= FindText("ChallengeState");
+            clockText ??= FindText("ClockValue");
+            racePromptText ??= FindText("RacePromptValue");
+            raceObjectiveText ??= FindText("RaceObjectiveValue");
+            nextLevelText ??= FindText("NextLevel");
+            challengeText ??= FindText("ChallengeTitle");
+            riskGaugeFill ??= FindImage("RiskFill");
+
+            if (riskClusterRoot == null)
+            {
+                Transform riskCluster = FindDescendant(transform, "RiskCluster");
+                riskClusterRoot = riskCluster as RectTransform;
+            }
+
+            if (racePromptRoot == null)
+            {
+                Transform promptRoot = FindDescendant(transform, "RacePromptRoot");
+                racePromptRoot = promptRoot as RectTransform;
+            }
+        }
+
+        private TMP_Text FindText(string objectName)
+        {
+            Transform target = FindDescendant(transform, objectName);
+            return target != null ? target.GetComponent<TMP_Text>() : null;
+        }
+
+        private Image FindImage(string objectName)
+        {
+            Transform target = FindDescendant(transform, objectName);
+            return target != null ? target.GetComponent<Image>() : null;
+        }
+
+        private static Transform FindDescendant(Transform root, string objectName)
+        {
+            if (root == null || string.IsNullOrEmpty(objectName))
+            {
+                return null;
+            }
+
+            if (root.name == objectName)
+            {
+                return root;
+            }
+
+            for (int i = 0; i < root.childCount; i++)
+            {
+                Transform found = FindDescendant(root.GetChild(i), objectName);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
+        }
+
+        private static VehicleDynamicsController FindPlayerVehicle()
+        {
+            VehicleDynamicsController[] vehicles = FindObjectsByType<VehicleDynamicsController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] != null && vehicles[i].CompareTag("Player"))
+                {
+                    return vehicles[i];
+                }
+            }
+
+            return null;
+        }
+
+        private static string FormatGameClock(float timeOfDay)
+        {
+            float normalized = Mathf.Repeat(timeOfDay, 24f);
+            int totalMinutes = Mathf.RoundToInt(normalized * 60f) % (24 * 60);
+            int hours24 = totalMinutes / 60;
+            int minutes = totalMinutes % 60;
+            int hours12 = hours24 % 12;
+            if (hours12 == 0)
+            {
+                hours12 = 12;
+            }
+
+            string suffix = hours24 >= 12 ? "PM" : "AM";
+            return $"{hours12:00}:{minutes:00} {suffix}";
+        }
+
+        private void UpdateRacePrompt()
+        {
+            if (racePromptRoot == null)
+            {
+                return;
+            }
+
+            RaceManager activeRace = RaceManager.ActiveRace;
+            RaceStartTrigger activePrompt = RaceStartTrigger.ActivePrompt;
+
+            bool showObjective = activeRace != null && activeRace.IsRaceActive;
+            bool showPrompt = !showObjective && activePrompt != null && activePrompt.IsPromptVisible();
+            racePromptRoot.gameObject.SetActive(showObjective || showPrompt);
+
+            if (racePromptText != null)
+            {
+                racePromptText.text = showPrompt
+                    ? activePrompt.GetPromptText()
+                    : (showObjective ? activeRace.DisplayName : string.Empty);
+            }
+
+            if (raceObjectiveText != null)
+            {
+                raceObjectiveText.text = showObjective
+                    ? activeRace.ActiveObjectiveText
+                    : (showPrompt ? "Street race marker detected" : string.Empty);
+            }
         }
     }
 }

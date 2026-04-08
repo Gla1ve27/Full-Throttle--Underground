@@ -1,11 +1,22 @@
 using System.IO;
 using UnityEngine;
+using Underground.Core.Architecture;
 
 namespace Underground.Save
 {
-    public class SaveSystem : MonoBehaviour
+    public class SaveSystem : MonoBehaviour, ISaveService
     {
         private string SavePath => Path.Combine(Application.persistentDataPath, "savegame.json");
+
+        private void Awake()
+        {
+            ServiceLocator.Register<ISaveService>(this);
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Unregister<ISaveService>(this);
+        }
 
         public void Save(SaveGameData data)
         {

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Underground.Core.Architecture;
 using Underground.Save;
 
 namespace Underground.Session
 {
-    public class SessionManager : MonoBehaviour
+    public class SessionManager : MonoBehaviour, ISessionService
     {
         [SerializeField] private PersistentProgressManager persistentProgress;
         [SerializeField] private RiskSystem riskSystem;
@@ -17,13 +18,22 @@ namespace Underground.Session
         {
             if (persistentProgress == null)
             {
-                persistentProgress = FindFirstObjectByType<PersistentProgressManager>();
+                persistentProgress = ServiceResolver.Resolve<IProgressService>(null) as PersistentProgressManager
+                    ?? FindFirstObjectByType<PersistentProgressManager>();
             }
 
             if (riskSystem == null)
             {
-                riskSystem = FindFirstObjectByType<RiskSystem>();
+                riskSystem = ServiceResolver.Resolve<IRiskService>(null) as RiskSystem
+                    ?? FindFirstObjectByType<RiskSystem>();
             }
+
+            ServiceLocator.Register<ISessionService>(this);
+        }
+
+        private void OnDestroy()
+        {
+            ServiceLocator.Unregister<ISessionService>(this);
         }
 
         public void BeginSession()
@@ -31,6 +41,7 @@ namespace Underground.Session
             SessionMoney = 0;
             SessionReputation = 0;
             riskSystem?.ResetRisk();
+            ServiceLocator.EventBus.Publish(new SessionStartedEvent(SceneManager.GetActiveScene().name));
         }
 
         public void AddMoney(int amount)
@@ -52,12 +63,15 @@ namespace Underground.Session
                 return;
             }
 
+            int moneyBanked = SessionMoney;
+            int reputationBanked = SessionReputation;
             persistentProgress.AddMoney(SessionMoney);
             persistentProgress.AddReputation(SessionReputation);
             SessionMoney = 0;
             SessionReputation = 0;
             riskSystem?.ResetRisk();
             persistentProgress.SaveNow(worldTime, garageSceneName);
+            ServiceLocator.EventBus.Publish(new SessionBankedEvent(moneyBanked, reputationBanked, worldTime));
         }
 
         public void OnVehicleTotalled()
@@ -65,6 +79,7 @@ namespace Underground.Session
             SessionMoney = 0;
             SessionReputation = 0;
             riskSystem?.ResetRisk();
+            ServiceLocator.EventBus.Publish(new SessionFailedEvent("VehicleTotalled"));
             SceneManager.LoadScene(garageSceneName);
         }
     }

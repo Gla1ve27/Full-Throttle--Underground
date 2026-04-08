@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4681654311958636
 Transform:
@@ -70,7 +70,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4339645340232824
 Transform:
@@ -150,6 +150,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chairs-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1483448960207278, guid: befe24ab8efdeae45b0f3b7e41f1bce6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4100671239644576, guid: befe24ab8efdeae45b0f3b7e41f1bce6, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -213,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chairs-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1209731263950714, guid: b813e2e1ed17a694d93976ea4b141a10, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4347896447921492, guid: b813e2e1ed17a694d93976ea4b141a10, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -275,6 +283,10 @@ PrefabInstance:
     - target: {fileID: 1483448960207278, guid: befe24ab8efdeae45b0f3b7e41f1bce6, type: 3}
       propertyPath: m_Name
       value: Chairs-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483448960207278, guid: befe24ab8efdeae45b0f3b7e41f1bce6, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4100671239644576, guid: befe24ab8efdeae45b0f3b7e41f1bce6, type: 3}
       propertyPath: m_RootOrder

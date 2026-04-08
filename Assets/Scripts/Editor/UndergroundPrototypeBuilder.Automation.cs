@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FCG;
@@ -5,6 +6,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 using Underground.AI;
 using Underground.Core;
 using Underground.Garage;
@@ -21,14 +23,35 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        [MenuItem("Underground/Build Full Prototype", priority = 1)]
-        public static void BuildFullPrototypeFromTopMenu()
+        [MenuItem("Underground/Rebuild Full Game", priority = 1)]
+        public static void RebuildFullGameFromTopMenu()
         {
-            BuildFullPrototype();
+            ReloadAllGeneratedContent();
         }
 
-        [MenuItem("Underground/World/Build Huge FCG World Scene", priority = 20)]
-        public static void BuildHugeFcgWorldScene()
+        [MenuItem("Underground/Build Full Game", priority = 2)]
+        public static void BuildFullGameFromTopMenu()
+        {
+            RebuildFullGameFromTopMenu();
+        }
+
+        [MenuItem("Underground/Reload All", priority = 3)]
+        public static void ReloadAllGeneratedContent()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                return;
+            }
+
+            string sceneToReload = ResolveManagedSceneToReload(SceneManager.GetActiveScene().path);
+            BuildFullPrototype(showDialog: false);
+            ForceReloadGeneratedAssets();
+            OpenReloadedScene(sceneToReload);
+            EditorUtility.DisplayDialog("Full Game Reloaded", "Rebuilt and reloaded the generated scenes, prefabs, starter data, and rendering setup.", "OK");
+        }
+
+        [MenuItem("Underground/World/Rebuild World Scene", priority = 20)]
+        public static void RebuildWorldScene()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -39,8 +62,8 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("World Ready", "Built the world scene with FCG huge-city automation when available.", "OK");
         }
 
-        [MenuItem("Underground/World/Generate Huge FCG City In Open Scene", priority = 21)]
-        public static void GenerateHugeFcgCityInOpenScene()
+        [MenuItem("Underground/World/Rebuild Open Scene World", priority = 21)]
+        public static void RebuildOpenSceneWorld()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
             Scene scene = SceneManager.GetActiveScene();
@@ -48,8 +71,8 @@ namespace Underground.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
-        [MenuItem("Underground/UI/Build Main Menu Scene", priority = 40)]
-        public static void BuildMainMenuSceneFromTopMenu()
+        [MenuItem("Underground/UI/Rebuild Main Menu Scene", priority = 40)]
+        public static void RebuildMainMenuSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out _, out _, out _);
             CreateMainMenuScene(playerCarPrefab);
@@ -57,8 +80,8 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Underground/UI/Build Garage Scene", priority = 41)]
-        public static void BuildGarageSceneFromTopMenu()
+        [MenuItem("Underground/UI/Rebuild Garage Scene", priority = 41)]
+        public static void RebuildGarageSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out UpgradeDefinition engineUpgrade, out _, out _, out _);
             CreateGarageScene(playerCarPrefab, engineUpgrade);
@@ -94,8 +117,8 @@ namespace Underground.EditorTools
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
-        [MenuItem("Underground/Managers/Place Runtime Managers In Open Scene", priority = 80)]
-        public static void PlaceRuntimeManagersInOpenScene()
+        [MenuItem("Underground/Systems/Place Runtime Systems In Open Scene", priority = 80)]
+        public static void PlaceRuntimeSystemsInOpenScene()
         {
             EnsureProjectFolders();
             ConfigureProjectSettings();
@@ -104,6 +127,74 @@ namespace Underground.EditorTools
             EnsureWorldSystems(GetOrCreateSceneObject("UndergroundGameplay").transform);
             EnsureHighStakesRaceSystem(GetOrCreateSceneObject("UndergroundGameplay").transform);
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        }
+
+        private static string ResolveManagedSceneToReload(string activeScenePath)
+        {
+            string[] managedScenePaths =
+            {
+                BootstrapScenePath,
+                MainMenuScenePath,
+                GarageScenePath,
+                WorldScenePath,
+                VehicleTestScenePath
+            };
+
+            for (int i = 0; i < managedScenePaths.Length; i++)
+            {
+                if (string.Equals(managedScenePaths[i], activeScenePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    return managedScenePaths[i];
+                }
+            }
+
+            return WorldScenePath;
+        }
+
+        private static void ForceReloadGeneratedAssets()
+        {
+            string[] generatedAssetPaths =
+            {
+                PlayerCarPrefabPath,
+                StarterVehicleStatsPath,
+                StarterEngineUpgradePath,
+                StarterGripUpgradePath,
+                DayRacePath,
+                NightRacePath,
+                WagerRacePath,
+                RuntimeRootPrefabPath,
+                WorldSystemsPrefabPath,
+                FollowCameraPrefabPath,
+                HudPrefabPath,
+                ProjectHdrpAssetPath,
+                ProjectWorldVolumeProfilePath,
+                ProjectGarageVolumeProfilePath,
+                BootstrapScenePath,
+                MainMenuScenePath,
+                GarageScenePath,
+                WorldScenePath,
+                VehicleTestScenePath
+            };
+
+            for (int i = 0; i < generatedAssetPaths.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(generatedAssetPaths[i]) && AssetDatabase.LoadMainAssetAtPath(generatedAssetPaths[i]) != null)
+                {
+                    AssetDatabase.ImportAsset(generatedAssetPaths[i], ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
+                }
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+        }
+
+        private static void OpenReloadedScene(string scenePath)
+        {
+            string targetScenePath = string.IsNullOrWhiteSpace(scenePath) ? WorldScenePath : scenePath;
+            if (AssetDatabase.LoadAssetAtPath<SceneAsset>(targetScenePath) != null)
+            {
+                EditorSceneManager.OpenScene(targetScenePath, OpenSceneMode.Single);
+            }
         }
 
         private static void PreparePrototypeAssets(out GameObject playerCarPrefab, out UpgradeDefinition engineUpgrade, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace)
@@ -158,6 +249,9 @@ namespace Underground.EditorTools
                 CreateFallbackWorldEnvironment(environmentRoot);
             }
 
+            RemoveImportedSkyOverrides();
+            InitializeWorldLightingPreview(systemsRoot);
+
             WorldAnchorSet anchors = ResolveWorldAnchors();
             GameObject playerCar = CreatePlayerCarInstance(gameplayRoot, playerCarPrefab, anchors.playerSpawnPose);
             CreateFollowCameraUnder(generatedRoot.transform, playerCar);
@@ -174,12 +268,36 @@ namespace Underground.EditorTools
             EnsureHighStakesRaceSystem(gameplayRoot);
 
             RenderSettings.skybox = LoadDaySkyboxMaterial();
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            RenderSettings.ambientLight = new Color(0.19f, 0.19f, 0.2f, 1f);
+            RenderSettings.ambientIntensity = 0.11f;
             RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = 1f;
+            RenderSettings.reflectionIntensity = 0.08f;
+            RenderSettings.fog = false;
             Lightmapping.realtimeGI = true;
             Lightmapping.bakedGI = true;
-            CreateOrRefreshSceneReflectionProbe(environmentRoot, builtHugeCity ? new Vector3(0f, 45f, 0f) : new Vector3(0f, 18f, 0f), builtHugeCity ? new Vector3(1200f, 220f, 1200f) : new Vector3(420f, 80f, 420f));
+            DynamicGI.UpdateEnvironment();
             EditorSceneManager.MarkSceneDirty(scene);
+        }
+
+        private static void InitializeWorldLightingPreview(Transform systemsRoot)
+        {
+            if (systemsRoot == null)
+            {
+                return;
+            }
+
+            DayNightCycleController dayNight = systemsRoot.GetComponentInChildren<DayNightCycleController>(true);
+            if (dayNight != null)
+            {
+                dayNight.SetTime(12f);
+            }
+
+            Light sunLight = systemsRoot.GetComponentInChildren<Light>(true);
+            if (sunLight != null && sunLight.type == LightType.Directional)
+            {
+                RenderSettings.sun = sunLight;
+            }
         }
 
         private static void EnsureRuntimeRoot(bool includeBootstrapLoader)
@@ -249,7 +367,7 @@ namespace Underground.EditorTools
             probe.size = size;
             probe.center = Vector3.zero;
             probe.boxProjection = true;
-            probe.intensity = 1f;
+            probe.intensity = 0.08f;
             probe.importance = 1000;
         }
 
@@ -288,6 +406,40 @@ namespace Underground.EditorTools
             }
 
             return cityMaker != null;
+        }
+
+        private static void RemoveImportedSkyOverrides()
+        {
+            DestroySceneObjectsWithComponent("DayNight");
+            DestroySceneObjectsWithComponent("ShiftAtRuntime");
+        }
+
+        private static void DestroySceneObjectsWithComponent(string componentTypeName)
+        {
+            if (string.IsNullOrWhiteSpace(componentTypeName))
+            {
+                return;
+            }
+
+            Type componentType = Type.GetType(componentTypeName) ?? AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes())
+                .FirstOrDefault(type => type.Name == componentTypeName);
+            if (componentType == null)
+            {
+                return;
+            }
+
+            Component[] components = Object.FindObjectsByType(componentType, FindObjectsSortMode.None)
+                .OfType<Component>()
+                .ToArray();
+            for (int i = 0; i < components.Length; i++)
+            {
+                if (components[i] != null)
+                {
+                    Object.DestroyImmediate(components[i].gameObject);
+                }
+            }
         }
 
         private static void CreateFallbackWorldEnvironment(Transform parent)
@@ -398,6 +550,7 @@ namespace Underground.EditorTools
 
             hudObject.name = "HUD";
             hudObject.transform.SetParent(parent, false);
+            hudObject.transform.localScale = Vector3.one;
 
             StylizedHudComposer composer = GetOrAddComponent<StylizedHudComposer>(hudObject);
             composer.Compose();
@@ -518,9 +671,9 @@ namespace Underground.EditorTools
                 return WorldAnchorSet.FromPreferredStart(preferredStartPose);
             }
 
-            Pose playerSpawn = preferredStartPose;
-            Pose garagePose = preferredStartPose;
-            Pose respawnPose = preferredStartPose;
+            Pose playerSpawn = CreateRoadPose(selection[0], 1.2f, 0);
+            Pose garagePose = OffsetPose(playerSpawn, new Vector3(0f, 0f, 28f));
+            Pose respawnPose = CreateRoadPose(selection[0], 1.2f, Mathf.Min(2, Mathf.Max(0, selection[0].transform.childCount - 2)));
             Pose dayRacePose = CreateRoadPose(selection[1], 0.25f, 0);
             Pose nightRacePose = CreateRoadPose(selection[2], 0.25f, 0);
             Pose wagerRacePose = CreateRoadPose(selection[3], 0.25f, 0);

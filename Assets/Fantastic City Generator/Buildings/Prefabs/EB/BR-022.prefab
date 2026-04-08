@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4804899912800230
 Transform:
@@ -97,7 +97,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4816918878805906
 Transform:
@@ -185,7 +185,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2502109697055470466
 Transform:
@@ -233,6 +233,10 @@ PrefabInstance:
     - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_Name
       value: Tree-B-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4195320914370688, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_RootOrder
@@ -297,6 +301,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-03
       objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -359,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_Name
       value: Tree-B-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
@@ -423,6 +435,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-05
       objectReference: {fileID: 0}
+    - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4806784221685188, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -485,6 +501,10 @@ PrefabInstance:
     - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_Name
       value: Tree-B-05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4806784221685188, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_RootOrder

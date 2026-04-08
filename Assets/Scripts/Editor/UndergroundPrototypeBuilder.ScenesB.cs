@@ -194,6 +194,7 @@ namespace Underground.EditorTools
                 ? (GameObject)PrefabUtility.InstantiatePrefab(hudPrefab)
                 : CreateCanvas("HUD").gameObject;
             hudObject.name = "HUD";
+            hudObject.transform.localScale = Vector3.one;
             StylizedHudComposer composer = hudObject.GetComponent<StylizedHudComposer>();
             if (composer == null)
             {

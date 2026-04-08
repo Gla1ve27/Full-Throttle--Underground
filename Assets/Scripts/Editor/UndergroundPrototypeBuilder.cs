@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -25,20 +26,30 @@ namespace Underground.EditorTools
         private const string WorldScenePath = "Assets/Scenes/World/World.unity";
         private const string VehicleTestScenePath = "Assets/Scenes/Test/VehicleTest.unity";
         private const string FcgUrpPackagePath = "Assets/FCG/FCG-URP.unitypackage";
+        private const string FcgHdrpPackagePath = "Assets/FCG/FCG-HDRP.unitypackage";
         private const string ImportedFcgFolderPath = "Assets/Fantastic City Generator";
         private const string FcgGeneratePrefabPath = "Assets/Fantastic City Generator/Generate.prefab";
         private const string FcgTrafficSystemPrefabPath = "Assets/Fantastic City Generator/Traffic System/Traffic System.prefab";
+        private const string SimpleRetroHdrpPackagePath = "Assets/Polyeler/Simple Retro Car/HDRP_ExtractMe.unitypackage";
         private const string FcgUrpAssetPath = "Assets/Fantastic City Generator/URP Settings/UniversalRenderPipelineAsset.asset";
+        private const string FcgHdrpAssetSearchHint = "Assets/Fantastic City Generator/HDRP Settings";
         private const string ProjectSsrUrpAssetPath = "Assets/Settings/ProjectURP/PC_RPAsset.asset";
         private const string ProjectUltraUrpAssetPath = "Assets/Settings/ProjectURP/Ultra_PipelineAsset.asset";
-        private const string ProjectDefaultVolumeProfilePath = "Assets/Settings/ProjectURP/DefaultVolumeProfile.asset";
+        private const string ProjectHdrpFolderPath = "Assets/Settings/ProjectHDRP";
+        private const string ProjectHdrpAssetPath = "Assets/Settings/ProjectHDRP/HDRenderPipelineAsset.asset";
+        private const string ProjectWorldVolumeProfilePath = "Assets/Settings/ProjectHDRP/WorldVolumeProfile.asset";
+        private const string ProjectGarageVolumeProfilePath = "Assets/Settings/ProjectHDRP/GarageVolumeProfile.asset";
         private const string PreferredPlayerVisualPath = "Assets/Polyeler/Simple Retro Car/Prefabs/Simple Retro Car.prefab";
         private const string FallbackPlayerVisualPath = "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26.prefab";
         private const string TaxiPrefabPath = "Assets/High Matters/Free American Sedans/Prefabs/Taxi.prefab";
         private const string PolicePrefabPath = "Assets/High Matters/Free American Sedans/Prefabs/Police.prefab";
         private const string InterceptorPrefabPath = "Assets/Police Car & Helicopter/Prefabs/Interceptor.prefab";
-        private const string DaySkyboxMaterialPath = "Assets/SkySeries Freebie/CasualDay.mat";
+        private const string DaySkyboxMaterialPath = "Assets/SkySeries Freebie/FluffballDay.mat";
         private const string NightSkyboxMaterialPath = "Assets/SkySeries Freebie/CoriolisNight4k.mat";
+        private const string DaySkyboxCubemapPath = "Assets/SkySeries Freebie/FreebieHdri/FluffballDay4k.hdr";
+        private const string NightSkyboxCubemapPath = "Assets/SkySeries Freebie/FreebieHdri/CoriolisNight4k.hdr";
+        private const string FallbackDaySkyboxMaterialPath = "Assets/Materials/Generated/DaySkyboxFallback.mat";
+        private const string FallbackNightSkyboxMaterialPath = "Assets/Materials/Generated/NightSkyboxFallback.mat";
         private const string SlimUiCanvasTemplatePath = "Assets/SlimUI/Modern Menu 1/Prefabs/Canvas Templates/Canvas_DefaultTemplate1.prefab";
         private const string SlimUiDemoScenePath = "Assets/SlimUI/Modern Menu 1/Scenes/Demos/Demo1.unity";
         private const string SlimUiMixerPath = "Assets/SlimUI/Modern Menu 1/Audio/Mixer.mixer";
@@ -46,11 +57,17 @@ namespace Underground.EditorTools
         private const string WorldSystemsPrefabPath = "Assets/Prefabs/Managers/WorldSystems.prefab";
         private const string FollowCameraPrefabPath = "Assets/Prefabs/Managers/FollowCamera.prefab";
         private const string HudPrefabPath = "Assets/Prefabs/UI/HUD.prefab";
-        private static readonly Vector3 PreferredWorldStartPosition = new Vector3(182.57f, -4.61f, 301.96f);
+        private const string ImportedSpeedometerPrefabPath = "Assets/Prefabs/UI/Speedometer.prefab";
+        private static readonly Vector3 PreferredWorldStartPosition = new Vector3(182.57f, 1.2f, 301.96f);
         private static readonly Vector3 PreferredWorldStartEuler = new Vector3(0f, 180.169f, 0.002f);
 
-        [MenuItem("Underground/Prototype/Build Full Prototype")]
+        [MenuItem("Underground/Legacy/Prototype/Build Full Prototype")]
         public static void BuildFullPrototype()
+        {
+            BuildFullPrototype(showDialog: true);
+        }
+
+        internal static void BuildFullPrototype(bool showDialog)
         {
             EnsureProjectFolders();
             ConfigureProjectSettings();
@@ -58,7 +75,7 @@ namespace Underground.EditorTools
 
             if (!HasImportedFcg())
             {
-                Debug.LogWarning("FCG URP package has not been imported yet. The prototype builder will use the custom fallback world layout until Assets/Fantastic City Generator exists.");
+                Debug.LogWarning("FCG HDRP content has not been imported yet. The prototype builder will use the custom fallback world layout until Assets/Fantastic City Generator exists.");
             }
 
             VehicleStatsData starterStats = CreateOrUpdateStarterVehicleStats();
@@ -79,8 +96,11 @@ namespace Underground.EditorTools
             ConfigureBuildSettings();
 
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("Prototype Ready", "Built the core prototype scenes, starter data, prefab, and project setup.", "OK");
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog("Full Game Rebuilt", "Rebuilt the core scenes, generated prefabs, starter data, and project rendering setup.", "OK");
+            }
         }
 
         public static void BuildVehicleTestSceneOnly()
@@ -93,7 +113,7 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Underground/Prototype/Import FCG URP Package")]
+        [MenuItem("Underground/Project/Import/FCG URP Package")]
         public static void ImportFcgUrpPackage()
         {
             string absolutePackagePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), FcgUrpPackagePath);
@@ -107,14 +127,34 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("FCG Import Started", "Imported the FCG URP package. After Unity refreshes, rerun the prototype builder.", "OK");
         }
 
-        [MenuItem("Underground/Project/Apply FCG URP Render Pipeline", priority = 10)]
-        public static void ApplyFcgUrpRenderPipelineFromMenu()
+        [MenuItem("Underground/Project/Import/FCG HDRP Package")]
+        public static void ImportFcgHdrpPackage()
+        {
+            ImportLocalUnityPackage(FcgHdrpPackagePath, "FCG HDRP");
+        }
+
+        [MenuItem("Underground/Project/Import/Retro Car HDRP Package")]
+        public static void ImportSimpleRetroHdrpPackage()
+        {
+            ImportLocalUnityPackage(SimpleRetroHdrpPackagePath, "Retro Car HDRP");
+        }
+
+        [MenuItem("Underground/Project/Apply HDRP Pipeline", priority = 10)]
+        public static void ApplyHdrpRenderPipelineFromMenu()
+        {
+            ApplyHdrpRenderPipeline(true);
+        }
+
+        internal static void ApplyHdrpRenderPipeline(bool showDialog)
         {
             EnsureProjectFolders();
             ConfigureRenderPipeline();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("URP Applied", "Assigned the FCG URP render pipeline asset to Graphics and all Quality levels.", "OK");
+            if (showDialog)
+            {
+                EditorUtility.DisplayDialog("HDRP Applied", "Assigned the HDRP render pipeline asset to Graphics and all Quality levels.", "OK");
+            }
         }
 
         private static void EnsureProjectFolders()
@@ -127,7 +167,7 @@ namespace Underground.EditorTools
                 "Assets/Scripts/Input", "Assets/Scripts/Camera", "Assets/Scripts/TimeSystem", "Assets/Scripts/Session", "Assets/Scripts/Save",
                 "Assets/Scripts/Economy", "Assets/Scripts/Progression", "Assets/Scripts/Garage", "Assets/Scripts/Race", "Assets/Scripts/AI",
                 "Assets/Scripts/UI", "Assets/Scripts/Audio", "Assets/Scripts/Utilities", "Assets/Scripts/World",
-                "Assets/ScriptableObjects/Vehicles", "Assets/ScriptableObjects/Upgrades", "Assets/ScriptableObjects/Races", "Assets/Settings", "Assets/Resources"
+                "Assets/ScriptableObjects/Vehicles", "Assets/ScriptableObjects/Upgrades", "Assets/ScriptableObjects/Races", "Assets/Settings", "Assets/Settings/ProjectHDRP", "Assets/Resources"
             };
 
             for (int i = 0; i < folders.Length; i++)
@@ -170,14 +210,14 @@ namespace Underground.EditorTools
 
         private static void ConfigureRenderPipeline()
         {
-            RenderPipelineAsset urpAsset = LoadFirstExistingAsset<RenderPipelineAsset>(ProjectSsrUrpAssetPath, ProjectUltraUrpAssetPath, FcgUrpAssetPath);
-            if (urpAsset == null)
+            RenderPipelineAsset pipelineAsset = LoadPreferredRenderPipelineAsset();
+            if (pipelineAsset == null)
             {
                 return;
             }
 
-            GraphicsSettings.defaultRenderPipeline = urpAsset;
-            QualitySettings.renderPipeline = urpAsset;
+            GraphicsSettings.defaultRenderPipeline = pipelineAsset;
+            QualitySettings.renderPipeline = pipelineAsset;
 
             UnityEngine.Object qualityAsset = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/QualitySettings.asset")[0];
             SerializedObject qualitySettings = new SerializedObject(qualityAsset);
@@ -190,7 +230,7 @@ namespace Underground.EditorTools
                     SerializedProperty customRenderPipeline = level.FindPropertyRelative("customRenderPipeline");
                     if (customRenderPipeline != null)
                     {
-                        customRenderPipeline.objectReferenceValue = urpAsset;
+                        customRenderPipeline.objectReferenceValue = pipelineAsset;
                     }
                 }
 
@@ -201,6 +241,147 @@ namespace Underground.EditorTools
             ConfigureDefaultVolumeProfile();
         }
 
+        private static bool HasHdrpPackageInstalled()
+        {
+            return FindType(
+                "UnityEngine.Rendering.HighDefinition.HDRenderPipelineAsset, Unity.RenderPipelines.HighDefinition.Runtime",
+                "UnityEngine.Rendering.HighDefinition.HDAdditionalCameraData, Unity.RenderPipelines.HighDefinition.Runtime") != null;
+        }
+
+        private static RenderPipelineAsset LoadPreferredRenderPipelineAsset()
+        {
+            if (HasHdrpPackageInstalled())
+            {
+                RenderPipelineAsset hdrpAsset = LoadHdrpRenderPipelineAsset();
+                if (hdrpAsset != null)
+                {
+                    return hdrpAsset;
+                }
+            }
+
+            return LoadFirstExistingAsset<RenderPipelineAsset>(ProjectSsrUrpAssetPath, ProjectUltraUrpAssetPath, FcgUrpAssetPath);
+        }
+
+        private static RenderPipelineAsset LoadHdrpRenderPipelineAsset()
+        {
+            RenderPipelineAsset knownAsset = LoadFirstExistingAsset<RenderPipelineAsset>(
+                ProjectHdrpAssetPath,
+                "Assets/Settings/ProjectHDRP/HDRP_Default.asset");
+            if (knownAsset != null && IsHdrpAsset(knownAsset))
+            {
+                return knownAsset;
+            }
+
+            string[] guids = AssetDatabase.FindAssets("t:RenderPipelineAsset");
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                RenderPipelineAsset candidate = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(path);
+                if (candidate == null || !IsHdrpAsset(candidate))
+                {
+                    continue;
+                }
+
+                if (path.Contains("ProjectHDRP") || path.Contains("HDRP Settings") || path.Contains("HDRenderPipeline"))
+                {
+                    return candidate;
+                }
+            }
+
+            for (int i = 0; i < guids.Length; i++)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+                RenderPipelineAsset candidate = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(path);
+                if (candidate != null && IsHdrpAsset(candidate))
+                {
+                    return candidate;
+                }
+            }
+
+            RenderPipelineAsset createdAsset = CreateHdrpRenderPipelineAsset();
+            if (createdAsset != null)
+            {
+                return createdAsset;
+            }
+
+            return null;
+        }
+
+        private static bool IsHdrpAsset(RenderPipelineAsset asset)
+        {
+            return asset != null && asset.GetType().FullName != null && asset.GetType().FullName.Contains("HighDefinition");
+        }
+
+        private static RenderPipelineAsset CreateHdrpRenderPipelineAsset()
+        {
+            EnsureProjectFolders();
+
+            Type hdrpAssetType = FindType(
+                "UnityEngine.Rendering.HighDefinition.HDRenderPipelineAsset, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (hdrpAssetType == null)
+            {
+                return null;
+            }
+
+            RenderPipelineAsset existingAsset = AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(ProjectHdrpAssetPath);
+            if (existingAsset != null)
+            {
+                return existingAsset;
+            }
+
+            ScriptableObject newAsset = ScriptableObject.CreateInstance(hdrpAssetType);
+            if (newAsset == null)
+            {
+                return null;
+            }
+
+            newAsset.name = "HDRenderPipelineAsset";
+            InvokeMethodIfPresent(newAsset, "Reset");
+            AssetDatabase.CreateAsset(newAsset, ProjectHdrpAssetPath);
+            EditorUtility.SetDirty(newAsset);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.ImportAsset(ProjectHdrpAssetPath, ImportAssetOptions.ForceSynchronousImport);
+            return AssetDatabase.LoadAssetAtPath<RenderPipelineAsset>(ProjectHdrpAssetPath);
+        }
+
+        private static Type FindType(params string[] typeNames)
+        {
+            for (int i = 0; i < typeNames.Length; i++)
+            {
+                Type type = Type.GetType(typeNames[i]);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+
+            return null;
+        }
+
+        private static void InvokeMethodIfPresent(object instance, string methodName)
+        {
+            if (instance == null || string.IsNullOrEmpty(methodName))
+            {
+                return;
+            }
+
+            MethodInfo method = instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            method?.Invoke(instance, null);
+        }
+
+        private static void ImportLocalUnityPackage(string packagePath, string displayName)
+        {
+            string absolutePackagePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), packagePath);
+            if (!System.IO.File.Exists(absolutePackagePath))
+            {
+                EditorUtility.DisplayDialog($"{displayName} Missing", $"{packagePath} was not found.", "OK");
+                return;
+            }
+
+            AssetDatabase.ImportPackage(packagePath, false);
+            EditorUtility.DisplayDialog($"{displayName} Import Started", $"Imported {displayName}. After Unity refreshes, rerun the prototype builder.", "OK");
+        }
+
         private static void ConfigureTagsAndLayers()
         {
             UnityEngine.Object tagAsset = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0];
@@ -208,7 +389,6 @@ namespace Underground.EditorTools
             SerializedProperty tags = serializedObject.FindProperty("tags");
             SerializedProperty layers = serializedObject.FindProperty("layers");
 
-            EnsureTag(tags, "Player");
             EnsureTag(tags, "Garage");
             EnsureTag(tags, "RaceStart");
             EnsureTag(tags, "Checkpoint");
@@ -251,8 +431,8 @@ namespace Underground.EditorTools
         {
             return CreateOrUpdateAsset(StarterVehicleStatsPath, () => ScriptableObject.CreateInstance<VehicleStatsData>(), asset =>
             {
-                asset.vehicleId = "starter_car";
-                asset.displayName = "Starter Coupe";
+                asset.vehicleId = PlayerCarCatalog.StarterCarId;
+                asset.displayName = "RMCar26";
                 asset.maxMotorTorque = 540f;
                 asset.maxBrakeTorque = 4800f;
                 asset.maxSpeedKph = 136f;
@@ -385,12 +565,124 @@ namespace Underground.EditorTools
 
         private static Material LoadDaySkyboxMaterial()
         {
-            return LoadFirstExistingAsset<Material>(DaySkyboxMaterialPath);
+            Material material = LoadFirstExistingAsset<Material>(DaySkyboxMaterialPath, FallbackDaySkyboxMaterialPath);
+            return material != null
+                ? material
+                : CreateOrUpdateFallbackSkyboxMaterial(
+                    FallbackDaySkyboxMaterialPath,
+                    "DaySkyboxFallback",
+                    new Color(0.48f, 0.58f, 0.72f),
+                    new Color(0.9f, 0.9f, 0.88f),
+                    1.45f,
+                    0.7f);
         }
 
         private static Material LoadNightSkyboxMaterial()
         {
-            return LoadFirstExistingAsset<Material>(NightSkyboxMaterialPath);
+            Material material = LoadFirstExistingAsset<Material>(NightSkyboxMaterialPath, FallbackNightSkyboxMaterialPath);
+            return material != null
+                ? material
+                : CreateOrUpdateFallbackSkyboxMaterial(
+                    FallbackNightSkyboxMaterialPath,
+                    "NightSkyboxFallback",
+                    new Color(0.02f, 0.03f, 0.08f),
+                    new Color(0.08f, 0.12f, 0.2f),
+                    0.25f,
+                    0.2f);
+        }
+
+        private static Cubemap LoadDaySkyCubemap()
+        {
+            Cubemap cubemap = LoadFirstExistingAsset<Cubemap>(DaySkyboxCubemapPath);
+            if (cubemap != null)
+            {
+                return cubemap;
+            }
+
+            Material material = LoadDaySkyboxMaterial();
+            return ExtractCubemapFromSkyMaterial(material);
+        }
+
+        private static Cubemap LoadNightSkyCubemap()
+        {
+            Cubemap cubemap = LoadFirstExistingAsset<Cubemap>(NightSkyboxCubemapPath);
+            if (cubemap != null)
+            {
+                return cubemap;
+            }
+
+            Material material = LoadNightSkyboxMaterial();
+            return ExtractCubemapFromSkyMaterial(material);
+        }
+
+        private static Cubemap ExtractCubemapFromSkyMaterial(Material material)
+        {
+            if (material == null)
+            {
+                return null;
+            }
+
+            Texture texture = null;
+            if (material.HasProperty("_Tex"))
+            {
+                texture = material.GetTexture("_Tex");
+            }
+            else if (material.HasProperty("_MainTex"))
+            {
+                texture = material.GetTexture("_MainTex");
+            }
+
+            return texture as Cubemap;
+        }
+
+        private static Material CreateOrUpdateFallbackSkyboxMaterial(string assetPath, string materialName, Color skyTint, Color groundColor, float exposure, float atmosphereThickness)
+        {
+            Shader skyShader = Shader.Find("Skybox/Procedural");
+            if (skyShader == null)
+            {
+                return null;
+            }
+
+            Material material = AssetDatabase.LoadAssetAtPath<Material>(assetPath);
+            if (material == null)
+            {
+                material = new Material(skyShader)
+                {
+                    name = materialName
+                };
+                AssetDatabase.CreateAsset(material, assetPath);
+            }
+
+            material.shader = skyShader;
+            material.name = materialName;
+
+            if (material.HasProperty("_SkyTint"))
+            {
+                material.SetColor("_SkyTint", skyTint);
+            }
+
+            if (material.HasProperty("_GroundColor"))
+            {
+                material.SetColor("_GroundColor", groundColor);
+            }
+
+            if (material.HasProperty("_Exposure"))
+            {
+                material.SetFloat("_Exposure", exposure);
+            }
+
+            if (material.HasProperty("_AtmosphereThickness"))
+            {
+                material.SetFloat("_AtmosphereThickness", atmosphereThickness);
+            }
+
+            if (material.HasProperty("_SunSize"))
+            {
+                material.SetFloat("_SunSize", 0.03f);
+            }
+
+            EditorUtility.SetDirty(material);
+            return material;
         }
 
         private static GameObject LoadSlimUiCanvasTemplate()
@@ -401,6 +693,11 @@ namespace Underground.EditorTools
         private static AudioMixer LoadSlimUiMixer()
         {
             return LoadFirstExistingAsset<AudioMixer>(SlimUiMixerPath);
+        }
+
+        private static GameObject LoadHudSpeedometerPrefab()
+        {
+            return LoadFirstExistingAsset<GameObject>(ImportedSpeedometerPrefabPath);
         }
 
         private static T LoadFirstExistingAsset<T>(params string[] paths) where T : UnityEngine.Object

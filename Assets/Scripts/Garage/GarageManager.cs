@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Underground.Core.Architecture;
 using Underground.Save;
 using Underground.Session;
 using Underground.TimeSystem;
@@ -17,12 +18,20 @@ namespace Underground.Garage
         {
             if (sessionManager == null)
             {
-                sessionManager = FindFirstObjectByType<SessionManager>();
+                sessionManager = ServiceResolver.Resolve<ISessionService>(null) as SessionManager
+                    ?? FindFirstObjectByType<SessionManager>();
             }
 
             if (persistentProgress == null)
             {
-                persistentProgress = FindFirstObjectByType<PersistentProgressManager>();
+                persistentProgress = ServiceResolver.Resolve<IProgressService>(null) as PersistentProgressManager
+                    ?? FindFirstObjectByType<PersistentProgressManager>();
+            }
+
+            if (dayNightCycle == null)
+            {
+                dayNightCycle = ServiceResolver.Resolve<ITimeOfDayService>(null) as DayNightCycleController
+                    ?? FindFirstObjectByType<DayNightCycleController>();
             }
         }
 
@@ -37,6 +46,11 @@ namespace Underground.Garage
 
         public void ExitGarageToWorld()
         {
+            float currentTime = dayNightCycle != null
+                ? dayNightCycle.TimeOfDay
+                : (persistentProgress != null ? persistentProgress.WorldTimeOfDay : 12f);
+
+            persistentProgress?.SaveNow(currentTime, worldSceneName);
             sessionManager?.BeginSession();
             SceneManager.LoadScene(worldSceneName);
         }

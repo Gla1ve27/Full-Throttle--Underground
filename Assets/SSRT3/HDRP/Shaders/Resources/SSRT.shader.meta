@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5eda1aad5c1c63b4e96dfa5c71b2c865
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234143
+  packageName: 'SSRT3: Screen Space Ray Tracing (GI)'
+  packageVersion: 1.0.2
+  assetPath: Assets/SSRT3/HDRP/Shaders/Resources/SSRT.shader
+  uploadId: 557593

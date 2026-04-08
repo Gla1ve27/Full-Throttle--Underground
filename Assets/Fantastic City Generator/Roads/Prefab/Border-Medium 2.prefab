@@ -582,7 +582,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &672649225255137979
 Transform:
@@ -642,7 +642,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &560132056535704211
 Transform:
@@ -961,7 +961,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &5736644488074122913
 Transform:
@@ -1038,7 +1038,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &96713217633641470
 Transform:
@@ -1477,7 +1477,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4017379291507369424
 Transform:
@@ -1919,7 +1919,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1012004058342102113
 Transform:
@@ -1987,7 +1987,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2257924735619042792
 Transform:
@@ -2094,7 +2094,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &117503149618366707
 Transform:
@@ -2275,7 +2275,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4001419497306282460
 Transform:
@@ -2339,7 +2339,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3225230776340969068
 Transform:
@@ -2425,7 +2425,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3608381930960012151
 Transform:
@@ -2491,7 +2491,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2265538880234315136
 Transform:
@@ -2721,7 +2721,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4534732292660161699
 Transform:
@@ -2787,7 +2787,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5269353355849953293
 Transform:
@@ -3071,7 +3071,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8206329772078422431
 Transform:
@@ -3101,7 +3101,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7421793628819653146
 Transform:
@@ -3131,7 +3131,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4929343554045142711
 Transform:
@@ -3341,7 +3341,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &314731069802187540
 Transform:
@@ -3371,7 +3371,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &33744342132436704
 Transform:
@@ -3523,7 +3523,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &955568684797868790
 Transform:
@@ -3600,7 +3600,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5410896859519452912
 Transform:
@@ -3954,7 +3954,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2551873001795166288
 Transform:
@@ -4302,7 +4302,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2801642145538453877
 Transform:
@@ -4605,7 +4605,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &864957305942795535
 Transform:
@@ -5223,7 +5223,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5068446199617841109
 Transform:
@@ -5496,7 +5496,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4085306303822456743
 Transform:
@@ -5526,7 +5526,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3892041557810429646
 Transform:
@@ -5909,7 +5909,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4827835792173253264
 Transform:
@@ -5939,7 +5939,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3594660938268577802
 Transform:
@@ -6061,7 +6061,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &365368700275893724
 Transform:
@@ -6758,7 +6758,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &9037333676408471351
 Transform:
@@ -7035,7 +7035,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &839281644991552965
 Transform:
@@ -7161,7 +7161,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2630464424845713523
 Transform:
@@ -7482,7 +7482,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &9194773217634347710
 Transform:
@@ -7610,7 +7610,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3053329851875293628
 Transform:
@@ -7773,7 +7773,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &166877154686812800
 Transform:
@@ -7922,7 +7922,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1494783328969977559
 Transform:
@@ -8141,7 +8141,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5479312579603195284
 Transform:
@@ -8285,7 +8285,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2141378304610576032
 Transform:
@@ -8554,7 +8554,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1781932402368697337
 Transform:
@@ -8644,7 +8644,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6099034103147278530
 Transform:
@@ -8774,7 +8774,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2287001459539782130
 Transform:
@@ -8864,7 +8864,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6509413988837283691
 Transform:
@@ -8924,7 +8924,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7370223713658334412
 Transform:
@@ -9106,7 +9106,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6299756129827398260
 Transform:
@@ -9550,7 +9550,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6658307362771160724
 Transform:
@@ -9610,7 +9610,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6829721584081134555
 Transform:
@@ -9670,7 +9670,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4269959092609168757
 Transform:
@@ -9902,7 +9902,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199423184808873697
 Transform:
@@ -9932,7 +9932,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199126995284808925
 Transform:
@@ -9962,7 +9962,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199371739452406183
 Transform:
@@ -10072,7 +10072,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199419122079239585
 Transform:
@@ -10102,7 +10102,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7203308073597879775
 Transform:
@@ -10277,7 +10277,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7203123047118714001
 Transform:
@@ -10307,7 +10307,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199124009665120805
 Transform:
@@ -10343,7 +10343,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199544835177489745
 Transform:
@@ -10405,7 +10405,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7199451890384336685
 Transform:
@@ -10435,7 +10435,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7203083465327184991
 Transform:
@@ -10465,7 +10465,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4675190614301133163
 Transform:
@@ -10525,7 +10525,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3151161956636104900
 Transform:
@@ -10885,7 +10885,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &244154040251350283
 Transform:
@@ -10946,7 +10946,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7679746074734498234
 Transform:
@@ -10994,7 +10994,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6567204798653895740
 Transform:
@@ -11347,7 +11347,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2873045275338026116
 Transform:
@@ -11456,7 +11456,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4165918469418973733
 Transform:
@@ -11867,7 +11867,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1787301333338150988
 Transform:
@@ -11990,7 +11990,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &370456387838797319
 Transform:
@@ -12050,7 +12050,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6158093833951448647
 Transform:
@@ -12193,7 +12193,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8516132496595784501
 Transform:
@@ -12231,7 +12231,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8516719585537251401
 Transform:
@@ -12272,7 +12272,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2033060327784046947
 Transform:
@@ -12521,7 +12521,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2889781878115166
 Transform:
@@ -12612,7 +12612,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 12
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1412759630406792610
 Transform:
@@ -13051,6 +13051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -13095,6 +13099,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &21595471766295691 stripped
@@ -13113,6 +13127,10 @@ PrefabInstance:
     - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_Name
       value: ParkLamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
@@ -13158,6 +13176,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &53958959362290228 stripped
@@ -13176,6 +13199,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -13221,6 +13248,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &66953635634351895 stripped
@@ -13239,6 +13276,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -13284,6 +13325,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &178364940460394801 stripped
@@ -13303,6 +13354,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -13359,6 +13415,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &106188093555250845 stripped
@@ -13377,6 +13438,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -13441,6 +13506,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -13485,6 +13554,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &227653951043602504 stripped
@@ -13503,6 +13582,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -13548,6 +13631,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &314523309577559379 stripped
@@ -13566,6 +13659,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -13611,6 +13708,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &339918474823523179 stripped
@@ -13626,6 +13733,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -13686,6 +13798,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &6792952302668998805 stripped
@@ -13704,6 +13821,10 @@ PrefabInstance:
     - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_Name
       value: ParkLamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
@@ -13749,6 +13870,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &355899097046654787 stripped
@@ -13767,6 +13893,10 @@ PrefabInstance:
     - target: {fileID: 1659594965547760, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
       propertyPath: m_Name
       value: hydrant-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659594965547760, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4554625289819738, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
       propertyPath: m_RootOrder
@@ -13831,6 +13961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -13875,6 +14009,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &496808641305363974 stripped
@@ -13893,6 +14037,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -13938,6 +14086,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &532966392754644347 stripped
@@ -13953,10 +14111,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -14028,10 +14196,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -14107,6 +14285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -14151,6 +14333,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &727262338625132797 stripped
@@ -14169,6 +14361,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14214,6 +14410,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &752358899347165446 stripped
@@ -14229,6 +14435,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1078938984069978077}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -14289,6 +14500,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &5903769170962278273 stripped
@@ -14307,6 +14523,10 @@ PrefabInstance:
     - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_Name
       value: Tree-B-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4195320914370688, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_RootOrder
@@ -14371,6 +14591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -14434,6 +14658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -14478,6 +14706,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &975590137333375733 stripped
@@ -14496,6 +14734,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -14556,6 +14798,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 4103494389468602813, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4363967533093963961, guid: 7818a1589a581e449bf890a90f76c145,
         type: 3}
       propertyPath: m_RootOrder
@@ -14616,6 +14863,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-01
       objectReference: {fileID: 0}
+    - target: {fileID: 4367570768306380315, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7818a1589a581e449bf890a90f76c145, type: 3}
 --- !u!4 &3657421031505857211 stripped
@@ -14634,6 +14886,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14679,6 +14935,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1068975129290897153 stripped
@@ -14697,6 +14963,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14742,6 +15012,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1075645983321588360 stripped
@@ -14760,6 +15040,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14805,6 +15089,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1128278030336403463 stripped
@@ -14823,6 +15117,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14868,6 +15166,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1148188878036028497 stripped
@@ -14886,6 +15194,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14931,6 +15243,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1194571495823758632 stripped
@@ -14949,6 +15271,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -14994,6 +15320,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1203121580961494650 stripped
@@ -15009,6 +15345,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -15069,6 +15410,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &5457127153860170343 stripped
@@ -15087,6 +15433,10 @@ PrefabInstance:
     - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_Name
       value: ParkLamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
@@ -15132,6 +15482,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &1258503457494883028 stripped
@@ -15150,6 +15505,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -15195,6 +15554,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1320085413658680016 stripped
@@ -15213,6 +15582,10 @@ PrefabInstance:
     - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_Name
       value: Trash-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
@@ -15278,6 +15651,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-03
       objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
       propertyPath: m_RootOrder
@@ -15333,6 +15711,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &1678997335823231458 stripped
@@ -15351,6 +15734,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -15396,6 +15783,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1560828600867569968 stripped
@@ -15411,10 +15808,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -15486,10 +15893,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -15566,6 +15983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vegetation-03
       objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
       propertyPath: m_RootOrder
@@ -15640,6 +16062,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -15684,6 +16110,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1768069939200564031 stripped
@@ -15702,6 +16138,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -15747,6 +16187,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1787241235326778602 stripped
@@ -15765,6 +16215,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -15810,6 +16264,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1823003646993453835 stripped
@@ -15828,6 +16292,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -15873,6 +16341,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &1848528169600252529 stripped
@@ -15891,6 +16369,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -15955,6 +16437,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -16014,10 +16500,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -16093,6 +16589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hydrant-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1659594965547760, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4554625289819738, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -16152,10 +16652,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -16231,6 +16741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -16275,6 +16789,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &2169330844830984558 stripped
@@ -16294,6 +16818,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -16350,6 +16879,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &2067459423313354049 stripped
@@ -16368,6 +16902,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -16432,6 +16970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -16476,6 +17018,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &2341547429423869849 stripped
@@ -16494,6 +17046,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -16539,6 +17095,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &2365775064593044554 stripped
@@ -16554,6 +17120,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 4103494389468602813, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4363967533093963961, guid: 7818a1589a581e449bf890a90f76c145,
         type: 3}
       propertyPath: m_RootOrder
@@ -16614,6 +17185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-01
       objectReference: {fileID: 0}
+    - target: {fileID: 4367570768306380315, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7818a1589a581e449bf890a90f76c145, type: 3}
 --- !u!4 &2106826936826265105 stripped
@@ -16632,6 +17208,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -16696,6 +17276,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParkLamp
       objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -16740,6 +17324,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &2537207556550539687 stripped
@@ -16758,6 +17347,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -16803,6 +17396,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &2606956913780398111 stripped
@@ -16821,6 +17424,10 @@ PrefabInstance:
     - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_Name
       value: Tree-B-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4195320914370688, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_RootOrder
@@ -16885,6 +17492,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-03
       objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -16944,10 +17555,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -17023,6 +17644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-A-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4472041771248762, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -17082,6 +17707,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 4103494389468602813, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4363967533093963961, guid: 7818a1589a581e449bf890a90f76c145,
         type: 3}
       propertyPath: m_RootOrder
@@ -17142,6 +17772,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-01
       objectReference: {fileID: 0}
+    - target: {fileID: 4367570768306380315, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7818a1589a581e449bf890a90f76c145, type: 3}
 --- !u!4 &1955799083600417887 stripped
@@ -17160,6 +17795,10 @@ PrefabInstance:
     - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_Name
       value: Tree-A-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4250547798607792, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_RootOrder
@@ -17224,6 +17863,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -17286,6 +17929,10 @@ PrefabInstance:
     - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_Name
       value: Trash-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
@@ -17350,6 +17997,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -17394,6 +18045,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3041082585666413355 stripped
@@ -17412,6 +18073,10 @@ PrefabInstance:
     - target: {fileID: 1048441958446636, guid: f0c7f09dd628336479c0336e245acded, type: 3}
       propertyPath: m_Name
       value: Tree-B-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048441958446636, guid: f0c7f09dd628336479c0336e245acded, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4766029774282894, guid: f0c7f09dd628336479c0336e245acded, type: 3}
       propertyPath: m_RootOrder
@@ -17476,6 +18141,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-A-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4472041771248762, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -17539,6 +18208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -17583,6 +18256,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3326381380672942676 stripped
@@ -17602,6 +18285,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -17658,6 +18346,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &3229872658603558201 stripped
@@ -17677,6 +18370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vegetation-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
@@ -17752,6 +18450,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -17796,6 +18498,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3546283722105875942 stripped
@@ -17814,6 +18526,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -17859,6 +18575,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3586179614282044163 stripped
@@ -17877,6 +18603,10 @@ PrefabInstance:
     - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_Name
       value: Trash-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
@@ -17941,6 +18671,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -17985,6 +18719,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3752931337231964356 stripped
@@ -18003,6 +18747,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -18048,6 +18796,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3763020808978272366 stripped
@@ -18066,6 +18824,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -18130,6 +18892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -18174,6 +18940,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3768365048785817388 stripped
@@ -18193,6 +18969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -18268,6 +19049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -18312,6 +19097,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &3873765093207377782 stripped
@@ -18331,6 +19126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fern-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
@@ -18406,6 +19206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -18469,6 +19273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -18528,10 +19336,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -18607,6 +19425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-03
       objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -18666,6 +19488,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -18726,6 +19553,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &6966012271045891756 stripped
@@ -18744,6 +19576,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -18808,6 +19644,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -18852,6 +19692,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4252042336640786914 stripped
@@ -18870,6 +19720,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -18915,6 +19769,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4291427718689664493 stripped
@@ -18934,6 +19798,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -18990,6 +19859,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &4589258470745740255 stripped
@@ -19008,6 +19882,10 @@ PrefabInstance:
     - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_Name
       value: Tree-B-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
@@ -19072,6 +19950,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -19135,6 +20017,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -19179,6 +20065,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4457858274033781412 stripped
@@ -19197,6 +20093,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -19242,6 +20142,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4496505887687459848 stripped
@@ -19261,6 +20171,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vegetation-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
@@ -19337,6 +20252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-01
       objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
       propertyPath: m_RootOrder
@@ -19411,6 +20331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -19455,6 +20379,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4631893793798933868 stripped
@@ -19470,10 +20404,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1078938984069978077}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -19549,6 +20493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-A-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4250547798607792, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -19612,6 +20560,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -19656,6 +20608,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &4943479033094188882 stripped
@@ -19674,6 +20636,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -19738,6 +20704,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-03
       objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -19800,6 +20770,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -19864,6 +20838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -19927,6 +20905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -19971,6 +20953,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5090888581364949592 stripped
@@ -19989,6 +20981,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -20049,6 +21045,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -20109,6 +21110,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &2120344100898849076 stripped
@@ -20127,6 +21133,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -20172,6 +21182,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5171949933274608426 stripped
@@ -20190,6 +21210,10 @@ PrefabInstance:
     - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_Name
       value: Trash-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
@@ -20255,6 +21279,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-03
       objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
       propertyPath: m_RootOrder
@@ -20310,6 +21339,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &5459161898192266025 stripped
@@ -20329,6 +21363,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -20404,6 +21443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -20448,6 +21491,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5221723627061610804 stripped
@@ -20467,6 +21520,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -20542,6 +21600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -20586,6 +21648,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5267594859574767538 stripped
@@ -20601,6 +21673,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 4103494389468602813, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4363967533093963961, guid: 7818a1589a581e449bf890a90f76c145,
         type: 3}
       propertyPath: m_RootOrder
@@ -20661,6 +21738,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-01
       objectReference: {fileID: 0}
+    - target: {fileID: 4367570768306380315, guid: 7818a1589a581e449bf890a90f76c145,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7818a1589a581e449bf890a90f76c145, type: 3}
 --- !u!4 &8439429983586938929 stripped
@@ -20680,6 +21762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fern-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
@@ -20756,6 +21843,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vegetation-03
       objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
       propertyPath: m_RootOrder
@@ -20826,10 +21918,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -20905,6 +22007,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -20949,6 +22055,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5561484345076934762 stripped
@@ -20967,6 +22083,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -21012,6 +22132,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5628476761499732490 stripped
@@ -21027,10 +22157,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1078938984069978077}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -21106,6 +22246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -21150,6 +22294,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5760766818186654847 stripped
@@ -21168,6 +22322,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -21213,6 +22371,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5784174908870565743 stripped
@@ -21231,6 +22399,10 @@ PrefabInstance:
     - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_Name
       value: Tree-A-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4472041771248762, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_RootOrder
@@ -21295,6 +22467,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hydrant-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1659594965547760, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4554625289819738, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -21358,6 +22534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -21402,6 +22582,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5919100665078589731 stripped
@@ -21420,6 +22610,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -21484,6 +22678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -21528,6 +22726,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &5967327514676779323 stripped
@@ -21543,6 +22751,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -21603,6 +22816,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &677574777730524323 stripped
@@ -21622,6 +22840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -21693,10 +22916,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -21772,6 +23005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1631088206959056, guid: 1f8a86790810bcd499489cc719122541, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4949472228457110, guid: 1f8a86790810bcd499489cc719122541, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -21835,6 +23072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vegetation-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
@@ -21906,10 +23148,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -21985,6 +23237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -22029,6 +23285,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6378544098126630524 stripped
@@ -22047,6 +23313,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -22111,6 +23381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -22155,6 +23429,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6438404280019951601 stripped
@@ -22173,6 +23457,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -22218,6 +23506,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6525797889907091450 stripped
@@ -22236,6 +23534,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -22281,6 +23583,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6563737460131143305 stripped
@@ -22299,6 +23611,10 @@ PrefabInstance:
     - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_Name
       value: Tree-A-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4250547798607792, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_RootOrder
@@ -22363,6 +23679,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -22407,6 +23727,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6603775909275253962 stripped
@@ -22425,6 +23755,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -22489,6 +23823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fern-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
@@ -22564,6 +23903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4195320914370688, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -22628,6 +23971,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-03
       objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
       propertyPath: m_RootOrder
@@ -22683,6 +24031,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &6877866647730187327 stripped
@@ -22702,6 +24055,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -22758,6 +24116,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &6865070367940729611 stripped
@@ -22773,10 +24136,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9194773217634347710}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -22852,6 +24225,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -22896,6 +24273,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &6891180143998527437 stripped
@@ -22911,10 +24298,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1412759630406792610}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -22991,6 +24388,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-03
       objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
       propertyPath: m_RootOrder
@@ -23046,6 +24448,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &7155509116800921379 stripped
@@ -23064,6 +24471,10 @@ PrefabInstance:
     - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_Name
       value: ParkLamp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
@@ -23109,6 +24520,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &6994453417552219731 stripped
@@ -23124,10 +24540,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -23204,6 +24630,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vegetation-03
       objectReference: {fileID: 0}
+    - target: {fileID: 8117782567300634088, guid: 3270e15ace3581949a675994303887c5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8927252186780421970, guid: 3270e15ace3581949a675994303887c5,
         type: 3}
       propertyPath: m_RootOrder
@@ -23274,10 +24705,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -23353,6 +24794,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -23415,6 +24860,14 @@ PrefabInstance:
     - target: {fileID: 1357498532447028, guid: aeb89d1ab15bed24f8ca218db34bbd2b, type: 3}
       propertyPath: m_Name
       value: ExtrutureMetalic
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357498532447028, guid: aeb89d1ab15bed24f8ca218db34bbd2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408701544758160, guid: aeb89d1ab15bed24f8ca218db34bbd2b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4023697250288190, guid: aeb89d1ab15bed24f8ca218db34bbd2b, type: 3}
       propertyPath: m_RootOrder
@@ -23479,6 +24932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -23523,6 +24980,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7328876346425912570 stripped
@@ -23538,6 +25005,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -23598,6 +25070,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &4541646243282193141 stripped
@@ -23616,6 +25093,10 @@ PrefabInstance:
     - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_Name
       value: Tree-A-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1827621316313074, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4472041771248762, guid: eedbe64dbaee4684bbcd77241e461459, type: 3}
       propertyPath: m_RootOrder
@@ -23680,6 +25161,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hydrant-02
       objectReference: {fileID: 0}
+    - target: {fileID: 1659594965547760, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4554625289819738, guid: a51e7d613ebdaad41bb3b2300701c5e0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -23742,6 +25227,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -23806,6 +25295,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -23881,6 +25375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -23925,6 +25423,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7451273064477299308 stripped
@@ -23943,6 +25451,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -23988,6 +25500,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7629019925113581277 stripped
@@ -24006,6 +25528,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -24051,6 +25577,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7622887863332141551 stripped
@@ -24069,6 +25605,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -24114,6 +25654,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7669622442959616692 stripped
@@ -24133,6 +25683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -24189,6 +25744,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &7554467565220891889 stripped
@@ -24207,6 +25767,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -24252,6 +25816,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &7774992780243476195 stripped
@@ -24267,10 +25841,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8516132496595784501}
     m_Modifications:
+    - target: {fileID: 4568304003787204172, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770897722975460687, guid: bd6bba26f9a160045a2b8af9e10828a7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772304734790443547, guid: bd6bba26f9a160045a2b8af9e10828a7,
         type: 3}
@@ -24346,6 +25930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -24390,6 +25978,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8071297751452123095 stripped
@@ -24409,6 +26007,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
@@ -24465,6 +26068,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &8318511498116537288 stripped
@@ -24483,6 +26091,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -24528,6 +26140,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8115180957321932175 stripped
@@ -24543,6 +26165,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -24603,6 +26230,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &3034822148862890308 stripped
@@ -24621,6 +26253,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -24666,6 +26302,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8125852565634654669 stripped
@@ -24684,6 +26330,10 @@ PrefabInstance:
     - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_Name
       value: Tree-B-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099420590186452, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4195320914370688, guid: 88a8aa6d3a46d074895da6bcc8222f0c, type: 3}
       propertyPath: m_RootOrder
@@ -24748,6 +26398,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -24823,6 +26478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pedestrian
       objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -24882,6 +26541,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -24942,6 +26606,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-05
       objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}
 --- !u!4 &3441350617879264435 stripped
@@ -24960,6 +26629,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -25025,6 +26698,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TreeB-03
       objectReference: {fileID: 0}
+    - target: {fileID: 284987186598414194, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 287643145626413502, guid: 676dd7f1ce9e7d14284e73096072f767,
         type: 3}
       propertyPath: m_RootOrder
@@ -25080,6 +26758,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2388465022042212991, guid: 676dd7f1ce9e7d14284e73096072f767,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676dd7f1ce9e7d14284e73096072f767, type: 3}
 --- !u!4 &8465856363188457396 stripped
@@ -25098,6 +26781,10 @@ PrefabInstance:
     - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_Name
       value: pedestrian (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1473389757300710, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4144838621837896, guid: 2d04bc45f3cb4444dacc586dcc19ab34, type: 3}
       propertyPath: m_RootOrder
@@ -25162,6 +26849,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fern-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
@@ -25237,6 +26929,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParkLamp
       objectReference: {fileID: 0}
+    - target: {fileID: 1820733399213554, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4190707616455234, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -25281,6 +26977,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6652387853678843355, guid: 67572a653e8e9de4ab89371f3d500c02,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67572a653e8e9de4ab89371f3d500c02, type: 3}
 --- !u!4 &8658985936302122249 stripped
@@ -25299,6 +27000,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -25344,6 +27049,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8760886753432578645 stripped
@@ -25359,10 +27074,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3594660938268577802}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -25438,6 +27163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -25482,6 +27211,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8815242911127784542 stripped
@@ -25500,6 +27239,10 @@ PrefabInstance:
     - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_Name
       value: StreetLight-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
@@ -25545,6 +27288,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &8904828545031195831 stripped
@@ -25564,6 +27317,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plants-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492287166694734626, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4492287166694893314, guid: 6c5c88cfe21cdb64baefd66d66feb5f5,
         type: 3}
@@ -25639,6 +27397,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -25683,6 +27445,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &9042728332929285754 stripped
@@ -25698,10 +27470,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1494783328969977559}
     m_Modifications:
+    - target: {fileID: 2261081556148117695, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
       propertyPath: m_Name
       value: TreeB-04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399705580688070590, guid: f931ba4278af3834699b707e7f533ca7,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4403162391865090264, guid: f931ba4278af3834699b707e7f533ca7,
         type: 3}
@@ -25777,6 +27559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StreetLight-01
       objectReference: {fileID: 0}
+    - target: {fileID: 1870132319460216, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4934016883198092, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -25821,6 +27607,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 80627499411516018, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239554616523345518, guid: 0824758c954e0a2429d0bb5b483d3199,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0824758c954e0a2429d0bb5b483d3199, type: 3}
 --- !u!4 &9166033194654285817 stripped
@@ -25839,6 +27635,10 @@ PrefabInstance:
     - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_Name
       value: Tree-A-02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1406946609595300, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4250547798607792, guid: 64e8491adf398fe4b8b8912fe28f5ee9, type: 3}
       propertyPath: m_RootOrder
@@ -25899,6 +27699,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1078938984069978077}
     m_Modifications:
+    - target: {fileID: 5363165276185400540, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534048332362504138, guid: 0bc77647dc4d386488a1198c44ad798e,
         type: 3}
       propertyPath: m_RootOrder
@@ -25958,6 +27763,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TreeB-05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537546653597979214, guid: 0bc77647dc4d386488a1198c44ad798e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bc77647dc4d386488a1198c44ad798e, type: 3}

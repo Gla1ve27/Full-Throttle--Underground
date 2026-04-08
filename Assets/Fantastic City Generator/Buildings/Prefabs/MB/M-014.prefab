@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4095782037756062
 Transform:
@@ -70,7 +70,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4766389893609538
 Transform:
@@ -163,6 +163,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-05
       objectReference: {fileID: 0}
+    - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4806784221685188, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -225,6 +229,10 @@ PrefabInstance:
     - target: {fileID: 1548713792433372, guid: a2862dd99e5632a4f80f69ba38c7c57c, type: 3}
       propertyPath: m_Name
       value: Flowerbed-08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1548713792433372, guid: a2862dd99e5632a4f80f69ba38c7c57c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4798790511117124, guid: a2862dd99e5632a4f80f69ba38c7c57c, type: 3}
       propertyPath: m_RootOrder
@@ -289,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-B-03
       objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -351,6 +363,10 @@ PrefabInstance:
     - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_Name
       value: Tree-B-05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4806784221685188, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_RootOrder
@@ -471,6 +487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959557804731818328, guid: ba8810bde9719d74f8da3abaa8d6a21f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8810bde9719d74f8da3abaa8d6a21f, type: 3}
 --- !u!4 &7212172052277177426 stripped
@@ -546,6 +567,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-02
       objectReference: {fileID: 0}
+    - target: {fileID: 4959557804731818328, guid: ba8810bde9719d74f8da3abaa8d6a21f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8810bde9719d74f8da3abaa8d6a21f, type: 3}
 --- !u!4 &7032600459591128069 stripped
@@ -564,6 +590,10 @@ PrefabInstance:
     - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_Name
       value: Flowerbed-07r
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4196283740746198, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_RootOrder
@@ -627,6 +657,10 @@ PrefabInstance:
     - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_Name
       value: Tree-B-05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831662085775424, guid: 923a93f98918fec44aae26bf04965293, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4806784221685188, guid: 923a93f98918fec44aae26bf04965293, type: 3}
       propertyPath: m_RootOrder
@@ -747,6 +781,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959557804731818328, guid: ba8810bde9719d74f8da3abaa8d6a21f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8810bde9719d74f8da3abaa8d6a21f, type: 3}
 --- !u!4 &8849647066979352520 stripped
@@ -822,6 +861,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-02 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959557804731818328, guid: ba8810bde9719d74f8da3abaa8d6a21f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8810bde9719d74f8da3abaa8d6a21f, type: 3}
 --- !u!4 &645384848935695301 stripped
@@ -841,6 +885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fern-01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8592395431106955953, guid: d5608fea52669114784360ea08d1716c,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8592395431107253905, guid: d5608fea52669114784360ea08d1716c,
         type: 3}
@@ -972,6 +1021,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fern-02 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4959557804731818328, guid: ba8810bde9719d74f8da3abaa8d6a21f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba8810bde9719d74f8da3abaa8d6a21f, type: 3}
 --- !u!4 &2235230320276019417 stripped
@@ -990,6 +1044,10 @@ PrefabInstance:
     - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_Name
       value: Tree-B-03
+      objectReference: {fileID: 0}
+    - target: {fileID: 1939108612032024, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4345438591232212, guid: 287082efbfe83b94b9472fb6161c682e, type: 3}
       propertyPath: m_RootOrder
@@ -1054,6 +1112,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flowerbed-07r
       objectReference: {fileID: 0}
+    - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4196283740746198, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1117,6 +1179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flowerbed-07r
       objectReference: {fileID: 0}
+    - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4196283740746198, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1179,6 +1245,10 @@ PrefabInstance:
     - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_Name
       value: Flowerbed-07r
+      objectReference: {fileID: 0}
+    - target: {fileID: 1864332255697894, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4196283740746198, guid: 9b848e453cb6c114880cc1e46dc9818f, type: 3}
       propertyPath: m_RootOrder

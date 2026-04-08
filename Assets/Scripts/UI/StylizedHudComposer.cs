@@ -11,6 +11,7 @@ namespace Underground.UI
         [SerializeField] private Color secondaryAccentColor = new Color(0.25f, 0.62f, 1f, 0.95f);
         [SerializeField] private Color panelColor = new Color(0.06f, 0.08f, 0.12f, 0.54f);
         [SerializeField] private Color softTextColor = new Color(0.88f, 0.92f, 1f, 0.92f);
+        [SerializeField] private GameObject speedometerPrefab;
 
         private Sprite cachedSprite;
 
@@ -21,14 +22,6 @@ namespace Underground.UI
 
         public void Compose()
         {
-            Transform existingRoot = transform.Find("ChaseHudRoot");
-            if (existingRoot != null)
-            {
-                return;
-            }
-
-            ClearLegacyChildren();
-
             HUDController hudController = GetComponent<HUDController>();
             if (hudController == null)
             {
@@ -41,16 +34,28 @@ namespace Underground.UI
                 radarController = gameObject.AddComponent<HudRadarController>();
             }
 
+            RectTransform existingRoot = transform.Find("ChaseHudRoot") as RectTransform;
+            if (existingRoot != null)
+            {
+                RepairExistingHud(existingRoot);
+                hudController.RefreshViewBindings();
+                return;
+            }
+
+            ClearLegacyChildren();
+
             RectTransform root = CreateRect("ChaseHudRoot", transform);
             Stretch(root);
 
             BuildTopStatus(root, out TMP_Text levelText, out TMP_Text bankText, out TMP_Text riskText, out TMP_Text nextLevelText, out TMP_Text challengeText, out TMP_Text dayNightText, out Image riskRingFill);
             BuildBottomCenter(root, out TMP_Text sessionMoneyText);
-            BuildSpeedCluster(root, out TMP_Text speedText, out TMP_Text gearText, out TMP_Text damageText, out Image speedGaugeFill, out Image speedGlowFill);
+            BuildSpeedCluster(root, out global::Speedometer speedometer, out TMP_Text gearText, out TMP_Text damageText);
             BuildRadar(root, radarController);
+            BuildRacePrompt(root);
 
             hudController.BindView(
-                speedText,
+                speedometer,
+                null,
                 gearText,
                 bankText,
                 sessionMoneyText,
@@ -60,9 +65,11 @@ namespace Underground.UI
                 dayNightText,
                 nextLevelText,
                 challengeText,
-                speedGaugeFill,
-                speedGlowFill,
+                null,
+                null,
                 riskRingFill);
+
+            hudController.RefreshViewBindings();
         }
 
         private void BuildTopStatus(RectTransform parent, out TMP_Text levelText, out TMP_Text bankText, out TMP_Text riskText, out TMP_Text nextLevelText, out TMP_Text challengeText, out TMP_Text dayNightText, out Image riskRingFill)
@@ -104,6 +111,8 @@ namespace Underground.UI
 
             challengeText = CreateText("ChallengeTitle", banner, "RACER CHALLENGES", 24f, FontStyles.Bold, TextAlignmentOptions.Center, Color.white);
             SetAnchors(challengeText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-8f, 0f), new Vector2(260f, 34f));
+            TMP_Text clockText = CreateText("ClockValue", banner, "12:00 PM", 16f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(0.92f, 0.96f, 1f, 0.88f));
+            SetAnchors(clockText.rectTransform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-116f, 0f), new Vector2(112f, 28f));
             dayNightText = CreateText("ChallengeState", banner, "DAY", 18f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(0.92f, 0.96f, 1f, 0.88f));
             SetAnchors(dayNightText.rectTransform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-28f, 0f), new Vector2(72f, 30f));
         }
@@ -116,43 +125,44 @@ namespace Underground.UI
             Stretch(sessionMoneyText.rectTransform);
         }
 
-        private void BuildSpeedCluster(RectTransform parent, out TMP_Text speedText, out TMP_Text gearText, out TMP_Text damageText, out Image speedGaugeFill, out Image speedGlowFill)
+        private void BuildRacePrompt(RectTransform parent)
+        {
+            RectTransform promptRoot = CreateRect("RacePromptRoot", parent);
+            SetAnchors(promptRoot, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 86f), new Vector2(560f, 88f));
+            Image background = promptRoot.gameObject.AddComponent<Image>();
+            background.sprite = GetSprite();
+            background.color = new Color(0.05f, 0.07f, 0.1f, 0.88f);
+
+            TMP_Text promptText = CreateText("RacePromptValue", promptRoot, "Press F or Enter to start race", 24f, FontStyles.Bold, TextAlignmentOptions.Center, Color.white);
+            SetAnchors(promptText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -26f), new Vector2(500f, 32f));
+
+            TMP_Text objectiveText = CreateText("RaceObjectiveValue", promptRoot, "Street race marker detected", 16f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(1f, 0.72f, 0.34f, 0.94f));
+            SetAnchors(objectiveText.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 20f), new Vector2(500f, 24f));
+
+            promptRoot.gameObject.SetActive(false);
+        }
+
+        private void BuildSpeedCluster(RectTransform parent, out global::Speedometer speedometer, out TMP_Text gearText, out TMP_Text damageText)
         {
             RectTransform speedRoot = CreateRect("SpeedCluster", parent);
-            SetAnchors(speedRoot, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-34f, 26f), new Vector2(300f, 300f));
+            SetAnchors(speedRoot, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-28f, 26f), new Vector2(320f, 190f));
 
-            CreateImage("SpeedPlate", speedRoot, new Color(0.06f, 0.08f, 0.12f, 0.46f)).rectTransform.sizeDelta = new Vector2(240f, 240f);
-            Image speedBack = CreateImage("SpeedBack", speedRoot, secondaryAccentColor * 0.18f);
-            ConfigureRadial(speedBack, 0.8f, secondaryAccentColor * 0.18f);
-            speedBack.rectTransform.sizeDelta = new Vector2(228f, 228f);
-
-            speedGlowFill = CreateImage("SpeedGlow", speedRoot, accentColor * 0.55f);
-            ConfigureRadial(speedGlowFill, 0.12f, accentColor * 0.45f);
-            speedGlowFill.rectTransform.sizeDelta = new Vector2(236f, 236f);
-
-            speedGaugeFill = CreateImage("SpeedFill", speedRoot, accentColor);
-            ConfigureRadial(speedGaugeFill, 0.12f, accentColor);
-            speedGaugeFill.rectTransform.sizeDelta = new Vector2(228f, 228f);
-
-            Image innerDial = CreateImage("InnerDial", speedRoot, new Color(0.05f, 0.06f, 0.08f, 0.96f));
-            innerDial.rectTransform.sizeDelta = new Vector2(176f, 176f);
-
-            speedText = CreateText("SpeedValue", speedRoot, "0", 56f, FontStyles.Bold, TextAlignmentOptions.Center, Color.white);
-            SetAnchors(speedText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, 12f), new Vector2(160f, 60f));
-
-            TMP_Text unitText = CreateText("SpeedUnit", speedRoot, "km/h", 18f, FontStyles.Normal, TextAlignmentOptions.Center, softTextColor);
-            SetAnchors(unitText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -26f), new Vector2(88f, 24f));
+            RectTransform speedometerRect = CreateSpeedometer(speedRoot, out speedometer);
+            speedometerRect.anchorMin = new Vector2(1f, 0f);
+            speedometerRect.anchorMax = new Vector2(1f, 0f);
+            speedometerRect.pivot = new Vector2(1f, 0f);
+            speedometerRect.anchoredPosition = new Vector2(-6f, 18f);
 
             RectTransform gearPill = CreateRect("GearPill", speedRoot);
-            SetAnchors(gearPill, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0f, -66f), new Vector2(54f, 30f));
+            SetAnchors(gearPill, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(12f, 72f), new Vector2(72f, 40f));
             Image gearPillImage = gearPill.gameObject.AddComponent<Image>();
             gearPillImage.sprite = GetSprite();
-            gearPillImage.color = new Color(0.18f, 0.24f, 0.34f, 0.96f);
+            gearPillImage.color = new Color(0.18f, 0.24f, 0.34f, 0.9f);
             gearText = CreateText("GearValue", gearPill, "1", 18f, FontStyles.Bold, TextAlignmentOptions.Center, Color.white);
             Stretch(gearText.rectTransform);
 
             damageText = CreateText("DamageValue", speedRoot, "DMG 0%", 18f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(1f, 0.7f, 0.7f, 0.94f));
-            SetAnchors(damageText.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(120f, 24f));
+            SetAnchors(damageText.rectTransform, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(12f, 28f), new Vector2(140f, 28f));
         }
 
         private void BuildRadar(RectTransform parent, HudRadarController radarController)
@@ -207,6 +217,104 @@ namespace Underground.UI
             image.sprite = GetSprite();
             image.color = color;
             return image;
+        }
+
+        private RectTransform CreateSpeedometer(Transform parent, out global::Speedometer speedometer)
+        {
+            GameObject speedometerObject;
+            if (speedometerPrefab != null)
+            {
+                speedometerObject = Instantiate(speedometerPrefab, parent, false);
+                speedometerObject.name = speedometerPrefab.name;
+            }
+            else
+            {
+                speedometerObject = new GameObject("Speedometer", typeof(RectTransform), typeof(Image), typeof(global::Speedometer));
+                speedometerObject.transform.SetParent(parent, false);
+                Image image = speedometerObject.GetComponent<Image>();
+                image.sprite = GetSprite();
+                image.color = panelColor;
+            }
+
+            speedometer = speedometerObject.GetComponent<global::Speedometer>();
+            return speedometerObject.GetComponent<RectTransform>();
+        }
+
+        private void RepairExistingHud(RectTransform root)
+        {
+            Transform speedCluster = FindDescendant(root, "SpeedCluster");
+            EnsureSpeedometer(speedCluster);
+            EnsureClock(root);
+            EnsureRacePrompt(root);
+        }
+
+        private void EnsureSpeedometer(Transform speedCluster)
+        {
+            if (speedCluster == null)
+            {
+                return;
+            }
+
+            global::Speedometer existingSpeedometer = speedCluster.GetComponentInChildren<global::Speedometer>(true);
+            bool hasValidSpeedometer = existingSpeedometer != null
+                && existingSpeedometer.arrow != null
+                && existingSpeedometer.speedLabel != null;
+
+            if (hasValidSpeedometer || speedometerPrefab == null)
+            {
+                return;
+            }
+
+            Vector3 preservedScale = Vector3.one;
+            if (existingSpeedometer != null)
+            {
+                preservedScale = existingSpeedometer.transform.localScale;
+
+                if (Application.isPlaying)
+                {
+                    Destroy(existingSpeedometer.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(existingSpeedometer.gameObject);
+                }
+            }
+
+            GameObject speedometerObject = Instantiate(speedometerPrefab, speedCluster, false);
+            speedometerObject.name = speedometerPrefab.name;
+            RectTransform speedometerRect = speedometerObject.GetComponent<RectTransform>();
+            speedometerRect.anchorMin = new Vector2(1f, 0f);
+            speedometerRect.anchorMax = new Vector2(1f, 0f);
+            speedometerRect.pivot = new Vector2(1f, 0f);
+            speedometerRect.anchoredPosition = new Vector2(-6f, 18f);
+            speedometerRect.localScale = preservedScale;
+        }
+
+        private void EnsureClock(RectTransform root)
+        {
+            if (FindDescendant(root, "ClockValue") != null)
+            {
+                return;
+            }
+
+            Transform challengeBanner = FindDescendant(root, "ChallengeBanner");
+            if (challengeBanner == null)
+            {
+                return;
+            }
+
+            TMP_Text clockText = CreateText("ClockValue", challengeBanner, "12:00 PM", 16f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(0.92f, 0.96f, 1f, 0.88f));
+            SetAnchors(clockText.rectTransform, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(-116f, 0f), new Vector2(112f, 28f));
+        }
+
+        private void EnsureRacePrompt(RectTransform root)
+        {
+            if (FindDescendant(root, "RacePromptRoot") != null)
+            {
+                return;
+            }
+
+            BuildRacePrompt(root);
         }
 
         private TMP_Text CreateText(string name, Transform parent, string value, float fontSize, FontStyles style, TextAlignmentOptions alignment, Color color)
@@ -269,6 +377,30 @@ namespace Underground.UI
             rectTransform.pivot = pivot;
             rectTransform.anchoredPosition = anchoredPosition;
             rectTransform.sizeDelta = sizeDelta;
+        }
+
+        private static Transform FindDescendant(Transform root, string objectName)
+        {
+            if (root == null || string.IsNullOrEmpty(objectName))
+            {
+                return null;
+            }
+
+            if (root.name == objectName)
+            {
+                return root;
+            }
+
+            for (int i = 0; i < root.childCount; i++)
+            {
+                Transform found = FindDescendant(root.GetChild(i), objectName);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -1,16 +1,14 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Underground.Race
 {
     public class RaceStartTrigger : MonoBehaviour
     {
+        public static RaceStartTrigger ActivePrompt { get; private set; }
+
         [SerializeField] private RaceManager raceManager;
-        [SerializeField] private float simulatedRaceDuration = 5f;
-        [SerializeField] private bool autoWinForPrototype = true;
 
         private bool playerInside;
-        private bool raceRunning;
 
         private void Awake()
         {
@@ -20,41 +18,92 @@ namespace Underground.Race
             }
         }
 
+        private void OnEnable()
+        {
+            RaceManager.RaceStarted += HandleRaceStateChanged;
+            RaceManager.RaceEnded += HandleRaceStateChanged;
+            RefreshPromptState();
+        }
+
+        private void OnDisable()
+        {
+            RaceManager.RaceStarted -= HandleRaceStateChanged;
+            RaceManager.RaceEnded -= HandleRaceStateChanged;
+
+            if (ActivePrompt == this)
+            {
+                ActivePrompt = null;
+            }
+        }
+
         private void Update()
         {
-            if (!playerInside || raceRunning || raceManager == null || !raceManager.CanStartRace())
+            if (!playerInside || raceManager == null || !raceManager.CanStartRace())
             {
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.E))
             {
-                StartCoroutine(RunPrototypeRace());
+                if (raceManager.TryStartRace())
+                {
+                    RefreshPromptState();
+                }
             }
+        }
+
+        public string GetPromptText()
+        {
+            return raceManager != null ? raceManager.GetStartPrompt() : string.Empty;
+        }
+
+        public bool IsPromptVisible()
+        {
+            return playerInside
+                && raceManager != null
+                && !raceManager.IsRaceActive
+                && (RaceManager.ActiveRace == null || RaceManager.ActiveRace == raceManager);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (!other.CompareTag("Player"))
             {
-                playerInside = true;
+                return;
             }
+
+            playerInside = true;
+            RefreshPromptState();
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player"))
+            if (!other.CompareTag("Player"))
             {
-                playerInside = false;
+                return;
             }
+
+            playerInside = false;
+            RefreshPromptState();
         }
 
-        private IEnumerator RunPrototypeRace()
+        private void HandleRaceStateChanged(RaceManager manager)
         {
-            raceRunning = true;
-            yield return new WaitForSeconds(simulatedRaceDuration);
-            raceManager.CompleteRace(autoWinForPrototype);
-            raceRunning = false;
+            RefreshPromptState();
+        }
+
+        private void RefreshPromptState()
+        {
+            if (IsPromptVisible())
+            {
+                ActivePrompt = this;
+                return;
+            }
+
+            if (ActivePrompt == this)
+            {
+                ActivePrompt = null;
+            }
         }
     }
 }

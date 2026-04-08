@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using FCG;
-using Object = UnityEngine.Object;
 
 public class FCityGenerator : EditorWindow
 {
@@ -32,6 +31,10 @@ public class FCityGenerator : EditorWindow
 
         FCityGenerator window = (FCityGenerator)EditorWindow.GetWindow(typeof(FCityGenerator));
 
+        DayNight dn = FindObjectOfType<DayNight>();
+        if (dn)
+            dn.ChangeMaterial();
+
         window.Show();
 
     }
@@ -52,6 +55,13 @@ public class FCityGenerator : EditorWindow
         if (enableUpdate >= 5)
             enableUpdate = 0;
 
+        
+
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable()");
     }
 #endif
 
@@ -173,7 +183,7 @@ public class FCityGenerator : EditorWindow
 
         RaycastHit hit;
 
-        GameObject[] tempArray = FindSceneObjectsByName("RayCast-HideLadder");
+        GameObject[] tempArray = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == "RayCast-HideLadder").ToArray();
         foreach (GameObject ray in tempArray)
         {
 
@@ -342,9 +352,7 @@ public class FCityGenerator : EditorWindow
         if (GUILayout.Button("Remove Traffic System"))
         {
 
-            TrafficSystem existingTrafficSystem = UnityEngine.Object.FindFirstObjectByType<TrafficSystem>();
-            if (existingTrafficSystem != null)
-                DestroyImmediate(existingTrafficSystem.gameObject);
+            DestroyImmediate(GameObject.FindObjectOfType<TrafficSystem>().gameObject);
             DestroyImmediate(GameObject.Find("CarContainer"));
         }
 
@@ -409,7 +417,7 @@ public class FCityGenerator : EditorWindow
             GameObject module;
             GameObject[] my_Modules;
 
-            my_Modules = FindSceneObjectsByName("Marcador");
+            my_Modules = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == "Marcador").ToArray();
 
             tt = my_Modules.Length;
 
@@ -470,7 +478,7 @@ public class FCityGenerator : EditorWindow
 
 
 
-            GameObject[] myModules = FindSceneObjectsByName("_block");
+            GameObject[] myModules = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name == "_block").ToArray();
 
 
             tt = myModules.Length;
@@ -512,12 +520,12 @@ public class FCityGenerator : EditorWindow
     private void AddVehicles(int right_Hand = 0)
     {
 
-        trafficSystem = UnityEngine.Object.FindFirstObjectByType<TrafficSystem>();
+        trafficSystem = FindObjectOfType<TrafficSystem>();
 
         if (!trafficSystem)
         {
             Instantiate((GameObject)AssetDatabase.LoadAssetAtPath("Assets/Fantastic City Generator/Traffic System/Traffic System.prefab", (typeof(GameObject))));
-            trafficSystem = UnityEngine.Object.FindFirstObjectByType<TrafficSystem>();
+            trafficSystem = FindObjectOfType<TrafficSystem>();
 
         }
 
@@ -538,9 +546,8 @@ public class FCityGenerator : EditorWindow
     private void InverseCarDirection(int trafficHand)
     {
 
-        TrafficSystem currentTrafficSystem = UnityEngine.Object.FindFirstObjectByType<TrafficSystem>();
-        if (currentTrafficSystem != null)
-            trafficSystem = currentTrafficSystem;
+        if (FindObjectOfType<TrafficSystem>())
+            trafficSystem = FindObjectOfType<TrafficSystem>();
 
         if (!trafficSystem)
         {
@@ -795,10 +802,8 @@ public class FCityGenerator : EditorWindow
 
 
 
-    private static GameObject[] FindSceneObjectsByName(string objectName)
-    {
-        return GameObject.FindObjectsByType<GameObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .Where(gameObject => gameObject.name == objectName)
-            .ToArray();
-    }
+
+
+
+
 }

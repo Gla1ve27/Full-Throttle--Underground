@@ -13,6 +13,8 @@ public class RunTimeSample : MonoBehaviour
     private bool withDownTownArea = true;
     private bool rightHand = true;
 
+    private bool isNight = false;
+
     void Awake()
     {
 
@@ -52,7 +54,7 @@ public class RunTimeSample : MonoBehaviour
     public void AddTrafficSystem()
     {
 
-        trafficSystem = Object.FindFirstObjectByType<TrafficSystem>();
+        trafficSystem = FindObjectOfType<TrafficSystem>();
 
         if (trafficSystem) 
         { 

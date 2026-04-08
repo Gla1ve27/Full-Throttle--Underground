@@ -166,17 +166,14 @@ namespace FCG
 
         private Transform GetTransformWheel(string wheelName)
         {
-            Transform[] transforms = GetComponentsInChildren<Transform>(true);
+            GameObject[] wt;
 
-            for (int i = 0; i < transforms.Length; i++)
-            {
-                if (transforms[i] != transform && transforms[i].name.Equals(wheelName))
-                {
-                    return transforms[i];
-                }
-            }
+            wt = GameObject.FindObjectsOfType(typeof(GameObject)).Select(g => g as GameObject).Where(g => g.name.Equals(wheelName) && g.transform.parent.root == transform).ToArray();
 
-            return null;
+            if (wt.Length > 0)
+                return wt[0].transform;
+            else
+                return null;
 
         }
 
@@ -376,7 +373,7 @@ namespace FCG
 
 
             
-            if(player && !Object.FindFirstObjectByType<TrafficSystem>())
+            if(player && !FindObjectOfType<TrafficSystem>())
                 Debug.LogError("The Traffic System.prefab not found in the Hierarchy");
 
 

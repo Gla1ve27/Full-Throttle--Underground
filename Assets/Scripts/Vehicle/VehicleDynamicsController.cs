@@ -67,6 +67,11 @@ namespace Underground.Vehicle
                 gearbox = GetComponent<GearboxSystem>();
             }
 
+            if (CompareTag("Player") && GetComponent<PlayerCarAppearanceController>() == null)
+            {
+                gameObject.AddComponent<PlayerCarAppearanceController>();
+            }
+
             Initialize(baseStats, startupUpgrades);
         }
 
@@ -123,6 +128,26 @@ namespace Underground.Vehicle
         public RuntimeVehicleStats GetRuntimeStats()
         {
             return runtimeStats;
+        }
+
+        public void SetWheelVisualByColliderName(string colliderName, Transform visual)
+        {
+            if (string.IsNullOrEmpty(colliderName) || wheels == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null || wheel.collider.name != colliderName)
+                {
+                    continue;
+                }
+
+                wheel.mesh = visual;
+                return;
+            }
         }
 
         public void ApplyUpgrade(UpgradeDefinition definition)

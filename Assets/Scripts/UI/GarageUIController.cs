@@ -60,6 +60,11 @@ namespace Underground.UI
                 showroomController = FindFirstObjectByType<GarageShowroomController>();
             }
 
+            if (displayedVehicle == null && showroomController != null)
+            {
+                displayedVehicle = showroomController.CurrentVehicle;
+            }
+
             if (displayedVehicle == null)
             {
                 displayedVehicle = FindFirstObjectByType<VehicleDynamicsController>();
@@ -71,7 +76,20 @@ namespace Underground.UI
 
         private void OnEnable()
         {
+            if (showroomController != null)
+            {
+                showroomController.VehicleChanged += HandleVehicleChanged;
+            }
+
             Refresh();
+        }
+
+        private void OnDisable()
+        {
+            if (showroomController != null)
+            {
+                showroomController.VehicleChanged -= HandleVehicleChanged;
+            }
         }
 
         public void Refresh()
@@ -81,28 +99,51 @@ namespace Underground.UI
                 return;
             }
 
+            VehicleDynamicsController activeVehicle = showroomController != null && showroomController.CurrentVehicle != null
+                ? showroomController.CurrentVehicle
+                : displayedVehicle;
+            displayedVehicle = activeVehicle;
+
+            string selectedCarName = !string.IsNullOrEmpty(showroomController != null ? showroomController.CurrentCarDisplayName : null)
+                ? showroomController.CurrentCarDisplayName
+                : ResolveDisplayName(progressManager.CurrentOwnedCarId);
+
             if (moneyText != null) moneyText.text = $"Money: {progressManager.SavedMoney}";
             if (reputationText != null) reputationText.text = $"Reputation: {progressManager.SavedReputation}";
-            if (currentCarText != null) currentCarText.text = $"Current Car: {progressManager.CurrentOwnedCarId}";
+            if (currentCarText != null) currentCarText.text = $"Current Car: {selectedCarName}";
 
-            if (displayedVehicle != null && displayedVehicle.BaseStats != null)
+            if (displayNameText != null)
             {
-                if (displayNameText != null) displayNameText.text = displayedVehicle.BaseStats.displayName.ToUpperInvariant();
-                if (brandText != null) brandText.text = "UNDERGROUND GARAGE";
+                displayNameText.text = selectedCarName.ToUpperInvariant();
+            }
 
-                RuntimeVehicleStats stats = displayedVehicle.RuntimeStats;
+            if (brandText != null)
+            {
+                brandText.text = "UNDERGROUND GARAGE";
+            }
+
+            if (activeVehicle != null && activeVehicle.BaseStats != null)
+            {
+                PlayerCarAppearanceController appearanceController = activeVehicle.GetComponent<PlayerCarAppearanceController>();
+                string displayName = appearanceController != null && !string.IsNullOrEmpty(appearanceController.CurrentCarDisplayName)
+                    ? appearanceController.CurrentCarDisplayName
+                    : selectedCarName;
+
+                if (displayNameText != null) displayNameText.text = displayName.ToUpperInvariant();
+
+                RuntimeVehicleStats stats = activeVehicle.RuntimeStats;
                 float accelerationSource = stats != null && stats.MaxMotorTorque > 0f
                     ? stats.MaxMotorTorque
-                    : displayedVehicle.BaseStats.maxMotorTorque;
+                    : activeVehicle.BaseStats.maxMotorTorque;
                 float topSpeedSource = stats != null && stats.MaxSpeedKph > 0f
                     ? stats.MaxSpeedKph
-                    : displayedVehicle.BaseStats.maxSpeedKph;
+                    : activeVehicle.BaseStats.maxSpeedKph;
                 float forwardGrip = stats != null && stats.ForwardStiffness > 0f
                     ? stats.ForwardStiffness
-                    : displayedVehicle.BaseStats.forwardStiffness;
+                    : activeVehicle.BaseStats.forwardStiffness;
                 float sidewaysGrip = stats != null && stats.SidewaysStiffness > 0f
                     ? stats.SidewaysStiffness
-                    : displayedVehicle.BaseStats.sidewaysStiffness;
+                    : activeVehicle.BaseStats.sidewaysStiffness;
 
                 float acceleration = Mathf.Clamp01(accelerationSource / 2600f);
                 float topSpeed = Mathf.Clamp01(topSpeedSource / 320f);
@@ -143,14 +184,26 @@ namespace Underground.UI
             Refresh();
         }
 
-        public void RotateLeft()
+        public void SelectPreviousCar()
         {
-            showroomController?.RotateLeft();
+            bool changed = showroomController != null && showroomController.SelectPreviousCar();
+            if (changed)
+            {
+                SetStatus($"Selected {showroomController.CurrentCarDisplayName}.");
+            }
+
+            Refresh();
         }
 
-        public void RotateRight()
+        public void SelectNextCar()
         {
-            showroomController?.RotateRight();
+            bool changed = showroomController != null && showroomController.SelectNextCar();
+            if (changed)
+            {
+                SetStatus($"Selected {showroomController.CurrentCarDisplayName}.");
+            }
+
+            Refresh();
         }
 
         private void SetStatus(string message)
@@ -182,8 +235,8 @@ namespace Underground.UI
             BindButton(repairButton, RepairCar);
             BindButton(upgradeButton, BuyEngineUpgrade);
             BindButton(continueButton, ExitGarage);
-            BindButton(rotateLeftButton, RotateLeft);
-            BindButton(rotateRightButton, RotateRight);
+            BindButton(rotateLeftButton, SelectPreviousCar);
+            BindButton(rotateRightButton, SelectNextCar);
             buttonsBound = true;
         }
 
@@ -210,6 +263,23 @@ namespace Underground.UI
             }
 
             return null;
+        }
+
+        private void HandleVehicleChanged(VehicleDynamicsController newVehicle)
+        {
+            displayedVehicle = newVehicle;
+            Refresh();
+        }
+
+        private static string ResolveDisplayName(string carId)
+        {
+            string resolvedCarId = PlayerCarCatalog.MigrateCarId(carId);
+            if (PlayerCarCatalog.TryGetDefinition(resolvedCarId, out PlayerCarDefinition selectedCar))
+            {
+                return selectedCar.DisplayName;
+            }
+
+            return resolvedCarId;
         }
     }
 }
