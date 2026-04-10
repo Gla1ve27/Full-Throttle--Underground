@@ -215,105 +215,10 @@ namespace Underground.EditorTools
             }
 
             ConfigureSurface(material, source.isTransparent || IsTransparentMaterial(material.name));
-            ConfigureHdrpReflectionResponse(material, source.isTransparent || IsTransparentMaterial(material.name));
-            ApplyVehicleFinish(material, source.isTransparent || IsTransparentMaterial(material.name));
             return !alreadyHdrp || source.hasSerializedData || MaterialNeedsUpgrade(material);
         }
 
-        private static void ConfigureHdrpReflectionResponse(Material material, bool isTransparent)
-        {
-            if (material == null)
-            {
-                return;
-            }
 
-            bool paintLike = IsPaintLikeMaterial(material.name);
-            bool bodyLike = IsBodyLikeMaterial(material.name);
-
-            if (!isTransparent)
-            {
-                SetFloatIfPresent(material, "_ReceivesSSR", 1f);
-                SetFloatIfPresent(material, "_EnvironmentReflections", 1f);
-                SetFloatIfPresent(material, "_GlossyReflections", 1f);
-                SetFloatIfPresent(material, "_SpecularHighlights", 1f);
-            }
-
-            SetFloatIfPresent(material, "_ReceivesSSRTransparent", isTransparent ? 1f : 0f);
-            SetFloatIfPresent(material, "_EnableCoat", paintLike || bodyLike ? 1f : 0f);
-            SetFloatIfPresent(material, "_CoatMask", paintLike ? 1f : bodyLike ? 0.35f : 0f);
-
-            material.DisableKeyword("_DISABLE_SSR");
-            material.DisableKeyword("_DISABLE_SSR_TRANSPARENT");
-        }
-
-        private static void ApplyVehicleFinish(Material material, bool isTransparent)
-        {
-            if (material == null || isTransparent)
-            {
-                return;
-            }
-
-            float metallic = material.HasProperty("_Metallic") ? material.GetFloat("_Metallic") : 0f;
-            float smoothness = material.HasProperty("_Smoothness")
-                ? material.GetFloat("_Smoothness")
-                : material.HasProperty("_Glossiness")
-                    ? material.GetFloat("_Glossiness")
-                    : 0.55f;
-
-            if (IsPaintLikeMaterial(material.name))
-            {
-                metallic = Mathf.Clamp(metallic, 0f, 0.08f);
-                smoothness = Mathf.Clamp(smoothness, 0.8f, 0.94f);
-            }
-            else if (IsBodyLikeMaterial(material.name))
-            {
-                metallic = Mathf.Clamp(metallic, 0f, 0.18f);
-                smoothness = Mathf.Clamp(smoothness, 0.68f, 0.86f);
-            }
-            else if (LooksLikeVehicleMaterial(material.name))
-            {
-                smoothness = Mathf.Clamp(smoothness, 0.6f, 0.82f);
-            }
-
-            SetFloatIfPresent(material, "_Metallic", metallic);
-            SetFloatIfPresent(material, "_Smoothness", smoothness);
-            SetFloatIfPresent(material, "_Glossiness", smoothness);
-        }
-
-        private static bool IsPaintLikeMaterial(string materialName)
-        {
-            return !string.IsNullOrEmpty(materialName) &&
-                   (materialName.IndexOf("paint", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("color", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("taxi", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("police", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("atlas", StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-
-        private static bool IsBodyLikeMaterial(string materialName)
-        {
-            return !string.IsNullOrEmpty(materialName) &&
-                   (materialName.IndexOf("body", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("car_color", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("car colour", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("car color", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("traffic-car", StringComparison.OrdinalIgnoreCase) >= 0);
-        }
-
-        private static bool LooksLikeVehicleMaterial(string materialName)
-        {
-            return !string.IsNullOrEmpty(materialName) &&
-                   (materialName.IndexOf("car", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("vehicle", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("taxi", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("police", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("traffic", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("body", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("paint", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("color", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("grill", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("carbon", StringComparison.OrdinalIgnoreCase) >= 0);
-        }
 
         private static bool MaterialNeedsUpgrade(Material material)
         {
@@ -323,29 +228,6 @@ namespace Underground.EditorTools
             }
 
             if (material.shader == null || !string.Equals(material.shader.name, "HDRP/Lit", StringComparison.Ordinal))
-            {
-                return true;
-            }
-
-            bool isTransparent = IsTransparentMaterial(material.name);
-            if (!isTransparent &&
-                ((material.HasProperty("_ReceivesSSR") && material.GetFloat("_ReceivesSSR") < 0.5f) ||
-                 (material.HasProperty("_EnvironmentReflections") && material.GetFloat("_EnvironmentReflections") < 0.5f) ||
-                 (material.HasProperty("_GlossyReflections") && material.GetFloat("_GlossyReflections") < 0.5f)))
-            {
-                return true;
-            }
-
-            if (material.HasProperty("_ReceivesSSRTransparent") &&
-                isTransparent &&
-                material.GetFloat("_ReceivesSSRTransparent") < 0.5f)
-            {
-                return true;
-            }
-
-            if ((IsPaintLikeMaterial(material.name) || IsBodyLikeMaterial(material.name)) &&
-                material.HasProperty("_EnableCoat") &&
-                material.GetFloat("_EnableCoat") < 0.5f)
             {
                 return true;
             }

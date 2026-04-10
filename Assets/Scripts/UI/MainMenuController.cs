@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Underground.Core.Architecture;
 using Underground.Save;
+using Underground.Session;
 
 namespace Underground.UI
 {
@@ -14,7 +15,7 @@ namespace Underground.UI
         [SerializeField] private PersistentProgressManager progressManager;
         [SerializeField] private SaveSystem saveSystem;
         [SerializeField] private string careerSceneName = "Garage";
-        [SerializeField] private string quickRaceSceneName = "Garage";
+        [SerializeField] private string quickRaceSceneName = "World";
         [SerializeField] private bool allowRuntimeFallbackMenu = true;
         [SerializeField] private bool preferRuntimeStyledMenu = true;
 
@@ -83,6 +84,11 @@ namespace Underground.UI
 
         public void OpenQuickRace()
         {
+            if (!QuickRaceSessionData.HasPendingLaunch)
+            {
+                QuickRaceSessionData.Clear();
+            }
+
             SceneManager.LoadScene(quickRaceSceneName);
         }
 

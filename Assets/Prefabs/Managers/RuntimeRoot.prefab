@@ -97,6 +97,7 @@ MonoBehaviour:
   - rmcar26_d
   ownedCarIds: []
   purchasedUpgradeIds: []
+  completedRaceIds: []
 --- !u!114 &2580417340331642523
 MonoBehaviour:
   m_ObjectHideFlags: 0

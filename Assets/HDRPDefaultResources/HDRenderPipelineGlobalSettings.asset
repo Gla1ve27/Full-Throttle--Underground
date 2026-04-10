@@ -339,7 +339,8 @@ MonoBehaviour:
         m_Version: 0
         m_BeforeTransparentCustomPostProcesses:
           m_InjectionPoint: 0
-          m_CustomPostProcessTypesAsString: []
+          m_CustomPostProcessTypesAsString:
+          - SSRT_HDRP, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         m_BeforeTAACustomPostProcesses:
           m_InjectionPoint: 3
           m_CustomPostProcessTypesAsString: []

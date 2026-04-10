@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Underground.Garage;
 using Underground.Progression;
@@ -63,12 +65,148 @@ namespace Underground.EditorTools
             uiSo.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        private static void RebuildGarageScenePreservingExistingUi(Scene scene, GameObject playerCarPrefab, UpgradeDefinition engineUpgrade)
+        {
+            RemoveMissingScriptsFromScene(scene);
+
+            Canvas preservedCanvas = FindPreservedGarageCanvas();
+            GameObject[] roots = scene.GetRootGameObjects();
+            for (int i = 0; i < roots.Length; i++)
+            {
+                if (preservedCanvas != null && roots[i] == preservedCanvas.gameObject)
+                {
+                    continue;
+                }
+
+                if (roots[i].GetComponent<Canvas>() != null)
+                {
+                    continue;
+                }
+
+                Object.DestroyImmediate(roots[i]);
+            }
+
+            CreateRuntimeRoot(false);
+            EnsureEventSystem();
+
+            GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.05f, 0f, true);
+            ConfigureShowroomController(backdrop.showroomController, true, 146f, -0.22f, 0f);
+
+            GameObject systemsRoot = new GameObject("GarageSystems");
+            GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
+            RepairSystem repairSystem = systemsRoot.AddComponent<RepairSystem>();
+            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();
+            SetObjectReference(repairSystem, "playerDamageSystem", backdrop.car.GetComponent<VehicleDamageSystem>());
+            SetObjectReference(repairSystem, "currentCarStats", backdrop.vehicle != null ? backdrop.vehicle.BaseStats : null);
+            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
+
+            Canvas canvas = preservedCanvas != null ? preservedCanvas : CreateCanvas("GarageCanvas");
+            ConfigureGarageShowroomUi(canvas, backdrop, garageManager, repairSystem, upgradeSystem, engineUpgrade);
+
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+
         private static void ComposeGarageBackdropForMenu(GameObject playerCarPrefab)
         {
             RemoveExistingGarageBackdrop();
             ConfigureGarageBackdropCamera();
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "MainMenuGarageBackdrop", "MenuDisplayTurntable", 1.05f, 0f, false);
             ConfigureShowroomController(backdrop.showroomController, false, 146f, -0.22f, 0f);
+        }
+
+        private static Canvas FindPreservedGarageCanvas()
+        {
+            GarageUIController garageUi = Object.FindFirstObjectByType<GarageUIController>(FindObjectsInactive.Include);
+            if (garageUi != null)
+            {
+                Canvas garageUiCanvas = garageUi.GetComponent<Canvas>();
+                if (garageUiCanvas != null)
+                {
+                    return garageUiCanvas;
+                }
+            }
+
+            GameObject namedCanvas = GameObject.Find("GarageCanvas");
+            if (namedCanvas != null)
+            {
+                Canvas garageCanvas = namedCanvas.GetComponent<Canvas>();
+                if (garageCanvas != null)
+                {
+                    return garageCanvas;
+                }
+            }
+
+            Canvas[] canvases = Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            for (int i = 0; i < canvases.Length; i++)
+            {
+                if (canvases[i] != null && canvases[i].isRootCanvas)
+                {
+                    return canvases[i];
+                }
+            }
+
+            return null;
+        }
+
+        private static void ConfigureGarageShowroomUi(
+            Canvas canvas,
+            GarageBackdropBuild backdrop,
+            GarageManager garageManager,
+            RepairSystem repairSystem,
+            UpgradeSystem upgradeSystem,
+            UpgradeDefinition engineUpgrade)
+        {
+            if (canvas == null)
+            {
+                return;
+            }
+
+            canvas.name = "GarageCanvas";
+            canvas.transform.localScale = Vector3.one;
+
+            GarageUIController garageUi = canvas.GetComponent<GarageUIController>() ?? canvas.gameObject.AddComponent<GarageUIController>();
+            SerializedObject uiSo = new SerializedObject(garageUi);
+
+            AssignObjectReferenceIfMissing(uiSo, "moneyText", FindComponentByName<TMP_Text>(canvas.transform, "MoneyText"));
+            AssignObjectReferenceIfMissing(uiSo, "reputationText", FindComponentByName<TMP_Text>(canvas.transform, "RepText"));
+            AssignObjectReferenceIfMissing(uiSo, "currentCarText", FindComponentByName<TMP_Text>(canvas.transform, "CarText"));
+            AssignObjectReferenceIfMissing(uiSo, "displayNameText", FindComponentByName<TMP_Text>(canvas.transform, "DisplayNameText"));
+            AssignObjectReferenceIfMissing(uiSo, "brandText", FindComponentByName<TMP_Text>(canvas.transform, "BrandText"));
+            AssignObjectReferenceIfMissing(uiSo, "ratingText", FindComponentByName<TMP_Text>(canvas.transform, "RatingText"));
+            AssignObjectReferenceIfMissing(uiSo, "statusText", FindComponentByName<TMP_Text>(canvas.transform, "StatusText"));
+            AssignObjectReferenceIfMissing(uiSo, "accelerationFill", FindComponentByName<Image>(canvas.transform, "ACCELERATION_Fill"));
+            AssignObjectReferenceIfMissing(uiSo, "topSpeedFill", FindComponentByName<Image>(canvas.transform, "TOP SPEED_Fill"));
+            AssignObjectReferenceIfMissing(uiSo, "handlingFill", FindComponentByName<Image>(canvas.transform, "HANDLING_Fill"));
+            AssignObjectReferenceIfMissing(uiSo, "repairButton", FindComponentByName<Button>(canvas.transform, "Repair Car"));
+            AssignObjectReferenceIfMissing(uiSo, "upgradeButton", FindComponentByName<Button>(canvas.transform, "Buy Engine"));
+            AssignObjectReferenceIfMissing(uiSo, "continueButton", FindComponentByName<Button>(canvas.transform, "Continue"));
+            AssignObjectReferenceIfMissing(uiSo, "rotateLeftButton", FindComponentByName<Button>(canvas.transform, "<"));
+            AssignObjectReferenceIfMissing(uiSo, "rotateRightButton", FindComponentByName<Button>(canvas.transform, ">"));
+
+            Button upgradeButton = uiSo.FindProperty("upgradeButton")?.objectReferenceValue as Button;
+            UpgradePurchaseAction upgradeAction = null;
+            if (upgradeButton != null)
+            {
+                upgradeAction = upgradeButton.GetComponent<UpgradePurchaseAction>() ?? upgradeButton.gameObject.AddComponent<UpgradePurchaseAction>();
+            }
+            else
+            {
+                upgradeAction = canvas.GetComponentInChildren<UpgradePurchaseAction>(true);
+            }
+
+            if (upgradeAction != null)
+            {
+                SetObjectReference(upgradeAction, "upgradeSystem", upgradeSystem);
+                SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
+            }
+
+            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;
+            uiSo.FindProperty("repairSystem").objectReferenceValue = repairSystem;
+            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
+            uiSo.FindProperty("showroomController").objectReferenceValue = backdrop.showroomController;
+            uiSo.FindProperty("displayedVehicle").objectReferenceValue = backdrop.vehicle;
+            uiSo.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(garageUi);
         }
 
         private static GarageBackdropBuild ComposeGarageBackdrop(GameObject playerCarPrefab, string rootName, string displayRootName, float displayZ, float autoRotateSpeed, bool configureCamera)
@@ -102,14 +240,7 @@ namespace Underground.EditorTools
             Material accentMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageAccent.mat", new Color(0.52f, 0.9f, 0.36f), 0f, 0.04f, new Color(0.08f, 0.22f, 0.06f) * 0.35f);
             Material trimMaterial = CreateOrUpdateGarageMaterial("Assets/Materials/Generated/GarageTrim.mat", new Color(0.18f, 0.18f, 0.18f), 0f, 0.08f);
 
-            ConfigureGarageSurfaceResponse(floorMaterial, false);
-            ConfigureGarageSurfaceResponse(platformMaterial, false);
-            ConfigureGarageSurfaceResponse(backWallMaterial, false);
-            ConfigureGarageSurfaceResponse(leftWallMaterial, false);
-            ConfigureGarageSurfaceResponse(rightWallMaterial, false);
-            ConfigureGarageSurfaceResponse(ceilingMaterial, false);
-            ConfigureGarageSurfaceResponse(accentMaterial, false);
-            ConfigureGarageSurfaceResponse(trimMaterial, false);
+
 
             GameObject showroomRoot = new GameObject(rootName);
             CreateGarageEnvironment(showroomRoot.transform, floorMaterial, backWallMaterial, leftWallMaterial, rightWallMaterial, ceilingMaterial, platformMaterial, accentMaterial, trimMaterial, backdropTexture);
@@ -559,45 +690,7 @@ namespace Underground.EditorTools
             return material;
         }
 
-        private static void ConfigureGarageSurfaceResponse(Material material, bool allowEnvironmentReflections)
-        {
-            if (material == null)
-            {
-                return;
-            }
 
-            if (material.HasProperty("_ReceivesSSR"))
-            {
-                material.SetFloat("_ReceivesSSR", 0f);
-            }
-
-            if (material.HasProperty("_ReceivesSSRTransparent"))
-            {
-                material.SetFloat("_ReceivesSSRTransparent", 0f);
-            }
-
-            if (material.HasProperty("_EnvironmentReflections"))
-            {
-                material.SetFloat("_EnvironmentReflections", allowEnvironmentReflections ? 1f : 0f);
-            }
-
-            if (material.HasProperty("_GlossyReflections"))
-            {
-                material.SetFloat("_GlossyReflections", allowEnvironmentReflections ? 1f : 0f);
-            }
-
-            if (material.HasProperty("_SpecularHighlights"))
-            {
-                material.SetFloat("_SpecularHighlights", 0f);
-            }
-
-            if (material.HasProperty("_TransmissionEnable"))
-            {
-                material.SetFloat("_TransmissionEnable", 0f);
-            }
-
-            EditorUtility.SetDirty(material);
-        }
 
         private static int GetGarageReflectionProbeMask()
         {

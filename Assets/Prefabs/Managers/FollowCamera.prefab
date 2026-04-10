@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5834920834523698024}
   - component: {fileID: 4286991597580224450}
   - component: {fileID: 3873688922883141083}
-  - component: {fileID: 3788569254000477021}
   m_Layer: 0
   m_Name: FollowCamera
   m_TagString: MainCamera
@@ -251,11 +250,11 @@ MonoBehaviour:
   targetBody: {fileID: 0}
   gearbox: {fileID: 0}
   targetOffset: {x: 0, y: 0.08, z: 0}
-  followDistance: 4.9
-  highSpeedFollowDistance: 5.95
+  followDistance: 4.6
+  highSpeedFollowDistance: 7.2
   followHeight: 0.48
   highSpeedFollowHeight: 0.9
-  followSmoothTime: 0.065
+  followSmoothTime: 0.05
   rotationSharpness: 8.5
   lookAheadDistance: 2.8
   highSpeedLookAheadDistance: 3.55
@@ -266,13 +265,18 @@ MonoBehaviour:
   maxLookAheadPivotOffset: 2.9
   lookAheadPivotResponsiveness: 2.8
   minFieldOfView: 46
-  maxFieldOfView: 58
+  maxFieldOfView: 72
   speedForMaxFieldOfView: 155
   fovWarpPower: 1.35
-  shiftLungeDuration: 0.3
-  shiftLungeDistance: 0.35
-  shiftLungeDampingMultiplier: 1.25
-  shiftLungeRotationLag: 0.9
+  speedSmoothRate: 1.5
+  speedEffectsVolume: {fileID: 0}
+  vfxStartSpeedKph: 35
+  vfxFullSpeedKph: 240
+  vignetteBase: 0.25
+  vignetteMax: 0.5
+  chromaticBase: 0.015
+  chromaticMax: 0.08
+  motionBlurMax: 0.08
   buffetingStartSpeedKph: 185
   buffetingFullSpeedKph: 240
   buffetingAmplitude: 0.004
@@ -281,21 +285,3 @@ MonoBehaviour:
   shakeFullSpeedKph: 230
   shakePositionAmplitude: 0.0025
   shakeRotationAmplitude: 0.12
---- !u!114 &3788569254000477021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5543568440863051380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce6f649c81330341a6c2228ff416325, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vehicle: {fileID: 0}
-  vignetteBase: 0.18
-  vignetteMax: 0.33
-  chromaticBase: 0.015
-  chromaticMax: 0.08
-  motionBlurMax: 0.08

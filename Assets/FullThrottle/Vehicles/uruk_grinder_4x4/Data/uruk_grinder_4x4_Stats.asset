@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: uruk_grinder_4x4_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: uruk_grinder_4x4
+  displayName: Uruk Grinder 4x4
+  archetype: 5
+  drivetrain: 2
+  horsepower: 280
+  maxMotorTorque: 520
+  maxBrakeTorque: 4000
+  maxSpeedKph: 175
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.4
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.62
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.78
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.82
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.48
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 750
+  maxRPM: 5000
+  shiftUpRPM: 4400
+  shiftDownRPM: 1400
+  finalDriveRatio: 4.3
+  gearRatios:
+  - 0
+  - 3.8
+  - 2.4
+  - 1.68
+  - 1.2
+  - 0.9
+  defaultMass: 1920
+  weightDistributionFront: 0.5
+  centerOfMassHeight: -0.32
+  centerOfMassOffset: {x: 0, y: -0.32, z: 0}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 18000
+  damper: 3000
+  suspensionDistance: 0.28
+  antiRollForce: 2200
+  maxSteerAngle: 30
+  highSpeedSteerReduction: 0.24
+  steeringResponse: 55
+  forwardStiffness: 1.1
+  sidewaysStiffness: 1.15
+  frontGrip: 0.88
+  rearGrip: 0.85
+  traction: 1.15
+  brakeGrip: 0.85
+  slipAngle: 18
+  recoveryRate: 3
+  highSpeedStability: 0.7
+  downforce: 12
+  lateralGripAssist: 1.25
+  handbrakeGripMultiplier: 0.6
+  resetLift: 1.5
+  driftAssist: 0.7
+  counterSteerAssist: 0.7
+  yawStability: 0.3
+  nitrousGripAssist: 0.2
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 18
+  baseValue: 22000

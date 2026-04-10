@@ -919,13 +919,12 @@ namespace Underground.UI
             cameraObject.tag = "MainCamera";
             menuCamera.enabled = true;
             menuCamera.rect = new Rect(0f, 0f, 1f, 1f);
-            menuCamera.targetDisplay = 0;
-            menuCamera.targetTexture = null;
-            menuCamera.orthographic = false;
-            menuCamera.clearFlags = CameraClearFlags.SolidColor;
-            menuCamera.backgroundColor = new Color(0.012f, 0.014f, 0.02f, 1f);
-            menuCamera.nearClipPlane = 0.1f;
-            menuCamera.farClipPlane = 250f;
+            
+            // Nuked aggressive camera property forcing. 
+            // Setting clearFlags to SolidColor literally deletes the HDRP Sky.
+            // Setting farClipPlane to 250m causes the world to cut off into white fog.
+            // We now leave these at your project's authored defaults.
+            
             menuCamera.cullingMask = ~0;
 
             if (IsUsingGarageBackdrop())

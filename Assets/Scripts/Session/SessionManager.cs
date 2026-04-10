@@ -80,6 +80,10 @@ namespace Underground.Session
             SessionReputation = 0;
             riskSystem?.ResetRisk();
             ServiceLocator.EventBus.Publish(new SessionFailedEvent("VehicleTotalled"));
+            if (QuickRaceSessionData.IsActive)
+            {
+                QuickRaceSessionData.Clear();
+            }
             SceneManager.LoadScene(garageSceneName);
         }
     }

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Underground.Progression;
+using Underground.Vehicle; // UpgradeDefinition
 
 namespace Underground.Garage
 {

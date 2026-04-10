@@ -326,7 +326,7 @@ MonoBehaviour:
   sunPivot: {fileID: 2213245689415411092}
   moonLight: {fileID: 5341850873640779599}
   fullDayLengthSeconds: 1200
-  startTimeOfDay: 12
+  startTimeOfDay: 22
   lockVisualsToAuthoredDay: 1
   overrideAmbientWithGradient: 0
   ambientColorByTime:

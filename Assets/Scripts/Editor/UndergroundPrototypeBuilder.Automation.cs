@@ -55,7 +55,7 @@ namespace Underground.EditorTools
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace);
+            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace, null);
             EditorSceneManager.SaveScene(scene, WorldScenePath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -67,7 +67,7 @@ namespace Underground.EditorTools
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
             Scene scene = SceneManager.GetActiveScene();
-            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace);
+            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace, DetachPreservedWorldUiRoot());
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
@@ -75,7 +75,7 @@ namespace Underground.EditorTools
         public static void RebuildMainMenuSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out _, out _, out _);
-            CreateMainMenuScene(playerCarPrefab);
+            CreateManagedMainMenuScene(playerCarPrefab);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -84,7 +84,7 @@ namespace Underground.EditorTools
         public static void RebuildGarageSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out UpgradeDefinition engineUpgrade, out _, out _, out _);
-            CreateGarageScene(playerCarPrefab, engineUpgrade);
+            CreateGarageScene(playerCarPrefab, engineUpgrade, preserveExistingScene: true);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -135,6 +135,7 @@ namespace Underground.EditorTools
             {
                 BootstrapScenePath,
                 MainMenuScenePath,
+                MainMenuNewScenePath,
                 GarageScenePath,
                 WorldScenePath,
                 VehicleTestScenePath
@@ -171,6 +172,7 @@ namespace Underground.EditorTools
                 ProjectGarageVolumeProfilePath,
                 BootstrapScenePath,
                 MainMenuScenePath,
+                MainMenuNewScenePath,
                 GarageScenePath,
                 WorldScenePath,
                 VehicleTestScenePath
@@ -231,7 +233,7 @@ namespace Underground.EditorTools
             }
         }
 
-        private static void ComposeWorldScene(Scene scene, GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace)
+        private static void ComposeWorldScene(Scene scene, GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace, Transform preservedUiRoot)
         {
             EnsureRuntimeRoot(false);
 
@@ -239,7 +241,17 @@ namespace Underground.EditorTools
             Transform systemsRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundSystems", Vector3.zero);
             Transform environmentRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundEnvironment", Vector3.zero);
             Transform gameplayRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundGameplay", Vector3.zero);
-            Transform uiRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundUI", Vector3.zero);
+            Transform uiRoot;
+            if (preservedUiRoot != null)
+            {
+                preservedUiRoot.name = "UndergroundUI";
+                preservedUiRoot.SetParent(generatedRoot.transform, false);
+                uiRoot = preservedUiRoot;
+            }
+            else
+            {
+                uiRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundUI", Vector3.zero);
+            }
 
             EnsureWorldSystems(systemsRoot);
 
@@ -256,7 +268,15 @@ namespace Underground.EditorTools
             GameObject playerCar = CreatePlayerCarInstance(gameplayRoot, playerCarPrefab, anchors.playerSpawnPose);
             CreateDynamicWorldReflectionProbe(gameplayRoot, playerCar.transform);
             CreateFollowCameraUnder(generatedRoot.transform, playerCar);
-            CreateHudCanvasUnder(uiRoot);
+            Canvas preservedHudCanvas = uiRoot.GetComponentInChildren<Canvas>(true);
+            if (preservedHudCanvas != null)
+            {
+                RefreshPreservedHudCanvas(preservedHudCanvas);
+            }
+            else
+            {
+                CreateHudCanvasUnder(uiRoot);
+            }
             CreateGarageEntranceUnder(gameplayRoot, anchors.garagePose);
             CreateRespawnCheckpointUnder(gameplayRoot, anchors.respawnPose);
 
@@ -269,12 +289,12 @@ namespace Underground.EditorTools
             EnsureHighStakesRaceSystem(gameplayRoot);
 
             RenderSettings.skybox = LoadDaySkyboxMaterial();
-            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-            RenderSettings.ambientLight = new Color(0.19f, 0.19f, 0.2f, 1f);
-            RenderSettings.ambientIntensity = 0.11f;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+            RenderSettings.ambientIntensity = 1.0f;
             RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = 0.9f;
-            RenderSettings.fog = false;
+            RenderSettings.reflectionIntensity = 1.0f;
+            RenderSettings.fog = true; 
+            
             Lightmapping.realtimeGI = true;
             Lightmapping.bakedGI = true;
             DynamicGI.UpdateEnvironment();
@@ -291,7 +311,8 @@ namespace Underground.EditorTools
             DayNightCycleController dayNight = systemsRoot.GetComponentInChildren<DayNightCycleController>(true);
             if (dayNight != null)
             {
-                dayNight.SetTime(12f);
+                // Set to 2 PM to ensure peak sun intensity and crisp shadows for the city layout.
+                dayNight.SetTime(14f);
             }
 
             Light sunLight = systemsRoot.GetComponentInChildren<Light>(true);
@@ -325,7 +346,7 @@ namespace Underground.EditorTools
             BootstrapSceneLoader loader = runtimeRoot.GetComponent<BootstrapSceneLoader>();
             if (includeBootstrapLoader)
             {
-                GetOrAddComponent<BootstrapSceneLoader>(runtimeRoot);
+                ConfigureBootstrapSceneLoader(GetOrAddComponent<BootstrapSceneLoader>(runtimeRoot));
             }
             else if (loader != null)
             {
@@ -363,13 +384,32 @@ namespace Underground.EditorTools
 
             ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
             probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.EveryFrame;
+            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;
             probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
-            probe.size = size;
+            
+            // Safe property set for Shape
+            SetPropertyIfPresent(probe, "shape", 1); // 1 = Sphere in most versions
+            
+            // Radius 120 to match the previous influence size
+            const float defaultRadius = 120f;
+            var radiusField = typeof(ReflectionProbe).GetProperty("sphereRadius") ?? typeof(ReflectionProbe).GetProperty("radius");
+            if (radiusField != null) radiusField.SetValue(probe, defaultRadius);
+            
+            probe.size = size; // Fallback
             probe.center = Vector3.zero;
-            probe.boxProjection = true;
-            probe.intensity = 1.2f;
-            probe.importance = 1000;
+            probe.boxProjection = false; 
+            probe.intensity = 0.6f;
+            probe.importance = 10;
+
+            // Inject HDRP specific data to prevent blowout
+            Type hdProbeDataType = FindType("UnityEngine.Rendering.HighDefinition.HDAdditionalReflectionData, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (hdProbeDataType != null)
+            {
+                Component hdProbeData = probe.gameObject.GetComponent(hdProbeDataType) ?? probe.gameObject.AddComponent(hdProbeDataType);
+                SetPropertyIfPresent(hdProbeData, "multiplier", 0.6f);
+                SetPropertyIfPresent(hdProbeData, "weight", 1.0f);
+            }
+
             int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
             probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
             return probe;

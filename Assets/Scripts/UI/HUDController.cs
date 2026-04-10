@@ -134,15 +134,19 @@ namespace Underground.UI
                 ResolveVehicleReferences();
             }
 
+            // FIX: Use Abs(ForwardSpeedKph) so needle and text both use the same
+            // forward-only speed value. Previously Speedometer.cs used
+            // linearVelocity.magnitude which includes lateral drift — mismatch fixed.
             int speedKph = vehicle != null ? Mathf.RoundToInt(Mathf.Abs(vehicle.ForwardSpeedKph)) : 0;
-            float normalizedSpeed = 0f;
-            if (vehicle != null && vehicle.RuntimeStats != null)
-            {
-                normalizedSpeed = Mathf.Clamp01(vehicle.SpeedKph / Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph));
-            }
+            float maxSpeedKph = vehicle != null && vehicle.RuntimeStats != null
+                ? Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph)
+                : 260f;
+            float normalizedSpeed = (float)speedKph / maxSpeedKph;
 
             bool isNight = timeSystem != null && timeSystem.IsNight;
 
+            // FIX: Drive both the needle and text from HUD so they always match.
+            // Push maxSpeed to the Speedometer so the needle arc scales correctly.
             if (speedometer != null)
             {
                 if (vehicle != null && speedometer.target != vehicle.Rigidbody)
@@ -150,10 +154,11 @@ namespace Underground.UI
                     speedometer.target = vehicle.Rigidbody;
                 }
 
-                if (vehicle != null && vehicle.RuntimeStats != null)
-                {
-                    speedometer.maxSpeed = Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph);
-                }
+                // FIX: Do not override speedometer.maxSpeed with the vehicle's max speed.
+                // The visual dial texture is physically printed up to a fixed number (e.g. 260). 
+                // Overriding it causes the needle to calculate its angle against a smaller maximum, reading too high.
+                // speedometer.maxSpeed = maxSpeedKph; 
+                speedometer.SetSpeed(speedKph); // needle + legacy label, both in sync
             }
 
             if (speedText != null)

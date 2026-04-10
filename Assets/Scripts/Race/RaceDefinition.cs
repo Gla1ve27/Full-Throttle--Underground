@@ -8,7 +8,9 @@ namespace Underground.Race
         Circuit,
         TimeTrial,
         Underground,
-        Wager
+        Wager,
+        Drift,
+        Drag
     }
 
     [CreateAssetMenu(menuName = "Racing/Race Definition", fileName = "RaceDefinition")]

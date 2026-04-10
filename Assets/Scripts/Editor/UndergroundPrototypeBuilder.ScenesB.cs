@@ -18,11 +18,14 @@ namespace Underground.EditorTools
         {
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(WorldScenePath))
             {
+                Scene existingScene = EditorSceneManager.OpenScene(WorldScenePath, OpenSceneMode.Single);
+                RebuildWorldScenePreservingExistingUi(existingScene, playerCarPrefab, dayRace, nightRace, wagerRace);
+                EditorSceneManager.SaveScene(existingScene, WorldScenePath);
                 return;
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace);
+            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace, null);
             EditorSceneManager.SaveScene(scene, WorldScenePath);
         }
 
@@ -30,6 +33,9 @@ namespace Underground.EditorTools
         {
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(VehicleTestScenePath))
             {
+                Scene existingScene = EditorSceneManager.OpenScene(VehicleTestScenePath, OpenSceneMode.Single);
+                RebuildVehicleTestScenePreservingExistingUi(existingScene, playerCarPrefab);
+                EditorSceneManager.SaveScene(existingScene, VehicleTestScenePath);
                 return;
             }
 
@@ -45,6 +51,77 @@ namespace Underground.EditorTools
             CreateFollowCamera(car);
             CreateHudCanvas();
             EditorSceneManager.SaveScene(scene, VehicleTestScenePath);
+        }
+
+        private static void RebuildWorldScenePreservingExistingUi(Scene scene, GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace)
+        {
+            RemoveMissingScriptsFromScene(scene);
+            Transform preservedUiRoot = DetachPreservedWorldUiRoot();
+            ComposeWorldScene(scene, playerCarPrefab, dayRace, nightRace, wagerRace, preservedUiRoot);
+        }
+
+        private static Transform DetachPreservedWorldUiRoot()
+        {
+            GameObject generatedRoot = GameObject.Find("UndergroundGenerated");
+            Transform uiRoot = generatedRoot != null
+                ? generatedRoot.transform.Find("UndergroundUI")
+                : null;
+
+            if (uiRoot == null)
+            {
+                GameObject looseUiRoot = GameObject.Find("UndergroundUI");
+                uiRoot = looseUiRoot != null ? looseUiRoot.transform : null;
+            }
+
+            if (uiRoot != null)
+            {
+                uiRoot.SetParent(null, true);
+            }
+
+            return uiRoot;
+        }
+
+        private static void RebuildVehicleTestScenePreservingExistingUi(Scene scene, GameObject playerCarPrefab)
+        {
+            RemoveMissingScriptsFromScene(scene);
+            Canvas preservedHudCanvas = FindPreservedHudCanvas();
+
+            GameObject[] roots = scene.GetRootGameObjects();
+            for (int i = 0; i < roots.Length; i++)
+            {
+                if (preservedHudCanvas != null && roots[i] == preservedHudCanvas.gameObject)
+                {
+                    continue;
+                }
+
+                if (roots[i].GetComponent<Canvas>() != null)
+                {
+                    continue;
+                }
+
+                UnityEngine.Object.DestroyImmediate(roots[i]);
+            }
+
+            CreateRuntimeRoot(false);
+            GameObject systemsRoot = new GameObject("TestSceneSystems");
+            EnsureWorldSystems(systemsRoot.transform);
+            RenderSettings.skybox = LoadDaySkyboxMaterial();
+            CreateGround("TestGround", new Vector3(50f, 1f, 50f));
+            CreateTestLayout();
+            GameObject car = (GameObject)PrefabUtility.InstantiatePrefab(playerCarPrefab);
+            car.transform.position = new Vector3(0f, 0.65f, -20f);
+            CreateFollowCamera(car);
+
+            if (preservedHudCanvas != null)
+            {
+                RefreshPreservedHudCanvas(preservedHudCanvas);
+            }
+            else
+            {
+                CreateHudCanvas();
+            }
+
+            EditorSceneManager.MarkSceneDirty(scene);
         }
 
         private static void CreateGround(string name, Vector3 scale)
@@ -203,14 +280,55 @@ namespace Underground.EditorTools
             GameObject hudObject = hudPrefab != null
                 ? (GameObject)PrefabUtility.InstantiatePrefab(hudPrefab)
                 : CreateCanvas("HUD").gameObject;
-            hudObject.name = "HUD";
-            hudObject.transform.localScale = Vector3.one;
-            StylizedHudComposer composer = hudObject.GetComponent<StylizedHudComposer>();
-            if (composer == null)
+            RefreshPreservedHudCanvas(hudObject.GetComponent<Canvas>());
+        }
+
+        private static Canvas FindPreservedHudCanvas()
+        {
+            HUDController hudController = UnityEngine.Object.FindFirstObjectByType<HUDController>(FindObjectsInactive.Include);
+            if (hudController != null)
             {
-                composer = hudObject.AddComponent<StylizedHudComposer>();
+                Canvas hudCanvas = hudController.GetComponent<Canvas>();
+                if (hudCanvas != null)
+                {
+                    return hudCanvas;
+                }
             }
 
+            GameObject namedHud = GameObject.Find("HUD");
+            if (namedHud != null)
+            {
+                Canvas hudCanvas = namedHud.GetComponent<Canvas>();
+                if (hudCanvas != null)
+                {
+                    return hudCanvas;
+                }
+            }
+
+            Canvas[] canvases = UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            for (int i = 0; i < canvases.Length; i++)
+            {
+                if (canvases[i] != null && canvases[i].isRootCanvas)
+                {
+                    return canvases[i];
+                }
+            }
+
+            return null;
+        }
+
+        private static void RefreshPreservedHudCanvas(Canvas hudCanvas)
+        {
+            if (hudCanvas == null)
+            {
+                return;
+            }
+
+            hudCanvas.name = "HUD";
+            hudCanvas.transform.localScale = Vector3.one;
+
+            StylizedHudComposer composer = hudCanvas.GetComponent<StylizedHudComposer>() ?? hudCanvas.gameObject.AddComponent<StylizedHudComposer>();
+            SetObjectReference(composer, "speedometerPrefab", LoadHudSpeedometerPrefab());
             composer.Compose();
         }
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem.UI;
 #endif
+using Underground.Core;
 using Underground.UI;
 
 namespace Underground.EditorTools
@@ -140,6 +141,70 @@ namespace Underground.EditorTools
 #endif
         }
 
+        private static Transform FindDescendantByName(Transform root, string objectName)
+        {
+            if (root == null || string.IsNullOrWhiteSpace(objectName))
+            {
+                return null;
+            }
+
+            if (root.name == objectName)
+            {
+                return root;
+            }
+
+            for (int i = 0; i < root.childCount; i++)
+            {
+                Transform match = FindDescendantByName(root.GetChild(i), objectName);
+                if (match != null)
+                {
+                    return match;
+                }
+            }
+
+            return null;
+        }
+
+        private static T FindComponentByName<T>(Transform root, string objectName) where T : Component
+        {
+            Transform match = FindDescendantByName(root, objectName);
+            return match != null ? match.GetComponent<T>() : null;
+        }
+
+        private static void AssignObjectReferenceIfMissing<T>(SerializedObject serializedObject, string propertyName, T value) where T : Object
+        {
+            if (serializedObject == null || string.IsNullOrWhiteSpace(propertyName))
+            {
+                return;
+            }
+
+            SerializedProperty property = serializedObject.FindProperty(propertyName);
+            if (property == null || property.objectReferenceValue != null || value == null)
+            {
+                return;
+            }
+
+            property.objectReferenceValue = value;
+        }
+
+        private static void ConfigureBootstrapSceneLoader(BootstrapSceneLoader loader)
+        {
+            if (loader == null)
+            {
+                return;
+            }
+
+            SerializedObject serializedObject = new SerializedObject(loader);
+            SerializedProperty firstSceneName = serializedObject.FindProperty("firstSceneName");
+            if (firstSceneName == null)
+            {
+                return;
+            }
+
+            firstSceneName.stringValue = GetPreferredMainMenuSceneName();
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         private static void SetObjectReference(Component component, string propertyName, Object value)
         {
             SerializedObject serializedObject = new SerializedObject(component);
@@ -165,6 +230,13 @@ namespace Underground.EditorTools
         {
             SerializedObject serializedObject = new SerializedObject(component);
             serializedObject.FindProperty(propertyName).boolValue = value;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void SetStringValue(Component component, string propertyName, string value)
+        {
+            SerializedObject serializedObject = new SerializedObject(component);
+            serializedObject.FindProperty(propertyName).stringValue = value;
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
 

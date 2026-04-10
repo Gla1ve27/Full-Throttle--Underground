@@ -1,3 +1,5 @@
+using System;
+using Object = UnityEngine.Object;
 using TMPro;
 using SlimUI.ModernMenu;
 using UnityEditor;
@@ -20,14 +22,35 @@ namespace Underground.EditorTools
     {
         private static void CreateBootstrapScene(bool preserveExistingScene = false)
         {
+            Scene scene;
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(BootstrapScenePath))
             {
+                scene = EditorSceneManager.OpenScene(BootstrapScenePath, OpenSceneMode.Single);
+                RemoveMissingScriptsFromScene(scene);
+                GameObject[] existingRoots = scene.GetRootGameObjects();
+                for (int i = 0; i < existingRoots.Length; i++)
+                {
+                    Object.DestroyImmediate(existingRoots[i]);
+                }
+            }
+            else
+            {
+                scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            }
+
+            CreateRuntimeRoot(true);
+            EditorSceneManager.SaveScene(scene, BootstrapScenePath);
+        }
+
+        private static void CreateManagedMainMenuScene(GameObject playerCarPrefab)
+        {
+            if (string.Equals(GetPreferredMainMenuScenePath(), MainMenuNewScenePath, System.StringComparison.OrdinalIgnoreCase))
+            {
+                CreateMainMenuNewScene(playerCarPrefab);
                 return;
             }
 
-            Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            CreateRuntimeRoot(true);
-            EditorSceneManager.SaveScene(scene, BootstrapScenePath);
+            CreateMainMenuScene(playerCarPrefab, preserveExistingScene: true);
         }
 
         private static void CreateMainMenuScene(GameObject playerCarPrefab, bool preserveExistingScene = false)
@@ -119,6 +142,9 @@ namespace Underground.EditorTools
         {
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(GarageScenePath))
             {
+                Scene existingScene = EditorSceneManager.OpenScene(GarageScenePath, OpenSceneMode.Single);
+                RebuildGarageScenePreservingExistingUi(existingScene, playerCarPrefab, engineUpgrade);
+                EditorSceneManager.SaveScene(existingScene, GarageScenePath);
                 return;
             }
 
@@ -131,10 +157,11 @@ namespace Underground.EditorTools
 
         private static void ConfigureBuildSettings()
         {
+            string menuScenePath = GetPreferredMainMenuScenePath();
             EditorBuildSettings.scenes = new[]
             {
                 new EditorBuildSettingsScene(BootstrapScenePath, true),
-                new EditorBuildSettingsScene(MainMenuScenePath, true),
+                new EditorBuildSettingsScene(menuScenePath, true),
                 new EditorBuildSettingsScene(GarageScenePath, true),
                 new EditorBuildSettingsScene(WorldScenePath, true),
                 new EditorBuildSettingsScene(VehicleTestScenePath, true)
@@ -151,7 +178,7 @@ namespace Underground.EditorTools
             runtimeRoot.name = "RuntimeRoot";
             if (includeBootstrapLoader)
             {
-                runtimeRoot.AddComponent<BootstrapSceneLoader>();
+                ConfigureBootstrapSceneLoader(runtimeRoot.AddComponent<BootstrapSceneLoader>());
             }
         }
 
@@ -165,8 +192,29 @@ namespace Underground.EditorTools
 
             Light lightComponent = lightObject.AddComponent<Light>();
             lightComponent.type = LightType.Directional;
-            lightComponent.intensity = 1.15f;
             lightObject.transform.rotation = Quaternion.Euler(45f, -35f, 0f);
+
+            if (HasHdrpPackageInstalled())
+            {
+                // In HDRP, physical lighting requires high intensity (Lux).
+                // 10,000 - 100,000 Lux is standard for a clear day.
+                lightComponent.intensity = 10000f; 
+                
+                Type hdLightDataType = FindType("UnityEngine.Rendering.HighDefinition.HDAdditionalLightData, Unity.RenderPipelines.HighDefinition.Runtime");
+                if (hdLightDataType != null)
+                {
+                    Component hdLightData = lightObject.GetComponent(hdLightDataType) ?? lightObject.AddComponent(hdLightDataType);
+                    SetPropertyIfPresent(hdLightData, "intensity", 10000f);
+                    
+                    // Corrected: SetPropertyIfPresent is used for standard components like HDAdditionalLightData.
+                    // SetVolumeEnumParameter is reserved for VolumeProfile components.
+                    SetPropertyIfPresent(hdLightData, "lightUnit", "Lux");
+                }
+            }
+            else
+            {
+                lightComponent.intensity = 1.3f;
+            }
         }
 
         private static void CreateMenuCamera()

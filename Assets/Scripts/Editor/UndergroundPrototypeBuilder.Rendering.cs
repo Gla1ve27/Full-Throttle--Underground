@@ -5,14 +5,15 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+using Object = UnityEngine.Object;
+
 namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
         private const string UrpGlobalSettingsAssetPath = "Assets/Settings/ProjectURP/UniversalRenderPipelineGlobalSettings.asset";
         private const string HdrpGlobalSettingsAssetPath = "Assets/HDRPDefaultResources/HDRenderPipelineGlobalSettings.asset";
-        private const string SsrtHdrpTypeName = "SSRT_HDRP";
-        private const string SsrtHdrpAssemblyQualifiedHint = "SSRT_HDRP, Assembly-CSharp";
+
 
         [MenuItem("Underground/Project/Enable Post Processing", priority = 11)]
         public static void EnableSsrRendererFeaturesFromMenu()
@@ -24,31 +25,7 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("Rendering Ready", "Configured the active render pipeline volume profile, post-processing, and camera support.", "OK");
         }
 
-        [MenuItem("Underground/Project/Configure SSRT3", priority = 13)]
-        public static void ConfigureSsrt3FromMenu()
-        {
-            EnsureProjectFolders();
-            ConfigureHdrpReflectionSupport();
-            RegisterSsrtInHdrpGlobalSettings();
-            VolumeProfile worldProfile = LoadOrCreateVolumeProfile(ProjectWorldVolumeProfilePath);
-            VolumeProfile garageProfile = LoadOrCreateVolumeProfile(ProjectGarageVolumeProfilePath);
 
-            ConfigureHdrpScreenSpaceReflections(worldProfile, false);
-            ConfigureHdrpScreenSpaceReflections(garageProfile, true);
-            ConfigureSsrt(garageProfile, true);
-            ConfigureSsrt(worldProfile, false);
-            EditorUtility.SetDirty(worldProfile);
-            EditorUtility.SetDirty(garageProfile);
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("SSRT3 Configured",
-                "SSRT3 integration complete:\n\n" +
-                "• SSRT_HDRP registered in HDRP Global Settings (After Opaque And Sky)\n" +
-                "• HDRP SSR enabled on the project pipeline asset\n" +
-                "• Reflection overrides added to WorldVolumeProfile and GarageVolumeProfile\n\n" +
-                "Tip: Garage uses the sharper reflection preset; World uses the longer-range preset.",
-                "OK");
-        }
 
         private static void EnsureSsrRendererFeatures()
         {
@@ -66,20 +43,17 @@ namespace Underground.EditorTools
             VolumeProfile worldProfile = LoadOrCreateVolumeProfile(ProjectWorldVolumeProfilePath);
             VolumeProfile garageProfile = LoadOrCreateVolumeProfile(ProjectGarageVolumeProfilePath);
 
-            ConfigureWorldVolumeProfile(worldProfile);
-            ConfigureGarageVolumeProfile(garageProfile);
+            if (worldProfile != null) ConfigureWorldVolumeProfile(worldProfile);
+            if (garageProfile != null) ConfigureGarageVolumeProfile(garageProfile);
 
             if (HasHdrpPackageInstalled())
             {
-                ConfigureHdrpScreenSpaceReflections(worldProfile, false);
-                ConfigureHdrpScreenSpaceReflections(garageProfile, true);
-                RegisterSsrtInHdrpGlobalSettings();
-                ConfigureSsrt(worldProfile, false);
-                ConfigureSsrt(garageProfile, true);
+                if (worldProfile != null) ConfigureHdrpScreenSpaceReflections(worldProfile, false);
+                if (garageProfile != null) ConfigureHdrpScreenSpaceReflections(garageProfile, true);
             }
 
-            EditorUtility.SetDirty(worldProfile);
-            EditorUtility.SetDirty(garageProfile);
+            if (worldProfile != null) EditorUtility.SetDirty(worldProfile);
+            if (garageProfile != null) EditorUtility.SetDirty(garageProfile);
         }
 
         private static VolumeProfile LoadOrCreateVolumeProfile(string assetPath)
@@ -97,22 +71,54 @@ namespace Underground.EditorTools
 
         private static void ConfigureWorldVolumeProfile(VolumeProfile profile)
         {
-            DisableHdrpExposure(profile);
+            // Pushed to the absolute flagship level for "Full-Throttle"
+            ConfigureHdrpExposure(profile, 10.8f, -0.35f); // Natural automatic range
+            
             ConfigureTonemapping(profile);
+            ConfigureBloom(profile, 1.25f, 0.04f, 0.65f);
+            ConfigureColorAdjustments(profile, 0.35f, 12f, 8f);
+            
+            // Professional Color Grading suite
+            ConfigureSplitToning(profile);
+            ConfigureShadowsMidtonesHighlights(profile);
+            
+            ConfigureHdrpScreenSpaceReflections(profile, false);
+            ConfigureAmbientOcclusion(profile, 0.95f, 0.85f);
+            ConfigureContactShadows(profile, 0.18f);
+            ConfigureMicroShadows(profile); // Micro-detail for tires and vents
+            
+            ConfigureFog(profile, 0.04f);
+            ConfigureFilmGrain(profile);
+            ConfigureVignette(profile, 0.45f, 0.28f);
+            ConfigureChromaticAberration(profile, 0.08f); // High-end lens distortion
+            
+            // Professional bokeh for background buildings
+            ConfigureDepthOfField(profile);
+
             DisableWorldVolumeLookOverrides(profile);
             ConfigureHdrpSky(profile, LoadDaySkyCubemap(), ResolveSkyExposure(LoadDaySkyboxMaterial(), 0.95f), 1f);
         }
 
         private static void ConfigureGarageVolumeProfile(VolumeProfile profile)
         {
-            ConfigureBloom(profile, 2.2f, 0.008f, 0.18f);
-            ConfigureColorAdjustments(profile, -0.45f, -5f, -4f);
-            ConfigureHdrpExposure(profile, 7f, -2.4f);
+            // Pushed to a bright, glossy "Premium Showroom" look.
+            ConfigureHdrpExposure(profile, 8.5f, 0.4f); 
+            
             ConfigureTonemapping(profile);
-            ConfigureVignette(profile, 0.025f, 0.18f);
-            ConfigureChromaticAberration(profile, 0f);
-            ConfigureMotionBlur(profile, 0f, 0.02f, 0.02f);
-            ConfigureHdrpSky(profile, null, 0f, 0f);
+            ConfigureBloom(profile, 1.8f, 0.05f, 0.4f);
+            ConfigureColorAdjustments(profile, 0.05f, 12f, 8f); // Punchy contrast and saturation.
+            
+            ConfigureVignette(profile, 0.35f, 0.25f);
+            ConfigureChromaticAberration(profile, 0.05f);
+            
+            // Critical for the "glossy" garage car feel.
+            ConfigureHdrpScreenSpaceReflections(profile, true);
+            
+            // Ground the car in the garage.
+            ConfigureAmbientOcclusion(profile, 0.85f, 0.5f);
+            ConfigureContactShadows(profile);
+
+            ConfigureHdrpSky(profile, null, -10f, 0f); // Pure dark background for focus.
         }
 
         private static void AttachGlobalVolume(Transform parent, string objectName, string profilePath)
@@ -295,9 +301,127 @@ namespace Underground.EditorTools
             }
 
             SetComponentActive(exposure);
-            SetVolumeEnumParameter(exposure, "mode", "Fixed");
-            SetVolumeParameter(exposure, "fixedExposure", fixedExposure);
+            
+            // Switching back to Automatic Histogram for peak dynamic range.
+            SetVolumeEnumParameter(exposure, "mode", "Automatic");
+            SetVolumeParameter(exposure, "meteringMode", 2); // MaskWeighted
+            SetVolumeParameter(exposure, "limitMin", 8f);
+            SetVolumeParameter(exposure, "limitMax", 14f);
             SetVolumeParameter(exposure, "compensation", compensation);
+            SetVolumeParameter(exposure, "fixedExposure", fixedExposure);
+        }
+
+        private static void ConfigureContactShadows(VolumeProfile profile, float length = 0.15f)
+        {
+            VolumeComponent contactShadows = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.ContactShadows, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (contactShadows == null) return;
+
+            SetComponentActive(contactShadows);
+            SetVolumeParameter(contactShadows, "enable", true);
+            SetVolumeParameter(contactShadows, "length", length); 
+            SetVolumeParameter(contactShadows, "opacity", 1.0f);
+        }
+
+        private static void ConfigureDepthOfField(VolumeProfile profile)
+        {
+            VolumeComponent dof = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.DepthOfField, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (dof == null) return;
+
+            SetComponentActive(dof);
+            SetVolumeEnumParameter(dof, "focusMode", "UsePhysicalCamera");
+            SetVolumeParameter(dof, "nearBlurStart", 1f);
+            SetVolumeParameter(dof, "nearBlurEnd", 3f);
+            SetVolumeParameter(dof, "farBlurStart", 250f);
+            SetVolumeParameter(dof, "farBlurEnd", 800f);
+            SetVolumeParameter(dof, "nearSampleCount", 5);
+            SetVolumeParameter(dof, "farSampleCount", 7);
+        }
+
+        private static void ConfigureSplitToning(VolumeProfile profile)
+        {
+            VolumeComponent split = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.SplitToning, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (split == null) return;
+
+            SetComponentActive(split);
+            SetVolumeParameter(split, "shadows", new Color(0.15f, 0.18f, 0.25f)); // Cool darks
+            SetVolumeParameter(split, "highlights", new Color(0.42f, 0.38f, 0.35f)); // Warm peaks
+            SetVolumeParameter(split, "balance", 12f);
+        }
+
+        private static void ConfigureShadowsMidtonesHighlights(VolumeProfile profile)
+        {
+            VolumeComponent smh = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.ShadowsMidtonesHighlights, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (smh == null) return;
+
+            SetComponentActive(smh);
+            SetVolumeParameter(smh, "shadows", new Vector4(1f, 1f, 1f, -0.05f)); // Deepen blacks
+            SetVolumeParameter(smh, "highlights", new Vector4(1f, 1f, 1f, 0.12f)); // Punch peaks
+        }
+
+        private static void ConfigureMicroShadows(VolumeProfile profile)
+        {
+            VolumeComponent ms = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.MicroShadows, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (ms == null) return;
+
+            SetComponentActive(ms);
+            SetVolumeParameter(ms, "opacity", 1.0f);
+        }
+
+        private static void ConfigureFilmGrain(VolumeProfile profile)
+        {
+            VolumeComponent grain = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.FilmGrain, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (grain == null) return;
+
+            SetComponentActive(grain);
+            SetVolumeEnumParameter(grain, "type", "Medium1");
+            SetVolumeParameter(grain, "intensity", 0.12f);
+            SetVolumeParameter(grain, "response", 0.8f);
+        }
+
+        private static void ConfigureFog(VolumeProfile profile, float density)
+        {
+            VolumeComponent fog = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.Fog, Unity.RenderPipelines.HighDefinition.Runtime");
+            if (fog == null) return;
+
+            SetComponentActive(fog);
+            SetVolumeParameter(fog, "enabled", true);
+            SetVolumeParameter(fog, "meanFreePath", 400f);
+            SetVolumeParameter(fog, "albedo", new Color(0.81f, 0.88f, 1.0f));
+        }
+
+        private static void ConfigureAmbientOcclusion(VolumeProfile profile, float intensity, float radius)
+        {
+            // Note: In some HDRP versions, AO is part of 'AmbientOcclusion'.
+            // In others, it uses 'ScreenSpaceAmbientOcclusion'.
+            // Providing multiple fallbacks to resolve the "ExtensionOfNativeClass" error.
+            VolumeComponent ao = GetOrAddVolumeComponent(
+                profile,
+                "UnityEngine.Rendering.HighDefinition.AmbientOcclusion, Unity.RenderPipelines.HighDefinition.Runtime",
+                "UnityEngine.Rendering.HighDefinition.ScreenSpaceAmbientOcclusion, Unity.RenderPipelines.HighDefinition.Runtime");
+            
+            if (ao == null) return;
+
+            SetComponentActive(ao);
+            SetVolumeParameter(ao, "intensity", intensity);
+            SetVolumeParameter(ao, "radius", radius);
+            
+            // Try setting both possible parameter names to support multiple HDRP versions.
+            SetVolumeParameter(ao, "directLightStrength", 0.5f);
+            SetVolumeParameter(ao, "quality", 2); 
         }
 
         private static void DisableHdrpExposure(VolumeProfile profile)
@@ -531,275 +655,33 @@ namespace Underground.EditorTools
             SetVolumeParameter(motionBlur, "maximumVelocity", maximumVelocity);
         }
 
-        // ─── SSRT3 Integration ────────────────────────────────────────────
-
-        /// <summary>
-        /// Registers the SSRT_HDRP custom post-process type in the HDRP Global Settings
-        /// under the "After Opaque And Sky" injection point. This is Step 1 of the
-        /// SSRT3 integration plan.
-        /// </summary>
-        private static void RegisterSsrtInHdrpGlobalSettings()
-        {
-            // Attempt to find the SSRT_HDRP type at compile time.
-            Type ssrtType = FindType(SsrtHdrpAssemblyQualifiedHint, SsrtHdrpTypeName);
-            if (ssrtType == null)
-            {
-                Debug.LogWarning("[SSRT3] SSRT_HDRP type not found. Ensure the SSRT3 asset is imported under Assets/SSRT3.");
-                return;
-            }
-
-            string ssrtFullTypeName = ssrtType.AssemblyQualifiedName;
-
-            // Try the project-local global settings first, then the package default.
-            UnityEngine.Object globalSettings = AssetDatabase.LoadMainAssetAtPath(HdrpGlobalSettingsAssetPath);
-            if (globalSettings == null)
-            {
-                Debug.LogWarning($"[SSRT3] HDRP Global Settings asset not found at {HdrpGlobalSettingsAssetPath}.");
-                return;
-            }
-
-            SerializedObject serializedObject = new SerializedObject(globalSettings);
-
-            // The custom post-process orders are stored in a nested structure.
-            // We need to find the "After Opaque And Sky" list which doesn't have a
-            // direct top-level field but is inside the m_CustomPostProcessOrdersSettings
-            // or the legacy flat lists. We search both the new nested structure (used in
-            // HDRP 14+) and the legacy flat arrays.
-            bool registered = false;
-
-            // --- New structure (m_Settings / RefIds with CustomPostProcessOrdersSettings) ---
-            registered = TryRegisterSsrtInRefIds(serializedObject, ssrtFullTypeName);
-
-            // --- Legacy flat arrays (beforeTransparentCustomPostProcesses, etc.) ---
-            if (!registered)
-            {
-                registered = TryRegisterSsrtInLegacyArrays(serializedObject, ssrtFullTypeName);
-            }
-
-            // --- Top-level m_CustomPostProcessOrdersSettings ---
-            if (!registered)
-            {
-                registered = TryRegisterSsrtInTopLevelOrders(serializedObject, ssrtFullTypeName);
-            }
-
-            if (registered)
-            {
-                serializedObject.ApplyModifiedPropertiesWithoutUndo();
-                EditorUtility.SetDirty(globalSettings);
-                Debug.Log("[SSRT3] Registered SSRT_HDRP in HDRP Global Settings → After Opaque And Sky.");
-            }
-            else
-            {
-                Debug.LogWarning("[SSRT3] Could not locate the custom post-process injection list in HDRP Global Settings. " +
-                                 "Please add SSRT_HDRP manually via Edit > Project Settings > HDRP Global Settings.");
-            }
-        }
-
-        private static bool TryRegisterSsrtInRefIds(SerializedObject serializedObject, string ssrtFullTypeName)
-        {
-            SerializedProperty refsProperty = serializedObject.FindProperty("references.RefIds");
-            if (refsProperty == null || !refsProperty.isArray)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < refsProperty.arraySize; i++)
-            {
-                SerializedProperty refElement = refsProperty.GetArrayElementAtIndex(i);
-                SerializedProperty classProperty = refElement.FindPropertyRelative("type.class");
-                if (classProperty == null || classProperty.stringValue != "CustomPostProcessOrdersSettings")
-                {
-                    continue;
-                }
-
-                // Found the CustomPostProcessOrdersSettings reference.
-                // Look for "m_BeforeTransparentCustomPostProcesses" — that's injection point 0 (Before Transparent).
-                // SSRT3 needs "After Opaque And Sky" which is NOT one of the standard 5 injection points
-                // in the named fields. In HDRP, AfterOpaqueAndSky maps to the m_BeforeTransparentCustomPostProcesses list.
-                // The SSRT_HDRP class declares: injectionPoint => CustomPostProcessInjectionPoint.AfterOpaqueAndSky
-                // And HDRP 14+ maps this to m_BeforeTransparentCustomPostProcesses (InjectionPoint 0).
-                SerializedProperty dataProperty = refElement.FindPropertyRelative("data");
-                if (dataProperty == null)
-                {
-                    continue;
-                }
-
-                SerializedProperty beforeTransparent = dataProperty.FindPropertyRelative(
-                    "m_BeforeTransparentCustomPostProcesses.m_CustomPostProcessTypesAsString");
-                if (beforeTransparent != null && beforeTransparent.isArray)
-                {
-                    if (!SerializedArrayContains(beforeTransparent, ssrtFullTypeName) &&
-                        !SerializedArrayContainsBySimpleName(beforeTransparent, SsrtHdrpTypeName))
-                    {
-                        beforeTransparent.InsertArrayElementAtIndex(beforeTransparent.arraySize);
-                        beforeTransparent.GetArrayElementAtIndex(beforeTransparent.arraySize - 1).stringValue = ssrtFullTypeName;
-                    }
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool TryRegisterSsrtInLegacyArrays(SerializedObject serializedObject, string ssrtFullTypeName)
-        {
-            SerializedProperty legacyArray = serializedObject.FindProperty("beforeTransparentCustomPostProcesses");
-            if (legacyArray == null || !legacyArray.isArray)
-            {
-                return false;
-            }
-
-            if (!SerializedArrayContains(legacyArray, ssrtFullTypeName) &&
-                !SerializedArrayContainsBySimpleName(legacyArray, SsrtHdrpTypeName))
-            {
-                legacyArray.InsertArrayElementAtIndex(legacyArray.arraySize);
-                legacyArray.GetArrayElementAtIndex(legacyArray.arraySize - 1).stringValue = ssrtFullTypeName;
-            }
-
-            return true;
-        }
-
-        private static bool TryRegisterSsrtInTopLevelOrders(SerializedObject serializedObject, string ssrtFullTypeName)
-        {
-            SerializedProperty topLevel = serializedObject.FindProperty(
-                "m_CustomPostProcessOrdersSettings.m_BeforeTransparentCustomPostProcesses.m_CustomPostProcessTypesAsString");
-            if (topLevel == null || !topLevel.isArray)
-            {
-                return false;
-            }
-
-            if (!SerializedArrayContains(topLevel, ssrtFullTypeName) &&
-                !SerializedArrayContainsBySimpleName(topLevel, SsrtHdrpTypeName))
-            {
-                topLevel.InsertArrayElementAtIndex(topLevel.arraySize);
-                topLevel.GetArrayElementAtIndex(topLevel.arraySize - 1).stringValue = ssrtFullTypeName;
-            }
-
-            return true;
-        }
-
-        private static bool SerializedArrayContains(SerializedProperty array, string value)
-        {
-            for (int i = 0; i < array.arraySize; i++)
-            {
-                if (array.GetArrayElementAtIndex(i).stringValue == value)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static bool SerializedArrayContainsBySimpleName(SerializedProperty array, string simpleName)
-        {
-            for (int i = 0; i < array.arraySize; i++)
-            {
-                string entry = array.GetArrayElementAtIndex(i).stringValue;
-                if (!string.IsNullOrEmpty(entry) && (entry == simpleName || entry.StartsWith(simpleName + ",")))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Adds the SSRT override to the volume profile with racing-optimized defaults.
-        /// This is Step 2 of the SSRT3 integration plan.
-        ///
-        /// Recommended settings from the plan:
-        ///   - Intensity (GIIntensity): 1.0
-        ///   - Radius: 4.0 (covers car/road width)
-        ///   - Rotation Count: 1 (gameplay) / 4 (garage/photo mode)
-        ///   - Step Count: 12
-        ///   - Thickness: 0.35 (prevents light leaking behind the car)
-        /// </summary>
-        private static void ConfigureSsrt(VolumeProfile profile, bool isGarageProfile)
-        {
-            // SSRT_HDRP is in the global namespace, compiled into Assembly-CSharp.
-            VolumeComponent ssrt = GetOrAddVolumeComponent(profile, SsrtHdrpAssemblyQualifiedHint, SsrtHdrpTypeName);
-            if (ssrt == null)
-            {
-                Debug.LogWarning("[SSRT3] Could not add SSRT_HDRP volume component. Ensure the SSRT3 asset is imported.");
-                return;
-            }
-
-            SetComponentActive(ssrt);
-
-            // Enable the effect
-            SetVolumeParameter(ssrt, "enabled", true);
-
-            // Sampling
-            SetVolumeParameter(ssrt, "rotationCount", isGarageProfile ? 2 : 1);
-            SetVolumeParameter(ssrt, "stepCount", isGarageProfile ? 8 : 10);
-            SetVolumeParameter(ssrt, "radius", isGarageProfile ? 1.8f : 3.2f);
-            SetVolumeParameter(ssrt, "expFactor", 1.0f);
-            SetVolumeParameter(ssrt, "jitterSamples", true);
-            SetVolumeParameter(ssrt, "mipOptimization", true);
-
-            // GI — subtle for racing, not overblown
-            SetVolumeParameter(ssrt, "GIIntensity", isGarageProfile ? 0.14f : 0.35f);
-            SetVolumeParameter(ssrt, "multiBounceGI", 0.0f);
-            SetVolumeParameter(ssrt, "normalApproximation", false);
-            SetVolumeParameter(ssrt, "backfaceLighting", 0.0f);
-
-            // Occlusion — the "grounded car" magic
-            SetVolumeParameter(ssrt, "AOIntensity", isGarageProfile ? 0.2f : 0.45f);
-            SetVolumeParameter(ssrt, "thickness", isGarageProfile ? 0.18f : 0.28f);
-
-            // Filters
-            SetVolumeParameter(ssrt, "temporalAccumulation", true);
-            SetVolumeParameter(ssrt, "temporalResponse", isGarageProfile ? 0.22f : 0.3f);
-            SetVolumeParameter(ssrt, "denoising", true);
-            SetVolumeParameter(ssrt, "denoisingRadius", isGarageProfile ? 0.32f : 0.42f);
-
-            Debug.Log($"[SSRT3] Configured SSRT override in {(isGarageProfile ? "GarageVolumeProfile" : "WorldVolumeProfile")}.");
-        }
-
-        private static void DisableSsrt(VolumeProfile profile)
-        {
-            DisableVolumeComponent(profile, SsrtHdrpAssemblyQualifiedHint, SsrtHdrpTypeName);
-        }
-
-        // ─── End SSRT3 Integration ────────────────────────────────────────
-
         private static VolumeComponent GetOrAddVolumeComponent(VolumeProfile profile, params string[] typeNames)
         {
+            if (profile == null) return null;
+            
             Type type = FindType(typeNames);
-            if (type == null)
-            {
-                return null;
-            }
+            if (type == null) return null;
 
             VolumeComponent existingComponent = FindMatchingVolumeComponent(profile, type);
-            if (existingComponent != null)
-            {
-                return existingComponent;
-            }
+            if (existingComponent != null) return existingComponent;
 
-            MethodInfo addMethod = typeof(VolumeProfile).GetMethod("Add", new[] { typeof(Type), typeof(bool) });
-            if (addMethod == null)
-            {
-                return null;
-            }
-
+            // In some HDRP versions, profile.Add(type) fails with ExtensionOfNativeClass via reflection.
             try
             {
-                return addMethod.Invoke(profile, new object[] { type, true }) as VolumeComponent;
-            }
-            catch (TargetInvocationException exception) when (exception.InnerException is InvalidOperationException)
-            {
-                existingComponent = FindMatchingVolumeComponent(profile, type);
-                if (existingComponent != null)
+                MethodInfo addMethod = typeof(VolumeProfile).GetMethod("Add", new[] { typeof(System.Type), typeof(bool) });
+                if (addMethod != null)
                 {
-                    return existingComponent;
+                    object result = addMethod.Invoke(profile, new object[] { type, true });
+                    if (result != null) return result as VolumeComponent;
                 }
-
-                return null;
             }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[Rendering] Detailed Add Failure for {type.Name}: {ex.InnerException?.Message ?? ex.Message}");
+            }
+
+            // Absolute final fallback to internal public API
+            return profile.Add(type, true);
         }
 
         private static VolumeComponent FindMatchingVolumeComponent(VolumeProfile profile, Type targetType)

@@ -11,6 +11,7 @@ namespace Underground.Save
         public string currentOwnedCarId;
         public List<string> ownedCarIds = new List<string>();
         public List<string> purchasedUpgradeIds = new List<string>();
+        public List<string> completedRaceIds = new List<string>();
         public float worldTimeOfDay = 12f;
         public string lastGarageScene = "Garage";
     }

@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: stratos_element_9_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: stratos_element_9
+  displayName: Stratos Element 9
+  archetype: 4
+  drivetrain: 2
+  horsepower: 620
+  maxMotorTorque: 850
+  maxBrakeTorque: 6800
+  maxSpeedKph: 320
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.22
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.45
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.9
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.88
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.65
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 1000
+  maxRPM: 8500
+  shiftUpRPM: 8000
+  shiftDownRPM: 3200
+  finalDriveRatio: 3.4
+  gearRatios:
+  - 0
+  - 3.4
+  - 2.2
+  - 1.62
+  - 1.25
+  - 0.98
+  - 0.78
+  - 0.64
+  defaultMass: 1420
+  weightDistributionFront: 0.42
+  centerOfMassHeight: -0.5
+  centerOfMassOffset: {x: 0, y: -0.5, z: -0.12}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 42000
+  damper: 5200
+  suspensionDistance: 0.12
+  antiRollForce: 4800
+  maxSteerAngle: 22
+  highSpeedSteerReduction: 0.12
+  steeringResponse: 90
+  forwardStiffness: 1.5
+  sidewaysStiffness: 1.6
+  frontGrip: 1.15
+  rearGrip: 1.1
+  traction: 1.1
+  brakeGrip: 1.15
+  slipAngle: 14
+  recoveryRate: 3.2
+  highSpeedStability: 1.2
+  downforce: 65
+  lateralGripAssist: 1.1
+  handbrakeGripMultiplier: 0.55
+  resetLift: 1
+  driftAssist: 0.35
+  counterSteerAssist: 0.55
+  yawStability: 0.5
+  nitrousGripAssist: 0.1
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 45
+  baseValue: 85000

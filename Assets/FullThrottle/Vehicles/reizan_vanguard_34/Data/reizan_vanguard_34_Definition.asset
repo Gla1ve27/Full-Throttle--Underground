@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243052a3168cc8499d005e86c5f507e, type: 3}
+  m_Name: reizan_vanguard_34_Definition
+  m_EditorClassIdentifier: 
+  vehicleId: reizan_vanguard_34
+  displayName: Reizan Vanguard 34
+  manufacturerLoreName: Reizan
+  description: "Reizan Vanguard 34 by Reizan. A balanced sports machine \u2014 expressive
+    and engaging."
+  archetype: 3
+  drivetrain: 1
+  visualPrefabPath: Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition
+    Racing Games/Prefabs/Car 6.prefab
+  statsAssetPath: Assets/FullThrottle/Vehicles/reizan_vanguard_34/Data/reizan_vanguard_34_Stats.asset
+  stats: {fileID: 11400000, guid: 501fd080c300159429d8fbcb5927b65a, type: 2}
+  wheelMapping:
+    frontLeftPath: Front Left Wheel
+    frontRightPath: Front Right Wheel
+    rearLeftPath: Rear Left Wheel
+    rearRightPath: Rear Right Wheel
+  showroomBodyDrop: -0.16
+  useDetachedWheelVisuals: 1
+  reputationRequired: 0
+  price: 32000
+  availableUpgrades: []
+  availableUpgradeIds: []

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243052a3168cc8499d005e86c5f507e, type: 3}
+  m_Name: cyro_monolith_Definition
+  m_EditorClassIdentifier: 
+  vehicleId: cyro_monolith
+  displayName: Cyro Monolith
+  manufacturerLoreName: Cyro
+  description: "Cyro Monolith by Cyro. Refined luxury cruiser \u2014 composed at
+    any speed."
+  archetype: 2
+  drivetrain: 1
+  visualPrefabPath: Assets/High Matters/Free American Sedans/Prefabs/Car.prefab
+  statsAssetPath: Assets/FullThrottle/Vehicles/cyro_monolith/Data/cyro_monolith_Stats.asset
+  stats: {fileID: 11400000, guid: 6091c1d930b4ae04185f111fe08e92c6, type: 2}
+  wheelMapping:
+    frontLeftPath: Car_Wheels/C_WheelFL
+    frontRightPath: Car_Wheels/C_WheelFR
+    rearLeftPath: Car_Wheels/C_Wheels_B
+    rearRightPath: Car_Wheels/C_Wheels_B
+  showroomBodyDrop: -0.16
+  useDetachedWheelVisuals: 1
+  reputationRequired: 0
+  price: 35000
+  availableUpgrades: []
+  availableUpgradeIds: []

@@ -61,7 +61,6 @@ namespace Underground.EditorTools
         private static readonly Vector3 PreferredWorldStartPosition = new Vector3(182.57f, 1.2f, 301.96f);
         private static readonly Vector3 PreferredWorldStartEuler = new Vector3(0f, 180.169f, 0.002f);
 
-        [MenuItem("Underground/Legacy/Prototype/Build Full Prototype")]
         public static void BuildFullPrototype()
         {
             BuildFullPrototype(showDialog: true);
@@ -89,7 +88,7 @@ namespace Underground.EditorTools
             CreateSceneSupportPrefabs(preserveExistingAssets: true);
 
             CreateBootstrapScene(preserveExistingScene: true);
-            CreateMainMenuScene(playerCarPrefab, preserveExistingScene: true);
+            CreateManagedMainMenuScene(playerCarPrefab);
             CreateGarageScene(playerCarPrefab, engineUpgrade, preserveExistingScene: true);
             CreateWorldScene(playerCarPrefab, dayRace, nightRace, wagerRace, preserveExistingScene: true);
             CreateVehicleTestScene(playerCarPrefab, preserveExistingScene: true);
@@ -206,6 +205,20 @@ namespace Underground.EditorTools
             }
 
             ConfigureRenderPipeline();
+            
+            // Programmatically fix the "BatchRendererGroup Variants" warning for the User.
+            // This is required for internal DOTS/HDRP instancing to render correctly.
+            var graphicsSettings = AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.GraphicsSettings>("ProjectSettings/GraphicsSettings.asset");
+            if (graphicsSettings != null)
+            {
+                SerializedObject so = new SerializedObject(graphicsSettings);
+                SerializedProperty prop = so.FindProperty("m_BatchRendererGroupVariantStripping");
+                if (prop != null)
+                {
+                    prop.intValue = 0; // 0 is "Keep All"
+                    so.ApplyModifiedProperties();
+                }
+            }
         }
 
         private static void ConfigureRenderPipeline()
@@ -239,6 +252,20 @@ namespace Underground.EditorTools
 
             EnsureSsrRendererFeatures();
             ConfigureDefaultVolumeProfile();
+
+            // Programmatically fix the "BatchRendererGroup Variants" warning for the User.
+            // This is required for internal DOTS/HDRP instancing to render correctly.
+            var graphicsSettings = AssetDatabase.LoadAssetAtPath<UnityEngine.Rendering.GraphicsSettings>("ProjectSettings/GraphicsSettings.asset");
+            if (graphicsSettings != null)
+            {
+                SerializedObject so = new SerializedObject(graphicsSettings);
+                SerializedProperty prop = so.FindProperty("m_BatchRendererGroupVariantStripping");
+                if (prop != null)
+                {
+                    prop.intValue = 0; // 0 is "Keep All"
+                    so.ApplyModifiedProperties();
+                }
+            }
         }
 
         private static bool HasHdrpPackageInstalled()
@@ -463,7 +490,7 @@ namespace Underground.EditorTools
             {
                 asset.upgradeId = "engine_stage_1";
                 asset.displayName = "Engine Stage 1";
-                asset.category = UpgradeCategory.Engine;
+                asset.category = UpgradeCategory.Performance;
                 asset.cost = 1500;
                 asset.motorTorqueAdd = 180f;
             });
@@ -475,7 +502,7 @@ namespace Underground.EditorTools
             {
                 asset.upgradeId = "tires_stage_1";
                 asset.displayName = "Street Tire Compound";
-                asset.category = UpgradeCategory.Tires;
+                asset.category = UpgradeCategory.Performance;
                 asset.cost = 1200;
                 asset.reputationRequired = 25;
                 asset.forwardStiffnessAdd = 0.15f;
@@ -722,6 +749,29 @@ namespace Underground.EditorTools
         private static bool AssetExistsAtPath<T>(string path) where T : UnityEngine.Object
         {
             return !string.IsNullOrWhiteSpace(path) && AssetDatabase.LoadAssetAtPath<T>(path) != null;
+        }
+
+        private static string GetPreferredMainMenuScenePath()
+        {
+            string activeScenePath = UnityEngine.SceneManagement.SceneManager.GetActiveScene().path;
+            if (string.Equals(activeScenePath, MainMenuScenePath, StringComparison.OrdinalIgnoreCase))
+            {
+                return MainMenuScenePath;
+            }
+
+            if (string.Equals(activeScenePath, MainMenuNewScenePath, StringComparison.OrdinalIgnoreCase))
+            {
+                return MainMenuNewScenePath;
+            }
+
+            return AssetExistsAtPath<SceneAsset>(MainMenuNewScenePath) || !AssetExistsAtPath<SceneAsset>(MainMenuScenePath)
+                ? MainMenuNewScenePath
+                : MainMenuScenePath;
+        }
+
+        private static string GetPreferredMainMenuSceneName()
+        {
+            return System.IO.Path.GetFileNameWithoutExtension(GetPreferredMainMenuScenePath());
         }
 
         private static bool HasImportedFcg()

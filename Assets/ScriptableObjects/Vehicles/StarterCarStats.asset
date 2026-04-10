@@ -14,22 +14,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleId: rmcar26
   displayName: RMCar26
+  archetype: 3
+  drivetrain: 1
+  horsepower: 320
   maxMotorTorque: 540
   maxBrakeTorque: 4800
   maxSpeedKph: 136
-  maxSteerAngle: 20.5
-  highSpeedSteerReduction: 0.18
-  downforce: 34
-  lateralGripAssist: 1.15
-  antiRollForce: 3200
-  handbrakeGripMultiplier: 0.5
-  resetLift: 1.2
-  centerOfMassOffset: {x: 0, y: -0.48, z: 0.03}
-  spring: 30000
-  damper: 3900
-  suspensionDistance: 0.18
-  forwardStiffness: 1.28
-  sidewaysStiffness: 1.45
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.24
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.42
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.62
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.74
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.72
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.56
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   idleRPM: 900
   maxRPM: 5800
   shiftUpRPM: 5000
@@ -44,5 +94,32 @@ MonoBehaviour:
   - 0.92
   - 0.74
   defaultMass: 1480
+  weightDistributionFront: 0.52
+  centerOfMassHeight: -0.48
+  centerOfMassOffset: {x: 0, y: -0.48, z: 0.03}
+  spring: 30000
+  damper: 3900
+  suspensionDistance: 0.18
+  antiRollForce: 3200
+  maxSteerAngle: 20.5
+  highSpeedSteerReduction: 0.18
+  steeringResponse: 72
+  forwardStiffness: 1.28
+  sidewaysStiffness: 1.45
+  frontGrip: 1
+  rearGrip: 1
+  traction: 1
+  brakeGrip: 1
+  slipAngle: 15
+  recoveryRate: 3.5
+  highSpeedStability: 1
+  downforce: 34
+  lateralGripAssist: 1.15
+  handbrakeGripMultiplier: 0.5
+  resetLift: 1.2
+  driftAssist: 0.5
+  counterSteerAssist: 0.6
+  yawStability: 0.4
+  nitrousGripAssist: 0.15
   baseValue: 15000
   repairCostPerDamagePoint: 20

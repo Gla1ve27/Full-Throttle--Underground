@@ -1,8 +1,16 @@
+using System;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Underground.UI;
 
 namespace Underground.Vehicle
 {
+    /// <summary>
+    /// Unified chase camera: handles follow, FOV warp, vignette, chromatic aberration,
+    /// motion blur, and speed perception shake — all in one script.
+    /// Every value is Inspector-driven. Nothing is hard-coded at runtime.
+    /// </summary>
     [RequireComponent(typeof(Camera))]
     public class VehicleCameraFollow : MonoBehaviour
     {
@@ -14,11 +22,11 @@ namespace Underground.Vehicle
 
         [Header("Follow")]
         public Vector3 targetOffset = new Vector3(0f, 0.08f, 0f);
-        public float followDistance = 4.9f;
-        public float highSpeedFollowDistance = 5.95f;
+        public float followDistance = 4.6f;
+        public float highSpeedFollowDistance = 7.2f;
         public float followHeight = 0.48f;
         public float highSpeedFollowHeight = 0.9f;
-        public float followSmoothTime = 0.065f;
+        public float followSmoothTime = 0.05f;
         public float rotationSharpness = 8.5f;
         public float lookAheadDistance = 2.8f;
         public float highSpeedLookAheadDistance = 3.55f;
@@ -31,17 +39,30 @@ namespace Underground.Vehicle
 
         [Header("Camera")]
         public float minFieldOfView = 46f;
-        public float maxFieldOfView = 58f;
+        public float maxFieldOfView = 72f;
         public float speedForMaxFieldOfView = 155f;
         public float fovWarpPower = 1.35f;
+        [Tooltip("How quickly the camera reacts to speed changes. Lower = smoother. NFS Heat ~ 1.5.")]
+        public float speedSmoothRate = 1.5f;
 
-        [Header("Shift Lunge")]
-        public float shiftLungeDuration = 0.3f;
-        public float shiftLungeDistance = 0.35f;
-        public float shiftLungeDampingMultiplier = 1.25f;
-        public float shiftLungeRotationLag = 0.9f;
+        [Header("Speed VFX (Post-Processing)")]
+        [Tooltip("Assign a Volume on this camera with Vignette + Motion Blur overrides to scale by speed.")]
+        public Volume speedEffectsVolume;
+        public float vfxStartSpeedKph = 35f;
+        public float vfxFullSpeedKph = 240f;
+        [Space]
+        [Tooltip("Vignette intensity at idle.")]
+        public float vignetteBase = 0.25f;
+        [Tooltip("Vignette intensity at top speed.")]
+        public float vignetteMax = 0.50f;
+        [Tooltip("Chromatic aberration at idle.")]
+        public float chromaticBase = 0.015f;
+        [Tooltip("Chromatic aberration at top speed.")]
+        public float chromaticMax = 0.08f;
+        [Tooltip("Motion blur intensity at top speed.")]
+        public float motionBlurMax = 0.08f;
 
-        [Header("Speed Perception")]
+        [Header("Speed Perception (Camera Shake)")]
         public float buffetingStartSpeedKph = 185f;
         public float buffetingFullSpeedKph = 240f;
         public float buffetingAmplitude = 0.004f;
@@ -51,19 +72,28 @@ namespace Underground.Vehicle
         public float shakePositionAmplitude = 0.0025f;
         public float shakeRotationAmplitude = 0.12f;
 
+        // Private state
         private Camera attachedCamera;
         private Vector3 followVelocity;
         private GameSettingsManager settingsManager;
         private Vector3 smoothedPlanarForward = Vector3.forward;
         private float lookAheadPivotOffset;
         private float shakeTime;
+        private float smoothedSpeedKph;
+
+        // Runtime post-processing references (created once)
+        private VolumeProfile runtimeProfile;
+        private VolumeComponent vignetteComponent;
+        private VolumeComponent chromaticComponent;
+        private VolumeComponent motionBlurComponent;
+        private bool postProcessingInitialized;
 
         private void Awake()
         {
-            ApplySimulatorPreset();
             attachedCamera = GetComponent<Camera>();
             settingsManager = FindFirstObjectByType<GameSettingsManager>();
             RefreshReferences();
+            InitializePostProcessing();
         }
 
         private void LateUpdate()
@@ -76,29 +106,35 @@ namespace Underground.Vehicle
             }
 
             float dt = Mathf.Max(0.0001f, Time.deltaTime);
+
             if (settingsManager == null)
             {
                 settingsManager = FindFirstObjectByType<GameSettingsManager>();
             }
 
+            // --- Speed ---
             Vector3 localVelocity = targetBody != null ? target.InverseTransformDirection(targetBody.linearVelocity) : Vector3.zero;
-            float speedKph = targetVehicle != null
+            float rawSpeedKph = targetVehicle != null
                 ? targetVehicle.SpeedKph
                 : (targetBody != null ? targetBody.linearVelocity.magnitude * 3.6f : 0f);
+            smoothedSpeedKph = Mathf.Lerp(smoothedSpeedKph, rawSpeedKph, 1f - Mathf.Exp(-speedSmoothRate * dt));
+            float speedKph = smoothedSpeedKph;
             float speedT = Mathf.Clamp01(speedKph / Mathf.Max(1f, speedForMaxFieldOfView));
-            Vector3 pivot = target.position + targetOffset;
+
             bool cameraEffectsEnabled = settingsManager == null || settingsManager.CameraEffectsEnabled;
+
+            // --- Position ---
+            Vector3 pivot = target.position + targetOffset;
             float desiredDistance = Mathf.Lerp(followDistance, highSpeedFollowDistance, speedT);
             float desiredHeight = Mathf.Lerp(followHeight, highSpeedFollowHeight, speedT);
             Vector3 planarForward = GetPlanarForward(localVelocity, cameraEffectsEnabled);
             float targetLookAheadPivotOffset = Mathf.Lerp(0f, maxLookAheadPivotOffset, speedT);
             lookAheadPivotOffset = Mathf.Lerp(lookAheadPivotOffset, targetLookAheadPivotOffset, 1f - Mathf.Exp(-lookAheadPivotResponsiveness * dt));
-            float shiftLungeT = GetShiftLungeBlend();
-            float effectiveFollowSmoothTime = followSmoothTime * Mathf.Lerp(1f, shiftLungeDampingMultiplier, shiftLungeT);
-            float effectiveRotationSharpness = rotationSharpness * Mathf.Lerp(1f, shiftLungeRotationLag, shiftLungeT);
+
             shakeTime += dt * GetShakeFrequency();
+
             Vector3 desiredPosition = pivot
-                - planarForward * (desiredDistance + shiftLungeDistance * shiftLungeT)
+                - planarForward * desiredDistance
                 + Vector3.up * desiredHeight;
 
             if (cameraEffectsEnabled)
@@ -107,24 +143,32 @@ namespace Underground.Vehicle
                 desiredPosition += GetShakePositionOffset(planarForward, speedKph);
             }
 
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref followVelocity, effectiveFollowSmoothTime, Mathf.Infinity, dt);
+            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref followVelocity, followSmoothTime, Mathf.Infinity, dt);
 
+            // --- Rotation ---
             float activeLookAheadDistance = cameraEffectsEnabled
                 ? Mathf.Lerp(lookAheadDistance, highSpeedLookAheadDistance, speedT)
                 : lookAheadDistance;
             Vector3 dynamicPivot = pivot + planarForward * lookAheadPivotOffset;
             Vector3 lookPoint = dynamicPivot + planarForward * activeLookAheadDistance + Vector3.up * focusHeight;
             Quaternion desiredRotation = Quaternion.LookRotation(lookPoint - transform.position, Vector3.up);
+
             if (cameraEffectsEnabled)
             {
                 desiredRotation *= GetShakeRotationOffset(speedKph);
             }
 
-            float blend = 1f - Mathf.Exp(-effectiveRotationSharpness * dt);
+            float blend = 1f - Mathf.Exp(-rotationSharpness * dt);
             transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, blend);
 
+            // --- FOV ---
             UpdateFieldOfView(speedT, dt);
+
+            // --- Post-Processing VFX ---
+            UpdateSpeedEffects(speedKph, cameraEffectsEnabled);
         }
+
+        // ──────────────────────────── References ────────────────────────────
 
         private void RefreshReferences()
         {
@@ -150,6 +194,8 @@ namespace Underground.Vehicle
             }
         }
 
+        // ──────────────────────────── FOV ────────────────────────────
+
         private void UpdateFieldOfView(float speedT, float dt)
         {
             if (attachedCamera == null)
@@ -166,6 +212,99 @@ namespace Underground.Vehicle
             attachedCamera.fieldOfView = Mathf.Lerp(attachedCamera.fieldOfView, targetFov, 1f - Mathf.Exp(-10f * dt));
         }
 
+        // ──────────────────────────── Post-Processing ────────────────────────────
+
+        private void InitializePostProcessing()
+        {
+            if (postProcessingInitialized)
+            {
+                return;
+            }
+
+            // Create a dedicated runtime volume if none is assigned
+            Volume vol = speedEffectsVolume;
+            if (vol == null)
+            {
+                vol = GetComponent<Volume>();
+                if (vol == null)
+                {
+                    vol = gameObject.AddComponent<Volume>();
+                }
+                speedEffectsVolume = vol;
+            }
+
+            // Use local volume first to avoid overriding global scene lighting
+            vol.isGlobal = false; 
+            vol.priority = 1f;
+            vol.weight = 1f;
+
+            // Only create a new profile if the current one is null, 
+            // otherwise we'd be deleting the user's authored camera settings!
+            if (vol.profile == null)
+            {
+                runtimeProfile = ScriptableObject.CreateInstance<VolumeProfile>();
+                runtimeProfile.name = "CameraSpeedVFX_Runtime";
+                vol.profile = runtimeProfile;
+            }
+            else
+            {
+                runtimeProfile = vol.profile;
+            }
+
+            vignetteComponent = GetOrAddVolumeComponent(runtimeProfile,
+                "UnityEngine.Rendering.HighDefinition.Vignette, Unity.RenderPipelines.HighDefinition.Runtime",
+                "UnityEngine.Rendering.Universal.Vignette, Unity.RenderPipelines.Universal.Runtime");
+            chromaticComponent = GetOrAddVolumeComponent(runtimeProfile,
+                "UnityEngine.Rendering.HighDefinition.ChromaticAberration, Unity.RenderPipelines.HighDefinition.Runtime",
+                "UnityEngine.Rendering.Universal.ChromaticAberration, Unity.RenderPipelines.Universal.Runtime");
+            motionBlurComponent = GetOrAddVolumeComponent(runtimeProfile,
+                "UnityEngine.Rendering.HighDefinition.MotionBlur, Unity.RenderPipelines.HighDefinition.Runtime",
+                "UnityEngine.Rendering.Universal.MotionBlur, Unity.RenderPipelines.Universal.Runtime");
+
+            SetVolumeFloat(vignetteComponent, "intensity", vignetteBase);
+            SetVolumeFloat(chromaticComponent, "intensity", chromaticBase);
+            SetVolumeFloat(motionBlurComponent, "intensity", 0f);
+
+            postProcessingInitialized = true;
+        }
+
+        private void UpdateSpeedEffects(float speedKph, bool effectsEnabled)
+        {
+            if (!postProcessingInitialized)
+            {
+                return;
+            }
+
+            float maxSpeed = targetVehicle != null && targetVehicle.RuntimeStats != null
+                ? Mathf.Max(1f, targetVehicle.RuntimeStats.MaxSpeedKph)
+                : vfxFullSpeedKph;
+            float speedT = Mathf.Clamp01(speedKph / maxSpeed);
+
+            // Vignette: always present at base, ramps up with speed
+            float vignetteIntensity = effectsEnabled
+                ? Mathf.Lerp(vignetteBase, vignetteMax, speedT)
+                : vignetteBase;
+            SetVolumeFloat(vignetteComponent, "intensity", vignetteIntensity);
+
+            // Chromatic aberration
+            float chromaticIntensity = effectsEnabled
+                ? Mathf.Lerp(chromaticBase, chromaticMax, Mathf.SmoothStep(0f, 1f, speedT))
+                : 0f;
+            SetVolumeFloat(chromaticComponent, "intensity", Mathf.Clamp01(chromaticIntensity));
+
+            // Motion blur
+            bool motionBlurEnabled = effectsEnabled && (settingsManager == null || settingsManager.MotionBlurEnabled);
+            float motionBlurIntensity = motionBlurEnabled
+                ? Mathf.Lerp(0f, motionBlurMax, Mathf.SmoothStep(0f, 1f, speedT))
+                : 0f;
+            if (!SetVolumeFloat(motionBlurComponent, "intensity", motionBlurIntensity))
+            {
+                SetVolumeFloat(motionBlurComponent, "maximumVelocity", motionBlurIntensity);
+            }
+        }
+
+        // ──────────────────────────── Heading ────────────────────────────
+
         private Vector3 GetPlanarForward(Vector3 localVelocity, bool cameraEffectsEnabled)
         {
             Vector3 referenceForward = targetVehicle != null ? targetVehicle.transform.forward : target.forward;
@@ -178,9 +317,9 @@ namespace Underground.Vehicle
             if (targetBody == null || !cameraEffectsEnabled)
             {
                 smoothedPlanarForward = Vector3.Slerp(
-                smoothedPlanarForward.sqrMagnitude > 0.001f ? smoothedPlanarForward : targetForward,
-                targetForward,
-                1f - Mathf.Exp(-headingResponsiveness * Mathf.Max(0.0001f, Time.deltaTime)));
+                    smoothedPlanarForward.sqrMagnitude > 0.001f ? smoothedPlanarForward : targetForward,
+                    targetForward,
+                    1f - Mathf.Exp(-headingResponsiveness * Mathf.Max(0.0001f, Time.deltaTime)));
                 return smoothedPlanarForward.normalized;
             }
 
@@ -205,6 +344,8 @@ namespace Underground.Vehicle
 
             return smoothedPlanarForward.normalized;
         }
+
+        // ──────────────────────────── Speed Perception ────────────────────────────
 
         private Vector3 GetBuffetingOffset(Vector3 planarForward, float speedKph)
         {
@@ -268,56 +409,117 @@ namespace Underground.Vehicle
             return Mathf.InverseLerp(shakeStartSpeedKph, Mathf.Max(shakeStartSpeedKph + 1f, shakeFullSpeedKph), speedKph);
         }
 
-        private float GetShiftLungeBlend()
+        // ──────────────────────────── Volume Helpers (Reflection) ────────────────────────────
+
+        private static VolumeComponent GetOrAddVolumeComponent(VolumeProfile profile, params string[] typeNames)
         {
-            if (gearbox == null || shiftLungeDuration <= 0f)
+            Type type = FindType(typeNames);
+            if (type == null)
             {
-                return 0f;
+                return null;
             }
 
-            float elapsed = Time.time - gearbox.LastShiftTime;
-            if (elapsed < 0f || elapsed > shiftLungeDuration)
+            for (int i = 0; i < profile.components.Count; i++)
             {
-                return 0f;
+                if (profile.components[i] != null && type.IsInstanceOfType(profile.components[i]))
+                {
+                    return profile.components[i];
+                }
             }
 
-            float normalized = 1f - (elapsed / shiftLungeDuration);
-            return normalized * normalized;
+            MethodInfo addMethod = typeof(VolumeProfile).GetMethod("Add", new[] { typeof(Type), typeof(bool) });
+            if (addMethod == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return addMethod.Invoke(profile, new object[] { type, true }) as VolumeComponent;
+            }
+            catch (TargetInvocationException ex) when (ex.InnerException is InvalidOperationException)
+            {
+                for (int i = 0; i < profile.components.Count; i++)
+                {
+                    if (profile.components[i] != null && type.IsInstanceOfType(profile.components[i]))
+                    {
+                        return profile.components[i];
+                    }
+                }
+
+                return null;
+            }
         }
 
-        private void ApplySimulatorPreset()
+        private static bool SetVolumeFloat(VolumeComponent component, string fieldName, float value)
         {
-            targetOffset = new Vector3(0f, 0.08f, 0f);
-            followDistance = 4.9f;
-            highSpeedFollowDistance = 5.95f;
-            followHeight = 0.48f;
-            highSpeedFollowHeight = 0.9f;
-            followSmoothTime = 0.065f;
-            rotationSharpness = 8.5f;
-            lookAheadDistance = 2.8f;
-            highSpeedLookAheadDistance = 3.55f;
-            velocityHeadingBlend = 0.14f;
-            headingResponsiveness = 3.5f;
-            reverseHeadingDamping = 0.12f;
-            focusHeight = 0.4f;
-            maxLookAheadPivotOffset = 2.9f;
-            lookAheadPivotResponsiveness = 2.8f;
-            minFieldOfView = 46f;
-            maxFieldOfView = 58f;
-            speedForMaxFieldOfView = 155f;
-            fovWarpPower = 1.35f;
-            shiftLungeDuration = 0.3f;
-            shiftLungeDistance = 0.35f;
-            shiftLungeDampingMultiplier = 1.25f;
-            shiftLungeRotationLag = 0.9f;
-            buffetingStartSpeedKph = 185f;
-            buffetingFullSpeedKph = 240f;
-            buffetingAmplitude = 0.004f;
-            buffetingFrequency = 11f;
-            shakeStartSpeedKph = 160f;
-            shakeFullSpeedKph = 230f;
-            shakePositionAmplitude = 0.0025f;
-            shakeRotationAmplitude = 0.12f;
+            if (component == null)
+            {
+                return false;
+            }
+
+            FieldInfo field = component.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (field == null)
+            {
+                return false;
+            }
+
+            object parameter = field.GetValue(component);
+            if (parameter == null)
+            {
+                return false;
+            }
+
+            MethodInfo overrideMethod = FindOverrideMethod(parameter.GetType());
+            if (overrideMethod == null)
+            {
+                return false;
+            }
+
+            ParameterInfo[] parameters = overrideMethod.GetParameters();
+            if (parameters.Length != 1)
+            {
+                return false;
+            }
+
+            overrideMethod.Invoke(parameter, new[] { ConvertValue(value, parameters[0].ParameterType) });
+            return true;
+        }
+
+        private static MethodInfo FindOverrideMethod(Type parameterType)
+        {
+            MethodInfo[] methods = parameterType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
+            for (int i = 0; i < methods.Length; i++)
+            {
+                if (methods[i].Name == "Override")
+                {
+                    return methods[i];
+                }
+            }
+
+            return null;
+        }
+
+        private static object ConvertValue(object value, Type targetType)
+        {
+            if (targetType == typeof(float)) return Convert.ToSingle(value);
+            if (targetType == typeof(int)) return Convert.ToInt32(value);
+            if (targetType == typeof(bool)) return Convert.ToBoolean(value);
+            return value;
+        }
+
+        private static Type FindType(params string[] typeNames)
+        {
+            for (int i = 0; i < typeNames.Length; i++)
+            {
+                Type type = Type.GetType(typeNames[i]);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+
+            return null;
         }
     }
 }

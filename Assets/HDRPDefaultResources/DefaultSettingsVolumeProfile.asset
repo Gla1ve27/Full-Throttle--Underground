@@ -315,89 +315,173 @@ MonoBehaviour:
   m_Name: SSRT_HDRP
   m_EditorClassIdentifier: 
   active: 1
+  <displayName>k__BackingField: 
+  m_IsInitialized: 0
+  typeName: 
+  <passName>k__BackingField: 
   enabled:
+    <fieldHash>k__BackingField: 1943927240
     m_OverrideState: 1
     m_Value: 0
   rotationCount:
+    <fieldHash>k__BackingField: -1718318448
     m_OverrideState: 1
     m_Value: 1
   stepCount:
+    <fieldHash>k__BackingField: -760916880
     m_OverrideState: 1
     m_Value: 12
   radius:
+    <fieldHash>k__BackingField: 1167226016
     m_OverrideState: 1
     m_Value: 5
   expFactor:
+    <fieldHash>k__BackingField: 1645926800
     m_OverrideState: 1
     m_Value: 1
   jitterSamples:
+    <fieldHash>k__BackingField: -1452288536
     m_OverrideState: 1
     m_Value: 1
   screenSpaceSampling:
+    <fieldHash>k__BackingField: 223164208
     m_OverrideState: 1
     m_Value: 0
   mipOptimization:
+    <fieldHash>k__BackingField: 701864992
     m_OverrideState: 1
     m_Value: 1
   GIIntensity:
+    <fieldHash>k__BackingField: 1180565776
     m_OverrideState: 1
     m_Value: 10
   multiBounceGI:
+    <fieldHash>k__BackingField: 1419916168
     m_OverrideState: 1
     m_Value: 0
   normalApproximation:
+    <fieldHash>k__BackingField: 1671075744
     m_OverrideState: 1
     m_Value: 0
   backfaceLighting:
+    <fieldHash>k__BackingField: 1910426136
     m_OverrideState: 1
     m_Value: 0
   AOIntensity:
+    <fieldHash>k__BackingField: -1427139592
     m_OverrideState: 1
     m_Value: 1
   thickness:
+    <fieldHash>k__BackingField: -1187789200
     m_OverrideState: 1
     m_Value: 1
   linearThickness:
+    <fieldHash>k__BackingField: -948438808
     m_OverrideState: 1
     m_Value: 0
   multiBounceAO:
+    <fieldHash>k__BackingField: -709088416
     m_OverrideState: 1
     m_Value: 0
   fallback:
+    <fieldHash>k__BackingField: -469738024
     m_OverrideState: 1
     m_Value: 0
   fallbackPower:
+    <fieldHash>k__BackingField: -230387632
     m_OverrideState: 1
     m_Value: 1
   fallbackIntensity:
+    <fieldHash>k__BackingField: 8962760
     m_OverrideState: 1
     m_Value: 1
   fallbackSampleCount:
+    <fieldHash>k__BackingField: 727013936
     m_OverrideState: 1
     m_Value: 4
   reflectSky:
+    <fieldHash>k__BackingField: -1413799832
     m_OverrideState: 1
     m_Value: 0
   temporalAccumulation:
+    <fieldHash>k__BackingField: -1174449440
     m_OverrideState: 1
     m_Value: 1
   temporalResponse:
+    <fieldHash>k__BackingField: -935099048
     m_OverrideState: 1
     m_Value: 0.35
   denoising:
+    <fieldHash>k__BackingField: -456398264
     m_OverrideState: 1
     m_Value: 1
   denoisingRadius:
+    <fieldHash>k__BackingField: -217047872
     m_OverrideState: 1
     m_Value: 0.5
   debugMode:
+    <fieldHash>k__BackingField: 22302520
     m_OverrideState: 1
     m_Value: 7
   lightOnly:
+    <fieldHash>k__BackingField: -682408896
     m_OverrideState: 1
     m_Value: 0
+  material: {fileID: 0}
+  owenScrambledNoise: {fileID: 0}
   ssrtCS: {fileID: 0}
   diffuseDenoiserCS: {fileID: 0}
+  lastFrameViewProjectionMatrix:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
+  viewProjectionMatrix:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
+  lastFrameInverseViewProjectionMatrix:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
 --- !u!114 &-5139608517533089082
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -881,6 +965,21 @@ MonoBehaviour:
   maximumIntensity:
     m_OverrideState: 1
     m_Value: 10
+  denoising:
+    m_OverrideState: 1
+    m_Value: 0
+  useAOVs:
+    m_OverrideState: 1
+    m_Value: 1
+  temporal:
+    m_OverrideState: 1
+    m_Value: 0
+  separateVolumetrics:
+    m_OverrideState: 1
+    m_Value: 0
+  asyncDenoising:
+    m_OverrideState: 1
+    m_Value: 1
   skyImportanceSampling:
     m_OverrideState: 1
     m_Value: 0
@@ -1188,7 +1287,6 @@ MonoBehaviour:
   - {fileID: -4243697354933034312}
   - {fileID: 5414678739517625424}
   - {fileID: -3393847465476692342}
-  - {fileID: -5195497758912995847}
 --- !u!114 &161396592973063352
 MonoBehaviour:
   m_ObjectHideFlags: 3

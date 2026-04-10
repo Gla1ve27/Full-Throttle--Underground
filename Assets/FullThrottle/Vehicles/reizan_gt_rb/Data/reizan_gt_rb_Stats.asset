@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: reizan_gt_rb_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: reizan_gt_rb
+  displayName: Reizan GT-RB
+  archetype: 3
+  drivetrain: 2
+  horsepower: 380
+  maxMotorTorque: 600
+  maxBrakeTorque: 5400
+  maxSpeedKph: 260
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.26
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.72
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.85
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.6
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 900
+  maxRPM: 7800
+  shiftUpRPM: 7200
+  shiftDownRPM: 2800
+  finalDriveRatio: 3.9
+  gearRatios:
+  - 0
+  - 3.1
+  - 2.05
+  - 1.5
+  - 1.15
+  - 0.9
+  - 0.72
+  defaultMass: 1380
+  weightDistributionFront: 0.5
+  centerOfMassHeight: -0.46
+  centerOfMassOffset: {x: 0, y: -0.46, z: 0}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 34000
+  damper: 4200
+  suspensionDistance: 0.15
+  antiRollForce: 3800
+  maxSteerAngle: 24
+  highSpeedSteerReduction: 0.16
+  steeringResponse: 78
+  forwardStiffness: 1.35
+  sidewaysStiffness: 1.5
+  frontGrip: 1.05
+  rearGrip: 1.02
+  traction: 1.05
+  brakeGrip: 1.05
+  slipAngle: 15
+  recoveryRate: 3.6
+  highSpeedStability: 1.05
+  downforce: 42
+  lateralGripAssist: 1.15
+  handbrakeGripMultiplier: 0.5
+  resetLift: 1.1
+  driftAssist: 0.5
+  counterSteerAssist: 0.6
+  yawStability: 0.42
+  nitrousGripAssist: 0.15
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 25
+  baseValue: 32000

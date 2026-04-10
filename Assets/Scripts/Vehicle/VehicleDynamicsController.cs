@@ -4,9 +4,23 @@ using Underground.World;
 
 namespace Underground.Vehicle
 {
+    /// <summary>
+    /// Full Throttle hybrid driving model — 70% grounded simcade, 30% NFS dramatized street feel.
+    /// 
+    /// Part 3 systems:
+    ///  1. Torque-curve-driven acceleration via gearing
+    ///  2. Drivetrain identity (FWD / RWD / AWD)
+    ///  3. Lightweight weight transfer (longitudinal + lateral)
+    ///  4. Dynamic grip model (speed, steering, slip, throttle, braking)
+    ///  5. Assist layer (drift forgiveness, countersteer, yaw stability, high-speed stability)
+    /// </summary>
     [RequireComponent(typeof(Rigidbody))]
     public class VehicleDynamicsController : MonoBehaviour
     {
+        // ─────────────────────────────────────────────────────────────────────
+        //  Serialized Fields
+        // ─────────────────────────────────────────────────────────────────────
+
         [Header("Data")]
         [SerializeField] private VehicleStatsData baseStats;
         [SerializeField] private RuntimeVehicleStats runtimeStats = new RuntimeVehicleStats();
@@ -26,7 +40,6 @@ namespace Underground.Vehicle
         [SerializeField] private float aerodynamicDragCoefficient = 0.36f;
 
         [Header("Feel")]
-        [SerializeField] private float steerAngleResponse = 72f;
         [SerializeField] private float motorTorqueResponse = 2600f;
         [SerializeField] private float baseLoadGripBias = 0.92f;
         [SerializeField] private float maxLoadGripBias = 1.08f;
@@ -35,8 +48,15 @@ namespace Underground.Vehicle
         [SerializeField] private float fullSlideSlipAngle = 28f;
         [SerializeField] private float slideSideFrictionMultiplier = 0.7f;
         [SerializeField] private float slideForwardFrictionMultiplier = 0.96f;
-        [SerializeField] private float counterSteerAssistTorque = 1.15f;
-        [SerializeField] private float counterSteerAssistSpeedStartKph = 35f;
+
+        [Header("Weight Transfer")]
+        [SerializeField] private float longitudinalTransferRate = 0.12f;
+        [SerializeField] private float lateralTransferRate = 0.10f;
+        [SerializeField] private float transferSmoothSpeed = 5f;
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Public Properties
+        // ─────────────────────────────────────────────────────────────────────
 
         public Rigidbody Rigidbody { get; private set; }
         public VehicleStatsData BaseStats => baseStats;
@@ -48,6 +68,16 @@ namespace Underground.Vehicle
         public bool IsGrounded { get; private set; }
         public bool IsReversing { get; private set; }
         public bool IsSliding { get; private set; }
+
+        /// <summary>Current longitudinal weight transfer (−1 = full front, +1 = full rear).</summary>
+        public float LongitudinalLoadShift { get; private set; }
+
+        /// <summary>Current lateral weight transfer (−1 = full left, +1 = full right).</summary>
+        public float LateralLoadShift { get; private set; }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Lifecycle
+        // ─────────────────────────────────────────────────────────────────────
 
         private void Awake()
         {
@@ -83,13 +113,14 @@ namespace Underground.Vehicle
 
         private void FixedUpdate()
         {
-            if (Rigidbody == null || input == null || gearbox == null || engineModel == null || wheels == null || wheels.Length == 0)
+            if (Rigidbody == null || input == null || gearbox == null || wheels == null || wheels.Length == 0)
             {
                 return;
             }
 
             ApplyCenterOfMass();
             UpdateTelemetry();
+            UpdateWeightTransfer();
             UpdateReverseState();
             ApplySteering();
             ApplyDrive();
@@ -99,13 +130,21 @@ namespace Underground.Vehicle
             ApplyDownforce();
             ApplyAerodynamicDrag();
             ApplyLateralGripAssist();
+            ApplyDrivetrainBehavior();
             ApplyCounterSteerAssist();
+            ApplyYawStability();
+            ApplyHighSpeedStability();
+            ApplyDriftAssist();
         }
 
         private void LateUpdate()
         {
             SyncWheelVisuals();
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Public API
+        // ─────────────────────────────────────────────────────────────────────
 
         public void Initialize(VehicleStatsData source, params UpgradeDefinition[] upgrades)
         {
@@ -134,6 +173,11 @@ namespace Underground.Vehicle
         public RuntimeVehicleStats GetRuntimeStats()
         {
             return runtimeStats;
+        }
+
+        public void SetUseManualTransmission(bool enabled)
+        {
+            gearbox?.SetUseManualTransmission(enabled);
         }
 
         public void SetWheelVisualByColliderName(string colliderName, Transform visual)
@@ -220,8 +264,14 @@ namespace Underground.Vehicle
             transform.SetPositionAndRotation(respawnPoint.position, respawnPoint.rotation);
             Rigidbody.position += Vector3.up * runtimeStats.ResetLift;
             IsReversing = false;
+            LongitudinalLoadShift = 0f;
+            LateralLoadShift = 0f;
             gearbox?.ResetToFirstGear();
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Core Physics — Center of Mass
+        // ─────────────────────────────────────────────────────────────────────
 
         private void ApplyCenterOfMass()
         {
@@ -234,6 +284,10 @@ namespace Underground.Vehicle
                 Rigidbody.centerOfMass = runtimeStats.CenterOfMassOffset;
             }
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Telemetry
+        // ─────────────────────────────────────────────────────────────────────
 
         private void UpdateTelemetry()
         {
@@ -252,8 +306,72 @@ namespace Underground.Vehicle
             }
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        //  PART 3 SYSTEM 3: Weight Transfer (Simcade)
+        // ─────────────────────────────────────────────────────────────────────
+
+        private void UpdateWeightTransfer()
+        {
+            if (runtimeStats == null)
+            {
+                return;
+            }
+
+            // Longitudinal: braking shifts weight forward (negative), throttle shifts rear (positive)
+            float longitudinalAccel = Vector3.Dot(Rigidbody.linearVelocity - _previousVelocity, transform.forward)
+                / Mathf.Max(0.001f, Time.fixedDeltaTime);
+            float targetLongShift = Mathf.Clamp(-longitudinalAccel * longitudinalTransferRate / 9.81f, -1f, 1f);
+
+            // Lateral: turning shifts weight to outside (positive = right load)
+            float lateralAccel = Vector3.Dot(Rigidbody.linearVelocity - _previousVelocity, transform.right)
+                / Mathf.Max(0.001f, Time.fixedDeltaTime);
+            float targetLatShift = Mathf.Clamp(lateralAccel * lateralTransferRate / 9.81f, -1f, 1f);
+
+            LongitudinalLoadShift = Mathf.MoveTowards(LongitudinalLoadShift, targetLongShift, transferSmoothSpeed * Time.fixedDeltaTime);
+            LateralLoadShift = Mathf.MoveTowards(LateralLoadShift, targetLatShift, transferSmoothSpeed * Time.fixedDeltaTime);
+
+            _previousVelocity = Rigidbody.linearVelocity;
+        }
+
+        private Vector3 _previousVelocity;
+
+        /// <summary>
+        /// Returns a grip multiplier for a specific wheel position based on weight transfer.
+        /// Front wheels gain grip under braking, rear under acceleration.
+        /// </summary>
+        private float GetWeightTransferGripMultiplier(bool isFrontAxle, bool isLeftSide)
+        {
+            float longMul = 1f;
+            float latMul = 1f;
+
+            // Longitudinal: braking (shift < 0) loads front, accel (shift > 0) loads rear
+            if (isFrontAxle)
+            {
+                longMul = 1f + Mathf.Clamp01(-LongitudinalLoadShift) * 0.15f   // front gains under braking
+                             - Mathf.Clamp01(LongitudinalLoadShift) * 0.10f;   // front loses under accel
+            }
+            else
+            {
+                longMul = 1f + Mathf.Clamp01(LongitudinalLoadShift) * 0.15f    // rear gains under accel
+                             - Mathf.Clamp01(-LongitudinalLoadShift) * 0.10f;  // rear loses under braking
+            }
+
+            // Lateral: outside wheels gain grip, inside wheels lose
+            float latSign = isLeftSide ? -1f : 1f;
+            float outsideLoad = Mathf.Clamp01(LateralLoadShift * latSign);
+            float insideUnload = Mathf.Clamp01(-LateralLoadShift * latSign);
+            latMul = 1f + outsideLoad * 0.08f - insideUnload * 0.06f;
+
+            return Mathf.Max(0.5f, longMul * latMul);
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Steering
+        // ─────────────────────────────────────────────────────────────────────
+
         private void ApplySteering()
         {
+            float steerResponse = runtimeStats != null ? runtimeStats.SteeringResponse : 72f;
             float speedFactor = Mathf.InverseLerp(0f, Mathf.Max(1f, runtimeStats.MaxSpeedKph), Mathf.Abs(ForwardSpeedKph));
             float steeringLockT = Mathf.InverseLerp(20f, 200f, Mathf.Abs(ForwardSpeedKph));
             float dynamicSteerLock = Mathf.Lerp(40f, 8f, steeringLockT);
@@ -271,9 +389,13 @@ namespace Underground.Vehicle
                 wheel.collider.steerAngle = Mathf.MoveTowards(
                     wheel.collider.steerAngle,
                     targetSteerAngle,
-                    steerAngleResponse * Time.fixedDeltaTime);
+                    steerResponse * Time.fixedDeltaTime);
             }
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Reverse State
+        // ─────────────────────────────────────────────────────────────────────
 
         private void UpdateReverseState()
         {
@@ -311,6 +433,10 @@ namespace Underground.Vehicle
             }
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        //  PART 3 SYSTEM 1: Torque-Curve-Driven Acceleration
+        // ─────────────────────────────────────────────────────────────────────
+
         private void ApplyDrive()
         {
             int drivenCount = 0;
@@ -334,18 +460,33 @@ namespace Underground.Vehicle
             }
 
             averageDrivenWheelRpm /= drivenCount;
-            float driveRatio = IsReversing ? GetReverseDriveRatio() : gearbox.GetCurrentDriveRatio(baseStats);
             if (IsReversing)
             {
-                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, driveRatio);
+                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, GetReverseDriveRatio());
+            }
+            else if (gearbox.UseManualTransmission)
+            {
+                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, gearbox.GetCurrentDriveRatio(baseStats));
+                if (input.ConsumeUpshiftRequest())
+                {
+                    gearbox.TryShiftUp(baseStats, averageDrivenWheelRpm);
+                }
+                else if (input.ConsumeDownshiftRequest())
+                {
+                    gearbox.TryShiftDown(baseStats, averageDrivenWheelRpm);
+                }
             }
             else
             {
                 gearbox.UpdateAutomatic(averageDrivenWheelRpm, baseStats);
             }
 
+            float driveRatio = IsReversing ? GetReverseDriveRatio() : gearbox.GetCurrentDriveRatio(baseStats);
+
+            // Sample torque curve — prefer stats-embedded curve, fall back to EngineModel component
             float normalizedRpm = Mathf.InverseLerp(runtimeStats.IdleRPM, runtimeStats.MaxRPM, gearbox.CurrentRPM);
-            float torqueCurveSample = engineModel.EvaluateNormalizedTorque(normalizedRpm);
+            float torqueCurveSample = EvaluateTorqueCurve(normalizedRpm);
+
             float driveInput = IsReversing && input.ReverseHeld ? -input.Brake : input.Throttle;
             float torquePerWheel = driveInput * runtimeStats.MaxMotorTorque * torqueCurveSample * driveRatio / drivenCount;
             bool canApplyTorque = driveInput >= 0f
@@ -368,10 +509,38 @@ namespace Underground.Vehicle
             }
         }
 
+        /// <summary>
+        /// Evaluates torque curve from RuntimeVehicleStats.TorqueCurve if available,
+        /// otherwise falls back to the EngineModel component.
+        /// </summary>
+        private float EvaluateTorqueCurve(float normalizedRpm)
+        {
+            if (runtimeStats?.TorqueCurve != null && runtimeStats.TorqueCurve.length > 0)
+            {
+                return runtimeStats.TorqueCurve.Evaluate(Mathf.Clamp01(normalizedRpm));
+            }
+
+            if (engineModel != null)
+            {
+                return engineModel.EvaluateNormalizedTorque(normalizedRpm);
+            }
+
+            // Last resort: flat curve
+            return 0.7f;
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Braking
+        // ─────────────────────────────────────────────────────────────────────
+
         private void ApplyBraking()
         {
             float footBrakeTorque = IsReversing && input.ReverseHeld ? 0f : input.Brake * runtimeStats.MaxBrakeTorque;
             float handbrakeTorque = input.Handbrake ? maxHandbrakeTorque : 0f;
+
+            // Apply brake grip modifier from stats
+            float brakeGripMod = runtimeStats != null ? runtimeStats.BrakeGrip : 1f;
+            footBrakeTorque *= brakeGripMod;
 
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -384,6 +553,10 @@ namespace Underground.Vehicle
                 wheel.collider.brakeTorque = footBrakeTorque + (wheel.handbrake ? handbrakeTorque : 0f);
             }
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Anti-Roll
+        // ─────────────────────────────────────────────────────────────────────
 
         private void ApplyAntiRoll()
         {
@@ -431,6 +604,73 @@ namespace Underground.Vehicle
             }
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        //  PART 3 SYSTEM 4: Dynamic Grip Model
+        //  Blends grip based on speed, steering, slip, throttle, braking,
+        //  weight transfer, and per-axle grip values from stats.
+        // ─────────────────────────────────────────────────────────────────────
+
+        private void ApplyDynamicTireGrip()
+        {
+            if (wheels == null || runtimeStats == null)
+            {
+                return;
+            }
+
+            float slideT = GetSlideBlend();
+            float slideSideMultiplier = Mathf.Lerp(1f, slideSideFrictionMultiplier, slideT);
+            float slideForwardMultiplier = Mathf.Lerp(1f, slideForwardFrictionMultiplier, slideT);
+
+            // Speed-based grip falloff — grip decreases slightly at extreme speed
+            float speedGripFalloff = Mathf.Lerp(1f, 0.92f, Mathf.InverseLerp(180f, 350f, SpeedKph));
+
+            // Throttle-under-steer grip reduction (simulates power oversteer / understeer)
+            float steerMagnitude = Mathf.Abs(input.Steering);
+            float throttleSteerGripLoss = steerMagnitude * input.Throttle * 0.06f;
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null)
+                {
+                    continue;
+                }
+
+                bool isFront = wheel.axleId == "Front" || wheel.steer;
+                float axleGrip = isFront ? runtimeStats.FrontGrip : runtimeStats.RearGrip;
+                float tractionMod = runtimeStats.Traction;
+
+                // Weight transfer influence
+                float weightMul = GetWeightTransferGripMultiplier(isFront, wheel.leftSide);
+
+                float loadBias = 1f;
+                float slipPenalty = 1f;
+
+                if (wheel.collider.GetGroundHit(out WheelHit hit))
+                {
+                    float travel = CalculateSuspensionTravel(wheel.collider, hit);
+                    loadBias = Mathf.Lerp(maxLoadGripBias, baseLoadGripBias, travel);
+                    float combinedSlip = Mathf.Abs(hit.sidewaysSlip);
+                    slipPenalty = Mathf.Clamp01(1f - (combinedSlip * slipGripPenalty));
+                }
+
+                float combinedGrip = axleGrip * tractionMod * weightMul * loadBias * slipPenalty
+                    * speedGripFalloff * (1f - throttleSteerGripLoss);
+
+                WheelFrictionCurve forward = wheel.collider.forwardFriction;
+                forward.stiffness = runtimeStats.ForwardStiffness * combinedGrip * slideForwardMultiplier;
+                wheel.collider.forwardFriction = forward;
+
+                WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
+                sideways.stiffness = runtimeStats.SidewaysStiffness * combinedGrip * slideSideMultiplier;
+                wheel.collider.sidewaysFriction = sideways;
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Downforce & Aerodynamic Drag
+        // ─────────────────────────────────────────────────────────────────────
+
         private void ApplyDownforce()
         {
             if (!IsGrounded)
@@ -454,6 +694,10 @@ namespace Underground.Vehicle
             Rigidbody.AddForce(dragForce, ForceMode.Force);
         }
 
+        // ─────────────────────────────────────────────────────────────────────
+        //  Lateral Grip Assist
+        // ─────────────────────────────────────────────────────────────────────
+
         private void ApplyLateralGripAssist()
         {
             if (!IsGrounded)
@@ -467,17 +711,197 @@ namespace Underground.Vehicle
             Rigidbody.AddForce(correctiveForce, ForceMode.Acceleration);
         }
 
-        private void ApplyDynamicTireGrip()
+        // ─────────────────────────────────────────────────────────────────────
+        //  PART 3 SYSTEM 2: Drivetrain Identity
+        //  Applies drivetrain-specific forces that make FWD/RWD/AWD feel different.
+        // ─────────────────────────────────────────────────────────────────────
+
+        private void ApplyDrivetrainBehavior()
         {
-            if (wheels == null || runtimeStats == null)
+            if (!IsGrounded || runtimeStats == null)
             {
                 return;
             }
 
-            float slideT = GetSlideBlend();
-            float slideSideMultiplier = Mathf.Lerp(1f, slideSideFrictionMultiplier, slideT);
-            float slideForwardMultiplier = Mathf.Lerp(1f, slideForwardFrictionMultiplier, slideT);
+            DrivetrainType dt = runtimeStats.Drivetrain;
+            float throttle = input.Throttle;
+            float steer = input.Steering;
+            float absSteer = Mathf.Abs(steer);
 
+            switch (dt)
+            {
+                case DrivetrainType.FWD:
+                    ApplyFwdBehavior(throttle, steer, absSteer);
+                    break;
+                case DrivetrainType.RWD:
+                    ApplyRwdBehavior(throttle, steer, absSteer);
+                    break;
+                case DrivetrainType.AWD:
+                    ApplyAwdBehavior(throttle, steer, absSteer);
+                    break;
+            }
+        }
+
+        /// <summary>FWD: Understeer bias under power + steering. Pull car into line.</summary>
+        private void ApplyFwdBehavior(float throttle, float steer, float absSteer)
+        {
+            if (throttle < 0.1f || absSteer < 0.1f || SpeedKph < 25f)
+            {
+                return;
+            }
+
+            // FWD understeer: the harder you push throttle while steering, the wider you go
+            float understeerForce = throttle * absSteer * 0.35f;
+            float speedScale = Mathf.InverseLerp(25f, 120f, SpeedKph);
+            Rigidbody.AddForce(transform.forward * understeerForce * speedScale * runtimeStats.Mass * 0.02f, ForceMode.Force);
+        }
+
+        /// <summary>RWD: Throttle-on oversteer / rotation. Encourages drifting.</summary>
+        private void ApplyRwdBehavior(float throttle, float steer, float absSteer)
+        {
+            if (throttle < 0.3f || SpeedKph < 30f)
+            {
+                return;
+            }
+
+            // RWD oversteer: heavy throttle mid-corner rotates the rear
+            float oversteerTorque = throttle * absSteer * 0.25f;
+            float direction = steer > 0f ? 1f : -1f;
+            float speedScale = Mathf.InverseLerp(30f, 100f, SpeedKph);
+
+            Rigidbody.AddTorque(Vector3.up * oversteerTorque * direction * speedScale * 0.8f, ForceMode.Acceleration);
+        }
+
+        /// <summary>AWD: Planted feel, subtle understeer, better launch traction.</summary>
+        private void ApplyAwdBehavior(float throttle, float steer, float absSteer)
+        {
+            if (!IsGrounded)
+            {
+                return;
+            }
+
+            // AWD stability bonus: mild lateral correction when throttle is applied
+            if (throttle > 0.1f)
+            {
+                Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.linearVelocity);
+                float stabilityForce = -localVelocity.x * throttle * 0.15f;
+                Rigidbody.AddForce(transform.right * stabilityForce, ForceMode.Acceleration);
+            }
+
+            // AWD launch boost: extra forward push at low speed with high throttle
+            if (throttle > 0.8f && SpeedKph < 40f)
+            {
+                Rigidbody.AddForce(transform.forward * throttle * runtimeStats.Mass * 0.008f, ForceMode.Force);
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  PART 3 SYSTEM 5: Assist Layer
+        // ─────────────────────────────────────────────────────────────────────
+
+        /// <summary>Countersteer assistance — auto-corrects yaw during slides.</summary>
+        private void ApplyCounterSteerAssist()
+        {
+            if (!IsGrounded || !IsSliding || runtimeStats == null)
+            {
+                return;
+            }
+
+            float assistStrength = runtimeStats.CounterSteerAssist;
+            if (assistStrength <= 0f)
+            {
+                return;
+            }
+
+            float speedAssistT = Mathf.InverseLerp(35f, 150f, Mathf.Abs(ForwardSpeedKph));
+            if (speedAssistT <= 0f)
+            {
+                return;
+            }
+
+            float desiredYawAssist = -SignedSlipAngleDegrees * assistStrength * 1.8f * speedAssistT;
+            Rigidbody.AddTorque(Vector3.up * desiredYawAssist, ForceMode.Acceleration);
+        }
+
+        /// <summary>Yaw stability — damps excessive rotation to prevent spin-outs.</summary>
+        private void ApplyYawStability()
+        {
+            if (!IsGrounded || runtimeStats == null)
+            {
+                return;
+            }
+
+            float yawStrength = runtimeStats.YawStability;
+            if (yawStrength <= 0f)
+            {
+                return;
+            }
+
+            // Damp angular velocity around the up axis
+            float yawRate = Rigidbody.angularVelocity.y;
+            float dampingTorque = -yawRate * yawStrength * 2.5f;
+
+            // Only apply when the car is rotating faster than the player is asking for
+            float steerIntent = Mathf.Abs(input.Steering);
+            float dampScale = Mathf.Lerp(1f, 0.3f, steerIntent); // Reduce damping when player is actively steering
+
+            Rigidbody.AddTorque(Vector3.up * dampingTorque * dampScale, ForceMode.Acceleration);
+        }
+
+        /// <summary>High-speed stability — keeps the car composed above ~150 kph.</summary>
+        private void ApplyHighSpeedStability()
+        {
+            if (!IsGrounded || runtimeStats == null)
+            {
+                return;
+            }
+
+            float stabilityFactor = runtimeStats.HighSpeedStability;
+            if (stabilityFactor <= 0f)
+            {
+                return;
+            }
+
+            float speedT = Mathf.InverseLerp(120f, 280f, SpeedKph);
+            if (speedT <= 0f)
+            {
+                return;
+            }
+
+            // Straighten the car at high speed — resist lateral velocity
+            Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.linearVelocity);
+            float lateralCorrection = -localVelocity.x * stabilityFactor * speedT * 0.4f;
+            Rigidbody.AddForce(transform.right * lateralCorrection, ForceMode.Acceleration);
+
+            // Damp yaw rotation at speed
+            float yawDamp = -Rigidbody.angularVelocity.y * stabilityFactor * speedT * 0.6f;
+            Rigidbody.AddTorque(Vector3.up * yawDamp, ForceMode.Acceleration);
+        }
+
+        /// <summary>Drift initiation forgiveness — briefly reduces rear grip when entering a slide.</summary>
+        private void ApplyDriftAssist()
+        {
+            if (!IsGrounded || runtimeStats == null || wheels == null)
+            {
+                return;
+            }
+
+            float driftStrength = runtimeStats.DriftAssist;
+            if (driftStrength <= 0f)
+            {
+                return;
+            }
+
+            // Active during handbrake or when throttle + steer exceed threshold
+            bool isDriftInput = input.Handbrake
+                || (input.Throttle > 0.6f && Mathf.Abs(input.Steering) > 0.5f && SpeedKph > 35f);
+
+            if (!isDriftInput)
+            {
+                return;
+            }
+
+            // Briefly reduce rear sideways stiffness to help initiate drifts
             for (int i = 0; i < wheels.Length; i++)
             {
                 WheelSet wheel = wheels[i];
@@ -486,43 +910,23 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                float loadBias = 1f;
-                float slipPenalty = 1f;
+                bool isRear = wheel.axleId == "Rear" || (!wheel.steer && !wheel.drive && wheel.handbrake)
+                    || (wheel.axleId != "Front" && !wheel.steer);
 
-                if (wheel.collider.GetGroundHit(out WheelHit hit))
+                if (!isRear)
                 {
-                    float travel = CalculateSuspensionTravel(wheel.collider, hit);
-                    loadBias = Mathf.Lerp(maxLoadGripBias, baseLoadGripBias, travel);
-                    float combinedSlip = Mathf.Abs(hit.sidewaysSlip);
-                    slipPenalty = Mathf.Clamp01(1f - (combinedSlip * slipGripPenalty));
+                    continue;
                 }
 
-                WheelFrictionCurve forward = wheel.collider.forwardFriction;
-                forward.stiffness = runtimeStats.ForwardStiffness * loadBias * slipPenalty * slideForwardMultiplier;
-                wheel.collider.forwardFriction = forward;
-
                 WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
-                sideways.stiffness = runtimeStats.SidewaysStiffness * loadBias * slipPenalty * slideSideMultiplier;
+                sideways.stiffness *= Mathf.Lerp(1f, 0.65f, driftStrength);
                 wheel.collider.sidewaysFriction = sideways;
             }
         }
 
-        private void ApplyCounterSteerAssist()
-        {
-            if (!IsGrounded || !IsSliding)
-            {
-                return;
-            }
-
-            float speedAssistT = Mathf.InverseLerp(counterSteerAssistSpeedStartKph, 150f, Mathf.Abs(ForwardSpeedKph));
-            if (speedAssistT <= 0f)
-            {
-                return;
-            }
-
-            float desiredYawAssist = -SignedSlipAngleDegrees * counterSteerAssistTorque * speedAssistT;
-            Rigidbody.AddTorque(Vector3.up * desiredYawAssist, ForceMode.Acceleration);
-        }
+        // ─────────────────────────────────────────────────────────────────────
+        //  Wheel Visuals
+        // ─────────────────────────────────────────────────────────────────────
 
         private void SyncWheelVisuals()
         {
@@ -541,6 +945,10 @@ namespace Underground.Vehicle
                 UpdateWheelPose(wheels[i].collider, wheels[i].mesh);
             }
         }
+
+        // ─────────────────────────────────────────────────────────────────────
+        //  Helpers
+        // ─────────────────────────────────────────────────────────────────────
 
         private float GetReverseDriveRatio()
         {
@@ -580,6 +988,8 @@ namespace Underground.Vehicle
 
         private void UpdateSlipAngleState()
         {
+            float slipThreshold = runtimeStats != null ? runtimeStats.SlipAngle : slideSlipAngleThreshold;
+
             Vector3 planarVelocity = Vector3.ProjectOnPlane(Rigidbody.linearVelocity, Vector3.up);
             if (planarVelocity.sqrMagnitude < 1f)
             {
@@ -593,7 +1003,7 @@ namespace Underground.Vehicle
             Vector3 planarVelocityDirection = planarVelocity.normalized;
             SlipAngleDegrees = Vector3.Angle(planarForward, planarVelocityDirection);
             SignedSlipAngleDegrees = Vector3.SignedAngle(planarForward, planarVelocityDirection, Vector3.up);
-            IsSliding = SlipAngleDegrees >= slideSlipAngleThreshold;
+            IsSliding = SlipAngleDegrees >= slipThreshold;
         }
 
         private float GetSlideBlend()

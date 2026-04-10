@@ -1,44 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
+// FIX: Speedometer previously read Rigidbody.linearVelocity.magnitude which includes
+// lateral/sideways drift velocity, causing the needle to read higher than the displayed
+// speed text in HUDController (which uses ForwardSpeedKph). Now HUDController drives
+// both the text AND the needle through SetSpeed() so they always match.
 public class Speedometer : MonoBehaviour
 {
-    public Rigidbody target;
+    public Rigidbody target; // kept for legacy compatibility, no longer used for speed sampling
 
-    public float maxSpeed = 0.0f; // The maximum speed of the target ** IN KM/H **
+    public float maxSpeed = 260f; // Max speed in KM/H — overridden at runtime by HUDController
 
     public float minSpeedArrowAngle;
     public float maxSpeedArrowAngle;
 
     [Header("UI")]
-    public Text speedLabel; // The label that displays the speed;
-    public RectTransform arrow; // The arrow in the speedometer
+    public Text speedLabel;       // Legacy Text label (may be null if using TMP in HUD)
+    public RectTransform arrow;   // The needle in the speedometer dial
 
-    private float speed = 0.0f;
+    private float displaySpeed = 0f;
+
+    /// <summary>
+    /// Called every frame by HUDController with the authoritative forward speed (km/h).
+    /// This ensures the needle and the HUD speed text always show the same value.
+    /// </summary>
+    public void SetSpeed(float speedKph)
+    {
+        displaySpeed = Mathf.Max(0f, speedKph);
+
+        float normalizedSpeed = Mathf.InverseLerp(0f, Mathf.Max(1f, maxSpeed), displaySpeed);
+
+        if (speedLabel != null)
+            speedLabel.text = ((int)displaySpeed) + " km/h";
+
+        if (arrow != null)
+            arrow.localEulerAngles = new Vector3(0f, 0f, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, normalizedSpeed));
+    }
+
     private void Update()
     {
+        // Fallback: only self-sample if HUDController is not present to call SetSpeed().
+        // This preserves standalone use of the component outside the main HUD setup.
         if (target == null)
         {
-            if (speedLabel != null)
-                speedLabel.text = "0 km/h";
-            if (arrow != null)
-                arrow.localEulerAngles = new Vector3(0, 0, minSpeedArrowAngle);
-
+            SetSpeed(0f);
             return;
         }
 
-        // 3.6f to convert in kilometers
-        // ** The speed must be clamped by the car controller **
-        speed = target.linearVelocity.magnitude * 3.6f;
-        float normalizedSpeed = Mathf.InverseLerp(0f, Mathf.Max(1f, maxSpeed), speed);
-
-        if (speedLabel != null)
-            speedLabel.text = ((int)speed) + " km/h";
-        if (arrow != null)
-            arrow.localEulerAngles =
-                new Vector3(0, 0, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, normalizedSpeed));
+        // Use forward projection to match HUDController's ForwardSpeedKph calculation.
+        float forwardSpeed = Mathf.Abs(Vector3.Dot(target.linearVelocity, target.transform.forward)) * 3.6f;
+        SetSpeed(forwardSpeed);
     }
 }

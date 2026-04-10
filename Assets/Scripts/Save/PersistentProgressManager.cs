@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Underground.Core.Architecture;
+using Underground.Race;
 using Underground.Vehicle;
 
 namespace Underground.Save
@@ -13,12 +14,14 @@ namespace Underground.Save
         [SerializeField] private List<string> defaultOwnedCarIds = new List<string>(PlayerCarCatalog.DefaultOwnedCarIds);
         [SerializeField] private List<string> ownedCarIds = new List<string>();
         [SerializeField] private List<string> purchasedUpgradeIds = new List<string>();
+        [SerializeField] private List<string> completedRaceIds = new List<string>();
 
         public int SavedMoney { get; private set; }
         public int SavedReputation { get; private set; }
         public string CurrentOwnedCarId { get; private set; }
         public IReadOnlyList<string> OwnedCarIds => ownedCarIds;
         public IReadOnlyList<string> PurchasedUpgradeIds => purchasedUpgradeIds;
+        public IReadOnlyList<string> CompletedRaceIds => completedRaceIds;
         public float WorldTimeOfDay { get; private set; } = 12f;
         private bool hasLoadedSave;
 
@@ -113,6 +116,23 @@ namespace Underground.Save
             }
         }
 
+        public void RegisterRaceCompletion(string raceId)
+        {
+            string resolvedRaceId = RaceCatalog.NormalizeRaceId(raceId);
+            if (string.IsNullOrEmpty(resolvedRaceId) || completedRaceIds.Contains(resolvedRaceId))
+            {
+                return;
+            }
+
+            completedRaceIds.Add(resolvedRaceId);
+        }
+
+        public bool IsRaceUnlocked(string raceId)
+        {
+            string resolvedRaceId = RaceCatalog.NormalizeRaceId(raceId);
+            return !string.IsNullOrEmpty(resolvedRaceId) && completedRaceIds.Contains(resolvedRaceId);
+        }
+
         public void SaveNow(float worldTime = 12f, string garageScene = "Garage")
         {
             if (saveSystem == null)
@@ -129,6 +149,7 @@ namespace Underground.Save
                 currentOwnedCarId = CurrentOwnedCarId,
                 ownedCarIds = new List<string>(ownedCarIds),
                 purchasedUpgradeIds = new List<string>(purchasedUpgradeIds),
+                completedRaceIds = new List<string>(completedRaceIds),
                 worldTimeOfDay = WorldTimeOfDay,
                 lastGarageScene = garageScene
             };
@@ -156,6 +177,7 @@ namespace Underground.Save
             CurrentOwnedCarId = data.currentOwnedCarId;
             ownedCarIds = data.ownedCarIds ?? new List<string>();
             purchasedUpgradeIds = data.purchasedUpgradeIds ?? new List<string>();
+            completedRaceIds = data.completedRaceIds ?? new List<string>();
             WorldTimeOfDay = data.worldTimeOfDay;
 
             MigrateLegacyCarIds();
@@ -178,6 +200,7 @@ namespace Underground.Save
             CurrentOwnedCarId = starterCarId;
             ownedCarIds = new List<string>();
             purchasedUpgradeIds = new List<string>();
+            completedRaceIds = new List<string>();
             WorldTimeOfDay = 12f;
             MigrateLegacyCarIds();
             EnsureDefaultProfile();
@@ -230,6 +253,11 @@ namespace Underground.Save
             if (purchasedUpgradeIds == null)
             {
                 purchasedUpgradeIds = new List<string>();
+            }
+
+            if (completedRaceIds == null)
+            {
+                completedRaceIds = new List<string>();
             }
 
             if (defaultOwnedCarIds == null || defaultOwnedCarIds.Count == 0)

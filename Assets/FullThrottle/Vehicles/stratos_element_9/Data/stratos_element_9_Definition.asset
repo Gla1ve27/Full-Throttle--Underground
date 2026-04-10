@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243052a3168cc8499d005e86c5f507e, type: 3}
+  m_Name: stratos_element_9_Definition
+  m_EditorClassIdentifier: 
+  vehicleId: stratos_element_9
+  displayName: Stratos Element 9
+  manufacturerLoreName: Stratos
+  description: "Stratos Element 9 by Stratos. Exotic performance \u2014 extreme grip,
+    extreme speed."
+  archetype: 4
+  drivetrain: 2
+  visualPrefabPath: Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition
+    Racing Games/Prefabs/Car 1.prefab
+  statsAssetPath: Assets/FullThrottle/Vehicles/stratos_element_9/Data/stratos_element_9_Stats.asset
+  stats: {fileID: 11400000, guid: bd72f21e27ad3eb4690b365c959ea602, type: 2}
+  wheelMapping:
+    frontLeftPath: Front Left Wheel
+    frontRightPath: Front Right Wheel
+    rearLeftPath: Rear Left Wheel
+    rearRightPath: Rear Right Wheel
+  showroomBodyDrop: -0.16
+  useDetachedWheelVisuals: 1
+  reputationRequired: 0
+  price: 85000
+  availableUpgrades: []
+  availableUpgradeIds: []

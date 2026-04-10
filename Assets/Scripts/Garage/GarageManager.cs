@@ -44,6 +44,11 @@ namespace Underground.Garage
 
         public void SaveAndBankProgress()
         {
+            if (QuickRaceSessionData.IsActive)
+            {
+                return;
+            }
+
             float currentTime = dayNightCycle != null
                 ? dayNightCycle.TimeOfDay
                 : (persistentProgress != null ? persistentProgress.WorldTimeOfDay : 12f);
@@ -64,7 +69,7 @@ namespace Underground.Garage
 
         private void AutoSaveOnGarageEntry()
         {
-            if (autoSavedOnGarageEntry)
+            if (autoSavedOnGarageEntry || QuickRaceSessionData.IsActive)
             {
                 return;
             }

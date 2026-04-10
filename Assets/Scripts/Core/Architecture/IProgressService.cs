@@ -9,6 +9,7 @@ namespace Underground.Core.Architecture
         string CurrentOwnedCarId { get; }
         IReadOnlyList<string> OwnedCarIds { get; }
         IReadOnlyList<string> PurchasedUpgradeIds { get; }
+        IReadOnlyList<string> CompletedRaceIds { get; }
         float WorldTimeOfDay { get; }
 
         void AddMoney(int amount);
@@ -19,6 +20,8 @@ namespace Underground.Core.Architecture
         void SetCurrentCar(string carId);
         bool HasPurchasedUpgrade(string upgradeId);
         void RegisterUpgrade(string upgradeId);
+        void RegisterRaceCompletion(string raceId);
+        bool IsRaceUnlocked(string raceId);
         void SaveNow(float worldTime = 12f, string garageScene = "Garage");
         void LoadFromDisk();
         void SetWorldTime(float worldTime);

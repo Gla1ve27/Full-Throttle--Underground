@@ -48,24 +48,10 @@ namespace Underground.World
             {
             }
 
-            Transform[] transforms = Object.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-            for (int index = 0; index < transforms.Length; index++)
-            {
-                Transform candidate = transforms[index];
-                if (candidate == null || candidate.parent != null)
-                {
-                    continue;
-                }
-
-                GameObject root = candidate.gameObject;
-                if (root.GetComponent<PlayerCarAppearanceController>() != null ||
-                    !VehicleReflectionRuntimeController.IsVehicleLikeObject(root))
-                {
-                    continue;
-                }
-
-                EnsureController(root, root.CompareTag("Player"), processedTargets);
-            }
+            // Removed the aggressive loop that searched all transforms in the scene.
+            // This loop was incorrectly matching level geometry (like CityRoot) because it
+            // treated any object with a material named 'color' or 'atlas' as a car,
+            // resulting in the entire city being coated in car-paint and given huge reflection probes.
         }
 
         private static void EnsureController(GameObject target, bool allowRealtimeProbe, HashSet<int> processedTargets)

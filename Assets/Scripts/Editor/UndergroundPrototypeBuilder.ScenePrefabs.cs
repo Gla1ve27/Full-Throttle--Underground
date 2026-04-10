@@ -123,7 +123,7 @@ namespace Underground.EditorTools
             EnablePostProcessing(camera);
             cameraObject.AddComponent<AudioListener>();
             cameraObject.AddComponent<VehicleCameraFollow>();
-            cameraObject.AddComponent<VehicleSpeedEffectsController>();
+            // VehicleSpeedEffectsController removed — its functionality is now built into VehicleCameraFollow.
 
             PrefabUtility.SaveAsPrefabAsset(cameraObject, FollowCameraPrefabPath);
             Object.DestroyImmediate(cameraObject);

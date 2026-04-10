@@ -17,6 +17,10 @@ namespace Underground.Vehicle
         [SerializeField] private KeyCode resetKey = KeyCode.R;
         [SerializeField] private KeyCode reverseKey = KeyCode.S;
         [SerializeField] private KeyCode alternateReverseKey = KeyCode.DownArrow;
+        [SerializeField] private KeyCode upshiftKey = KeyCode.LeftShift;
+        [SerializeField] private KeyCode alternateUpshiftKey = KeyCode.RightShift;
+        [SerializeField] private KeyCode downshiftKey = KeyCode.LeftControl;
+        [SerializeField] private KeyCode alternateDownshiftKey = KeyCode.RightControl;
 
         [Header("Response")]
         [SerializeField, Range(1f, 20f)] private float steeringResponsiveness = 4.1f;
@@ -31,6 +35,8 @@ namespace Underground.Vehicle
         public bool ReverseHeld { get; private set; }
 
         private bool reverseRequested;
+        private bool upshiftRequested;
+        private bool downshiftRequested;
         private float lastReverseTapTime = -1f;
         private GameSettingsManager settingsManager;
 
@@ -50,6 +56,8 @@ namespace Underground.Vehicle
             bool handbrakePressed = ReadHandbrakeInput();
             bool reverseHeld = ReadReverseHeld();
             bool reversePressedThisFrame = ReadReversePressedThisFrame();
+            bool upshiftPressedThisFrame = ReadUpshiftPressedThisFrame();
+            bool downshiftPressedThisFrame = ReadDownshiftPressedThisFrame();
             float steeringResponse = steeringResponsiveness * (settingsManager != null ? settingsManager.SteeringSensitivity : 1f);
             float pedalResponse = pedalResponsiveness * (settingsManager != null ? settingsManager.PedalSensitivity : 1f);
             float reverseTapWindow = settingsManager != null ? settingsManager.ReverseDoubleTapWindow : reverseDoubleTapWindow;
@@ -80,6 +88,16 @@ namespace Underground.Vehicle
             {
                 ResetPressed = true;
             }
+
+            if (upshiftPressedThisFrame)
+            {
+                upshiftRequested = true;
+            }
+
+            if (downshiftPressedThisFrame)
+            {
+                downshiftRequested = true;
+            }
         }
 
         public void ClearOneShotInputs()
@@ -91,6 +109,20 @@ namespace Underground.Vehicle
         {
             bool requested = reverseRequested;
             reverseRequested = false;
+            return requested;
+        }
+
+        public bool ConsumeUpshiftRequest()
+        {
+            bool requested = upshiftRequested;
+            upshiftRequested = false;
+            return requested;
+        }
+
+        public bool ConsumeDownshiftRequest()
+        {
+            bool requested = downshiftRequested;
+            downshiftRequested = false;
             return requested;
         }
 
@@ -193,6 +225,44 @@ namespace Underground.Vehicle
             if (Gamepad.current != null)
             {
                 pressed |= Gamepad.current.startButton.wasPressedThisFrame;
+            }
+#endif
+
+            return pressed;
+        }
+
+        private bool ReadUpshiftPressedThisFrame()
+        {
+            bool pressed = Input.GetKeyDown(upshiftKey) || Input.GetKeyDown(alternateUpshiftKey);
+
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null)
+            {
+                pressed |= Keyboard.current.leftShiftKey.wasPressedThisFrame || Keyboard.current.rightShiftKey.wasPressedThisFrame;
+            }
+
+            if (Gamepad.current != null)
+            {
+                pressed |= Gamepad.current.rightShoulder.wasPressedThisFrame;
+            }
+#endif
+
+            return pressed;
+        }
+
+        private bool ReadDownshiftPressedThisFrame()
+        {
+            bool pressed = Input.GetKeyDown(downshiftKey) || Input.GetKeyDown(alternateDownshiftKey);
+
+#if ENABLE_INPUT_SYSTEM
+            if (Keyboard.current != null)
+            {
+                pressed |= Keyboard.current.leftCtrlKey.wasPressedThisFrame || Keyboard.current.rightCtrlKey.wasPressedThisFrame;
+            }
+
+            if (Gamepad.current != null)
+            {
+                pressed |= Gamepad.current.leftShoulder.wasPressedThisFrame;
             }
 #endif
 

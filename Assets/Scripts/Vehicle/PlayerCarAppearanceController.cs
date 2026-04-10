@@ -74,6 +74,32 @@ namespace Underground.Vehicle
             }
 
             GameObject visualPrefab = definition.LoadVisualPrefab();
+
+            // ── Part 5: Visual Kit Override ──
+            // If a VisualKitManager is present and has an active kit,
+            // use the kit's visual prefab instead of the base model.
+            VisualKitManager kitManager = GetComponent<VisualKitManager>();
+            if (kitManager != null && kitManager.HasActiveKit)
+            {
+                string kitPrefabPath = kitManager.ActiveVisualPrefabPath;
+                if (!string.IsNullOrEmpty(kitPrefabPath))
+                {
+                    GameObject kitPrefab = null;
+#if UNITY_EDITOR
+                    kitPrefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(kitPrefabPath);
+#endif
+                    if (kitPrefab == null)
+                    {
+                        kitPrefab = Resources.Load<GameObject>(kitPrefabPath);
+                    }
+
+                    if (kitPrefab != null)
+                    {
+                        visualPrefab = kitPrefab;
+                    }
+                }
+            }
+
             if (visualPrefab == null)
             {
                 return false;
@@ -289,80 +315,8 @@ namespace Underground.Vehicle
 
         private void EnsureGameplayReflectionProbe(bool isGarageShowroom)
         {
-            Transform existingProbeTransform = transform.Find(GameplayReflectionProbeName);
-            if (isGarageShowroom)
-            {
-                if (existingProbeTransform != null)
-                {
-                    existingProbeTransform.gameObject.SetActive(false);
-                }
-
-                return;
-            }
-
-            GameObject probeObject;
-            if (existingProbeTransform != null)
-            {
-                probeObject = existingProbeTransform.gameObject;
-                probeObject.SetActive(true);
-            }
-            else
-            {
-                probeObject = new GameObject(GameplayReflectionProbeName);
-                probeObject.transform.SetParent(transform, false);
-            }
-
-            probeObject.transform.localPosition = new Vector3(0f, 5f, 0f);
-            probeObject.transform.localRotation = Quaternion.identity;
-
-            RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = Mathf.Max(RenderSettings.reflectionIntensity, 0.95f);
-
-            GameSettingsManager settingsManager = GameSettingsManager.Instance ?? FindFirstObjectByType<GameSettingsManager>();
-            Vector3 probeSize = settingsManager != null
-                ? settingsManager.CarReflectionDetail switch
-                {
-                    0 => new Vector3(72f, 22f, 72f),
-                    1 => new Vector3(96f, 28f, 96f),
-                    _ => new Vector3(120f, 36f, 120f)
-                }
-                : new Vector3(120f, 36f, 120f);
-            float refreshInterval = settingsManager != null
-                ? settingsManager.CarReflectionUpdateRate switch
-                {
-                    0 => 0.55f,
-                    1 => 0.3f,
-                    _ => 0.16f
-                }
-                : 0.2f;
-
-            ReflectionProbe probe = probeObject.GetComponent<ReflectionProbe>() ?? probeObject.AddComponent<ReflectionProbe>();
-            probe.importance = 1000;
-            probe.intensity = settingsManager != null
-                ? settingsManager.CarReflectionDetail switch
-                {
-                    0 => 0.95f,
-                    1 => 1.05f,
-                    _ => 1.15f
-                }
-                : 1.05f;
-            probe.boxProjection = true;
-            probe.blendDistance = 6f;
-            probe.size = probeSize;
-            probe.resolution = settingsManager != null
-                ? settingsManager.CarReflectionDetail switch
-                {
-                    0 => 128,
-                    1 => 256,
-                    _ => 512
-                }
-                : 256;
-
-            int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
-            probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
-
-            PlayerReflectionProbeController controller = probeObject.GetComponent<PlayerReflectionProbeController>() ?? probeObject.AddComponent<PlayerReflectionProbeController>();
-            controller.Configure(transform, new Vector3(0f, 5f, 0f), probeSize, 10f, refreshInterval, 6f);
+            // Nuked. The player car will no longer spawn its own forced Realtime Reflection Probe.
+            // It will rely perfectly on your authored scene's Global Illumination and Reflection Probes.
         }
 
         // ------------------------------------------------------------------
@@ -387,15 +341,8 @@ namespace Underground.Vehicle
         // Wheel resolution: authored path → recursive fallback → generic tokens
         // ------------------------------------------------------------------
 
-        /// <summary>
-        /// Tries to find a wheel source transform using multiple strategies in order:
-        /// 1. Authored path from CarWheelMapping (direct, then recursive last-segment)
-        /// 2. Generic token-based search (the original fallback)
-        /// Logs diagnostic info when the authored path fails.
-        /// </summary>
         private static Transform TryResolveWheel(Transform visualRoot, PlayerCarDefinition definition, string authoredPath, string genericToken1, string genericToken2, string label)
         {
-            // Strategy 1: Authored path
             if (!string.IsNullOrEmpty(authoredPath))
             {
                 Transform found = FindAuthoredWheel(visualRoot, authoredPath);
@@ -407,23 +354,16 @@ namespace Underground.Vehicle
                 Debug.LogWarning($"[PlayerCarAppearanceController] Authored wheel path '{authoredPath}' not found for {definition.CarId} ({label}). Falling back to generic search.");
             }
 
-            // Strategy 2: Generic token search
             Transform generic = FindWheelSource(visualRoot, genericToken1, genericToken2);
             if (generic != null)
             {
                 return generic;
             }
 
-            // Total failure — dump hierarchy for diagnostics
             Debug.LogWarning($"[PlayerCarAppearanceController] No wheel found for {definition.CarId} ({label}). Prefab child hierarchy:\n{GetHierarchyDump(visualRoot, 0)}");
             return null;
         }
 
-        /// <summary>
-        /// Finds a wheel transform using the authored path.
-        /// The path is relative to the visual prefab root and may be nested (e.g. "RMCar26_WheelFrontLeft/Wheel_A").
-        /// If the exact path fails, tries a recursive name-match on the last segment.
-        /// </summary>
         private static Transform FindAuthoredWheel(Transform visualRoot, string path)
         {
             if (string.IsNullOrEmpty(path) || visualRoot == null)
@@ -431,14 +371,12 @@ namespace Underground.Vehicle
                 return null;
             }
 
-            // Try direct hierarchical path first.
             Transform found = visualRoot.Find(path);
             if (found != null)
             {
                 return found;
             }
 
-            // Fall back to searching for the last segment recursively.
             string lastSegment = path;
             int slashIndex = path.LastIndexOf('/');
             if (slashIndex >= 0 && slashIndex < path.Length - 1)
@@ -764,9 +702,6 @@ namespace Underground.Vehicle
                 hiddenSource = cloneSource;
             }
 
-            // Default path clones the authored wheel hierarchy to preserve
-            // multi-part assemblies. Mesh-only mode is used for packs whose
-            // wheel parent transforms pull non-wheel geometry with them.
             GameObject wheelVisualClone = Object.Instantiate(cloneSource.gameObject, wheelRoot, false);
             wheelVisualClone.name = "Mesh";
             wheelVisualClone.transform.localPosition = Vector3.zero;
@@ -841,32 +776,12 @@ namespace Underground.Vehicle
                 float radius = Mathf.Max(renderer.bounds.extents.x, renderer.bounds.extents.y, renderer.bounds.extents.z);
                 float score = radius;
 
-                if (normalizedName.Contains("wheel"))
-                {
-                    score += 10f;
-                }
-
-                if (normalizedName.Contains("tire") || normalizedName.Contains("tyre") || normalizedName.Contains("rim"))
-                {
-                    score += 5f;
-                }
-
-                if (normalizedName.Contains("lod0"))
-                {
-                    score += 4f;
-                }
-                else if (normalizedName.Contains("lod1"))
-                {
-                    score += 3f;
-                }
-                else if (normalizedName.Contains("lod2"))
-                {
-                    score += 2f;
-                }
-                else if (normalizedName.Contains("lod3"))
-                {
-                    score += 1f;
-                }
+                if (normalizedName.Contains("wheel")) score += 10f;
+                if (normalizedName.Contains("tire") || normalizedName.Contains("tyre") || normalizedName.Contains("rim")) score += 5f;
+                if (normalizedName.Contains("lod0")) score += 4f;
+                else if (normalizedName.Contains("lod1")) score += 3f;
+                else if (normalizedName.Contains("lod2")) score += 2f;
+                else if (normalizedName.Contains("lod3")) score += 1f;
 
                 if (score > bestScore)
                 {
@@ -960,17 +875,8 @@ namespace Underground.Vehicle
             Vector3 rearRightTarget,
             float targetWheelRadius)
         {
-            FitImportedVehicleScale(
-                visualRoot,
-                frontLeftWheel,
-                frontRightWheel,
-                rearLeftWheel,
-                rearRightWheel,
-                frontLeftTarget,
-                frontRightTarget,
-                rearLeftTarget,
-                rearRightTarget,
-                targetWheelRadius);
+            FitImportedVehicleScale(visualRoot, frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel,
+                frontLeftTarget, frontRightTarget, rearLeftTarget, rearRightTarget, targetWheelRadius);
 
             Transform[] wheelAnchors = { frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel };
             Vector3[] targetPositions = { frontLeftTarget, frontRightTarget, rearLeftTarget, rearRightTarget };
@@ -1244,13 +1150,13 @@ namespace Underground.Vehicle
             Vector3[] worldCorners =
             {
                 worldCenter + new Vector3(-worldExtents.x, -worldExtents.y, -worldExtents.z),
-                worldCenter + new Vector3(-worldExtents.x, -worldExtents.y, worldExtents.z),
-                worldCenter + new Vector3(-worldExtents.x, worldExtents.y, -worldExtents.z),
-                worldCenter + new Vector3(-worldExtents.x, worldExtents.y, worldExtents.z),
-                worldCenter + new Vector3(worldExtents.x, -worldExtents.y, -worldExtents.z),
-                worldCenter + new Vector3(worldExtents.x, -worldExtents.y, worldExtents.z),
-                worldCenter + new Vector3(worldExtents.x, worldExtents.y, -worldExtents.z),
-                worldCenter + new Vector3(worldExtents.x, worldExtents.y, worldExtents.z)
+                worldCenter + new Vector3(-worldExtents.x, -worldExtents.y,  worldExtents.z),
+                worldCenter + new Vector3(-worldExtents.x,  worldExtents.y, -worldExtents.z),
+                worldCenter + new Vector3(-worldExtents.x,  worldExtents.y,  worldExtents.z),
+                worldCenter + new Vector3( worldExtents.x, -worldExtents.y, -worldExtents.z),
+                worldCenter + new Vector3( worldExtents.x, -worldExtents.y,  worldExtents.z),
+                worldCenter + new Vector3( worldExtents.x,  worldExtents.y, -worldExtents.z),
+                worldCenter + new Vector3( worldExtents.x,  worldExtents.y,  worldExtents.z)
             };
 
             bool initialized = false;
@@ -1301,13 +1207,13 @@ namespace Underground.Vehicle
             Vector3 extents = bounds.extents;
 
             yield return center + new Vector3(-extents.x, -extents.y, -extents.z);
-            yield return center + new Vector3(-extents.x, -extents.y, extents.z);
-            yield return center + new Vector3(-extents.x, extents.y, -extents.z);
-            yield return center + new Vector3(-extents.x, extents.y, extents.z);
-            yield return center + new Vector3(extents.x, -extents.y, -extents.z);
-            yield return center + new Vector3(extents.x, -extents.y, extents.z);
-            yield return center + new Vector3(extents.x, extents.y, -extents.z);
-            yield return center + new Vector3(extents.x, extents.y, extents.z);
+            yield return center + new Vector3(-extents.x, -extents.y,  extents.z);
+            yield return center + new Vector3(-extents.x,  extents.y, -extents.z);
+            yield return center + new Vector3(-extents.x,  extents.y,  extents.z);
+            yield return center + new Vector3( extents.x, -extents.y, -extents.z);
+            yield return center + new Vector3( extents.x, -extents.y,  extents.z);
+            yield return center + new Vector3( extents.x,  extents.y, -extents.z);
+            yield return center + new Vector3( extents.x,  extents.y,  extents.z);
         }
 
         // ------------------------------------------------------------------
@@ -1390,21 +1296,42 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                Material[] materials = renderer.materials;
+                // FIX: Inspect sharedMaterials first to avoid creating instances
+                // on renderers that don't need normalization at all. The old code
+                // called renderer.materials unconditionally which (a) created
+                // blank instanced materials even when nothing needed to change,
+                // and (b) lost texture references on those fresh instances.
                 Material[] sharedMaterials = renderer.sharedMaterials;
+                bool anyNeedsNormalization = false;
+                for (int si = 0; si < sharedMaterials.Length; si++)
+                {
+                    if (ShouldNormalizeMaterial(sharedMaterials[si], targetShader, carId))
+                    {
+                        anyNeedsNormalization = true;
+                        break;
+                    }
+                }
+
+                if (!anyNeedsNormalization)
+                {
+                    continue;
+                }
+
+                // Now safe to allocate instanced materials — we confirmed at least
+                // one slot on this renderer needs to be replaced.
+                Material[] materials = renderer.materials;
                 bool hasChanges = false;
 
                 for (int materialIndex = 0; materialIndex < materials.Length; materialIndex++)
                 {
-                    Material material = materials[materialIndex];
-                    if (material == null)
+                    Material sourceMaterial = materialIndex < sharedMaterials.Length && sharedMaterials[materialIndex] != null
+                        ? sharedMaterials[materialIndex]
+                        : materials[materialIndex];
+
+                    if (sourceMaterial == null)
                     {
                         continue;
                     }
-
-                    Material sourceMaterial = materialIndex < sharedMaterials.Length && sharedMaterials[materialIndex] != null
-                        ? sharedMaterials[materialIndex]
-                        : material;
 
                     if (!ShouldNormalizeMaterial(sourceMaterial, targetShader, carId))
                     {
@@ -1474,144 +1401,46 @@ namespace Underground.Vehicle
                 name = sourceMaterial.name
             };
 
-            if (normalizedMaterial.HasProperty("_BaseColor"))
-            {
-                normalizedMaterial.SetColor("_BaseColor", baseColor);
-            }
-
-            if (normalizedMaterial.HasProperty("_Color"))
-            {
-                normalizedMaterial.SetColor("_Color", baseColor);
-            }
+            if (normalizedMaterial.HasProperty("_BaseColor")) normalizedMaterial.SetColor("_BaseColor", baseColor);
+            if (normalizedMaterial.HasProperty("_Color")) normalizedMaterial.SetColor("_Color", baseColor);
 
             if (baseColorMap != null)
             {
-                if (normalizedMaterial.HasProperty("_BaseColorMap"))
-                {
-                    normalizedMaterial.SetTexture("_BaseColorMap", baseColorMap);
-                }
-
-                if (normalizedMaterial.HasProperty("_BaseMap"))
-                {
-                    normalizedMaterial.SetTexture("_BaseMap", baseColorMap);
-                }
-
-                if (normalizedMaterial.HasProperty("_MainTex"))
-                {
-                    normalizedMaterial.SetTexture("_MainTex", baseColorMap);
-                }
+                if (normalizedMaterial.HasProperty("_BaseColorMap")) normalizedMaterial.SetTexture("_BaseColorMap", baseColorMap);
+                if (normalizedMaterial.HasProperty("_BaseMap")) normalizedMaterial.SetTexture("_BaseMap", baseColorMap);
+                if (normalizedMaterial.HasProperty("_MainTex")) normalizedMaterial.SetTexture("_MainTex", baseColorMap);
             }
 
             if (normalMap != null)
             {
-                if (normalizedMaterial.HasProperty("_NormalMap"))
-                {
-                    normalizedMaterial.SetTexture("_NormalMap", normalMap);
-                }
-
-                if (normalizedMaterial.HasProperty("_BumpMap"))
-                {
-                    normalizedMaterial.SetTexture("_BumpMap", normalMap);
-                }
+                if (normalizedMaterial.HasProperty("_NormalMap")) normalizedMaterial.SetTexture("_NormalMap", normalMap);
+                if (normalizedMaterial.HasProperty("_BumpMap")) normalizedMaterial.SetTexture("_BumpMap", normalMap);
             }
 
-            if (normalizedMaterial.HasProperty("_NormalScale"))
-            {
-                normalizedMaterial.SetFloat("_NormalScale", normalScale);
-            }
-
-            if (normalizedMaterial.HasProperty("_BumpScale"))
-            {
-                normalizedMaterial.SetFloat("_BumpScale", normalScale);
-            }
-
-            if (maskMap != null && normalizedMaterial.HasProperty("_MaskMap"))
-            {
-                normalizedMaterial.SetTexture("_MaskMap", maskMap);
-            }
+            if (normalizedMaterial.HasProperty("_NormalScale")) normalizedMaterial.SetFloat("_NormalScale", normalScale);
+            if (normalizedMaterial.HasProperty("_BumpScale")) normalizedMaterial.SetFloat("_BumpScale", normalScale);
+            if (maskMap != null && normalizedMaterial.HasProperty("_MaskMap")) normalizedMaterial.SetTexture("_MaskMap", maskMap);
 
             if (emissiveMap != null)
             {
-                if (normalizedMaterial.HasProperty("_EmissiveColorMap"))
-                {
-                    normalizedMaterial.SetTexture("_EmissiveColorMap", emissiveMap);
-                }
-
-                if (normalizedMaterial.HasProperty("_EmissionMap"))
-                {
-                    normalizedMaterial.SetTexture("_EmissionMap", emissiveMap);
-                }
+                if (normalizedMaterial.HasProperty("_EmissiveColorMap")) normalizedMaterial.SetTexture("_EmissiveColorMap", emissiveMap);
+                if (normalizedMaterial.HasProperty("_EmissionMap")) normalizedMaterial.SetTexture("_EmissionMap", emissiveMap);
             }
 
-            if (normalizedMaterial.HasProperty("_EmissiveColor"))
-            {
-                normalizedMaterial.SetColor("_EmissiveColor", emissiveColor);
-            }
-
-            if (normalizedMaterial.HasProperty("_EmissionColor"))
-            {
-                normalizedMaterial.SetColor("_EmissionColor", emissiveColor);
-            }
-
-            if (normalizedMaterial.HasProperty("_Metallic"))
-            {
-                normalizedMaterial.SetFloat("_Metallic", metallic);
-            }
-
-            if (normalizedMaterial.HasProperty("_Smoothness"))
-            {
-                normalizedMaterial.SetFloat("_Smoothness", smoothness);
-            }
-
-            if (normalizedMaterial.HasProperty("_SurfaceType"))
-            {
-                normalizedMaterial.SetFloat("_SurfaceType", 0f);
-            }
-
-            if (normalizedMaterial.HasProperty("_Surface"))
-            {
-                normalizedMaterial.SetFloat("_Surface", 0f);
-            }
-
-            if (normalizedMaterial.HasProperty("_ReceivesSSR"))
-            {
-                normalizedMaterial.SetFloat("_ReceivesSSR", 1f);
-            }
-
-            if (normalizedMaterial.HasProperty("_ReceivesSSRTransparent"))
-            {
-                normalizedMaterial.SetFloat("_ReceivesSSRTransparent", 0f);
-            }
-
-            if (normalizedMaterial.HasProperty("_EnvironmentReflections"))
-            {
-                normalizedMaterial.SetFloat("_EnvironmentReflections", 1f);
-            }
-
-            if (normalizedMaterial.HasProperty("_GlossyReflections"))
-            {
-                normalizedMaterial.SetFloat("_GlossyReflections", 1f);
-            }
-
-            if (normalizedMaterial.HasProperty("_SpecularHighlights"))
-            {
-                normalizedMaterial.SetFloat("_SpecularHighlights", 1f);
-            }
-
-            if (normalizedMaterial.HasProperty("_TransmissionEnable"))
-            {
-                normalizedMaterial.SetFloat("_TransmissionEnable", 0f);
-            }
-
-            if (normalizedMaterial.HasProperty("_EnableCoat"))
-            {
-                normalizedMaterial.SetFloat("_EnableCoat", isPaintMaterial || isBodyMaterial ? 1f : 0f);
-            }
-
-            if (normalizedMaterial.HasProperty("_CoatMask"))
-            {
-                normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 0.9f : isBodyMaterial ? 0.45f : 0f);
-            }
+            if (normalizedMaterial.HasProperty("_EmissiveColor")) normalizedMaterial.SetColor("_EmissiveColor", emissiveColor);
+            if (normalizedMaterial.HasProperty("_EmissionColor")) normalizedMaterial.SetColor("_EmissionColor", emissiveColor);
+            if (normalizedMaterial.HasProperty("_Metallic")) normalizedMaterial.SetFloat("_Metallic", metallic);
+            if (normalizedMaterial.HasProperty("_Smoothness")) normalizedMaterial.SetFloat("_Smoothness", smoothness);
+            if (normalizedMaterial.HasProperty("_SurfaceType")) normalizedMaterial.SetFloat("_SurfaceType", 0f);
+            if (normalizedMaterial.HasProperty("_Surface")) normalizedMaterial.SetFloat("_Surface", 0f);
+            if (normalizedMaterial.HasProperty("_ReceivesSSR")) normalizedMaterial.SetFloat("_ReceivesSSR", 1f);
+            if (normalizedMaterial.HasProperty("_ReceivesSSRTransparent")) normalizedMaterial.SetFloat("_ReceivesSSRTransparent", 0f);
+            if (normalizedMaterial.HasProperty("_EnvironmentReflections")) normalizedMaterial.SetFloat("_EnvironmentReflections", 1f);
+            if (normalizedMaterial.HasProperty("_GlossyReflections")) normalizedMaterial.SetFloat("_GlossyReflections", 1f);
+            if (normalizedMaterial.HasProperty("_SpecularHighlights")) normalizedMaterial.SetFloat("_SpecularHighlights", 1f);
+            if (normalizedMaterial.HasProperty("_TransmissionEnable")) normalizedMaterial.SetFloat("_TransmissionEnable", 0f);
+            if (normalizedMaterial.HasProperty("_EnableCoat")) normalizedMaterial.SetFloat("_EnableCoat", isPaintMaterial || isBodyMaterial ? 1f : 0f);
+            if (normalizedMaterial.HasProperty("_CoatMask")) normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 0.9f : isBodyMaterial ? 0.45f : 0f);
 
             normalizedMaterial.DisableKeyword("_DISABLE_SSR");
             normalizedMaterial.DisableKeyword("_DISABLE_SSR_TRANSPARENT");
@@ -1631,11 +1460,14 @@ namespace Underground.Vehicle
                 return false;
             }
 
-            if (sourceMaterial.shader != targetShader)
-            {
-                return true;
-            }
-
+            // FIX: The old code had `sourceMaterial.shader != targetShader` as a catch-all
+            // that normalized EVERY material whose shader didn't match — including city
+            // geometry, road surfaces, and props from third-party packs that ship with
+            // non-HDRP shaders. This coated everything in high-smoothness car paint.
+            //
+            // Now: only normalize materials whose NAME explicitly identifies them as
+            // vehicle paint, body panels, or a known per-car roster material.
+            // Shader mismatch alone is no longer sufficient reason to normalize.
             return IsPaintMaterial(sourceMaterial.name) ||
                    IsBodyMaterial(sourceMaterial.name) ||
                    IsKnownRosterPaintMaterial(sourceMaterial.name, carId) ||
@@ -1649,13 +1481,19 @@ namespace Underground.Vehicle
 
         private static bool IsPaintMaterial(string materialName)
         {
-            return !string.IsNullOrEmpty(materialName) &&
-                   (materialName.IndexOf("paint", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("color", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("colour", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("police", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("taxi", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    materialName.IndexOf("atlas", System.StringComparison.OrdinalIgnoreCase) >= 0);
+            if (string.IsNullOrEmpty(materialName))
+            {
+                return false;
+            }
+
+            // FIX: "color" and "atlas" removed — these matched city/prop materials.
+            // "colour" (British spelling) is retained as it's car-specific.
+            // "color" alone is far too generic (e.g. "color_building", "color_road").
+            // "atlas" matched every texture atlas sheet used by level geometry.
+            return materialName.IndexOf("paint", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   materialName.IndexOf("colour", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   materialName.IndexOf("police", System.StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   materialName.IndexOf("taxi", System.StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static bool IsBodyMaterial(string materialName)
@@ -1851,20 +1689,9 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                if (normalizedName == token)
-                {
-                    return true;
-                }
-
-                if (containsWheel && normalizedName.Contains(token))
-                {
-                    return true;
-                }
-
-                if (normalizedName.EndsWith(token))
-                {
-                    return true;
-                }
+                if (normalizedName == token) return true;
+                if (containsWheel && normalizedName.Contains(token)) return true;
+                if (normalizedName.EndsWith(token)) return true;
             }
 
             return false;
@@ -1898,56 +1725,14 @@ namespace Underground.Vehicle
                     continue;
                 }
 
-                if (component is Collider collider)
-                {
-                    collider.enabled = false;
-                    continue;
-                }
-
-                if (component is Rigidbody rigidbody)
-                {
-                    rigidbody.isKinematic = true;
-                    rigidbody.useGravity = false;
-                    rigidbody.detectCollisions = false;
-                    continue;
-                }
-
-                if (component is Joint joint)
-                {
-                    joint.enableCollision = false;
-                    continue;
-                }
-
-                if (component is AudioSource audioSource)
-                {
-                    audioSource.Stop();
-                    audioSource.enabled = false;
-                    continue;
-                }
-
-                if (component is Camera camera)
-                {
-                    camera.enabled = false;
-                    continue;
-                }
-
-                if (component is Light light)
-                {
-                    light.enabled = false;
-                    continue;
-                }
-
-                if (component is Animator animator)
-                {
-                    animator.enabled = false;
-                    continue;
-                }
-
-                if (component is MonoBehaviour behaviour)
-                {
-                    behaviour.enabled = false;
-                    continue;
-                }
+                if (component is Collider collider) { collider.enabled = false; continue; }
+                if (component is Rigidbody rigidbody) { rigidbody.isKinematic = true; rigidbody.useGravity = false; rigidbody.detectCollisions = false; continue; }
+                if (component is Joint joint) { joint.enableCollision = false; continue; }
+                if (component is AudioSource audioSource) { audioSource.Stop(); audioSource.enabled = false; continue; }
+                if (component is Camera camera) { camera.enabled = false; continue; }
+                if (component is Light light) { light.enabled = false; continue; }
+                if (component is Animator animator) { animator.enabled = false; continue; }
+                if (component is MonoBehaviour behaviour) { behaviour.enabled = false; continue; }
             }
         }
 
@@ -2329,14 +2114,8 @@ namespace Underground.Vehicle
 
             int start = guidIndex + marker.Length;
             int end = block.IndexOf(',', start);
-            if (end < 0)
-            {
-                end = block.IndexOf('\n', start);
-            }
-            if (end < 0)
-            {
-                end = block.Length;
-            }
+            if (end < 0) end = block.IndexOf('\n', start);
+            if (end < 0) end = block.Length;
 
             string guid = block.Substring(start, end - start).Trim();
             return guid == "00000000000000000000000000000000" ? null : guid;
@@ -2368,14 +2147,8 @@ namespace Underground.Vehicle
 
             start += marker.Length;
             int end = line.IndexOf(',', start);
-            if (end < 0)
-            {
-                end = line.IndexOf('}', start);
-            }
-            if (end < 0)
-            {
-                end = line.Length;
-            }
+            if (end < 0) end = line.IndexOf('}', start);
+            if (end < 0) end = line.Length;
 
             string raw = line.Substring(start, end - start).Trim();
             return float.TryParse(raw, NumberStyles.Float, CultureInfo.InvariantCulture, out value);

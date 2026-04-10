@@ -1,5 +1,6 @@
 using System;
 using Underground.Core.Architecture;
+using Underground.Save;
 using Underground.Session;
 using Underground.TimeSystem;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Underground.Race
         [SerializeField] private SessionManager sessionManager;
         [SerializeField] private RiskSystem riskSystem;
         [SerializeField] private DayNightCycleController dayNightCycle;
+        [SerializeField] private PersistentProgressManager progressManager;
 
         [Header("Track Limiter")]
         [SerializeField] private float raceLength = 240f;
@@ -53,6 +55,12 @@ namespace Underground.Race
             {
                 dayNightCycle = ServiceResolver.Resolve<ITimeOfDayService>(null) as DayNightCycleController
                     ?? FindFirstObjectByType<DayNightCycleController>();
+            }
+
+            if (progressManager == null)
+            {
+                progressManager = ServiceResolver.Resolve<IProgressService>(null) as PersistentProgressManager
+                    ?? FindFirstObjectByType<PersistentProgressManager>();
             }
 
             markerRenderers = GetComponentsInChildren<Renderer>(true);
@@ -135,6 +143,16 @@ namespace Underground.Race
                 return;
             }
 
+            if (QuickRaceSessionData.IsActive)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(activeRace.raceId))
+            {
+                progressManager?.RegisterRaceCompletion(activeRace.raceId);
+            }
+
             bool isNight = dayNightCycle != null && dayNightCycle.IsNight;
             float multiplier = riskSystem != null ? riskSystem.GetRewardMultiplier(isNight) : 1f;
 
@@ -162,6 +180,11 @@ namespace Underground.Race
 
             ToggleMarker(true);
             RaceEnded?.Invoke(this);
+
+            if (activeRace != null && QuickRaceSessionData.IsSelectedRace(activeRace.raceId))
+            {
+                QuickRaceSessionData.Clear();
+            }
         }
 
         private void BuildRaceCourse()

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: affae1b9c6db9444abc1b2de8179f72b, type: 3}
+  m_Name: solstice_type_s_kit_c
+  m_EditorClassIdentifier: 
+  upgradeId: solstice_type_s_kit_c
+  displayName: Solstice Type-S Kit C
+  category: 7
+  cost: 15000
+  reputationRequired: 1200
+  motorTorqueAdd: 0
+  brakeTorqueAdd: 0
+  forwardStiffnessAdd: 0
+  sidewaysStiffnessAdd: 0
+  springAdd: 0
+  damperAdd: 0
+  massDelta: 0
+  shiftSpeedBonus: 0
+  visualPrefabOverridePath: Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26_c.prefab
+  handlingModifier: {fileID: 11400000, guid: 00c82beca39f1f64da1cd8be51f132b2, type: 2}

@@ -52,15 +52,29 @@ namespace Underground.Vehicle
             DisplayName = displayName;
             VisualPrefabPath = visualPrefabPath;
             StatsAssetPath = statsAssetPath;
+            Stats = null;
             WheelMapping = wheelMapping;
             ShowroomBodyDrop = showroomBodyDrop;
             UseDetachedWheelVisuals = useDetachedWheelVisuals;
+        }
+
+        public PlayerCarDefinition(VehicleDefinition asset)
+        {
+            CarId = asset.vehicleId;
+            DisplayName = asset.displayName;
+            VisualPrefabPath = asset.visualPrefabPath;
+            StatsAssetPath = asset.statsAssetPath;
+            Stats = asset.stats;
+            WheelMapping = asset.wheelMapping;
+            ShowroomBodyDrop = asset.showroomBodyDrop;
+            UseDetachedWheelVisuals = asset.useDetachedWheelVisuals;
         }
 
         public string CarId { get; }
         public string DisplayName { get; }
         public string VisualPrefabPath { get; }
         public string StatsAssetPath { get; }
+        public VehicleStatsData Stats { get; }
         public CarWheelMapping WheelMapping { get; }
         public float ShowroomBodyDrop { get; }
         public bool UseDetachedWheelVisuals { get; }
@@ -78,6 +92,11 @@ namespace Underground.Vehicle
 
         public VehicleStatsData LoadStatsAsset()
         {
+            if (Stats != null)
+            {
+                return Stats;
+            }
+
             if (string.IsNullOrEmpty(StatsAssetPath))
             {
                 return null;
@@ -91,6 +110,14 @@ namespace Underground.Vehicle
         }
     }
 
+    /// <summary>
+    /// Current vehicle catalog with hardcoded roster definitions.
+    /// This class is transitional — once Part 2 migrates all cars to
+    /// VehicleDefinition ScriptableObject assets, the hardcoded arrays
+    /// will be replaced by asset-based loading.
+    ///
+    /// For lore-friendly ID migration to the new roster, see <see cref="VehicleRoster"/>.
+    /// </summary>
     public static class PlayerCarCatalog
     {
         public const string StarterCarId = "rmcar26";
@@ -120,6 +147,10 @@ namespace Underground.Vehicle
         // Legacy ID migration table.
         // Keys are old IDs that might exist in save files;
         // values are the current canonical ID they map to.
+        //
+        // NOTE: Lore-friendly IDs (e.g. "solstice_type_s") are reverse-mapped
+        // to old IDs so PlayerCarCatalog can still resolve them to Definitions[].
+        // Once Part 7 completes, this reverse mapping becomes unnecessary.
         // ------------------------------------------------------------------
         private static readonly Dictionary<string, string> LegacyIdMap = new Dictionary<string, string>
         {
@@ -159,6 +190,20 @@ namespace Underground.Vehicle
             { "Car 8", "arcade_car_8" },
             { "Car 9", "arcade_car_9" },
             { "Car 10", "arcade_car_10" },
+
+            // ── Lore-friendly → old ID reverse bridge (transition period) ──
+            { "solstice_type_s",       "rmcar26" },
+            { "zodic_s_classic",       "simple_retro_car" },
+            { "maverick_vengeance_srt", "arcade_car_7" },
+            { "protoso_c16",           "arcade_car_2" },
+            { "weaver_pup_s",          "arcade_car_3" },
+            { "stratos_element_9",     "arcade_car_1" },
+            { "reizan_gt_rb",          "arcade_car_4" },
+            { "reizan_icon_iv",        "arcade_car_5" },
+            { "uruk_grinder_4x4",      "arcade_car_8" },
+            { "reizan_vanguard_34",    "arcade_car_6" },
+            { "cyro_monolith",         "american_sedan" },
+            { "hanse_executive",       "american_sedan_stylized" },
         };
 
         // ------------------------------------------------------------------
@@ -351,13 +396,53 @@ namespace Underground.Vehicle
 
         public static IReadOnlyList<PlayerCarDefinition> GetDefinitions()
         {
-            return Definitions;
+            List<PlayerCarDefinition> all = new List<PlayerCarDefinition>();
+
+            // Add new asset-based definitions
+            if (VehicleDefinitionCatalog.Instance != null)
+            {
+                foreach (var asset in VehicleDefinitionCatalog.Instance.AllDefinitions)
+                {
+                    all.Add(new PlayerCarDefinition(asset));
+                }
+            }
+
+            // Add legacy definitions (avoiding duplicates by ID)
+            foreach (var legacy in Definitions)
+            {
+                bool alreadyAdded = false;
+                foreach (var added in all)
+                {
+                    if (added.CarId == legacy.CarId)
+                    {
+                        alreadyAdded = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyAdded)
+                {
+                    all.Add(legacy);
+                }
+            }
+
+            return all;
         }
 
         public static bool TryGetDefinition(string carId, out PlayerCarDefinition definition)
         {
             // Transparently resolve legacy IDs before lookup.
             string resolvedId = MigrateCarId(carId);
+
+            // ── Part 7: Asset-Based Discovery ──
+            // If the new catalog has a definition asset for this ID, use it.
+            // This prioritizes the new data-driven system over hardcoded arrays.
+            if (VehicleDefinitionCatalog.Instance != null && 
+                VehicleDefinitionCatalog.Instance.TryGetDefinition(resolvedId, out VehicleDefinition asset))
+            {
+                definition = new PlayerCarDefinition(asset);
+                return true;
+            }
 
             for (int i = 0; i < Definitions.Length; i++)
             {
@@ -430,28 +515,39 @@ namespace Underground.Vehicle
                 }
             }
 
+            // ── Final fallback: try lore roster migration ──
+            string loreMigrated = VehicleRoster.MigrateLegacyId(rawId);
+            if (loreMigrated != rawId)
+            {
+                // The lore ID won't match any Definitions[] entry yet
+                // (that happens in Part 2), but we return it so systems
+                // that understand the new roster can use it.
+                return loreMigrated;
+            }
+
             return rawId;
         }
 
         public static List<PlayerCarDefinition> GetOwnedCars(PersistentProgressManager progressManager)
         {
             List<PlayerCarDefinition> ownedCars = new List<PlayerCarDefinition>();
+            var allDefinitions = GetDefinitions();
 
             if (progressManager == null)
             {
-                for (int i = 0; i < Definitions.Length; i++)
+                for (int i = 0; i < allDefinitions.Count; i++)
                 {
-                    ownedCars.Add(Definitions[i]);
+                    ownedCars.Add(allDefinitions[i]);
                 }
 
                 return ownedCars;
             }
 
-            for (int i = 0; i < Definitions.Length; i++)
+            for (int i = 0; i < allDefinitions.Count; i++)
             {
-                if (progressManager.OwnsCar(Definitions[i].CarId))
+                if (progressManager.OwnsCar(allDefinitions[i].CarId))
                 {
-                    ownedCars.Add(Definitions[i]);
+                    ownedCars.Add(allDefinitions[i]);
                 }
             }
 
