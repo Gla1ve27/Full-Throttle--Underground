@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 19bf4ddbaf23247e790ed5c05d3f2244
+timeCreated: 1522077311
+licenseType: Store
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56739
+  packageName: Amplify Occlusion
+  packageVersion: 2.1.0
+  assetPath: Assets/AmplifyOcclusion/Shaders/GTAO.cginc
+  uploadId: 858870

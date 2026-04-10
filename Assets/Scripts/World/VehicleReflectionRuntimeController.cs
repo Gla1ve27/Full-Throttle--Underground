@@ -73,9 +73,71 @@ namespace Underground.World
 
         public void ApplyReflectionSupport()
         {
-            // Fully transitioned to an "Authored-First" model. 
-            // The renderer now respects the materials assigned to the prefab and the 
-            // reflection probes/volumes placed in the scene, rather than using code-forced overrides.
+            if (_materialsApplied) return;
+            _materialsApplied = true;
+
+            Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer is ParticleSystemRenderer) continue;
+
+                Material[] materials = renderer.sharedMaterials;
+                bool changed = false;
+
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    Material mat = materials[i];
+                    if (mat == null) continue;
+
+                    string matName = mat.name.ToLowerInvariant();
+                    bool isPaint = IsPaintMaterial(matName);
+                    bool isBody = IsBodyMaterial(matName);
+                    bool isGlass = IsTransparentMaterial(matName);
+
+                    if (!isPaint && !isBody && !isGlass) continue;
+
+                    // Create a runtime instance so we don't edit the Project asset
+                    Material runtimeMat = new Material(mat);
+                    runtimeMat.name = mat.name + " (Runtime)";
+
+                    if (isGlass)
+                    {
+                        // Fix "Mirror" glass
+                        if (runtimeMat.HasProperty("_SurfaceType")) runtimeMat.SetFloat("_SurfaceType", 1f);
+                        if (runtimeMat.HasProperty("_BlendMode")) runtimeMat.SetFloat("_BlendMode", 0f);
+                        if (runtimeMat.HasProperty("_Metallic")) runtimeMat.SetFloat("_Metallic", 0f);
+                        if (runtimeMat.HasProperty("_Smoothness")) runtimeMat.SetFloat("_Smoothness", 0.92f);
+                        
+                        Color c = runtimeMat.HasProperty("_BaseColor") ? runtimeMat.GetColor("_BaseColor") : Color.white;
+                        c.a = 0.18f;
+                        if (runtimeMat.HasProperty("_BaseColor")) runtimeMat.SetColor("_BaseColor", c);
+                        
+                        runtimeMat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                        runtimeMat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+                    }
+                    else if (isPaint || isBody)
+                    {
+                        // Fix "Plastic" body
+                        float metallic = runtimeMat.HasProperty("_Metallic") ? runtimeMat.GetFloat("_Metallic") : 0f;
+                        float smoothness = runtimeMat.HasProperty("_Smoothness") ? runtimeMat.GetFloat("_Smoothness") : 0.5f;
+
+                        // Give traffic cars a decent metallic shine without being chrome
+                        metallic = Mathf.Clamp(isPaint ? 0.7f : 0.4f, 0.1f, 0.9f);
+                        smoothness = Mathf.Clamp(smoothness, 0.6f, 0.85f);
+
+                        if (runtimeMat.HasProperty("_Metallic")) runtimeMat.SetFloat("_Metallic", metallic);
+                        if (runtimeMat.HasProperty("_Smoothness")) runtimeMat.SetFloat("_Smoothness", smoothness);
+                    }
+
+                    materials[i] = runtimeMat;
+                    changed = true;
+                }
+
+                if (changed)
+                {
+                    renderer.materials = materials;
+                }
+            }
         }
 
         /// <summary>

@@ -156,6 +156,9 @@ namespace Underground.Vehicle
             bool sharesFrontAxleMesh = sourceFrontLeft != null && sourceFrontLeft == sourceFrontRight;
             bool sharesRearAxleMesh = sourceRearLeft != null && sourceRearLeft == sourceRearRight;
 
+            float importedWheelRadius = 0.34f;
+            TryGetAverageWheelRadius(sourceFrontLeft, sourceFrontRight, sourceRearLeft, sourceRearRight, out importedWheelRadius);
+
             float targetWheelRadius = ResolveWheelRadius();
             Vector3 frontLeftTarget = frontLeftWheelRoot != null ? frontLeftWheelRoot.localPosition : Vector3.zero;
             Vector3 frontRightTarget = frontRightWheelRoot != null ? frontRightWheelRoot.localPosition : Vector3.zero;
@@ -180,11 +183,16 @@ namespace Underground.Vehicle
                     sourceFrontLeft,
                     sourceFrontRight,
                     sourceRearLeft,
-                    sourceRearRight);
+                    sourceRearRight,
+                    importedWheelRadius);
+                
                 frontLeftTarget = frontLeftWheelRoot != null ? frontLeftWheelRoot.localPosition : frontLeftTarget;
                 frontRightTarget = frontRightWheelRoot != null ? frontRightWheelRoot.localPosition : frontRightTarget;
                 rearLeftTarget = rearLeftWheelRoot != null ? rearLeftWheelRoot.localPosition : rearLeftTarget;
                 rearRightTarget = rearRightWheelRoot != null ? rearRightWheelRoot.localPosition : rearRightTarget;
+                
+                // Update target radius since we just moved the physics to match the imported tires
+                targetWheelRadius = importedWheelRadius;
             }
 
             NormalizeImportedMaterials(visualInstance, definition.CarId, isGarageShowroom);
@@ -262,8 +270,30 @@ namespace Underground.Vehicle
 
             ApplyPerCarStats(definition);
             EnsureGameplayReflectionProbe(isGarageShowroom);
+
+            // DYNAMIC WAKE-UP: Tell HDRP to immediately refresh reflections for the new car.
+            // This prevents that "plastic" look on the first frame of gameplay.
+            RefreshReflections();
+
             AppearanceChanged?.Invoke();
             return true;
+        }
+
+        private void RefreshReflections()
+        {
+            // Update Global Illumination
+            DynamicGI.UpdateEnvironment();
+
+            // Notify all renderers to refresh their probe anchors
+            Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
+            foreach (Renderer r in renderers)
+            {
+                if (r != null)
+                {
+                    r.enabled = false;
+                    r.enabled = true;
+                }
+            }
         }
 
         public void SetShowroomPresentationMode(bool enabled)
@@ -305,7 +335,8 @@ namespace Underground.Vehicle
                 return false;
             }
 
-            return definition.CarId.StartsWith("arcade_car_");
+            // We now do this for ALL cars. Physics should adapt to the body, not the other way around.
+            return true;
         }
 
         private bool IsGarageShowroomContext()
@@ -491,15 +522,15 @@ namespace Underground.Vehicle
             vehicle.SetWheelVisualByColliderName("RR_Collider", rearRightVisual != null ? rearRightVisual : (useWheelRootsAsFallback ? rearRightWheelRoot : null));
         }
 
-        private void MatchGameplayWheelLayoutToSource(Transform frontLeftSource, Transform frontRightSource, Transform rearLeftSource, Transform rearRightSource)
+        private void MatchGameplayWheelLayoutToSource(Transform frontLeftSource, Transform frontRightSource, Transform rearLeftSource, Transform rearRightSource, float targetRadius)
         {
-            MatchWheelColliderAndRootToSource("FL_Collider", frontLeftWheelRoot, frontLeftSource);
-            MatchWheelColliderAndRootToSource("FR_Collider", frontRightWheelRoot, frontRightSource);
-            MatchWheelColliderAndRootToSource("RL_Collider", rearLeftWheelRoot, rearLeftSource);
-            MatchWheelColliderAndRootToSource("RR_Collider", rearRightWheelRoot, rearRightSource);
+            MatchWheelColliderAndRootToSource("FL_Collider", frontLeftWheelRoot, frontLeftSource, targetRadius);
+            MatchWheelColliderAndRootToSource("FR_Collider", frontRightWheelRoot, frontRightSource, targetRadius);
+            MatchWheelColliderAndRootToSource("RL_Collider", rearLeftWheelRoot, rearLeftSource, targetRadius);
+            MatchWheelColliderAndRootToSource("RR_Collider", rearRightWheelRoot, rearRightSource, targetRadius);
         }
 
-        private void MatchWheelColliderAndRootToSource(string colliderName, Transform wheelRoot, Transform sourceWheel)
+        private void MatchWheelColliderAndRootToSource(string colliderName, Transform wheelRoot, Transform sourceWheel, float targetRadius)
         {
             if (string.IsNullOrEmpty(colliderName) || sourceWheel == null)
             {
@@ -511,10 +542,17 @@ namespace Underground.Vehicle
                 return;
             }
 
-            Transform collider = transform.Find($"WheelColliders/{colliderName}");
-            if (collider != null)
+            Transform colliderTransform = transform.Find($"WheelColliders/{colliderName}");
+            if (colliderTransform != null)
             {
-                collider.localPosition = sourceCenterLocal;
+                colliderTransform.localPosition = sourceCenterLocal;
+                
+                // DYNAMIC FIT: Set the physics collider radius to match the visual tire.
+                WheelCollider wc = colliderTransform.GetComponent<WheelCollider>();
+                if (wc != null && targetRadius > 0.1f)
+                {
+                    wc.radius = targetRadius;
+                }
             }
 
             if (wheelRoot != null)
@@ -800,24 +838,18 @@ namespace Underground.Vehicle
                 return;
             }
 
-            if (!TryGetCombinedRendererBoundsRelativeTo(wheelRoot, wheelClone, out Bounds bounds))
+            // Only force-center the pivot if there is a significant offset (> 1cm).
+            if (TryGetCombinedRendererBoundsRelativeTo(wheelRoot, wheelClone, out Bounds bounds))
             {
-                return;
+                if (bounds.center.magnitude > 0.01f)
+                {
+                    wheelClone.localPosition -= bounds.center;
+                }
             }
 
-            wheelClone.localPosition -= bounds.center;
-
-            if (!TryGetCombinedRendererBoundsRelativeTo(wheelRoot, wheelClone, out Bounds adjustedBounds))
-            {
-                return;
-            }
-
-            float measuredRadius = Mathf.Max(adjustedBounds.extents.y, adjustedBounds.extents.z);
-            if (measuredRadius > 0.001f)
-            {
-                float uniformScale = targetWheelRadius / measuredRadius;
-                wheelClone.localScale *= uniformScale;
-            }
+            // DYNAMIC FIT: We no longer force-scale the visuals. 
+            // Instead, we moved the physics (WheelColliders) to match the visual size.
+            // This keeps the tires looking exactly as modeled.
         }
 
         private static bool TryGetCombinedRendererBoundsRelativeTo(Transform relativeTo, Transform root, out Bounds bounds)
@@ -972,16 +1004,21 @@ namespace Underground.Vehicle
             }
 
             float wheelRadiusScale = 1f;
+            float verticalScale = 1f;
             if (TryGetAverageWheelRadius(frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel, out float importedWheelRadius) && importedWheelRadius > 0.001f)
             {
-                wheelRadiusScale = Mathf.Clamp(targetWheelRadius / importedWheelRadius, 0.6f, 1.6f);
+                // We shouldn't balloon the whole car just because the wheels are different.
+                // We keep the vertical scale near 1.0 unless the model is extreme.
+                wheelRadiusScale = Mathf.Clamp(targetWheelRadius / importedWheelRadius, 0.85f, 1.15f);
+                verticalScale = wheelRadiusScale;
             }
 
-            float verticalScale = Mathf.Clamp((trackScale + wheelbaseScale + wheelRadiusScale) / 3f, 0.7f, 1.4f);
+            // Trust the model's natural wheelbase and track.
+            // We only apply very subtle scaling to keep things within a sane range.
             visualRoot.localScale = new Vector3(
-                Mathf.Clamp(trackScale, 0.75f, 1.35f),
-                verticalScale,
-                Mathf.Clamp(wheelbaseScale, 0.75f, 1.35f));
+                Mathf.Clamp(trackScale, 0.85f, 1.15f),
+                Mathf.Clamp(verticalScale, 0.85f, 1.15f),
+                Mathf.Clamp(wheelbaseScale, 0.85f, 1.15f));
         }
 
         // ------------------------------------------------------------------
@@ -1369,32 +1406,23 @@ namespace Underground.Vehicle
             bool isRmCar = IsRmCarFamily(carId);
             bool isPaintMaterial = IsPaintMaterial(sourceMaterial.name) || IsKnownRosterPaintMaterial(sourceMaterial.name, carId);
             bool isBodyMaterial = IsBodyMaterial(sourceMaterial.name) || IsKnownRosterBodyMaterial(sourceMaterial.name, carId);
+            bool isTransparent = IsTransparentMaterial(sourceMaterial.name);
 
             baseColor.r = Mathf.Clamp01(baseColor.r);
             baseColor.g = Mathf.Clamp01(baseColor.g);
             baseColor.b = Mathf.Clamp01(baseColor.b);
             baseColor.a = Mathf.Clamp01(baseColor.a <= 0f ? 1f : baseColor.a);
 
-            if (isPaintMaterial)
-            {
-                metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.03f : 0.08f);
-                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.88f, 0.96f) : Mathf.Clamp(smoothness, 0.78f, 0.9f);
-            }
-            else if (isBodyMaterial)
-            {
-                metallic = Mathf.Clamp(metallic, 0f, isRmCar ? 0.08f : 0.18f);
-                smoothness = isGarageShowroom ? Mathf.Clamp(smoothness, 0.84f, 0.92f) : Mathf.Clamp(smoothness, 0.72f, 0.84f);
-            }
+            // REMOVED: All hardcoded overrides that were clamping metallic and smoothness.
+            // We now honor the values coming from the source material assets directly.
 
-            if (!hasEmissiveMap)
-            {
-                emissiveColor = Color.black;
-            }
-            else
+            if (hasEmissiveMap)
             {
                 emissiveColor *= 0.12f;
                 emissiveColor.a = 1f;
             }
+            // If no map, we respect the base emissive color as configured by the user.
+            // If color is set manually but no map, we keep the color as is.
 
             Material normalizedMaterial = new Material(targetShader)
             {
@@ -1439,8 +1467,28 @@ namespace Underground.Vehicle
             if (normalizedMaterial.HasProperty("_GlossyReflections")) normalizedMaterial.SetFloat("_GlossyReflections", 1f);
             if (normalizedMaterial.HasProperty("_SpecularHighlights")) normalizedMaterial.SetFloat("_SpecularHighlights", 1f);
             if (normalizedMaterial.HasProperty("_TransmissionEnable")) normalizedMaterial.SetFloat("_TransmissionEnable", 0f);
-            if (normalizedMaterial.HasProperty("_EnableCoat")) normalizedMaterial.SetFloat("_EnableCoat", isPaintMaterial || isBodyMaterial ? 1f : 0f);
-            if (normalizedMaterial.HasProperty("_CoatMask")) normalizedMaterial.SetFloat("_CoatMask", isPaintMaterial ? 0.9f : isBodyMaterial ? 0.45f : 0f);
+            if (normalizedMaterial.HasProperty("_EnableCoat")) normalizedMaterial.SetFloat("_EnableCoat", sourceMaterial.HasProperty("_EnableCoat") ? sourceMaterial.GetFloat("_EnableCoat") : (isPaintMaterial || isBodyMaterial ? 1f : 0f));
+            if (normalizedMaterial.HasProperty("_CoatMask")) normalizedMaterial.SetFloat("_CoatMask", sourceMaterial.HasProperty("_CoatMask") ? sourceMaterial.GetFloat("_CoatMask") : (isPaintMaterial ? 0.9f : 0f));
+
+            if (isTransparent)
+            {
+                if (normalizedMaterial.HasProperty("_SurfaceType")) normalizedMaterial.SetFloat("_SurfaceType", 1f); // Transparent
+                if (normalizedMaterial.HasProperty("_BlendMode")) normalizedMaterial.SetFloat("_BlendMode", 0f);    // Alpha
+                
+                // GLASS IS NOT METAL: Force metallic to 0 to stop the "mirror" look.
+                metallic = 0f;
+                if (normalizedMaterial.HasProperty("_Metallic")) normalizedMaterial.SetFloat("_Metallic", metallic);
+                
+                // Lower alpha (0.18) makes glass look translucent.
+                baseColor.a = 0.18f;
+                if (normalizedMaterial.HasProperty("_BaseColor")) normalizedMaterial.SetColor("_BaseColor", baseColor);
+                
+                // Reduced smoothness prevents the 'mirror' look.
+                if (normalizedMaterial.HasProperty("_Smoothness")) normalizedMaterial.SetFloat("_Smoothness", 0.92f);
+                
+                normalizedMaterial.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                normalizedMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            }
 
             normalizedMaterial.DisableKeyword("_DISABLE_SSR");
             normalizedMaterial.DisableKeyword("_DISABLE_SSR_TRANSPARENT");
@@ -1455,7 +1503,7 @@ namespace Underground.Vehicle
                 return false;
             }
 
-            if (IsTransparentMaterial(sourceMaterial.name) || IsLightMaterial(sourceMaterial.name))
+            if (IsLightMaterial(sourceMaterial.name))
             {
                 return false;
             }
@@ -1571,8 +1619,17 @@ namespace Underground.Vehicle
 
         private static bool IsTransparentMaterial(string materialName)
         {
-            return !string.IsNullOrEmpty(materialName) &&
-                   materialName.IndexOf("glass", System.StringComparison.OrdinalIgnoreCase) >= 0;
+            if (string.IsNullOrEmpty(materialName))
+            {
+                return false;
+            }
+
+            string lower = materialName.ToLowerInvariant();
+            return lower.Contains("glass") || 
+                   lower.Contains("window") || 
+                   lower.Contains("screen") || 
+                   lower.Contains("transparent") ||
+                   lower.Contains("windshield");
         }
 
         private static bool IsLightMaterial(string materialName)

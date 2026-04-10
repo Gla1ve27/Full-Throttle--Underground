@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: ce222e3681449d44886e83e6859b29f6
+timeCreated: 1588686831
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 3590
+  packageName: FXAA Fast Approximate Anti-Aliasing
+  packageVersion: 1.5
+  assetPath: Assets/FXAA/Scripts/Editor/StartScreen.cs
+  uploadId: 668808

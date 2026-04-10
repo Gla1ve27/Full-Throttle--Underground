@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 858fbcabf8fbfcf46bef60ce5729a5ce
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56739
+  packageName: Amplify Occlusion
+  packageVersion: 2.1.0
+  assetPath: Assets/AmplifyOcclusion/Shaders/BlurFunctions.cginc
+  uploadId: 858870

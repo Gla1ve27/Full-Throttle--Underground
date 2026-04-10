@@ -119,11 +119,16 @@ namespace Underground.TimeSystem
 
         private void ApplyLighting()
         {
+            // If we want to use our own authored lighting in the Inspector, we bail out here.
+            if (lockVisualsToAuthoredDay)
+            {
+                return;
+            }
+
             // Clear legacy fog — always
             RenderSettings.fog = false;
 
             // Rotate sun/moon based on time of day
-            // 6h = sunrise (0°), 12h = noon (90°), 18h = sunset (180°), 24h = midnight (270°)
             if (sunPivot != null)
             {
                 float sunAngle = ((TimeOfDay - 6f) / 24f) * 360f;

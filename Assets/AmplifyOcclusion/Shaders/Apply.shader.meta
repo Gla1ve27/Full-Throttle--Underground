@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 537ee96eb0f0e5348bead799d732fa65
+timeCreated: 1451519501
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 56739
+  packageName: Amplify Occlusion
+  packageVersion: 2.1.0
+  assetPath: Assets/AmplifyOcclusion/Shaders/Apply.shader
+  uploadId: 858870

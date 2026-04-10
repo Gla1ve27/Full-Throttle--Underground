@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -132,21 +132,20 @@ public class DayNight : MonoBehaviour
 
     }
 
-    public void SetDirectionalLight() //Configuring the Directional Light as it is day or night (sun/moon)
+
+    public bool lockLighting = true; // NEW: Set to true to stop FCG from fighting our manual lighting.
+
+    public void SetDirectionalLight()
     {
+        if (lockLighting) return; 
 
         if (directionalLight)
         {
-            directionalLight.GetComponent<HDAdditionalLightData>().intensity = (isNight) ? intenseMoonLight : intenseSunLight; // 800 : 8000;
-
+            directionalLight.GetComponent<HDAdditionalLightData>().intensity = (isNight) ? intenseMoonLight : intenseSunLight;
             directionalLight.useColorTemperature = true;
             if (directionalLight.useColorTemperature)
                 directionalLight.colorTemperature = (isNight) ? temperatureMoonLight : temperatureSunLight;
-
         }
-        else
-            Debug.LogError("You must set the Directional Light in the Inspector of DayNight Prefab");
-
     }
 
     public void SetStreetLights(bool night)

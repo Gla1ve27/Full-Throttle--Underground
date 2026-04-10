@@ -133,17 +133,18 @@ namespace Underground.Vehicle
 
             shakeTime += dt * GetShakeFrequency();
 
-            Vector3 desiredPosition = pivot
-                - planarForward * desiredDistance
-                + Vector3.up * desiredHeight;
+            Vector3 desiredOffset = -planarForward * desiredDistance + Vector3.up * desiredHeight;
 
             if (cameraEffectsEnabled)
             {
-                desiredPosition += GetBuffetingOffset(planarForward, speedKph);
-                desiredPosition += GetShakePositionOffset(planarForward, speedKph);
+                desiredOffset += GetBuffetingOffset(planarForward, speedKph);
+                desiredOffset += GetShakePositionOffset(planarForward, speedKph);
             }
 
-            transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref followVelocity, followSmoothTime, Mathf.Infinity, dt);
+            Vector3 currentOffset = transform.position - pivot;
+            Vector3 smoothedOffset = Vector3.SmoothDamp(currentOffset, desiredOffset, ref followVelocity, followSmoothTime, Mathf.Infinity, dt);
+            
+            transform.position = pivot + smoothedOffset;
 
             // --- Rotation ---
             float activeLookAheadDistance = cameraEffectsEnabled

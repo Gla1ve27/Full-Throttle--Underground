@@ -60,19 +60,11 @@ namespace Underground.World
 
         private void Update()
         {
-            if (Time.unscaledTime < nextRefreshTime)
-            {
-                return;
-            }
-
-            nextRefreshTime = Time.unscaledTime + RefreshIntervalSeconds;
-            if (!pendingApply && sceneWarmupRefreshesRemaining <= 0)
-            {
-                return;
-            }
-
             ResolveSettingsManager();
-            ApplyAllSettings();
+            if (pendingApply || sceneWarmupRefreshesRemaining > 0)
+            {
+                ApplyAllSettings();
+            }
         }
 
         private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
