@@ -31,6 +31,35 @@ namespace Underground.Vehicle
         private Transform rearLeftWheelRoot;
         private Transform rearRightWheelRoot;
 
+        // ------------------------------------------------------------------
+        // Compatibility guards for mixed third-party vehicle assets
+        // ------------------------------------------------------------------
+
+        private enum WheelRigCompatibility
+        {
+            StandardFourWheels,
+            SharedRearAxle,
+            EmbeddedSingleMesh
+        }
+
+        private static readonly string[] SharedRearAxleCarTokens =
+        {
+            "crownvic",
+            "crown vic",
+            "americansedan"
+        };
+
+        private static readonly string[] MaterialNormalizationWhitelistTokens =
+        {
+            "rmcar26",
+            "arcadecar",
+            "simpleretrocar",
+            "americansedan",
+            "invogames",
+            "invo"
+        };
+
+
         /// <summary>
         /// Fires after new visuals have been set up so other systems
         /// (e.g. VehicleNightLightingController) can rebuild their rigs.
@@ -135,6 +164,7 @@ namespace Underground.Vehicle
                 currentCarDisplayName = definition.DisplayName;
                 ApplyPerCarStats(definition);
                 EnsureGameplayReflectionProbe(isGarageShowroom);
+                ApplyPlayerCarLODPolicy(modelRoot.Find("ImportedVisual"), isGarageShowroom);
                 return true;
             }
 
@@ -147,6 +177,8 @@ namespace Underground.Vehicle
             visualInstance.transform.localScale = Vector3.one;
 
             StripRuntimeComponents(visualInstance);
+            DisableNonVisualHelperRenderers(visualInstance);
+            ApplyPlayerCarLODPolicy(visualInstance.transform, isGarageShowroom);
 
             // ---- Wheel discovery: try authored path first, fall back to generic per-wheel ----
             Transform sourceFrontLeft = TryResolveWheel(visualInstance.transform, definition, definition.WheelMapping?.frontLeftPath, "frontleft", "fl", "FL");
@@ -155,6 +187,14 @@ namespace Underground.Vehicle
             Transform sourceRearRight = TryResolveWheel(visualInstance.transform, definition, definition.WheelMapping?.rearRightPath, "rearright", "rr", "RR");
             bool sharesFrontAxleMesh = sourceFrontLeft != null && sourceFrontLeft == sourceFrontRight;
             bool sharesRearAxleMesh = sourceRearLeft != null && sourceRearLeft == sourceRearRight;
+            WheelRigCompatibility wheelRigCompatibility = ResolveWheelRigCompatibility(definition, sourceFrontLeft, sourceFrontRight, sourceRearLeft, sourceRearRight);
+            bool useSharedRearAxleCompatibility = wheelRigCompatibility == WheelRigCompatibility.SharedRearAxle;
+            bool skipWheelBinding = wheelRigCompatibility == WheelRigCompatibility.EmbeddedSingleMesh;
+
+            if (useSharedRearAxleCompatibility)
+            {
+                sharesRearAxleMesh = false;
+            }
 
             float importedWheelRadius = 0.34f;
             TryGetAverageWheelRadius(sourceFrontLeft, sourceFrontRight, sourceRearLeft, sourceRearRight, out importedWheelRadius);
@@ -195,7 +235,8 @@ namespace Underground.Vehicle
                 targetWheelRadius = importedWheelRadius;
             }
 
-            NormalizeImportedMaterials(visualInstance, definition.CarId, isGarageShowroom);
+            NormalizeImportedMaterials(visualInstance, definition.CarId, definition.DisplayName, isGarageShowroom);
+            DisableNonVisualHelperRenderers(visualInstance);
 
             bool hasResolvedWheelSources =
                 sourceFrontLeft != null &&
@@ -207,8 +248,8 @@ namespace Underground.Vehicle
             // place them at WheelCollider positions (for steering / rolling).
             // Cars with UseDetachedWheelVisuals == false keep their wheels
             // embedded in the body mesh.
-            bool shouldDetachWheels = ShouldDetachWheelVisuals(definition, hasResolvedWheelSources, isGarageShowroom);
-            bool useMeshOnlyDetachedWheels = ShouldUseMeshOnlyDetachedWheels(definition, hasResolvedWheelSources, isGarageShowroom);
+            bool shouldDetachWheels = ShouldDetachWheelVisuals(definition, hasResolvedWheelSources, isGarageShowroom, wheelRigCompatibility);
+            bool useMeshOnlyDetachedWheels = ShouldUseMeshOnlyDetachedWheels(definition, hasResolvedWheelSources, isGarageShowroom, wheelRigCompatibility);
 
             if (shouldDetachWheels)
             {
@@ -223,14 +264,32 @@ namespace Underground.Vehicle
                 Transform frontRightVisual = !sharesFrontAxleMesh
                     ? CreateDetachedWheelVisual(frontRightWheelRoot, sourceFrontRight, targetWheelRadius, useMeshOnlyDetachedWheels, out frontRightHiddenSource)
                     : null;
-                Transform rearLeftVisual = !sharesRearAxleMesh
-                    ? CreateDetachedWheelVisual(rearLeftWheelRoot, sourceRearLeft, targetWheelRadius, useMeshOnlyDetachedWheels, out rearLeftHiddenSource)
-                    : null;
-                Transform rearRightVisual = !sharesRearAxleMesh
-                    ? CreateDetachedWheelVisual(rearRightWheelRoot, sourceRearRight, targetWheelRadius, useMeshOnlyDetachedWheels, out rearRightHiddenSource)
-                    : null;
+                Transform rearLeftVisual = null;
+                Transform rearRightVisual = null;
 
-                BindWheelVisuals(frontLeftVisual, frontRightVisual, rearLeftVisual, rearRightVisual);
+                if (useSharedRearAxleCompatibility)
+                {
+                    rearLeftVisual = CreateDetachedWheelVisual(rearLeftWheelRoot, sourceRearLeft, targetWheelRadius, useMeshOnlyDetachedWheels, out rearLeftHiddenSource);
+                    rearRightVisual = CreateDetachedWheelVisual(rearRightWheelRoot, sourceRearRight, targetWheelRadius, useMeshOnlyDetachedWheels, out rearRightHiddenSource);
+                }
+                else
+                {
+                    rearLeftVisual = !sharesRearAxleMesh
+                        ? CreateDetachedWheelVisual(rearLeftWheelRoot, sourceRearLeft, targetWheelRadius, useMeshOnlyDetachedWheels, out rearLeftHiddenSource)
+                        : null;
+                    rearRightVisual = !sharesRearAxleMesh
+                        ? CreateDetachedWheelVisual(rearRightWheelRoot, sourceRearRight, targetWheelRadius, useMeshOnlyDetachedWheels, out rearRightHiddenSource)
+                        : null;
+                }
+
+                if (skipWheelBinding)
+                {
+                    BindWheelVisuals(null, null, null, null, false);
+                }
+                else
+                {
+                    BindWheelVisuals(frontLeftVisual, frontRightVisual, rearLeftVisual, rearRightVisual);
+                }
 
                 DisableWheelRenderers(frontLeftHiddenSource ?? sourceFrontLeft, frontLeftVisual != null);
                 DisableWheelRenderers(frontRightHiddenSource ?? sourceFrontRight, frontRightVisual != null);
@@ -249,7 +308,7 @@ namespace Underground.Vehicle
                 // For gameplay cars that keep wheel meshes embedded in the
                 // body prefab, bind those authored wheel transforms directly
                 // to the wheel colliders.
-                else if (hasResolvedWheelSources)
+                else if (hasResolvedWheelSources && !skipWheelBinding)
                 {
                     BindWheelVisuals(
                         sharesFrontAxleMesh ? null : sourceFrontLeft,
@@ -284,15 +343,29 @@ namespace Underground.Vehicle
             // Update Global Illumination
             DynamicGI.UpdateEnvironment();
 
-            // Notify all renderers to refresh their probe anchors
+            // Notify real visible renderers to refresh their probe anchors.
+            // Do NOT resurrect helper collision/proxy renderers.
             Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
             foreach (Renderer r in renderers)
             {
-                if (r != null)
+                if (r == null)
+                {
+                    continue;
+                }
+
+                if (IsNonVisualHelperRenderer(r))
                 {
                     r.enabled = false;
-                    r.enabled = true;
+                    continue;
                 }
+
+                if (!r.enabled)
+                {
+                    continue;
+                }
+
+                r.enabled = false;
+                r.enabled = true;
             }
         }
 
@@ -301,7 +374,7 @@ namespace Underground.Vehicle
             showroomPresentationMode = enabled;
         }
 
-        private bool ShouldDetachWheelVisuals(PlayerCarDefinition definition, bool hasResolvedWheelSources, bool isGarageShowroom)
+        private bool ShouldDetachWheelVisuals(PlayerCarDefinition definition, bool hasResolvedWheelSources, bool isGarageShowroom, WheelRigCompatibility wheelRigCompatibility)
         {
             if (!hasResolvedWheelSources)
             {
@@ -315,17 +388,27 @@ namespace Underground.Vehicle
                 return false;
             }
 
+            if (wheelRigCompatibility == WheelRigCompatibility.EmbeddedSingleMesh)
+            {
+                return false;
+            }
+
+            if (wheelRigCompatibility == WheelRigCompatibility.SharedRearAxle)
+            {
+                return true;
+            }
+
             return definition.UseDetachedWheelVisuals;
         }
 
-        private bool ShouldUseMeshOnlyDetachedWheels(PlayerCarDefinition definition, bool hasResolvedWheelSources, bool isGarageShowroom)
+        private bool ShouldUseMeshOnlyDetachedWheels(PlayerCarDefinition definition, bool hasResolvedWheelSources, bool isGarageShowroom, WheelRigCompatibility wheelRigCompatibility)
         {
             if (!hasResolvedWheelSources || isGarageShowroom)
             {
                 return false;
             }
 
-            return false;
+            return wheelRigCompatibility == WheelRigCompatibility.SharedRearAxle;
         }
 
         private static bool ShouldMatchGameplayWheelLayoutToSource(PlayerCarDefinition definition, bool isGarageShowroom)
@@ -335,8 +418,71 @@ namespace Underground.Vehicle
                 return false;
             }
 
+            // Cars with shared rear axle compatibility should not force both rear
+            // WheelColliders onto the same imported mesh pivot. We keep their
+            // gameplay wheel layout authored in the controller.
+            if (MatchesAnyToken(definition.CarId, SharedRearAxleCarTokens) || MatchesAnyToken(definition.DisplayName, SharedRearAxleCarTokens))
+            {
+                return false;
+            }
+
             // We now do this for ALL cars. Physics should adapt to the body, not the other way around.
             return true;
+        }
+
+        private static WheelRigCompatibility ResolveWheelRigCompatibility(
+            PlayerCarDefinition definition,
+            Transform sourceFrontLeft,
+            Transform sourceFrontRight,
+            Transform sourceRearLeft,
+            Transform sourceRearRight)
+        {
+            if (MatchesAnyToken(definition.CarId, SharedRearAxleCarTokens) || MatchesAnyToken(definition.DisplayName, SharedRearAxleCarTokens))
+            {
+                return WheelRigCompatibility.SharedRearAxle;
+            }
+
+            if (sourceRearLeft != null && sourceRearRight != null && sourceRearLeft == sourceRearRight)
+            {
+                string sharedRearName = NormalizeName(sourceRearLeft.name);
+                if (sharedRearName.Contains("wheelsb") || sharedRearName.Contains("rearaxle") || sharedRearName.Contains("rearwheelpair"))
+                {
+                    return WheelRigCompatibility.SharedRearAxle;
+                }
+            }
+
+            return WheelRigCompatibility.StandardFourWheels;
+        }
+
+        private static bool ShouldNormalizeCarMaterials(string carId, string displayName)
+        {
+            return MatchesAnyToken(carId, MaterialNormalizationWhitelistTokens) ||
+                   MatchesAnyToken(displayName, MaterialNormalizationWhitelistTokens);
+        }
+
+        private static bool MatchesAnyToken(string value, IEnumerable<string> tokens)
+        {
+            if (string.IsNullOrEmpty(value) || tokens == null)
+            {
+                return false;
+            }
+
+            string normalizedValue = NormalizeName(value);
+            foreach (string token in tokens)
+            {
+                if (string.IsNullOrEmpty(token))
+                {
+                    continue;
+                }
+
+                string normalizedToken = NormalizeName(token);
+                if (!string.IsNullOrEmpty(normalizedToken) && normalizedValue.Contains(normalizedToken))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool IsGarageShowroomContext()
@@ -726,7 +872,7 @@ namespace Underground.Vehicle
 
         private static Transform CreateDetachedWheelVisual(Transform wheelRoot, Transform sourceWheel, float targetWheelRadius, bool useBestMeshOnly, out Transform hiddenSource)
         {
-            hiddenSource = sourceWheel;
+            hiddenSource = null;
 
             if (wheelRoot == null || sourceWheel == null)
             {
@@ -737,20 +883,34 @@ namespace Underground.Vehicle
             if (useBestMeshOnly)
             {
                 cloneSource = FindBestWheelMeshTransform(sourceWheel) ?? sourceWheel;
-                hiddenSource = cloneSource;
             }
 
+            // GHOST REMOVAL: Only hide renderers that are explicitly wheel-related.
+            // This is the only safe way to ensure we don't hide car bodies or windows.
+            Renderer[] sourceRenderers = sourceWheel.GetComponentsInChildren<Renderer>(true);
+            foreach(var r in sourceRenderers)
+            {
+                string n = r.name.ToLowerInvariant();
+                if (n.Contains("wheel") || n.Contains("tire") || n.Contains("tyre") || 
+                    n.Contains("rim") || n.Contains("hub") || n.Contains("spoke"))
+                {
+                    r.enabled = false;
+                }
+            }
+            hiddenSource = sourceWheel;
+
+            // SPAWN THE NEW DYNAMIC VISUAL
             GameObject wheelVisualClone = Object.Instantiate(cloneSource.gameObject, wheelRoot, false);
-            wheelVisualClone.name = "Mesh";
+            wheelVisualClone.name = "WheelMesh_Dynamic";
+            wheelVisualClone.SetActive(true);
+            
+            // Ensure the clone is visible
+            Renderer[] cloneRenderers = wheelVisualClone.GetComponentsInChildren<Renderer>(true);
+            foreach(var r in cloneRenderers) r.enabled = true;
+
             wheelVisualClone.transform.localPosition = Vector3.zero;
             wheelVisualClone.transform.localRotation = cloneSource.localRotation;
-            bool mirroredHierarchy = HasMirroredParity(cloneSource);
             NormalizeHierarchyScale(wheelVisualClone.transform);
-
-            if (mirroredHierarchy)
-            {
-                wheelVisualClone.transform.localRotation *= Quaternion.Euler(0f, 180f, 0f);
-            }
 
             StripRuntimeComponents(wheelVisualClone);
             NormalizeDetachedWheelVisual(wheelRoot, wheelVisualClone.transform, targetWheelRadius);
@@ -804,14 +964,37 @@ namespace Underground.Vehicle
                     continue;
                 }
 
+                // Optimization: Skip things that are clearly not wheels (discs, rotors, calipers, hubs)
+                string normalizedName = NormalizeName(renderer.gameObject.name);
+                if (normalizedName.Contains("disc") || normalizedName.Contains("rotor") || 
+                    normalizedName.Contains("caliper") || normalizedName.Contains("hub") || 
+                    normalizedName.Contains("brake"))
+                {
+                    continue;
+                }
+
+                // FOR PLAYER CARS: Prioritize LOD0. If it's a higher LOD, skip it unless desperate.
+                if (normalizedName.Contains("lod") && !normalizedName.Contains("lod0"))
+                {
+                    continue;
+                }
+
                 Transform candidate = renderer.transform;
-                string normalizedName = NormalizeName(candidate.name);
                 if (IsExcludedWheelDecoration(normalizedName))
                 {
                     continue;
                 }
 
                 float radius = Mathf.Max(renderer.bounds.extents.x, renderer.bounds.extents.y, renderer.bounds.extents.z);
+                
+                // Thickness Check: A real wheel is thick. A brake disc/rotor is flat.
+                // This is the absolute best way to fix the 'Solstice Blobs'.
+                float thickness = Mathf.Min(renderer.bounds.size.x, renderer.bounds.size.y, renderer.bounds.size.z);
+                if (thickness < 0.12f && !normalizedName.Contains("rim") && !normalizedName.Contains("tire") && !normalizedName.Contains("wheel"))
+                {
+                    continue;
+                }
+
                 float score = radius;
 
                 if (normalizedName.Contains("wheel")) score += 10f;
@@ -1308,9 +1491,44 @@ namespace Underground.Vehicle
         // Material normalization
         // ------------------------------------------------------------------
 
-        private static void NormalizeImportedMaterials(GameObject root, string carId, bool isGarageShowroom)
+        private void ApplyPlayerCarLODPolicy(Transform root, bool isGarageShowroom)
         {
             if (root == null)
+            {
+                return;
+            }
+
+            // Player cars should never fall to ultra-low fallback LODs.
+            // This fixes showroom/world cases where imported cars collapse into
+            // a melted shell because Unity selects a distant LOD unexpectedly.
+            LODGroup[] lodGroups = root.GetComponentsInChildren<LODGroup>(true);
+            for (int i = 0; i < lodGroups.Length; i++)
+            {
+                LODGroup lodGroup = lodGroups[i];
+                if (lodGroup == null)
+                {
+                    continue;
+                }
+
+                lodGroup.enabled = true;
+                lodGroup.animateCrossFading = false;
+                lodGroup.fadeMode = LODFadeMode.None;
+                lodGroup.ForceLOD(0);
+                lodGroup.RecalculateBounds();
+            }
+        }
+
+        private static void NormalizeImportedMaterials(GameObject root, string carId, string displayName, bool isGarageShowroom)
+        {
+            if (root == null)
+            {
+                return;
+            }
+
+            // Protect unsupported free assets from aggressive material remapping.
+            // This keeps Solstice-style imports from collapsing into a flat blob,
+            // while preserving normalization on vetted packs such as RMCar26 / InvoGames.
+            if (!ShouldNormalizeCarMaterials(carId, displayName))
             {
                 return;
             }
@@ -1765,6 +1983,87 @@ namespace Underground.Vehicle
                 || normalizedName.Contains("rotor")
                 || normalizedName.Contains("caliper")
                 || normalizedName.Contains("steeringwheel");
+        }
+
+        private static void DisableNonVisualHelperRenderers(GameObject root)
+        {
+            if (root == null)
+            {
+                return;
+            }
+
+            Renderer[] renderers = root.GetComponentsInChildren<Renderer>(true);
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                Renderer renderer = renderers[i];
+                if (renderer == null)
+                {
+                    continue;
+                }
+
+                if (IsNonVisualHelperRenderer(renderer))
+                {
+                    renderer.enabled = false;
+                    renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                    renderer.receiveShadows = false;
+                }
+            }
+        }
+
+        private static bool IsNonVisualHelperRenderer(Renderer renderer)
+        {
+            if (renderer == null)
+            {
+                return false;
+            }
+
+            string rendererName = NormalizeName(renderer.name);
+            string objectName = NormalizeName(renderer.gameObject.name);
+
+            string meshName = string.Empty;
+            if (renderer.TryGetComponent<MeshFilter>(out MeshFilter meshFilter) && meshFilter.sharedMesh != null)
+            {
+                meshName = NormalizeName(meshFilter.sharedMesh.name);
+            }
+
+            string materialName = string.Empty;
+            Material sharedMaterial = renderer.sharedMaterial;
+            if (sharedMaterial != null)
+            {
+                materialName = NormalizeName(sharedMaterial.name);
+            }
+
+            bool nameLooksLikeHelper =
+                ContainsAny(rendererName, "bodycol", "meshcol", "collision", "collider", "hitbox", "proxy", "bounds", "shellcol") ||
+                ContainsAny(objectName, "bodycol", "meshcol", "collision", "collider", "hitbox", "proxy", "bounds", "shellcol") ||
+                ContainsAny(meshName, "bodycol", "meshcol", "collision", "collider", "hitbox", "proxy", "bounds", "shellcol");
+
+            bool exactBodyColCase =
+                rendererName == "rmcar26bodycol" ||
+                objectName == "rmcar26bodycol" ||
+                meshName == "rmcar26bodycol";
+
+            // If a helper mesh got remapped to a paint material, still hide it by name/mesh.
+            return nameLooksLikeHelper || exactBodyColCase;
+        }
+
+        private static bool ContainsAny(string value, params string[] needles)
+        {
+            if (string.IsNullOrEmpty(value) || needles == null)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < needles.Length; i++)
+            {
+                string needle = needles[i];
+                if (!string.IsNullOrEmpty(needle) && value.Contains(needle))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // ------------------------------------------------------------------

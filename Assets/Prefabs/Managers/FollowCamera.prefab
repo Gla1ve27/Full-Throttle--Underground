@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2441683159813174595}
   - component: {fileID: 5834920834523698024}
   - component: {fileID: 4286991597580224450}
-  - component: {fileID: 3873688922883141083}
+  - component: {fileID: 4420456779002739850}
   m_Layer: 0
   m_Name: FollowCamera
   m_TagString: MainCamera
@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5543568440863051380}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.104528464, y: 0, z: 0, w: 0.9945219}
+  m_LocalRotation: {x: 0.10452846, y: 0, z: 0, w: 0.9945219}
   m_LocalPosition: {x: 0, y: 3, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
 --- !u!20 &2441683159813174595
 Camera:
   m_ObjectHideFlags: 0
@@ -81,9 +81,9 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 0
-  m_AllowDynamicResolution: 0
+  m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &5834920834523698024
@@ -105,7 +105,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 1
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   flipYMode: 0
   xrRendering: 1
   fullscreenPassthrough: 0
-  allowDynamicResolution: 0
+  allowDynamicResolution: 1
   customRenderingSettings: 0
   invertFaceCulling: 0
   probeLayerMask:
@@ -233,7 +233,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5543568440863051380}
   m_Enabled: 1
---- !u!114 &3873688922883141083
+--- !u!114 &4420456779002739850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,42 +246,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  targetVehicle: {fileID: 0}
   targetBody: {fileID: 0}
-  gearbox: {fileID: 0}
-  targetOffset: {x: 0, y: 0.08, z: 0}
-  followDistance: 4.6
-  highSpeedFollowDistance: 7.2
-  followHeight: 0.48
-  highSpeedFollowHeight: 0.9
-  followSmoothTime: 0.05
-  rotationSharpness: 8.5
-  lookAheadDistance: 2.8
-  highSpeedLookAheadDistance: 3.55
-  velocityHeadingBlend: 0.14
-  headingResponsiveness: 3.5
-  reverseHeadingDamping: 0.12
-  focusHeight: 0.4
-  maxLookAheadPivotOffset: 2.9
-  lookAheadPivotResponsiveness: 2.8
-  minFieldOfView: 46
-  maxFieldOfView: 72
-  speedForMaxFieldOfView: 155
+  autoApplyRecommendedSettings: 1
+  appliedPresetVersion: 4
+  targetOffset: {x: 0, y: 0.2, z: 0}
+  followDistance: 4.06
+  highSpeedFollowDistance: 5
+  followHeight: 0.25
+  highSpeedFollowHeight: 1.2
+  lookAheadDistance: 3.5
+  highSpeedLookAheadDistance: 6.4
+  focusHeight: 0.36
+  rotationSharpness: 13.5
+  velocityHeadingBlend: 0.08
+  headingResponsiveness: 6
+  reverseHeadingDamping: 0.08
+  minFieldOfView: 80
+  maxFieldOfView: 100
+  speedForMaxFieldOfView: 180
   fovWarpPower: 1.35
-  speedSmoothRate: 1.5
-  speedEffectsVolume: {fileID: 0}
-  vfxStartSpeedKph: 35
-  vfxFullSpeedKph: 240
-  vignetteBase: 0.25
-  vignetteMax: 0.5
-  chromaticBase: 0.015
-  chromaticMax: 0.08
-  motionBlurMax: 0.08
-  buffetingStartSpeedKph: 185
-  buffetingFullSpeedKph: 240
-  buffetingAmplitude: 0.004
-  buffetingFrequency: 11
-  shakeStartSpeedKph: 160
-  shakeFullSpeedKph: 230
-  shakePositionAmplitude: 0.0025
-  shakeRotationAmplitude: 0.12
+  speedFovResponse: 10
+  speedPitchAtMax: -4.8
+  highSpeedLateralLookOffset: 0.18
+  orbitMouseSensitivityX: 50
+  orbitMouseSensitivityY: 0
+  orbitPitchMin: 1
+  orbitPitchMax: 1
+  orbitYawSharpness: 1
+  orbitPitchSharpness: 1
+  orbitReturnSpeed: 4.75
+  orbitDistance: 4.06
+  orbitVerticalLift: 0.25
+  orbitLookHeight: 0.3
+  enableCameraShake: 1
+  shakeStartSpeedKph: 70
+  shakeFullSpeedKph: 165
+  shakeRotationAmplitude: 0.1
+  buffetingStartSpeedKph: 95
+  buffetingFullSpeedKph: 180
+  buffetingPositionAmplitude: 0.0035
+  buffetingFrequency: 10
