@@ -26,12 +26,15 @@ namespace Underground.Save
 
         public SaveGameData Load()
         {
+            Debug.Log($"[SaveSystem] Loading from: {SavePath}");
             if (!File.Exists(SavePath))
             {
+                Debug.LogWarning("[SaveSystem] Save file not found.");
                 return null;
             }
 
             string json = File.ReadAllText(SavePath);
+            Debug.Log($"[SaveSystem] JSON Content: {json}");
             return JsonUtility.FromJson<SaveGameData>(json);
         }
 

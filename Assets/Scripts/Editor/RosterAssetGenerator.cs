@@ -606,6 +606,15 @@ namespace Underground.Editor
                         "Rear Left Wheel",
                         "Rear Right Wheel");
                     break;
+                case "reizan_350z":
+                    // The 350z fbx uses numeric indices for wheel components.
+                    // We'll use a specific mapping that PlayerCarAppearanceController will resolve.
+                    def.wheelMapping = new CarWheelMapping(
+                        "wheel1",
+                        "wheel2",
+                        "wheel3",
+                        "wheel4");
+                    break;
             }
         }
 
@@ -631,6 +640,7 @@ namespace Underground.Editor
                 case "cyro_monolith":         return "Assets/High Matters/Free American Sedans/Prefabs/Car.prefab";
                 case "hanse_executive":       return "Assets/High Matters/Free American Sedans/Prefabs/Car_stylized.prefab";
                 case "stratos_element_9":     return "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 1.prefab";
+                case "reizan_350z":           return "Assets/Blender3DByBads/350z.fbx";
                 default:                      return "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26.prefab";
             }
         }

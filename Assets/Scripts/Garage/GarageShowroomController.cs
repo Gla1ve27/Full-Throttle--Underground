@@ -23,7 +23,7 @@ namespace Underground.Garage
         [SerializeField] private bool allowMouseRotation = true;
         [SerializeField] private float mouseDragSensitivity = 5.5f;
         [SerializeField] private float rotationSmoothing = 10f;
-        [SerializeField] private float initialYaw = 146f;
+        [SerializeField] private float initialYaw = 270f;
         [SerializeField] private float showroomBodyDrop = -0.16f;
         [SerializeField] private float showroomGroundClearance = 0.02f;
 
@@ -112,7 +112,10 @@ namespace Underground.Garage
             }
 
             Quaternion desiredRotation = Quaternion.Euler(0f, targetYaw, 0f);
-            displayRoot.localRotation = Quaternion.Slerp(displayRoot.localRotation, desiredRotation, 1f - Mathf.Exp(-rotationSmoothing * Time.unscaledDeltaTime));
+            displayRoot.localRotation = Quaternion.Slerp(
+                displayRoot.localRotation,
+                desiredRotation,
+                1f - Mathf.Exp(-rotationSmoothing * Time.unscaledDeltaTime));
         }
 
         public void RotateLeft()
@@ -168,6 +171,7 @@ namespace Underground.Garage
 
             if (progressManager == null)
             {
+                Debug.LogWarning("[Showroom] No PersistentProgressManager found.");
                 return false;
             }
 
@@ -176,21 +180,34 @@ namespace Underground.Garage
                 appearanceController = vehicle.GetComponent<PlayerCarAppearanceController>();
             }
 
-            if (appearanceController != null)
+            if (appearanceController == null)
             {
-                appearanceController.SetShowroomPresentationMode(true);
+                Debug.LogWarning("[Showroom] No PlayerCarAppearanceController found.");
+                return false;
             }
 
+            appearanceController.SetShowroomPresentationMode(true);
+
             var ownedCars = PlayerCarCatalog.GetOwnedCars(progressManager);
+            Debug.Log($"[Showroom] CurrentOwnedCarId = {progressManager.CurrentOwnedCarId}");
+
+            foreach (var c in ownedCars)
+            {
+                Debug.Log($"[Showroom] Available Owned Car: {c.CarId}");
+            }
+
             if (ownedCars.Count == 0)
             {
+                Debug.LogWarning("[Showroom] No owned cars available.");
                 return false;
             }
 
             int currentIndex = -1;
+            string currentResolvedId = PlayerCarCatalog.MigrateCarId(progressManager.CurrentOwnedCarId);
+
             for (int i = 0; i < ownedCars.Count; i++)
             {
-                if (ownedCars[i].CarId == progressManager.CurrentOwnedCarId)
+                if (ownedCars[i].CarId == currentResolvedId)
                 {
                     currentIndex = i;
                     break;
@@ -202,22 +219,36 @@ namespace Underground.Garage
                 currentIndex = 0;
             }
 
-            int nextIndex = (currentIndex + direction + ownedCars.Count) % ownedCars.Count;
-            PlayerCarDefinition selectedCar = ownedCars[nextIndex];
-            progressManager.SetCurrentCar(selectedCar.CarId);
-            progressManager.SaveNow(progressManager.WorldTimeOfDay);
-
-            bool applied = appearanceController != null && appearanceController.ApplyAppearance(selectedCar.CarId);
-            if (!applied)
+            // Try each owned car until one applies successfully.
+            for (int attempt = 1; attempt <= ownedCars.Count; attempt++)
             {
-                return false;
+                int nextIndex = (currentIndex + (direction * attempt) + ownedCars.Count) % ownedCars.Count;
+                PlayerCarDefinition selectedCar = ownedCars[nextIndex];
+
+                Debug.Log($"[Showroom] Trying car: {selectedCar.CarId}");
+
+                bool applied = appearanceController.ApplyAppearance(selectedCar.CarId);
+                if (!applied)
+                {
+                    Debug.LogWarning($"[Showroom] Failed to apply car: {selectedCar.CarId}. Skipping.");
+                    continue;
+                }
+
+                // Save only after successful appearance application.
+                progressManager.SetCurrentCar(selectedCar.CarId);
+                progressManager.SaveNow(progressManager.WorldTimeOfDay);
+
+                RefreshVehicleReferences();
+                activeShowroomBodyDrop = selectedCar.ShowroomBodyDrop;
+                ApplyShowroomRideHeight();
+                VehicleChanged?.Invoke(vehicle);
+
+                Debug.Log($"[Showroom] Successfully applied car: {selectedCar.CarId}");
+                return true;
             }
 
-            RefreshVehicleReferences();
-            activeShowroomBodyDrop = selectedCar.ShowroomBodyDrop;
-            ApplyShowroomRideHeight();
-            VehicleChanged?.Invoke(vehicle);
-            return true;
+            Debug.LogWarning("[Showroom] No valid owned car could be displayed.");
+            return false;
         }
 
         private void RefreshVehicleReferences()
@@ -231,10 +262,7 @@ namespace Underground.Garage
             vehicleInput = vehicle.GetComponent<InputReader>();
             respawn = vehicle.GetComponent<CarRespawn>();
             modelRoot = vehicle.transform.Find("ModelRoot");
-            // NOTE: do NOT recapture modelRootBaseLocalPosition here.
-            // It was captured once in Awake() from the pristine position.
-            // Re-capturing it after a body-drop has been applied causes
-            // accumulative sinking on every car swap.
+            // Intentionally do not recapture modelRootBaseLocalPosition here.
         }
 
         private void HandleMouseRotation()
@@ -334,8 +362,6 @@ namespace Underground.Garage
                 return false;
             }
 
-            // Detached-wheel cars already have authored showroom offsets.
-            // Applying full-renderer grounding to them lifts the body based on wheel visuals.
             return !definition.UseDetachedWheelVisuals;
         }
 

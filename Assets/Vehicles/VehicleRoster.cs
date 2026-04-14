@@ -51,6 +51,7 @@ namespace Underground.Vehicle
         public const string ReizanVanguardId     = "reizan_vanguard_34";
         public const string CyroMonolithId       = "cyro_monolith";
         public const string HanseExecutiveId     = "hanse_executive";
+        public const string Reizan350ZId         = "reizan_350z";
 
         // ── Hero visual kit IDs (NOT separate cars) ──────────────────────────
         public const string SolsticeKitB = "solstice_type_s_kit_b";
@@ -72,6 +73,7 @@ namespace Underground.Vehicle
             new RosterEntry(CyroMonolithId,       "Cyro Monolith",         "Cyro",     VehicleArchetype.Executive,     DrivetrainType.RWD),
             new RosterEntry(HanseExecutiveId,     "Hanse Executive",       "Hanse",    VehicleArchetype.Executive,     DrivetrainType.AWD),
             new RosterEntry(HeroCarId,            "Solstice Type-S",       "Solstice", VehicleArchetype.Hero,          DrivetrainType.RWD),
+            new RosterEntry(Reizan350ZId,         "Reizan 350Z",           "Reizan",   VehicleArchetype.Sports,        DrivetrainType.RWD),
         };
 
         // ── All canonical IDs in roster order ───────────────────────────────
@@ -89,6 +91,7 @@ namespace Underground.Vehicle
             ReizanVanguardId,
             CyroMonolithId,
             HanseExecutiveId,
+            Reizan350ZId,
         };
 
         // ── Legacy → canonical migration ────────────────────────────────────

@@ -124,23 +124,23 @@ namespace Underground.Vehicle
 
         public static readonly string[] DefaultOwnedCarIds =
         {
-            "simple_retro_car",
-            "arcade_car_1",
-            "arcade_car_2",
-            "arcade_car_3",
-            "arcade_car_4",
-            "arcade_car_5",
-            "arcade_car_6",
-            "arcade_car_7",
-            "arcade_car_8",
-            "arcade_car_9",
-            "arcade_car_10",
-            "american_sedan",
-            "american_sedan_stylized",
+            "solstice_type_s",
+            "maverick_vengeance_srt",
+            "zodic_s_classic",
+            "protoso_c16",
+            "weaver_pup_s",
+            "stratos_element_9",
+            "reizan_gt_rb",
+            "reizan_icon_iv",
+            "uruk_grinder_4x4",
+            "reizan_vanguard_34",
+            "cyro_monolith",
+            "hanse_executive",
             "rmcar26",
             "rmcar26_b",
             "rmcar26_c",
-            "rmcar26_d"
+            "rmcar26_d",
+            "reizan_350z"
         };
 
         // ------------------------------------------------------------------
@@ -204,6 +204,7 @@ namespace Underground.Vehicle
             { "reizan_vanguard_34",    "arcade_car_6" },
             { "cyro_monolith",         "american_sedan" },
             { "hanse_executive",       "american_sedan_stylized" },
+            { "reizan_350z",           "reizan_350z" },
         };
 
         // ------------------------------------------------------------------
@@ -267,103 +268,18 @@ namespace Underground.Vehicle
             "Rear Right Wheel"
         );
 
+        private static readonly CarWheelMapping Reizan350ZWheels = new CarWheelMapping(
+            "Wheel_FL",
+            "Wheel_FR",
+            "Wheel_LR",
+            "Wheel_RR"
+        );
         // ------------------------------------------------------------------
         // Full car roster with per-car definitions.
         // StatsAssetPath is optional; null means "keep base rig stats".
         // ------------------------------------------------------------------
         private static readonly PlayerCarDefinition[] Definitions =
         {
-            new PlayerCarDefinition(
-                "simple_retro_car",
-                "Simple Retro Car",
-                "Assets/Polyeler/Simple Retro Car/Prefabs/Simple Retro Car.prefab",
-                null,
-                SimpleRetroCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_1",
-                "Arcade Car 1",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 1.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_2",
-                "Arcade Car 2",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 2.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_3",
-                "Arcade Car 3",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 3.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_4",
-                "Arcade Car 4",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 4.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_5",
-                "Arcade Car 5",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 5.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_6",
-                "Arcade Car 6",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 6.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_7",
-                "Arcade Car 7",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 7.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_8",
-                "Arcade Car 8",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 8.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_9",
-                "Arcade Car 9",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 9.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "arcade_car_10",
-                "Arcade Car 10",
-                "Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition Racing Games/Prefabs/Car 10.prefab",
-                null,
-                ArcadeCarWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "american_sedan",
-                "American Sedan",
-                "Assets/High Matters/Free American Sedans/Prefabs/Car.prefab",
-                null,
-                AmericanSedanWheels,
-                -0.16f),
-            new PlayerCarDefinition(
-                "american_sedan_stylized",
-                "American Sedan Stylized",
-                "Assets/High Matters/Free American Sedans/Prefabs/Car_stylized.prefab",
-                null,
-                AmericanSedanStylizedWheels,
-                -0.16f),
             new PlayerCarDefinition(
                 "rmcar26",
                 "RMCar26",
@@ -391,7 +307,15 @@ namespace Underground.Vehicle
                 "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26_D.prefab",
                 null,
                 RMCar26_D_Wheels,
-                -0.16f)
+                -0.16f),
+            new PlayerCarDefinition(
+                "reizan_350z",
+                "Reizan 350Z",
+                "Assets/Blender3DByBads/350z.fbx",
+                null,
+                Reizan350ZWheels,
+                -0.16f
+            ),
         };
 
         public static IReadOnlyList<PlayerCarDefinition> GetDefinitions()

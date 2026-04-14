@@ -1,3 +1,6 @@
+// FIXED VERSION - PlayerCarAppearanceController.cs
+// Includes AUTO wheel radius detection + static wheel fix
+
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -56,7 +59,8 @@ namespace Underground.Vehicle
             "simpleretrocar",
             "americansedan",
             "invogames",
-            "invo"
+            "invo",
+            "350z"
         };
 
 
@@ -676,37 +680,52 @@ namespace Underground.Vehicle
             MatchWheelColliderAndRootToSource("RR_Collider", rearRightWheelRoot, rearRightSource, targetRadius);
         }
 
-        private void MatchWheelColliderAndRootToSource(string colliderName, Transform wheelRoot, Transform sourceWheel, float targetRadius)
+        
+private void MatchWheelColliderAndRootToSource(string colliderName, Transform wheelRoot, Transform sourceWheel, float targetRadius)
+{
+    if (string.IsNullOrEmpty(colliderName) || sourceWheel == null)
+    {
+        return;
+    }
+
+    if (!TryGetWheelCenterLocal(transform, sourceWheel, out Vector3 sourceCenterLocal))
+    {
+        return;
+    }
+
+    Transform colliderTransform = transform.Find($"WheelColliders/{colliderName}");
+    if (colliderTransform != null)
+    {
+        colliderTransform.localPosition = sourceCenterLocal;
+
+        WheelCollider wc = colliderTransform.GetComponent<WheelCollider>();
+        if (wc != null && targetRadius > 0.1f)
         {
-            if (string.IsNullOrEmpty(colliderName) || sourceWheel == null)
+            float oldRadius = wc.radius;
+            wc.radius = targetRadius;
+
+            // Compensate suspension distance so the car body stays at the
+            // same ride height after re-sizing the wheel collider.
+            float radiusDelta = targetRadius - oldRadius;
+            if (Mathf.Abs(radiusDelta) > 0.001f)
             {
-                return;
+                wc.suspensionDistance = Mathf.Max(0.01f, wc.suspensionDistance - radiusDelta);
             }
 
-            if (!TryGetWheelCenterLocal(transform, sourceWheel, out Vector3 sourceCenterLocal))
-            {
-                return;
-            }
-
-            Transform colliderTransform = transform.Find($"WheelColliders/{colliderName}");
-            if (colliderTransform != null)
-            {
-                colliderTransform.localPosition = sourceCenterLocal;
-                
-                // DYNAMIC FIT: Set the physics collider radius to match the visual tire.
-                WheelCollider wc = colliderTransform.GetComponent<WheelCollider>();
-                if (wc != null && targetRadius > 0.1f)
-                {
-                    wc.radius = targetRadius;
-                }
-            }
-
-            if (wheelRoot != null)
-            {
-                wheelRoot.localPosition = sourceCenterLocal;
-                wheelRoot.localRotation = Quaternion.identity;
-            }
+            // force refresh
+            wc.enabled = false;
+            wc.enabled = true;
         }
+    }
+
+    if (wheelRoot != null)
+    {
+        wheelRoot.localPosition = sourceCenterLocal;
+        wheelRoot.localRotation = Quaternion.identity;
+    }
+
+    Debug.Log($"[PlayerCarAppearance] {colliderName} → pos={sourceCenterLocal}, radius={targetRadius:F3}");
+}
 
         private Transform FindOrCreateWheelRoot(string wheelRootName, string colliderName)
         {
@@ -1197,11 +1216,12 @@ namespace Underground.Vehicle
             }
 
             // Trust the model's natural wheelbase and track.
-            // We only apply very subtle scaling to keep things within a sane range.
+            // We use a wide clamp to handle unit mismatches (Meters vs Centimeters)
+            // while still preventing division-by-zero or extreme outliers.
             visualRoot.localScale = new Vector3(
-                Mathf.Clamp(trackScale, 0.85f, 1.15f),
-                Mathf.Clamp(verticalScale, 0.85f, 1.15f),
-                Mathf.Clamp(wheelbaseScale, 0.85f, 1.15f));
+                Mathf.Clamp(trackScale, 0.001f, 1000f),
+                Mathf.Clamp(verticalScale, 0.001f, 1000f),
+                Mathf.Clamp(wheelbaseScale, 0.001f, 1000f));
         }
 
         // ------------------------------------------------------------------
