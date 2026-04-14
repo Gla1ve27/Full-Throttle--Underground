@@ -391,6 +391,12 @@ namespace Underground.Garage
                 audioController.enabled = false;
             }
 
+            RealisticEngineSound realisticEngineSound = GetComponentInChildren<RealisticEngineSound>(true);
+            if (realisticEngineSound != null)
+            {
+                realisticEngineSound.enabled = false;
+            }
+
             AudioSource[] audioSources = GetComponentsInChildren<AudioSource>(true);
             for (int i = 0; i < audioSources.Length; i++)
             {

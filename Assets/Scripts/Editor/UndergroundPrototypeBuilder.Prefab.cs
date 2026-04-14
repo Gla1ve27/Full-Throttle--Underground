@@ -8,6 +8,12 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
+        private const string DefaultRealisticEngineSoundPresetPath = "Assets/RealisticEngineSound/Assets/Prefabs/Engine_Prefabs/i4_japanese.prefab";
+        private const string I4JapaneseInteriorBasePath = "Assets/RealisticEngineSound/Assets/Sounds/i4_japanese/Interior";
+        private const string TurboBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Turbo";
+        private const string ShiftBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Shifting/Pack_3";
+        private const string MufflerBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Muffler/Pack1";
+
         private static GameObject CreateOrUpdatePlayerCarPrefab(VehicleStatsData starterStats, bool preserveExistingAsset = false)
         {
             if (preserveExistingAsset && AssetExistsAtPath<GameObject>(PlayerCarPrefabPath))
@@ -68,7 +74,9 @@ namespace Underground.EditorTools
             AudioSource whineSource = whineRoot.AddComponent<AudioSource>();
             whineSource.loop = true;
             whineSource.playOnAwake = false;
+            RealisticEngineSound realisticEngineSound = audioRoot.AddComponent<RealisticEngineSound>();
             VehicleAudioController audioController = audioRoot.AddComponent<VehicleAudioController>();
+            ConfigurePlayerEngineSound(realisticEngineSound);
 
             SerializedObject controllerSo = new SerializedObject(controller);
             controllerSo.FindProperty("baseStats").objectReferenceValue = starterStats;
@@ -76,6 +84,11 @@ namespace Underground.EditorTools
             controllerSo.FindProperty("engineModel").objectReferenceValue = engine;
             controllerSo.FindProperty("gearbox").objectReferenceValue = gearbox;
             controllerSo.FindProperty("centerOfMassReference").objectReferenceValue = centerOfMass;
+            controllerSo.FindProperty("lowSpeedAssistEntryKph").floatValue = 12f;
+            controllerSo.FindProperty("lowSpeedStopSnapKph").floatValue = 0.85f;
+            controllerSo.FindProperty("lowSpeedCoastDeceleration").floatValue = 4.5f;
+            controllerSo.FindProperty("lowSpeedLateralDamping").floatValue = 3.5f;
+            controllerSo.FindProperty("lowSpeedAngularDamping").floatValue = 2.4f;
             SerializedProperty wheelsProperty = controllerSo.FindProperty("wheels");
             wheelsProperty.arraySize = 4;
             ApplyWheel(wheelsProperty.GetArrayElementAtIndex(0), fl);
@@ -93,13 +106,73 @@ namespace Underground.EditorTools
             SerializedObject audioSo = new SerializedObject(audioController);
             audioSo.FindProperty("gearbox").objectReferenceValue = gearbox;
             audioSo.FindProperty("vehicle").objectReferenceValue = controller;
-            audioSo.FindProperty("engineSource").objectReferenceValue = audioSource;
-            audioSo.FindProperty("whineSource").objectReferenceValue = whineSource;
+            audioSo.FindProperty("input").objectReferenceValue = input;
+            audioSo.FindProperty("engineSound").objectReferenceValue = realisticEngineSound;
+            audioSo.FindProperty("interiorIdleClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_idle.wav");
+            audioSo.FindProperty("interiorLowOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_low_on.wav");
+            audioSo.FindProperty("interiorMidOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_med_on.wav");
+            audioSo.FindProperty("interiorHighOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_high_on.wav");
+            audioSo.FindProperty("interiorLowOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_low_off.wav");
+            audioSo.FindProperty("interiorMidOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_med_off.wav");
+            audioSo.FindProperty("interiorHighOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_high_off.wav");
+            audioSo.FindProperty("turboSpoolClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/loop_1.wav");
+            audioSo.FindProperty("turboWhistleClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/maxLoop_1.wav");
+            audioSo.FindProperty("blowOffClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/short_shot_3.wav");
+            audioSo.FindProperty("shiftUpClip").objectReferenceValue = LoadAudioClipAtPath($"{ShiftBasePath}/shift_1.wav");
+            audioSo.FindProperty("shiftDownClip").objectReferenceValue = LoadAudioClipAtPath($"{ShiftBasePath}/tiptronic_1.wav");
+            audioSo.FindProperty("liftOffCrackleClip").objectReferenceValue = LoadAudioClipAtPath($"{MufflerBasePath}/muffler_off_1.wav");
+            audioSo.FindProperty("movingIdleFadeStartKph").floatValue = 7f;
+            audioSo.FindProperty("movingIdleFadeEndKph").floatValue = 24f;
+            audioSo.FindProperty("highBandEntrySpeedKph").floatValue = 30f;
+            audioSo.FindProperty("highBandFullSpeedKph").floatValue = 90f;
+            audioSo.FindProperty("highBandLoadThreshold").floatValue = 0.26f;
             audioSo.ApplyModifiedPropertiesWithoutUndo();
 
             PrefabUtility.SaveAsPrefabAsset(carRoot, PlayerCarPrefabPath);
             Object.DestroyImmediate(carRoot);
             return AssetDatabase.LoadAssetAtPath<GameObject>(PlayerCarPrefabPath);
+        }
+
+        private static void ConfigurePlayerEngineSound(RealisticEngineSound target)
+        {
+            if (target == null)
+            {
+                return;
+            }
+
+            GameObject presetPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(DefaultRealisticEngineSoundPresetPath);
+            if (presetPrefab == null)
+            {
+                Debug.LogWarning($"[Full Throttle] Missing RealisticEngineSound preset at '{DefaultRealisticEngineSoundPresetPath}'.");
+                return;
+            }
+
+            RealisticEngineSound preset = presetPrefab.GetComponent<RealisticEngineSound>();
+            if (preset == null)
+            {
+                Debug.LogWarning($"[Full Throttle] RealisticEngineSound preset '{DefaultRealisticEngineSoundPresetPath}' has no RealisticEngineSound component.");
+                return;
+            }
+
+            EditorUtility.CopySerialized(preset, target);
+            target.audioMixer = null;
+            target.mainCamera = null;
+            target.enabled = true;
+            target.engineCurrentRPM = 0f;
+            target.gasPedalPressing = false;
+            target.gasPedalValue = 0f;
+            target.gasPedalValueSetting = RealisticEngineSound.GasPedalValue.NotSimulated;
+            target.isReversing = false;
+            target.carCurrentSpeed = 0f;
+            target.carMaxSpeed = 0f;
+            target.isShifting = false;
+        }
+
+        private static AudioClip LoadAudioClipAtPath(string assetPath)
+        {
+            return string.IsNullOrEmpty(assetPath)
+                ? null
+                : AssetDatabase.LoadAssetAtPath<AudioClip>(assetPath);
         }
 
         private static ImportedVehicleVisual AttachImportedPlayerVisual(

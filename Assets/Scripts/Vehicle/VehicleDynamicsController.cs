@@ -39,6 +39,13 @@ namespace Underground.Vehicle
         [SerializeField] private float reverseReleaseSpeedKph = 1.5f;
         [SerializeField] private float aerodynamicDragCoefficient = 0.36f;
 
+        [Header("Low-Speed Stabilization")]
+        [SerializeField] private float lowSpeedAssistEntryKph = 12f;
+        [SerializeField] private float lowSpeedStopSnapKph = 0.85f;
+        [SerializeField] private float lowSpeedCoastDeceleration = 4.5f;
+        [SerializeField] private float lowSpeedLateralDamping = 3.5f;
+        [SerializeField] private float lowSpeedAngularDamping = 2.4f;
+
         [Header("Feel")]
         [SerializeField] private float motorTorqueResponse = 2600f;
         [SerializeField] private float baseLoadGripBias = 0.92f;
@@ -135,6 +142,8 @@ namespace Underground.Vehicle
             ApplyYawStability();
             ApplyHighSpeedStability();
             ApplyDriftAssist();
+            ApplyLowSpeedStopAssist();
+            UpdateTelemetry();
         }
 
         private void LateUpdate()
@@ -692,6 +701,73 @@ namespace Underground.Vehicle
 
             Vector3 dragForce = -planarVelocity.normalized * speedMs * speedMs * aerodynamicDragCoefficient;
             Rigidbody.AddForce(dragForce, ForceMode.Force);
+        }
+
+        private void ApplyLowSpeedStopAssist()
+        {
+            if (!IsGrounded || Rigidbody == null || input == null || runtimeStats == null)
+            {
+                return;
+            }
+
+            if (input.Handbrake || input.Throttle > 0.05f || IsReversing || input.ReverseHeld || IsSliding)
+            {
+                return;
+            }
+
+            Vector3 planarVelocity = Vector3.ProjectOnPlane(Rigidbody.linearVelocity, Vector3.up);
+            if (planarVelocity.sqrMagnitude <= 0.0001f)
+            {
+                return;
+            }
+
+            Vector3 planarForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 planarRight = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
+            if (planarForward.sqrMagnitude <= 0.0001f || planarRight.sqrMagnitude <= 0.0001f)
+            {
+                return;
+            }
+
+            float forwardVelocityMs = Vector3.Dot(planarVelocity, planarForward);
+            float lateralVelocityMs = Vector3.Dot(planarVelocity, planarRight);
+            float absForwardSpeedKph = Mathf.Abs(forwardVelocityMs) * 3.6f;
+            if (absForwardSpeedKph > lowSpeedAssistEntryKph)
+            {
+                return;
+            }
+
+            float assistT = 1f - Mathf.InverseLerp(0f, lowSpeedAssistEntryKph, absForwardSpeedKph);
+            float brakeAssist = Mathf.Lerp(1f, 1.8f, Mathf.Clamp01(input.Brake));
+            float forwardStep = lowSpeedCoastDeceleration * Mathf.Lerp(0.4f, 1f, assistT) * brakeAssist * Time.fixedDeltaTime;
+            float lateralStep = lowSpeedLateralDamping * Mathf.Lerp(0.35f, 1f, assistT) * Time.fixedDeltaTime;
+
+            forwardVelocityMs = Mathf.MoveTowards(forwardVelocityMs, 0f, forwardStep);
+            lateralVelocityMs = Mathf.MoveTowards(lateralVelocityMs, 0f, lateralStep);
+
+            bool shouldSnapToRest = absForwardSpeedKph <= lowSpeedStopSnapKph
+                && Mathf.Abs(lateralVelocityMs) * 3.6f <= lowSpeedStopSnapKph
+                && Mathf.Abs(input.Steering) < 0.2f;
+
+            if (shouldSnapToRest)
+            {
+                forwardVelocityMs = 0f;
+                lateralVelocityMs = 0f;
+            }
+
+            Vector3 stabilizedPlanarVelocity = (planarForward * forwardVelocityMs) + (planarRight * lateralVelocityMs);
+            Rigidbody.linearVelocity = stabilizedPlanarVelocity + Vector3.Project(Rigidbody.linearVelocity, Vector3.up);
+
+            Vector3 angularVelocity = Rigidbody.angularVelocity;
+            float angularStep = lowSpeedAngularDamping * Mathf.Lerp(0.35f, 1f, assistT) * Time.fixedDeltaTime;
+            angularVelocity.y = Mathf.MoveTowards(angularVelocity.y, 0f, angularStep);
+
+            if (shouldSnapToRest)
+            {
+                angularVelocity.x = Mathf.MoveTowards(angularVelocity.x, 0f, angularStep * 0.6f);
+                angularVelocity.z = Mathf.MoveTowards(angularVelocity.z, 0f, angularStep * 0.6f);
+            }
+
+            Rigidbody.angularVelocity = angularVelocity;
         }
 
         // ─────────────────────────────────────────────────────────────────────
