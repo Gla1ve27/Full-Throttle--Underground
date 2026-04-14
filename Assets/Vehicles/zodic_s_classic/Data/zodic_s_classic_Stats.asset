@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: zodic_s_classic_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: zodic_s_classic
+  displayName: Zodic S-Classic
+  archetype: 0
+  drivetrain: 0
+  horsepower: 160
+  maxMotorTorque: 320
+  maxBrakeTorque: 3200
+  maxSpeedKph: 185
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.55
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.78
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.82
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.72
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 850
+  maxRPM: 7200
+  shiftUpRPM: 6800
+  shiftDownRPM: 2200
+  finalDriveRatio: 4.1
+  gearRatios:
+  - 0
+  - 3.2
+  - 2.1
+  - 1.55
+  - 1.18
+  - 0.95
+  defaultMass: 1050
+  weightDistributionFront: 0.6
+  centerOfMassHeight: -0.38
+  centerOfMassOffset: {x: 0, y: -0.38, z: 0.05}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 22000
+  damper: 2800
+  suspensionDistance: 0.16
+  antiRollForce: 2400
+  maxSteerAngle: 28
+  highSpeedSteerReduction: 0.22
+  steeringResponse: 88
+  forwardStiffness: 1.2
+  sidewaysStiffness: 1.35
+  frontGrip: 1.05
+  rearGrip: 0.92
+  traction: 0.95
+  brakeGrip: 0.9
+  slipAngle: 13
+  recoveryRate: 4.2
+  highSpeedStability: 0.8
+  downforce: 18
+  lateralGripAssist: 1.2
+  handbrakeGripMultiplier: 0.45
+  resetLift: 1
+  driftAssist: 0.55
+  counterSteerAssist: 0.5
+  yawStability: 0.45
+  nitrousGripAssist: 0.12
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 12
+  baseValue: 12000

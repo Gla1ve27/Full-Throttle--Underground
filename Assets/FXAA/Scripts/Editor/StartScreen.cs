@@ -367,6 +367,7 @@ namespace AseFxaa
 
 		public static IEnumerator StartRequest( string url, SuccessCall success = null )
 		{
+			yield break;
 			using( var www = UnityWebRequest.Get( SanitizeURL( url ) ) )
 			{
 				yield return www.SendWebRequest();
@@ -381,6 +382,7 @@ namespace AseFxaa
 
 		public static IEnumerator StartTextureRequest( string url, SuccessCall success = null )
 		{
+			yield break;
 			using( UnityWebRequest www = UnityWebRequestTexture.GetTexture( SanitizeURL( url ) ) )
 			{
 				yield return www.SendWebRequest();

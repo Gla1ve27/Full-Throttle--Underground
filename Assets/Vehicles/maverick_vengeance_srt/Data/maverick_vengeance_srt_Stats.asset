@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: maverick_vengeance_srt_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: maverick_vengeance_srt
+  displayName: Maverick Vengeance SRT
+  archetype: 1
+  drivetrain: 1
+  horsepower: 460
+  maxMotorTorque: 720
+  maxBrakeTorque: 5200
+  maxSpeedKph: 245
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.35
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.58
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.88
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.78
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.55
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 700
+  maxRPM: 5400
+  shiftUpRPM: 4800
+  shiftDownRPM: 1600
+  finalDriveRatio: 3.5
+  gearRatios:
+  - 0
+  - 2.66
+  - 1.78
+  - 1.3
+  - 1
+  - 0.8
+  - 0.62
+  defaultMass: 1780
+  weightDistributionFront: 0.54
+  centerOfMassHeight: -0.42
+  centerOfMassOffset: {x: 0, y: -0.42, z: -0.08}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 32000
+  damper: 4200
+  suspensionDistance: 0.17
+  antiRollForce: 3600
+  maxSteerAngle: 22
+  highSpeedSteerReduction: 0.15
+  steeringResponse: 58
+  forwardStiffness: 1.35
+  sidewaysStiffness: 1.2
+  frontGrip: 0.9
+  rearGrip: 0.85
+  traction: 0.8
+  brakeGrip: 0.95
+  slipAngle: 12
+  recoveryRate: 2.8
+  highSpeedStability: 0.88
+  downforce: 28
+  lateralGripAssist: 1.05
+  handbrakeGripMultiplier: 0.55
+  resetLift: 1.3
+  driftAssist: 0.65
+  counterSteerAssist: 0.55
+  yawStability: 0.35
+  nitrousGripAssist: 0.18
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 22
+  baseValue: 28000

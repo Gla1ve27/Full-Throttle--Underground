@@ -681,7 +681,15 @@ namespace Underground.EditorTools
             }
 
             // Absolute final fallback to internal public API
-            return profile.Add(type, true);
+            try
+            {
+                return profile.Add(type, true);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"[Rendering] Fallback Add Failure for {type.Name}: {ex.Message}");
+                return null;
+            }
         }
 
         private static VolumeComponent FindMatchingVolumeComponent(VolumeProfile profile, Type targetType)

@@ -93,17 +93,17 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   enabledTransparent:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   tracing:
     m_OverrideState: 1
     m_Value: 1
   m_MinSmoothness:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.28
   m_SmoothnessFadeStart:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 0.28
   reflectSky:
     m_OverrideState: 1
     m_Value: 1
@@ -112,13 +112,13 @@ MonoBehaviour:
     m_Value: 0
   depthBufferThickness:
     m_OverrideState: 1
-    m_Value: 0.01
+    m_Value: 0.02
   screenFadeDistance:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.06
   accumulationFactor:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 0.82
   biasFactor:
     m_OverrideState: 0
     m_Value: 0.5
@@ -162,16 +162,16 @@ MonoBehaviour:
     m_Value: 1
   m_RayLength:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 96
   m_ClampValue:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 14
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
   m_DenoiserRadius:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 0.7
   m_DenoiserAntiFlickeringStrength:
     m_OverrideState: 1
     m_Value: 1
@@ -180,7 +180,7 @@ MonoBehaviour:
     m_Value: 2
   m_FullResolution:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   sampleCount:
     m_OverrideState: 1
     m_Value: 1

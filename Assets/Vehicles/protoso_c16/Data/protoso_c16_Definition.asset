@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c243052a3168cc8499d005e86c5f507e, type: 3}
+  m_Name: protoso_c16_Definition
+  m_EditorClassIdentifier: 
+  vehicleId: protoso_c16
+  displayName: Protoso C-16
+  manufacturerLoreName: Protoso
+  description: "Protoso C-16 by Protoso. A nimble city runner \u2014 quick reflexes,
+    tight corners."
+  archetype: 0
+  drivetrain: 0
+  visualPrefabPath: Assets/Store InvoGames/Car Asset Pack for Arcade & Demolition
+    Racing Games/Prefabs/Car 2.prefab
+  statsAssetPath: Assets/FullThrottle/Vehicles/protoso_c16/Data/protoso_c16_Stats.asset
+  stats: {fileID: 11400000, guid: 840a733bf10f0e545910c6fc4941786c, type: 2}
+  wheelMapping:
+    frontLeftPath: Front Left Wheel
+    frontRightPath: Front Right Wheel
+    rearLeftPath: Rear Left Wheel
+    rearRightPath: Rear Right Wheel
+  showroomBodyDrop: -0.16
+  useDetachedWheelVisuals: 1
+  reputationRequired: 0
+  price: 12000
+  availableUpgrades: []
+  availableUpgradeIds: []

@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
+  m_Name: solstice_type_s_Stats
+  m_EditorClassIdentifier: 
+  vehicleId: solstice_type_s
+  displayName: Solstice Type-S
+  archetype: 6
+  drivetrain: 1
+  horsepower: 420
+  maxMotorTorque: 650
+  maxBrakeTorque: 5600
+  maxSpeedKph: 275
+  torqueCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.24
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.2
+      value: 0.48
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.45
+      value: 0.7
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.68
+      value: 0.86
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86
+      value: 0.82
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.62
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  idleRPM: 900
+  maxRPM: 7600
+  shiftUpRPM: 7000
+  shiftDownRPM: 2600
+  finalDriveRatio: 3.85
+  gearRatios:
+  - 0
+  - 3
+  - 2
+  - 1.48
+  - 1.12
+  - 0.88
+  - 0.72
+  defaultMass: 1340
+  weightDistributionFront: 0.48
+  centerOfMassHeight: -0.48
+  centerOfMassOffset: {x: 0, y: -0.48, z: 0.03}
+  linearDamping: 0.02
+  angularDamping: 0.05
+  spring: 35000
+  damper: 4500
+  suspensionDistance: 0.15
+  antiRollForce: 4000
+  maxSteerAngle: 24
+  highSpeedSteerReduction: 0.14
+  steeringResponse: 82
+  forwardStiffness: 1.4
+  sidewaysStiffness: 1.55
+  frontGrip: 1.1
+  rearGrip: 1.08
+  traction: 1.08
+  brakeGrip: 1.1
+  slipAngle: 14
+  recoveryRate: 3.8
+  highSpeedStability: 1.12
+  downforce: 48
+  lateralGripAssist: 1.15
+  handbrakeGripMultiplier: 0.5
+  resetLift: 1.1
+  driftAssist: 0.55
+  counterSteerAssist: 0.62
+  yawStability: 0.45
+  nitrousGripAssist: 0.16
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
+  repairCostPerDamagePoint: 30
+  baseValue: 40000
