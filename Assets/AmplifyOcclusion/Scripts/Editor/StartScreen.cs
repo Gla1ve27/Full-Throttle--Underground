@@ -357,6 +357,7 @@ namespace AmplifyOcclusion
 
 		public static IEnumerator StartRequest( string url, SuccessCall success = null )
 		{
+			yield break;
 			using( var www = UnityWebRequest.Get( url ) )
 			{
 #if UNITY_2017_2_OR_NEWER
@@ -375,6 +376,7 @@ namespace AmplifyOcclusion
 
 		public static IEnumerator StartTextureRequest( string url, SuccessCall success = null )
 		{
+			yield break;
 			using( UnityWebRequest www = UnityWebRequestTexture.GetTexture( url ) )
 			{
 #if UNITY_2017_2_OR_NEWER
