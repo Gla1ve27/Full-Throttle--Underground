@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 26859576551467905}
   - component: {fileID: 8497783418472180446}
   - component: {fileID: 1151868933341632044}
-  - component: {fileID: 2580417340331642523}
   - component: {fileID: 6034236601492526554}
   - component: {fileID: 4239877521277640435}
   - component: {fileID: 8519237967570785107}
@@ -49,7 +48,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 537ff5005ec1e264c8a18aa8c52d316e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Core.PersistentRuntimeRoot
+  persistAcrossScenes: 1
 --- !u!114 &8497783418472180446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 614e923b0e5a64549af7b9048d45c755, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Save.SaveSystem
 --- !u!114 &1151868933341632044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,43 +73,31 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9c677b748e8f0b4c9d96d7a98e4493a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Save.PersistentProgressManager
   saveSystem: {fileID: 0}
   starterCarId: rmcar26
   starterMoney: 5000
   defaultOwnedCarIds:
-  - simple_retro_car
-  - arcade_car_1
-  - arcade_car_2
-  - arcade_car_3
-  - arcade_car_4
-  - arcade_car_5
-  - arcade_car_6
-  - arcade_car_7
-  - arcade_car_8
-  - arcade_car_9
-  - arcade_car_10
-  - american_sedan
-  - american_sedan_stylized
+  - solstice_type_s
+  - maverick_vengeance_srt
+  - zodic_s_classic
+  - protoso_c16
+  - weaver_pup_s
+  - stratos_element_9
+  - reizan_gt_rb
+  - reizan_icon_iv
+  - uruk_grinder_4x4
+  - reizan_vanguard_34
+  - cyro_monolith
+  - hanse_executive
   - rmcar26
   - rmcar26_b
   - rmcar26_c
   - rmcar26_d
+  - reizan_350z
   ownedCarIds: []
   purchasedUpgradeIds: []
   completedRaceIds: []
---- !u!114 &2580417340331642523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5502589999144998307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a43836c6c0135a4198f2eff14e17d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6034236601492526554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,9 +109,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 859a9a2fc384d0b44b8775d53364b595, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Session.SessionManager
   persistentProgress: {fileID: 0}
-  riskSystem: {fileID: 0}
   garageSceneName: Garage
 --- !u!114 &4239877521277640435
 MonoBehaviour:
@@ -136,7 +123,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a68746c41c17f64c8688bcc2a157cb0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Progression.VehicleOwnershipSystem
   progressManager: {fileID: 0}
   protectedStarterCarId: rmcar26
 --- !u!114 &8519237967570785107
@@ -150,8 +137,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db7f78359fe8f27409876c8f358454c8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 204ae77320b536d459d12c2126255a73, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.UI.GameSettingsManager
+  audioMixer: {fileID: 0}
   masterVolumeParameter: MasterVolume
   musicVolumeParameter: MusicVolume
   sfxVolumeParameter: SFXVolume

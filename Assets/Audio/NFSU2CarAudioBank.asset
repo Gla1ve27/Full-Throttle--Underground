@@ -1,0 +1,846 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b297e876a62f2f34cab48a9b4be27a23, type: 3}
+  m_Name: NFSU2CarAudioBank
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Audio.NFSU2CarAudioBank
+  defaultTier: 0
+  tuning:
+    masterVolume: 1
+    spatialBlend: 1
+    minDistance: 4
+    maxDistance: 85
+    layerFadeSpeed: 9
+    rpmRiseResponse: 12
+    rpmFallResponse: 8
+    throttleResponse: 16
+    brakeResponse: 16
+    speedResponse: 8
+    idleUpper01: 0.18
+    decelSweepLowRpmCutoff01: 0.12
+    lowUpper01: 0.42
+    midUpper01: 0.72
+    limiterEnter01: 0.94
+    throttleOnThreshold: 0.12
+    throttleOffThreshold: 0.06
+    idleSpeedThresholdKph: 6
+    launchThrottleThreshold: 0.62
+    launchRpmUpper01: 0.36
+    launchSpeedUpperKph: 9
+    launchHoldTime: 0.22
+    band01Center: 0.08
+    band02Center: 0.16
+    band03Center: 0.28
+    band04Center: 0.4
+    band05Center: 0.54
+    band06Center: 0.68
+    band07Center: 0.82
+    band08Center: 0.94
+    engineBandWidth: 0.16
+    loopBankDominantVolume: 0.55
+    accelCharacterVolume: 0
+    decelCharacterVolume: 0
+    midHighRoarVolume: 0.48
+    midHighRoarStart01: 0.3
+    highRoarFull01: 0.76
+    roarThrottleFloor: 0.28
+    roarPitchRange: {x: 0.88, y: 1.56}
+    highRpmScreamVolume: 0.42
+    highRpmScreamStart01: 0.66
+    highRpmScreamFull01: 0.98
+    highRpmScreamThrottleFloor: 0.18
+    highRpmScreamPitchRange: {x: 1.04, y: 2.05}
+    sweepSeekResponse: 6
+    sweepDominantVolume: 0.75
+    sweepResyncThresholdSeconds: 0.75
+    sweepPitchCorrectionLimit: 0.025
+    interiorDetectionExtents: {x: 1.2, y: 1.1, z: 1.7}
+    interiorTransitionSpeed: 6
+  stock:
+    tierMasterVolume: 1
+    engineBands:
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    idle:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.8
+      interiorVolume: 0.6
+      pitchRange: {x: 0.85, y: 1.25}
+    limiter:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.75, y: 1.15}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.8
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.65
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.65
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      whistle:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.55
+        interiorVolume: 0.25
+        pitchRange: {x: 0.85, y: 1.25}
+      blowOff:
+        clip: {fileID: 0}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.5
+        interiorVolume: 0.7
+        pitchRange: {x: 0.85, y: 1.25}
+      drivetrain:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.45
+        interiorVolume: 0.55
+        pitchRange: {x: 0.85, y: 1.25}
+      sputter:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.35
+        interiorVolume: 0.3
+        pitchRange: {x: 0.85, y: 1.25}
+      crackle:
+        clip: {fileID: 0}
+        volume: 0.65
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 0}
+        volume: 0.45
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.45
+      crackleChancePerSecond: 2.5
+      sputterMinRpm01: 0.35
+      sputterThrottleUpper: 0.18
+      sputterVolume: 0
+      sparkChatterChancePerSecond: 0
+    skid:
+      skid:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 1
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  street:
+    tierMasterVolume: 1.05
+    engineBands:
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    idle:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.8
+      interiorVolume: 0.6
+      pitchRange: {x: 0.85, y: 1.25}
+    limiter:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.75, y: 1.15}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.8
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.65
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.65
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      whistle:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.55
+        interiorVolume: 0.25
+        pitchRange: {x: 0.85, y: 1.25}
+      blowOff:
+        clip: {fileID: 0}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.5
+        interiorVolume: 0.7
+        pitchRange: {x: 0.85, y: 1.25}
+      drivetrain:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.45
+        interiorVolume: 0.55
+        pitchRange: {x: 0.85, y: 1.25}
+      sputter:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.35
+        interiorVolume: 0.3
+        pitchRange: {x: 0.85, y: 1.25}
+      crackle:
+        clip: {fileID: 0}
+        volume: 0.65
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 0}
+        volume: 0.45
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.45
+      crackleChancePerSecond: 2.5
+      sputterMinRpm01: 0.35
+      sputterThrottleUpper: 0.18
+      sputterVolume: 0
+      sparkChatterChancePerSecond: 0
+    skid:
+      skid:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 1
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  pro:
+    tierMasterVolume: 1.1
+    engineBands:
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    idle:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.8
+      interiorVolume: 0.6
+      pitchRange: {x: 0.85, y: 1.25}
+    limiter:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.75, y: 1.15}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.8
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.65
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.65
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      whistle:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.55
+        interiorVolume: 0.25
+        pitchRange: {x: 0.85, y: 1.25}
+      blowOff:
+        clip: {fileID: 0}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.5
+        interiorVolume: 0.7
+        pitchRange: {x: 0.85, y: 1.25}
+      drivetrain:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.45
+        interiorVolume: 0.55
+        pitchRange: {x: 0.85, y: 1.25}
+      sputter:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.35
+        interiorVolume: 0.3
+        pitchRange: {x: 0.85, y: 1.25}
+      crackle:
+        clip: {fileID: 0}
+        volume: 0.65
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 0}
+        volume: 0.45
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.45
+      crackleChancePerSecond: 2.5
+      sputterMinRpm01: 0.35
+      sputterThrottleUpper: 0.18
+      sputterVolume: 0
+      sparkChatterChancePerSecond: 0
+    skid:
+      skid:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 1
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  extreme:
+    tierMasterVolume: 1.15
+    engineBands:
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    - exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.96, y: 1.04}
+    idle:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      playbackWindow01: {x: 0.03, y: 0.97}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.85, y: 1.25}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.85
+      interiorVolume: 0.65
+      pitchRange: {x: 0.85, y: 1.25}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.8
+      interiorVolume: 0.6
+      pitchRange: {x: 0.85, y: 1.25}
+    limiter:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.75, y: 1.15}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.8
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 0}
+        volume: 1
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.65
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.65
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      whistle:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.55
+        interiorVolume: 0.25
+        pitchRange: {x: 0.85, y: 1.25}
+      blowOff:
+        clip: {fileID: 0}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.5
+        interiorVolume: 0.7
+        pitchRange: {x: 0.85, y: 1.25}
+      drivetrain:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.45
+        interiorVolume: 0.55
+        pitchRange: {x: 0.85, y: 1.25}
+      sputter:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 0.35
+        interiorVolume: 0.3
+        pitchRange: {x: 0.85, y: 1.25}
+      crackle:
+        clip: {fileID: 0}
+        volume: 0.65
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 0}
+        volume: 0.45
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.45
+      crackleChancePerSecond: 2.5
+      sputterMinRpm01: 0.35
+      sputterThrottleUpper: 0.18
+      sputterVolume: 0
+      sparkChatterChancePerSecond: 0
+    skid:
+      skid:
+        exteriorClip: {fileID: 0}
+        interiorClip: {fileID: 0}
+        exteriorVolume: 1
+        interiorVolume: 0.35
+        pitchRange: {x: 0.85, y: 1.25}
+      slipThreshold: 0.18
+      fullSlip: 0.75

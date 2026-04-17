@@ -82,13 +82,8 @@ namespace Underground.UI
             ContinueGame();
         }
 
-        public void OpenQuickRace()
+        public void OpenWorld()
         {
-            if (!QuickRaceSessionData.HasPendingLaunch)
-            {
-                QuickRaceSessionData.Clear();
-            }
-
             SceneManager.LoadScene(quickRaceSceneName);
         }
 

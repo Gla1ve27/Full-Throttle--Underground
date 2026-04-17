@@ -1,5 +1,13 @@
 namespace Underground.Core.Architecture
 {
+    public enum TimeWindow
+    {
+        Day,
+        Sunset,
+        Night,
+        LateNight
+    }
+    
     public readonly struct SessionStartedEvent
     {
         public SessionStartedEvent(string sceneName)
@@ -8,6 +16,56 @@ namespace Underground.Core.Architecture
         }
 
         public string SceneName { get; }
+    }
+    
+    public readonly struct RaceStartedEvent
+    {
+        public RaceStartedEvent(string raceId)
+        {
+            RaceId = raceId;
+        }
+
+        public string RaceId { get; }
+    }
+
+    public readonly struct RaceFinishedEvent
+    {
+        public RaceFinishedEvent(string raceId, bool playerWon, int moneyEarned, int reputationEarned)
+        {
+            RaceId = raceId;
+            PlayerWon = playerWon;
+            MoneyEarned = moneyEarned;
+            ReputationEarned = reputationEarned;
+        }
+
+        public string RaceId { get; }
+        public bool PlayerWon { get; }
+        public int MoneyEarned { get; }
+        public int ReputationEarned { get; }
+    }
+
+    public readonly struct RaceRewardsBankedEvent
+    {
+        public RaceRewardsBankedEvent(int money, int reputation)
+        {
+            Money = money;
+            Reputation = reputation;
+        }
+
+        public int Money { get; }
+        public int Reputation { get; }
+    }
+
+    public readonly struct TimeWindowChangedEvent
+    {
+        public TimeWindowChangedEvent(TimeWindow previous, TimeWindow current)
+        {
+            Previous = previous;
+            Current = current;
+        }
+
+        public TimeWindow Previous { get; }
+        public TimeWindow Current { get; }
     }
 
     public readonly struct SessionBankedEvent
@@ -34,15 +92,7 @@ namespace Underground.Core.Architecture
         public string Reason { get; }
     }
 
-    public readonly struct RiskChangedEvent
-    {
-        public RiskChangedEvent(float currentRisk)
-        {
-            CurrentRisk = currentRisk;
-        }
 
-        public float CurrentRisk { get; }
-    }
 
     public readonly struct ProgressSavedEvent
     {

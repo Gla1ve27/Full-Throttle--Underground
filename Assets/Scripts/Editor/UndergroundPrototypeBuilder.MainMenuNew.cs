@@ -102,31 +102,19 @@ namespace Underground.EditorTools
             SetBoolValue(menuController, "preferRuntimeStyledMenu", false);
             SetStringValue(menuController, "quickRaceSceneName", "World");
 
-            QuickRaceFlowManager quickRaceFlowManager = new GameObject("QuickRaceFlowManager").AddComponent<QuickRaceFlowManager>();
-            quickRaceFlowManager.Initialize(menuController);
-
             Canvas canvas = CreateMainMenuCanvas();
             GameObject mainMenuUI = CreatePanelRoot(canvas.transform, MainMenuNewMarkerName);
 
             MainMenuFlowManager flowManager = mainMenuUI.AddComponent<MainMenuFlowManager>();
-            flowManager.Initialize(menuController, quickRaceFlowManager);
+            flowManager.Initialize(menuController);
             SetObjectReference(flowManager, "mainMenuController", menuController);
-            SetObjectReference(flowManager, "quickRaceFlowManager", quickRaceFlowManager);
             if (mainMenuUI.GetComponent<MainMenuNewGraphicsMenuController>() == null)
             {
                 mainMenuUI.AddComponent<MainMenuNewGraphicsMenuController>();
             }
 
-            QuickRaceSelectionPanelManager selectionPanelManager = mainMenuUI.GetComponent<QuickRaceSelectionPanelManager>() ?? mainMenuUI.AddComponent<QuickRaceSelectionPanelManager>();
-            SetObjectReference(selectionPanelManager, "flowManager", flowManager);
-            SetObjectReference(selectionPanelManager, "mainMenuController", menuController);
-            selectionPanelManager.EnsurePanelsBuilt();
-            SetObjectReference(quickRaceFlowManager, "mainMenuController", menuController);
-            SetObjectReference(quickRaceFlowManager, "selectionPanelManager", selectionPanelManager);
-
             MenuInputHandler inputHandler = mainMenuUI.AddComponent<MenuInputHandler>();
             SetObjectReference(inputHandler, "flowManager", flowManager);
-            SetObjectReference(inputHandler, "quickRaceSelectionPanelManager", selectionPanelManager);
 
             BuildFreshMainMenuNewUi(mainMenuUI.transform, flowManager);
 
@@ -151,14 +139,6 @@ namespace Underground.EditorTools
             SetBoolValue(menuController, "preferRuntimeStyledMenu", false);
             SetStringValue(menuController, "quickRaceSceneName", "World");
 
-            QuickRaceFlowManager quickRaceFlowManager = Object.FindFirstObjectByType<QuickRaceFlowManager>(FindObjectsInactive.Include);
-            if (quickRaceFlowManager == null)
-            {
-                quickRaceFlowManager = new GameObject("QuickRaceFlowManager").AddComponent<QuickRaceFlowManager>();
-            }
-
-            quickRaceFlowManager.Initialize(menuController);
-
             Canvas canvas = FindPreservedMainMenuCanvas();
             GameObject mainMenuUI = FindPreservedMainMenuUi(canvas);
             if (mainMenuUI == null && canvas != null)
@@ -169,11 +149,10 @@ namespace Underground.EditorTools
             MainMenuFlowManager flowManager = mainMenuUI != null
                 ? mainMenuUI.GetComponent<MainMenuFlowManager>() ?? mainMenuUI.AddComponent<MainMenuFlowManager>()
                 : null;
-            flowManager?.Initialize(menuController, quickRaceFlowManager);
+            flowManager?.Initialize(menuController);
             if (flowManager != null)
             {
                 SetObjectReference(flowManager, "mainMenuController", menuController);
-                SetObjectReference(flowManager, "quickRaceFlowManager", quickRaceFlowManager);
             }
             if (mainMenuUI != null)
             {
@@ -193,9 +172,8 @@ namespace Underground.EditorTools
                 canvas = CreateMainMenuCanvas();
                 mainMenuUI = CreatePanelRoot(canvas.transform, MainMenuNewMarkerName);
                 flowManager = mainMenuUI.GetComponent<MainMenuFlowManager>() ?? mainMenuUI.AddComponent<MainMenuFlowManager>();
-                flowManager.Initialize(menuController, quickRaceFlowManager);
+                flowManager.Initialize(menuController);
                 SetObjectReference(flowManager, "mainMenuController", menuController);
-                SetObjectReference(flowManager, "quickRaceFlowManager", quickRaceFlowManager);
                 if (mainMenuUI.GetComponent<MainMenuNewGraphicsMenuController>() == null)
                 {
                     mainMenuUI.AddComponent<MainMenuNewGraphicsMenuController>();
@@ -207,16 +185,8 @@ namespace Underground.EditorTools
                 RebindMainMenuNewUi(flowManager, mainMenuUI.transform);
             }
 
-            QuickRaceSelectionPanelManager selectionPanelManager = mainMenuUI.GetComponent<QuickRaceSelectionPanelManager>() ?? mainMenuUI.AddComponent<QuickRaceSelectionPanelManager>();
-            SetObjectReference(selectionPanelManager, "flowManager", flowManager);
-            SetObjectReference(selectionPanelManager, "mainMenuController", menuController);
-            selectionPanelManager.EnsurePanelsBuilt();
-            SetObjectReference(quickRaceFlowManager, "mainMenuController", menuController);
-            SetObjectReference(quickRaceFlowManager, "selectionPanelManager", selectionPanelManager);
-
             MenuInputHandler inputHandler = mainMenuUI.GetComponent<MenuInputHandler>() ?? mainMenuUI.AddComponent<MenuInputHandler>();
             SetObjectReference(inputHandler, "flowManager", flowManager);
-            SetObjectReference(inputHandler, "quickRaceSelectionPanelManager", selectionPanelManager);
 
             EditorSceneManager.MarkSceneDirty(scene);
         }

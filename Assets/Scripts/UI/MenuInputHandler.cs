@@ -7,7 +7,6 @@ namespace Underground.UI
     public class MenuInputHandler : MonoBehaviour
     {
         [SerializeField] private MainMenuFlowManager flowManager;
-        [SerializeField] private QuickRaceSelectionPanelManager quickRaceSelectionPanelManager;
         [SerializeField] private MainMenuNewGraphicsMenuController graphicsMenuController;
         [SerializeField] private EventSystem eventSystem;
         [SerializeField] private float navigationRepeatDelay = 0.18f;
@@ -23,11 +22,6 @@ namespace Underground.UI
                 flowManager = GetComponent<MainMenuFlowManager>();
             }
 
-            if (quickRaceSelectionPanelManager == null)
-            {
-                quickRaceSelectionPanelManager = GetComponent<QuickRaceSelectionPanelManager>();
-            }
-
             if (graphicsMenuController == null)
             {
                 graphicsMenuController = GetComponent<MainMenuNewGraphicsMenuController>();
@@ -41,11 +35,6 @@ namespace Underground.UI
                 return;
             }
 
-            if (quickRaceSelectionPanelManager == null)
-            {
-                quickRaceSelectionPanelManager = GetComponent<QuickRaceSelectionPanelManager>();
-            }
-
             if (graphicsMenuController == null)
             {
                 graphicsMenuController = GetComponent<MainMenuNewGraphicsMenuController>();
@@ -56,37 +45,6 @@ namespace Underground.UI
                 if (Input.anyKeyDown)
                 {
                     flowManager.AdvanceFromSplash();
-                }
-
-                return;
-            }
-
-            if (quickRaceSelectionPanelManager != null && quickRaceSelectionPanelManager.IsOpen)
-            {
-                EnsureSelection();
-
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    quickRaceSelectionPanelManager.StepBackOrClose();
-                    return;
-                }
-
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space))
-                {
-                    SubmitCurrentSelection();
-                    return;
-                }
-
-                if (Time.unscaledTime < nextNavigationTime)
-                {
-                    return;
-                }
-
-                MoveDirection quickRaceDirection = ReadMoveDirection();
-                if (quickRaceDirection != MoveDirection.None)
-                {
-                    ExecuteMove(quickRaceDirection);
-                    nextNavigationTime = Time.unscaledTime + navigationRepeatDelay;
                 }
 
                 return;
@@ -166,17 +124,6 @@ namespace Underground.UI
 
             if (eventSystem == null || eventSystem.currentSelectedGameObject != null)
             {
-                return;
-            }
-
-            if (quickRaceSelectionPanelManager != null && quickRaceSelectionPanelManager.IsOpen)
-            {
-                Selectable quickRaceDefault = quickRaceSelectionPanelManager.DefaultSelectable;
-                if (quickRaceDefault != null)
-                {
-                    eventSystem.SetSelectedGameObject(quickRaceDefault.gameObject);
-                }
-
                 return;
             }
 

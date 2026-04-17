@@ -60,14 +60,11 @@ namespace Underground.UI
                 bankText,
                 sessionMoneyText,
                 levelText,
-                riskText,
-                damageText,
                 dayNightText,
                 nextLevelText,
                 challengeText,
                 null,
-                null,
-                riskRingFill);
+                null);
 
             hudController.RefreshViewBindings();
         }

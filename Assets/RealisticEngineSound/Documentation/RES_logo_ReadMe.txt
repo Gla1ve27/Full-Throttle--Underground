@@ -1,1 +1,0 @@
-You can include RES_Plus_logo.png in your game's intro or loading screen to show your customers that you're using "Realistic Engine Sounds" Unity asset.

@@ -15,10 +15,10 @@ MonoBehaviour:
   raceId: night_run
   displayName: Midnight Run
   raceType: 3
-  nightOnly: 1
-  entryFee: 0
   rewardMoney: 1900
   rewardReputation: 30
-  minReputation: 50
   laps: 1
+  nightOnly: 1
+  entryFee: 0
+  minReputation: 50
   allowsCarWager: 0

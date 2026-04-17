@@ -8,11 +8,16 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        private const string DefaultRealisticEngineSoundPresetPath = "Assets/RealisticEngineSound/Assets/Prefabs/Engine_Prefabs/i4_japanese.prefab";
-        private const string I4JapaneseInteriorBasePath = "Assets/RealisticEngineSound/Assets/Sounds/i4_japanese/Interior";
-        private const string TurboBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Turbo";
-        private const string ShiftBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Shifting/Pack_3";
-        private const string MufflerBasePath = "Assets/RealisticEngineSound/Assets/Sounds/Muffler/Pack1";
+        private const string CustomEngineBasePath = "Assets/Audio/Car Sounds and stuffs/CAR_00_ENG_MB_EE";
+        private const string CustomEngineInteriorBasePath = "Assets/Audio/Car Sounds and stuffs/CAR_00_ENG_MB_SPU";
+        private const string CustomEngineBankName = "CAR_00_ENG_MB_EE";
+        private const string CustomEngineInteriorBankName = "CAR_00_ENG_MB_SPU";
+        private const string CustomGearBasePath = "Assets/Audio/Car Sounds and stuffs/GEAR_LRG_Base";
+        private const string CustomInductionBasePath = "Assets/Audio/Car Sounds and stuffs/GIN_Acura_ITR";
+        private const string CustomSweetenerBasePath = "Assets/Audio/Car Sounds and stuffs/SWTN_CAR_00_MB";
+        private const string CustomTurboBasePath = "Assets/Audio/Car Sounds and stuffs/TURBO_SML1_0_MB";
+        private const string CustomSkidBasePath = "Assets/Audio/Car Sounds and stuffs/SKID_PAV_MB";
+        private const string StarterCarAudioBankPath = "Assets/ScriptableObjects/Vehicles/StarterCarAudioBank.asset";
 
         private static GameObject CreateOrUpdatePlayerCarPrefab(VehicleStatsData starterStats, bool preserveExistingAsset = false)
         {
@@ -41,7 +46,6 @@ namespace Underground.EditorTools
             EngineModel engine = carRoot.AddComponent<EngineModel>();
             GearboxSystem gearbox = carRoot.AddComponent<GearboxSystem>();
             VehicleDynamicsController controller = carRoot.AddComponent<VehicleDynamicsController>();
-            carRoot.AddComponent<VehicleDamageSystem>();
             carRoot.AddComponent<VehicleNightLightingController>();
             CarRespawn respawn = carRoot.AddComponent<CarRespawn>();
 
@@ -59,24 +63,14 @@ namespace Underground.EditorTools
                 rearRightWheelPosition,
                 wheelRadius);
 
-            WheelBuild fl = CreateWheel(modelRoot, wheelColliderRoot, "FL", "Front", true, true, true, false, frontLeftWheelPosition, wheelRadius, importedVisual.frontLeftWheel);
-            WheelBuild fr = CreateWheel(modelRoot, wheelColliderRoot, "FR", "Front", false, true, true, false, frontRightWheelPosition, wheelRadius, importedVisual.frontRightWheel);
-            WheelBuild rl = CreateWheel(modelRoot, wheelColliderRoot, "RL", "Rear", true, false, false, true, rearLeftWheelPosition, wheelRadius, importedVisual.rearLeftWheel);
-            WheelBuild rr = CreateWheel(modelRoot, wheelColliderRoot, "RR", "Rear", false, false, false, true, rearRightWheelPosition, wheelRadius, importedVisual.rearRightWheel);
+            WheelBuild fl = CreateWheel(modelRoot, wheelColliderRoot, "FL", "Front", true, true, false, false, frontLeftWheelPosition, wheelRadius, importedVisual.frontLeftWheel);
+            WheelBuild fr = CreateWheel(modelRoot, wheelColliderRoot, "FR", "Front", false, true, false, false, frontRightWheelPosition, wheelRadius, importedVisual.frontRightWheel);
+            WheelBuild rl = CreateWheel(modelRoot, wheelColliderRoot, "RL", "Rear", true, false, true, true, rearLeftWheelPosition, wheelRadius, importedVisual.rearLeftWheel);
+            WheelBuild rr = CreateWheel(modelRoot, wheelColliderRoot, "RR", "Rear", false, false, true, true, rearRightWheelPosition, wheelRadius, importedVisual.rearRightWheel);
 
             GameObject audioRoot = new GameObject("AudioRoot");
             audioRoot.transform.SetParent(carRoot.transform, false);
-            AudioSource audioSource = audioRoot.AddComponent<AudioSource>();
-            audioSource.loop = true;
-            audioSource.playOnAwake = false;
-            GameObject whineRoot = new GameObject("Whine");
-            whineRoot.transform.SetParent(audioRoot.transform, false);
-            AudioSource whineSource = whineRoot.AddComponent<AudioSource>();
-            whineSource.loop = true;
-            whineSource.playOnAwake = false;
-            RealisticEngineSound realisticEngineSound = audioRoot.AddComponent<RealisticEngineSound>();
             VehicleAudioController audioController = audioRoot.AddComponent<VehicleAudioController>();
-            ConfigurePlayerEngineSound(realisticEngineSound);
 
             SerializedObject controllerSo = new SerializedObject(controller);
             controllerSo.FindProperty("baseStats").objectReferenceValue = starterStats;
@@ -107,25 +101,7 @@ namespace Underground.EditorTools
             audioSo.FindProperty("gearbox").objectReferenceValue = gearbox;
             audioSo.FindProperty("vehicle").objectReferenceValue = controller;
             audioSo.FindProperty("input").objectReferenceValue = input;
-            audioSo.FindProperty("engineSound").objectReferenceValue = realisticEngineSound;
-            audioSo.FindProperty("interiorIdleClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_idle.wav");
-            audioSo.FindProperty("interiorLowOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_low_on.wav");
-            audioSo.FindProperty("interiorMidOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_med_on.wav");
-            audioSo.FindProperty("interiorHighOnClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_high_on.wav");
-            audioSo.FindProperty("interiorLowOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_low_off.wav");
-            audioSo.FindProperty("interiorMidOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_med_off.wav");
-            audioSo.FindProperty("interiorHighOffClip").objectReferenceValue = LoadAudioClipAtPath($"{I4JapaneseInteriorBasePath}/int_high_off.wav");
-            audioSo.FindProperty("turboSpoolClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/loop_1.wav");
-            audioSo.FindProperty("turboWhistleClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/maxLoop_1.wav");
-            audioSo.FindProperty("blowOffClip").objectReferenceValue = LoadAudioClipAtPath($"{TurboBasePath}/short_shot_3.wav");
-            audioSo.FindProperty("shiftUpClip").objectReferenceValue = LoadAudioClipAtPath($"{ShiftBasePath}/shift_1.wav");
-            audioSo.FindProperty("shiftDownClip").objectReferenceValue = LoadAudioClipAtPath($"{ShiftBasePath}/tiptronic_1.wav");
-            audioSo.FindProperty("liftOffCrackleClip").objectReferenceValue = LoadAudioClipAtPath($"{MufflerBasePath}/muffler_off_1.wav");
-            audioSo.FindProperty("movingIdleFadeStartKph").floatValue = 7f;
-            audioSo.FindProperty("movingIdleFadeEndKph").floatValue = 24f;
-            audioSo.FindProperty("highBandEntrySpeedKph").floatValue = 30f;
-            audioSo.FindProperty("highBandFullSpeedKph").floatValue = 90f;
-            audioSo.FindProperty("highBandLoadThreshold").floatValue = 0.26f;
+            audioSo.FindProperty("audioBank").objectReferenceValue = CreateOrUpdateStarterAudioBank();
             audioSo.ApplyModifiedPropertiesWithoutUndo();
 
             PrefabUtility.SaveAsPrefabAsset(carRoot, PlayerCarPrefabPath);
@@ -133,39 +109,19 @@ namespace Underground.EditorTools
             return AssetDatabase.LoadAssetAtPath<GameObject>(PlayerCarPrefabPath);
         }
 
-        private static void ConfigurePlayerEngineSound(RealisticEngineSound target)
+        [MenuItem("Underground/Audio/Create Starter Car Audio Bank", priority = 70)]
+        public static void CreateStarterCarAudioBankFromTopMenu()
         {
-            if (target == null)
-            {
-                return;
-            }
-
-            GameObject presetPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(DefaultRealisticEngineSoundPresetPath);
-            if (presetPrefab == null)
-            {
-                Debug.LogWarning($"[Full Throttle] Missing RealisticEngineSound preset at '{DefaultRealisticEngineSoundPresetPath}'.");
-                return;
-            }
-
-            RealisticEngineSound preset = presetPrefab.GetComponent<RealisticEngineSound>();
-            if (preset == null)
-            {
-                Debug.LogWarning($"[Full Throttle] RealisticEngineSound preset '{DefaultRealisticEngineSoundPresetPath}' has no RealisticEngineSound component.");
-                return;
-            }
-
-            EditorUtility.CopySerialized(preset, target);
-            target.audioMixer = null;
-            target.mainCamera = null;
-            target.enabled = true;
-            target.engineCurrentRPM = 0f;
-            target.gasPedalPressing = false;
-            target.gasPedalValue = 0f;
-            target.gasPedalValueSetting = RealisticEngineSound.GasPedalValue.NotSimulated;
-            target.isReversing = false;
-            target.carCurrentSpeed = 0f;
-            target.carMaxSpeed = 0f;
-            target.isShifting = false;
+            EnsureProjectFolders();
+            NFSU2CarAudioBank bank = CreateOrUpdateStarterAudioBank();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Selection.activeObject = bank;
+            EditorGUIUtility.PingObject(bank);
+            EditorUtility.DisplayDialog(
+                "Starter Audio Bank Ready",
+                $"Created or updated {StarterCarAudioBankPath}. Assign it to VehicleAudioController.Audio Bank on your car.",
+                "OK");
         }
 
         private static AudioClip LoadAudioClipAtPath(string assetPath)
@@ -173,6 +129,292 @@ namespace Underground.EditorTools
             return string.IsNullOrEmpty(assetPath)
                 ? null
                 : AssetDatabase.LoadAssetAtPath<AudioClip>(assetPath);
+        }
+
+        private static void ConfigureEngineClipImportSettings(params string[] assetPaths)
+        {
+            if (assetPaths == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < assetPaths.Length; i++)
+            {
+                AudioImporter importer = AssetImporter.GetAtPath(assetPaths[i]) as AudioImporter;
+                if (importer == null)
+                {
+                    continue;
+                }
+
+                AudioImporterSampleSettings settings = importer.defaultSampleSettings;
+                bool changed = false;
+
+                if (settings.loadType != AudioClipLoadType.DecompressOnLoad)
+                {
+                    settings.loadType = AudioClipLoadType.DecompressOnLoad;
+                    changed = true;
+                }
+
+                if (settings.compressionFormat != AudioCompressionFormat.PCM)
+                {
+                    settings.compressionFormat = AudioCompressionFormat.PCM;
+                    changed = true;
+                }
+
+                if (!settings.preloadAudioData)
+                {
+                    settings.preloadAudioData = true;
+                    changed = true;
+                }
+
+                if (changed)
+                {
+                    importer.defaultSampleSettings = settings;
+                    importer.SaveAndReimport();
+                }
+            }
+        }
+
+        private static NFSU2CarAudioBank CreateOrUpdateStarterAudioBank()
+        {
+            ConfigureEngineClipImportSettings(
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_01.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_02.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_03.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_04.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_05.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_06.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_07.wav",
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_08.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_01.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_02.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_03.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_04.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_05.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_06.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_07.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_08.wav",
+                $"{CustomInductionBasePath}/GIN_Acura_ITR.wav",
+                $"{CustomInductionBasePath}/GIN_Acura_ITR_DCL.wav",
+                $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_01.wav",
+                $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_02.wav",
+                $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_04.wav",
+                $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_06.wav",
+                $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_07.wav",
+                $"{CustomSkidBasePath}/SKID_PAV_MB_01.wav");
+
+            NFSU2CarAudioBank bank = AssetDatabase.LoadAssetAtPath<NFSU2CarAudioBank>(StarterCarAudioBankPath);
+            if (bank == null)
+            {
+                bank = ScriptableObject.CreateInstance<NFSU2CarAudioBank>();
+                AssetDatabase.CreateAsset(bank, StarterCarAudioBankPath);
+            }
+
+            bank.defaultTier = VehicleAudioTier.Stock;
+            ConfigureStarterTuning(bank.tuning);
+            ConfigureStarterTier(bank.GetTier(VehicleAudioTier.Stock), 1f);
+            ConfigureStarterTier(bank.GetTier(VehicleAudioTier.Street), 1.05f);
+            ConfigureStarterTier(bank.GetTier(VehicleAudioTier.Pro), 1.1f);
+            ConfigureStarterTier(bank.GetTier(VehicleAudioTier.Extreme), 1.15f);
+            EditorUtility.SetDirty(bank);
+            return bank;
+        }
+
+        private static void ConfigureStarterTuning(NFSU2CarAudioBank.RuntimeTuning tuning)
+        {
+            if (tuning == null)
+            {
+                return;
+            }
+
+            tuning.layerFadeSpeed = 6f;
+            tuning.rpmRiseResponse = 14f;
+            tuning.rpmFallResponse = 5f;
+            tuning.decelSweepLowRpmCutoff01 = 0.18f;
+            tuning.sweepSeekResponse = 6f;
+            tuning.sweepDominantVolume = 0.35f;
+            tuning.sweepResyncThresholdSeconds = 0.75f;
+            tuning.sweepPitchCorrectionLimit = 0.025f;
+            tuning.loopBankDominantVolume = 0.82f;
+            tuning.accelCharacterVolume = 0.15f;
+            tuning.decelCharacterVolume = 0.10f;
+            tuning.engineBandWidth = 0.16f;
+            tuning.band01Center = 0.08f;
+            tuning.band02Center = 0.16f;
+            tuning.band03Center = 0.28f;
+            tuning.band04Center = 0.40f;
+            tuning.band05Center = 0.54f;
+            tuning.band06Center = 0.68f;
+            tuning.band07Center = 0.82f;
+            tuning.band08Center = 0.94f;
+        }
+
+        private static void ConfigureStarterTier(NFSU2CarAudioBank.TierAudioPackage tier, float tierMasterVolume)
+        {
+            if (tier == null)
+            {
+                return;
+            }
+
+            tier.tierMasterVolume = tierMasterVolume;
+            AssignEngineBands(tier);
+            AssignLoop(
+                tier.idle,
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_01.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_01.wav",
+                0.95f,
+                0.75f,
+                new Vector2(0.92f, 1.08f));
+            AssignSweep(tier.accelSweep, $"{CustomInductionBasePath}/GIN_Acura_ITR.wav", 0.30f, 0.18f, new Vector2(0.08f, 0.92f));
+            AssignSweep(tier.decelSweep, $"{CustomInductionBasePath}/GIN_Acura_ITR_DCL.wav", 0.22f, 0.14f, new Vector2(0.08f, 0.92f));
+            ClearLoop(tier.accelLow);
+            ClearLoop(tier.accelMid);
+            ClearLoop(tier.accelHigh);
+            ClearLoop(tier.decelLow);
+            ClearLoop(tier.decelMid);
+            ClearLoop(tier.decelHigh);
+            AssignLoop(
+                tier.limiter,
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_08.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_08.wav",
+                0.72f,
+                0.55f,
+                new Vector2(0.96f, 1.04f));
+            AssignLoop(
+                tier.reverse,
+                $"{CustomEngineBasePath}/{CustomEngineBankName}_01.wav",
+                $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_01.wav",
+                0.65f,
+                0.5f,
+                new Vector2(0.65f, 1f));
+
+            AssignOneShot(tier.accelFromIdle, null, 0.75f);
+            AssignOneShot(tier.shift.shiftUp, $"{CustomGearBasePath}/GEAR_LRG_Base_01.wav", 0.9f);
+            AssignOneShot(tier.shift.shiftDown, $"{CustomGearBasePath}/GEAR_LRG_Base_02.wav", 0.8f);
+            AssignLoop(tier.turbo.spool, $"{CustomTurboBasePath}/TURBO_SML1_0_MB_01.wav", 0.22f, 0.12f, new Vector2(0.9f, 1.12f));
+            AssignLoop(tier.turbo.whistle, $"{CustomTurboBasePath}/TURBO_SML1_0_MB_02.wav", 0.14f, 0.07f, new Vector2(0.95f, 1.12f));
+            AssignOneShot(tier.turbo.blowOff, $"{CustomTurboBasePath}/TURBO_SML1_0_MB_03.wav", 0.40f);
+            tier.turbo.strength = 0.55f;
+            AssignLoop(tier.sweetener.intake, $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_01.wav", 0.10f, 0.08f, new Vector2(0.98f, 1.02f));
+            AssignLoop(tier.sweetener.drivetrain, $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_04.wav", 0.08f, 0.06f, new Vector2(0.98f, 1.02f));
+            AssignLoop(tier.sweetener.sputter, $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_06.wav", 0.14f, 0.10f, new Vector2(0.99f, 1.01f));
+            AssignOneShot(tier.sweetener.crackle, $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_02.wav", 0.22f);
+            AssignOneShot(tier.sweetener.sparkChatter, $"{CustomSweetenerBasePath}/SWTN_CAR_00_MB_07.wav", 0.16f);
+            tier.sweetener.enableLiftOffCrackles = true;
+            tier.sweetener.crackleMinRpm01 = 0.40f;
+            tier.sweetener.crackleChancePerSecond = 1.8f;
+            tier.sweetener.sputterMinRpm01 = 0.30f;
+            tier.sweetener.sputterThrottleUpper = 0.14f;
+            tier.sweetener.sputterVolume = 0.10f;
+            tier.sweetener.sparkChatterChancePerSecond = 0.6f;
+            AssignLoop(tier.skid.skid, $"{CustomSkidBasePath}/SKID_PAV_MB_01.wav", 0.45f, 0.16f, new Vector2(0.9f, 1.08f));
+        }
+
+        private static void AssignEngineBands(NFSU2CarAudioBank.TierAudioPackage tier)
+        {
+            if (tier == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < 8; i++)
+            {
+                float normalizedIndex = i / 7f;
+                float lowPitch = Mathf.Lerp(0.98f, 0.94f, normalizedIndex);
+                float highPitch = Mathf.Lerp(1.05f, 1.02f, normalizedIndex);
+                AssignLoop(
+                    tier.GetEngineBand(i),
+                    $"{CustomEngineBasePath}/{CustomEngineBankName}_{i + 1:00}.wav",
+                    $"{CustomEngineInteriorBasePath}/{CustomEngineInteriorBankName}_{i + 1:00}.wav",
+                    1f,
+                    0.82f,
+                    new Vector2(lowPitch, highPitch));
+            }
+        }
+
+        private static void AssignLoop(NFSU2CarAudioBank.AudioLoopLayer layer, string clipPath, float exteriorVolume, float interiorVolume, Vector2 pitchRange)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            AudioClip clip = LoadAudioClipAtPath(clipPath);
+            layer.exteriorClip = clip;
+            layer.interiorClip = clip;
+            layer.exteriorVolume = exteriorVolume;
+            layer.interiorVolume = interiorVolume;
+            layer.pitchRange = pitchRange;
+        }
+
+        private static void AssignLoop(NFSU2CarAudioBank.AudioLoopLayer layer, string exteriorClipPath, string interiorClipPath, float exteriorVolume, float interiorVolume, Vector2 pitchRange)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            AudioClip exteriorClip = LoadAudioClipAtPath(exteriorClipPath);
+            AudioClip interiorClip = LoadAudioClipAtPath(interiorClipPath);
+            layer.exteriorClip = exteriorClip;
+            layer.interiorClip = interiorClip != null ? interiorClip : exteriorClip;
+            layer.exteriorVolume = exteriorVolume;
+            layer.interiorVolume = interiorVolume;
+            layer.pitchRange = pitchRange;
+        }
+
+        private static void AssignSweep(NFSU2CarAudioBank.AudioSweepLayer layer, string clipPath, float exteriorVolume, float interiorVolume, Vector2 playbackWindow01)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            AudioClip clip = LoadAudioClipAtPath(clipPath);
+            layer.exteriorClip = clip;
+            layer.interiorClip = clip;
+            layer.exteriorVolume = exteriorVolume;
+            layer.interiorVolume = interiorVolume;
+            layer.playbackWindow01 = playbackWindow01;
+            layer.pitchRange = new Vector2(0.98f, 1.02f);
+        }
+
+        private static void AssignOneShot(NFSU2CarAudioBank.AudioOneShotLayer layer, string clipPath, float volume)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            layer.clip = LoadAudioClipAtPath(clipPath);
+            layer.volume = volume;
+            layer.pitchRange = new Vector2(0.96f, 1.04f);
+        }
+
+        private static void ClearLoop(NFSU2CarAudioBank.AudioLoopLayer layer)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            layer.exteriorClip = null;
+            layer.interiorClip = null;
+            layer.exteriorVolume = 1f;
+            layer.interiorVolume = 0.75f;
+            layer.pitchRange = new Vector2(0.98f, 1.02f);
+        }
+
+        private static void ClearOneShot(NFSU2CarAudioBank.AudioOneShotLayer layer)
+        {
+            if (layer == null)
+            {
+                return;
+            }
+
+            layer.clip = null;
+            layer.volume = 1f;
+            layer.pitchRange = new Vector2(0.96f, 1.04f);
         }
 
         private static ImportedVehicleVisual AttachImportedPlayerVisual(

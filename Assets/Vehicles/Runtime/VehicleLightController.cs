@@ -5,7 +5,7 @@
 //
 // PRESERVATION RULE:
 //   This script hooks into the existing WorldTimeChangedEvent from
-//   DayNightCycleController. It does NOT replace or interfere with
+//   the DayNight Sun prefab. It does NOT replace or interfere with
 //   the day/night cycle, HDRP volumes, skybox, or reflection probes.
 //   It only controls per-vehicle light components and emissive materials.
 // ============================================================

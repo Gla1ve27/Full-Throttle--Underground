@@ -23,9 +23,13 @@ namespace Underground.Vehicle
         [SerializeField] private KeyCode alternateDownshiftKey = KeyCode.RightControl;
 
         [Header("Response")]
-        [SerializeField, Range(1f, 20f)] private float steeringResponsiveness = 4.1f;
-        [SerializeField, Range(1f, 20f)] private float pedalResponsiveness = 5.2f;
+        [SerializeField, Range(1f, 30f)] private float steeringResponsiveness = 8.5f;
+        [SerializeField, Range(1f, 30f)] private float throttleAttack = 14f;
+        [SerializeField, Range(1f, 30f)] private float throttleRelease = 18f;
+        [SerializeField, Range(1f, 30f)] private float brakeAttack = 18f;
+        [SerializeField, Range(1f, 30f)] private float brakeRelease = 22f;
         [SerializeField, Range(0.1f, 0.6f)] private float reverseDoubleTapWindow = 0.3f;
+        [SerializeField, Range(0f, 0.35f)] private float analogDeadZone = 0.08f;
 
         public float Throttle { get; private set; }
         public float Brake { get; private set; }
@@ -59,15 +63,17 @@ namespace Underground.Vehicle
             bool upshiftPressedThisFrame = ReadUpshiftPressedThisFrame();
             bool downshiftPressedThisFrame = ReadDownshiftPressedThisFrame();
             float steeringResponse = steeringResponsiveness * (settingsManager != null ? settingsManager.SteeringSensitivity : 1f);
-            float pedalResponse = pedalResponsiveness * (settingsManager != null ? settingsManager.PedalSensitivity : 1f);
+            float pedalSensitivity = settingsManager != null ? settingsManager.PedalSensitivity : 1f;
             float reverseTapWindow = settingsManager != null ? settingsManager.ReverseDoubleTapWindow : reverseDoubleTapWindow;
 
-            float targetThrottle = Mathf.Clamp01(moveInput.y);
-            float targetBrake = Mathf.Clamp01(-moveInput.y);
+            float targetThrottle = ApplyDeadZone(Mathf.Clamp01(moveInput.y));
+            float targetBrake = ApplyDeadZone(Mathf.Clamp01(-moveInput.y));
+            float throttleStep = (targetThrottle >= Throttle ? throttleAttack : throttleRelease) * pedalSensitivity * Time.unscaledDeltaTime;
+            float brakeStep = (targetBrake >= Brake ? brakeAttack : brakeRelease) * pedalSensitivity * Time.unscaledDeltaTime;
 
             Steering = Mathf.MoveTowards(Steering, Mathf.Clamp(moveInput.x, -1f, 1f), steeringResponse * Time.unscaledDeltaTime);
-            Throttle = Mathf.MoveTowards(Throttle, targetThrottle, pedalResponse * Time.unscaledDeltaTime);
-            Brake = Mathf.MoveTowards(Brake, targetBrake, pedalResponse * Time.unscaledDeltaTime);
+            Throttle = Mathf.MoveTowards(Throttle, targetThrottle, throttleStep);
+            Brake = Mathf.MoveTowards(Brake, targetBrake, brakeStep);
             Handbrake = handbrakePressed;
             ReverseHeld = reverseHeld;
 
@@ -124,6 +130,16 @@ namespace Underground.Vehicle
             bool requested = downshiftRequested;
             downshiftRequested = false;
             return requested;
+        }
+
+        private float ApplyDeadZone(float value)
+        {
+            if (value <= analogDeadZone)
+            {
+                return 0f;
+            }
+
+            return Mathf.InverseLerp(analogDeadZone, 1f, value);
         }
 
         private Vector2 ReadMovementInput()

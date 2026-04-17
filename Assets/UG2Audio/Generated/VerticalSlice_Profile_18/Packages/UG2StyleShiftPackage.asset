@@ -1,0 +1,3584 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba13bdc595050ab4e94f8f013ec42b09, type: 3}
+  m_Name: UG2StyleShiftPackage
+  m_EditorClassIdentifier: UG2Audio.Runtime::UG2Audio.Data.UG2StyleShiftPackage
+  eventName: FX_SHIFTING_01
+  small:
+  - tierName: GEAR_SML_Base
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_SML_Base.abk
+      relativePath: SOUND/SHIFTING/GEAR_SML_Base.abk
+      fileName: GEAR_SML_Base.abk
+      extension: .abk
+      byteLength: 27236
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - 12#2
+      - '!''M#'
+      - /31!
+      - B1B@
+      - $2"2
+      - P!!"
+      - 2V2#5c
+      - 0$1U"
+      - $-10="
+      - 4n,1
+      - 2Qf-
+      - '"!$"$'
+      - $?&?
+      - / 'n
+      - '&?!"'
+      - 3!rC
+      - C6#SS&S6%CE$sS3DdbC4&c4DFE
+      - UR%Dd2C7&%
+      - 34`0C3"
+      - /""A
+      - '? l^'
+      - C .0
+      - F"2d&
+      - //'J
+      - 4#`$
+      - ?M&=$
+      - .>&a
+      - '! !A&/A'
+      - 1@!1P&2
+      - $!!B13
+      - 2$0&!4
+      - '!1##'
+      - 22 0A
+      - '"A2"C3'
+      - 3&$$#B3B4"E
+      - 3%0R&D"C
+      - '#2B2#3'
+      - 3""&
+      - '!@&"!'
+      - '!"B!'
+      - '!1111A'
+      - bd$fT
+      - '>.''!'
+      - '!!P3'
+      - C@Mc"0&
+      - '#!@"'
+      - '!a P'
+      - 12#'B
+      - ^R?b
+      - OOO11
+      - 1A%"o#%
+      - A33'$
+      - '@aS1AC3'
+      - S1o2Q4!35
+      - '''P0DA1'
+      - 31m2#'$
+      - $! !#!<23
+      - c?-0
+      - 0? A
+      - A/" 2
+      - 0M' "#
+      - N!mD
+      - '@!"00'
+      - /? 1
+      - '{-Q/'
+      - '>"/N'
+      - ?/NA
+      - '!/??'''
+      - N?.2
+      - D<MD/
+      - . >4
+      - 2- B
+      - 1?'0
+      - '''O>0'
+      - /'?>_
+      - 1-@'
+      - 0U!0?
+      - AR.$
+      - 0O'_
+      - ',J<,='
+      - /? 0
+      - '#"@a$3'
+      - $6D3'
+      - ?/!(
+      - 2 1A
+      - '"0 2'
+      - E267
+      - '"O04'
+      - (/>/>1
+      - O_AP
+      - MK^\#
+      - M.]!
+      - /Zn1
+      - '""!#'
+      - .(*^
+      - '%>p@%$'
+      - (=_N
+      - ?(N1/@2
+      - /.]"0
+      - CAA"S3
+      - A//0
+      - =>=(?
+      - '" !!3'
+      - MKnN>
+      - =*]/<N
+      - E#5BE3b"T*
+      - -0*0
+      - -""=
+      - '!@/?#;o%,'
+      - O?#,
+      - '"..>2('
+      - '!!S2'
+      - ''',]#'
+      - BBS1!
+      - aAT444"`B$$
+      - O1!&MB
+      - O!2.
+      - '#"//'
+      - 0%-?
+      - u143b
+      - '&"t$"'
+      - '""m$2'
+      - $N #
+      - 4#QB
+      - '"C"2#O'
+      - 4?$/
+      - 50!#
+      - PCO#
+      - R!C"
+      - '&.!/'
+      - A"^#T
+      - C1#A
+      - 1>A"
+      - '"!=o'
+      - R2WBe##
+      - VB0!
+      - '#32%PEO'
+      - CUe#
+      - '!1"%CD4CD453DCCS4'
+      - /%s!!D
+      - WC3QCT"V14g1$
+      - 21 A B
+      - '!1"$"'
+      - '!1"!1"-T#'
+      - ',/0#'
+      - '%%@4'
+      - OR3RD
+      - B"%B
+      - '!2%$'
+      - D3tR!V35
+      - D3##%
+      - C$@&@S@5$0
+      - '&!!1'
+      - 4O"$
+      - '!"T3'
+      - '!@#"2'
+      - '%"4# #3"'
+      - '&64v644FBDS4QT5&#3#3/R"'
+      - '@!"#AD&'
+      - 15O35$A2`#$&R%1#CB#B3
+      - D$ 2&5"##
+      - L&0S
+      - '%#!2'
+      - 5#1%S12BS"#D3D36B$%52DCDDD
+      - S3a%SD%B44RBCD4#C4B4D%4
+      - C#2"!a
+      - '%23!""'
+      - 2$BR3BU
+      - $0T&23$A4$%
+      - D"B&1RC$"a%
+      - o%"#1#&##"
+      - 1!01 &A
+      - '@4#S5TETDUFU&'
+      - C0# P
+      - '''>L^!#'
+      - '''@?a'
+      - $ "o/!&A
+      - '!N3A'
+      - '''@ 1'
+      - C@D3C1#2CA2
+      - .)(r
+      - /^+"
+      - ?A(0#
+      - '''K02'
+      - AV!B
+      - $/2'0@4
+      - 3""3
+      - 1#'2"22OC#"
+      - '!_o''2$'
+      - '!1!!"!'
+      - o $'
+      - 0?C 3
+      - '@''!1'
+      - '%\`tbS('
+      - /-'@
+      - '>R"1 E'
+      - /C! m!(/
+      - 1!A03
+      - '"= ]ON2'
+      - C0S2C
+      - B#Q(_=@2
+      - (=".~
+      - 0>OLp
+      - O`A4
+      - $c!(
+      - NO.0!(
+      - '"T0q_A<C'
+      - )/;yL-J=
+      - .//>(
+      - 2!){D
+      - $$1!B!
+      - '!)I}'
+      - ?>>%)
+      - '>1Nm'
+      - 534D4
+      - 2@2##NR2(
+      - P0("
+      - '!/O"'
+      - )@0/
+      - ( /"
+      - 1AB!
+      - /=OM!//M@
+      - ?/.2
+      - '!*k1'
+      - \P/"1
+      - '"#343#'
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_SML_Lev1
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_SML_Lev1.abk
+      relativePath: SOUND/SHIFTING/GEAR_SML_Lev1.abk
+      fileName: GEAR_SML_Lev1.abk
+      extension: .abk
+      byteLength: 22628
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - (N.m
+      - EV'.
+      - 4T$!
+      - VTES"
+      - '%."-'
+      - '!$,$'
+      - E0C/
+      - 2#BR
+      - ."A6
+      - '""3#'
+      - O1%?$
+      - '!B# @'
+      - ."0"N
+      - 4/"#
+      - '!31B'
+      - $,RB1
+      - '#3!2'
+      - 1$!1""
+      - SA4^6
+      - 61!%
+      - 3%/S
+      - '@2$ $'
+      - $ M.
+      - UUB#
+      - 4BEE
+      - 356b
+      - F?2A
+      - P2:'%
+      - '&? a'
+      - '!C$3&5S$E62DVCQEbd3%B"'
+      - $0""
+      - '# "!%"!1#'
+      - '&#A2?2'
+      - $?C3>4#3E&
+      - $#1a1D#
+      - 12E&B?2
+      - 1@2"#P""!$&
+      - 4 !#
+      - '"a^A'
+      - '!4$&'
+      - 1"$2"2$!$B
+      - $&#A4B$AR
+      - $3#"2S&
+      - /@"#
+      - 1#!/4
+      - '!A3"'
+      - 2"#&!A@#?#
+      - '"0@"'
+      - $@^41$
+      - 32EB$'
+      - A/22&"
+      - 2 &3
+      - '#?12#!2'
+      - '"1&1"#'
+      - '"''0Qa!P}3'
+      - A!0$
+      - 1O_#
+      - QQAB&
+      - 2A'$PS"@U
+      - /RE'
+      - 24""
+      - 1_! C
+      - 4.(%'%O% t-3Q%>
+      - '!''"1'
+      - '!^''/A#!'
+      - 00C! "
+      - 3 N'A@1
+      - '#@ "'
+      - '#?BA'
+      - '#''/$'
+      - '>(mA'
+      - b6a(2
+      - (_^%
+      - a(.=!
+      - ?KB'
+      - L.*K
+      - 3-.1
+      - ..O4
+      - '! 02'
+      - KK^1\
+      - CB"$
+      - =zK<
+      - M(1/
+      - '"1 22!?3'
+      - '"0#!'
+      - -/[S
+      - ']N>0'
+      - Ln0(2
+      - Q%3A
+      - $CS1
+      - -=,O
+      - 0@(\Q
+      - ._-'N
+      - '''?M_'
+      - .!D1 #2#
+      - 1B@R
+      - D@3(
+      - ??0/?(B
+      - 3#.C
+      - 0?b(
+      - '!8^$'
+      - B @A3#"2"*
+      - '*/_0"'
+      - D&6E3bR%#
+      - ^.,#
+      - '!!"B !A'
+      - '!,0.1'
+      - 3"?2$
+      - P$3 $
+      - _%3b
+      - b'"2!"*
+      - '&.U4!.'
+      - uO$"D<
+      - $?'I
+      - $".2
+      - '%?.P?'
+      - $5t!Rc%36%
+      - '! %p'
+      - '@054%!!0'
+      - '&%CO4&'
+      - '%"#"'
+      - '! 32%?$'
+      - '!.D@'
+      - 1"/0
+      - '&- "&-1%'
+      - '% \1'
+      - F5&nUR4$$"!
+      - /!!0
+      - '!''Q"'
+      - '!`!4'
+      - 51Q&"
+      - '#11`''Q"B#'
+      - 0`2/
+      - ./.!
+      - ''' ##'
+      - '''C/2'
+      - '"!0Q'
+      - '#''PCPQB#QB24'
+      - Q'3!##!"P
+      - '#=B'''
+      - B#2'
+      - m" 1
+      - ..>/1
+      - .!(,
+      - ''' -#A'
+      - -@>(
+      - 0/")
+      - '#0Q/q#C'
+      - $23O(!"
+      - 2Q*$"D!"E##33S
+      - 35*_S2&1RPC40S1E2*1D
+      - 3"32
+      - 20B#
+      - $,!C"B1B223#
+      - ',0A3'
+      - ?3 Q
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_SML_Lev2
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_SML_Lev2.abk
+      relativePath: SOUND/SHIFTING/GEAR_SML_Lev2.abk
+      fileName: GEAR_SML_Lev2.abk
+      extension: .abk
+      byteLength: 18148
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - B%.!
+      - C6O,
+      - $>20
+      - 0#=2
+      - '>PRC4P#'
+      - F#O?
+      - '",a<'
+      - = ;$
+      - Q$?"
+      - P$M!
+      - 11MJM
+      - 53#D
+      - _'-4
+      - P3!"
+      - $"  >E
+      - '%T$CCD4D44CD4C!$1 A'
+      - '"".32'
+      - D1?%!
+      - P$#$
+      - O$>%
+      - 244#&"3"P
+      - 0##2# C&
+      - b/=$
+      - $!-#
+      - '''N01M'
+      - '%C4TBC'
+      - D%0"21o
+      - '''^,@'
+      - . .P
+      - '?  "/'
+      - 4Q>c
+      - '%d2C'
+      - RSBT(/
+      - U%n!
+      - =o(O
+      - '>?,"'
+      - '>4$3#B$(/1'
+      - (]"2
+      - M1M]4
+      - AD53R4T3#D#*>1
+      - +.,.
+      - '&C3@'
+      - 1STA
+      - Cb3DF14T
+      - /@"N0
+      - T!2$#
+      - R$Bc5$
+      - '##"4'
+      - '""!!'
+      - $!!!B
+      - '!1""'
+      - '"!$1!'
+      - 2B2%"$
+      - V %P$
+      - '"A%f>'
+      - '&?BeQ&'
+      - '? #&*'
+      - _(.3&W
+      - 43A$2#
+      - VR41
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_SML_Lev3
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_SML_Lev3.abk
+      relativePath: SOUND/SHIFTING/GEAR_SML_Lev3.abk
+      fileName: GEAR_SML_Lev3.abk
+      extension: .abk
+      byteLength: 20708
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - 2#1 !
+      - 4330
+      - /1Q&
+      - D"4P
+      - '#$//'
+      - 3=!A
+      - C2!/3
+      - OD#"
+      - '!.#"'
+      - 0O"#
+      - T13VV#/
+      - '"243C'
+      - 4%3/5
+      - 6+=#
+      - '"!0#'
+      - 3 1%>
+      - '>4?B034'
+      - /3"3[
+      - '#E '''
+      - '''-MF'
+      - '>.8C'
+      - '#O $22"'
+      - 12$0
+      - 2M4&
+      - 204NcP
+      - S0?1/&
+      - PPB26
+      - '"4D2'
+      - '"""4D,'
+      - 14!#%31
+      - '". $'
+      - ',4$#D'
+      - D3/N
+      - '#Qb#'
+      - 2!4C
+      - 2UfFFEDcSo
+      - '%"$$#33#3###"2"!'
+      - '!!&B'
+      - '""2#22B4$34C&CSDE5EDUEUTeUd&fUfVeffffgWgWv&ggvgfwvwvwvvwg&gvvvwvvwfuvuvf#'
+      - 2##!
+      - '&B#C44DDE666EET%%4"2'
+      - '#23&'
+      - 3p$"
+      - 1"!%T44CD4
+      - 2""0
+      - D3CCB3@
+      - D/4#
+      - BB%0
+      - D"3"$
+      - 605P.
+      - '#"20D0'
+      - DE2@"D1!
+      - '#S"4B?)'
+      - 5DEUDE5f*
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  medium:
+  - tierName: GEAR_MED_Base
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_MED_Base.abk
+      relativePath: SOUND/SHIFTING/GEAR_MED_Base.abk
+      fileName: GEAR_MED_Base.abk
+      extension: .abk
+      byteLength: 20708
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - 14!D
+      - 022^
+      - 4S"EB
+      - '#"#2'
+      - '!#!!'
+      - '# 12'
+      - 13!%6R
+      - 4#332#5
+      - 5"31U
+      - BR1Q$
+      - R03@%$
+      - 3 51
+      - '%B"C'
+      - R22Q'
+      - RE#Q$
+      - '"003'
+      - '%_&>D/#/4O'
+      - M"/%
+      - '[A!P'
+      - '%/ 2'
+      - S2Q1
+      - '#"$B'
+      - T &!c
+      - _C?#
+      - 0#1 &@!
+      - '"/31& a$'
+      - qCE&
+      - F##Rc5BPe
+      - 36%001
+      - '&]_PP'
+      - 2C2`F
+      - '% A!"'
+      - '%"@A1#1#'
+      - '"2&Bd2Rd"s$$$AC'
+      - B&@2$
+      - '&1A2'
+      - '@`C"$&'
+      - ']QM#'
+      - '''$#T'
+      - <1'!
+      - 2!U2
+      - 0"O_P"&
+      - 5!0#&
+      - ?!!#/
+      - '@?''S#'
+      - B$!d
+      - 5"CRpq&3
+      - '!""#'
+      - '@!A1 $&'
+      - 00?#
+      - '>''0]!"'
+      - D2TF6
+      - .>"'
+      - o3=B
+      - _& A
+      - A! @!
+      - C%'-!!
+      - B!!P"^&#
+      - 0" 1!"!
+      - '''R&$%$Q%Q'
+      - '!!? "'
+      - '@01"!!'
+      - ''' M"'
+      - <]LjT
+      - 0A!$
+      - _<'P
+      - '!>O@_''0'
+      - '!!?3'
+      - '''! 1'
+      - '!!''"'
+      - (M@M
+      - .S"'
+      - (;o"
+      - ?>N0(
+      - ',\+1'
+      - 1(0/ "
+      - -\"/
+      - '!]QO?3'
+      - ']P"(!'
+      - '"/N0'
+      - <0>/
+      - =?.?
+      - /)[n.$
+      - '>a/p'
+      - O(A!
+      - ^_^#
+      - ?"!=^1(
+      - '"131C3'
+      - (2?Q"
+      - O(PB
+      - OO"!
+      - '])"-0'
+      - )=;@
+      - / /0
+      - . =#
+      - '@!0A'
+      - B (?
+      - 0(!A
+      - )0>`
+      - )m_`A R
+      - 0Q R
+      - 0A"$
+      - l?1//=O
+      - '! P#)'
+      - /^_02
+      - KoA)
+      - 0`.#
+      - A1@oD)
+      - '!*2&'
+      - '@`#12@*$'
+      - :@/"
+      - NQ"2#@R3%
+      - 35C54CF%CTDbb+sSU664UDTEDTTE+DT6'%SDS63ac3S+C44$32R3#3
+      - 3"#,SE%R'
+      - oQ`2$
+      - 0>"2
+      - 2201
+      - 3!!="
+      - ;2f2W
+      - 2%Cq
+      - T"T"
+      - B#B-32
+      - '"!%0%?'
+      - 4"#2
+      - S%/AQ
+      - 3/#2
+      - '"!1!2'
+      - '"!%P'
+      - '"!ED$'
+      - '%VtA6#CS4D45%45%%436C4CD42T4%S%%1'
+      - '%QE0'
+      - =%!$
+      - B" %
+      - B"""
+      - ~$Q$
+      - 4F2e"
+      - 0/4 %
+      - 0%!_
+      - 4R"E%"
+      - '"#""0B3@3'
+      - '#"%2E!B4'
+      - C$2"2%0Q1
+      - '''/]P+$'
+      - '!A1?Q'
+      - '""2B3!D#3B1&B35%'
+      - '"&#3'
+      - '!Q@"'
+      - ?@'d
+      - '!.2%'
+      - 00&B
+      - 31D#&4
+      - '!SR&%'
+      - B2C3S%&"BS23
+      - 1C@1a"2
+      - '''S4AFA34'
+      - /%A1@4(
+      - O? @"#
+      - '"C##'
+      - '`qCQ''pRE3D26`%25'
+      - 6A'V
+      - '&$AD#A42''"3?B4'
+      - 2!Q&
+      - '#ob1d'
+      - 3?7'
+      - 4,A.mO$
+      - '!!!"!'
+      - AR$>C5
+      - 5 cQ'%
+      - ~?]b
+      - 24/D
+      - '##"C&'
+      - C$B2C
+      - 1 "Q
+      - '@$o"$'''
+      - //;6
+      - 2BAd
+      - '>O1'''
+      - .B "(]#
+      - '"(" 2" 2!"'
+      - '!011'
+      - '"2!?OC'
+      - .*0N
+      - Pe13
+      - ?2*m
+      - O_O)B
+      - '%&4)=l#'
+      - '!2AB'
+      - '#$"$!3)'
+      - '#!A!A1'
+      - '@^|~A'
+      - '} ?_'
+      - '!1! n@2'
+      - '"!@2"1#'
+      - C22# 2!
+      - /N/?)
+      - 1E0B
+      - '- ES7yFX_SHIFTING_01'
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_MED_Lev1
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_MED_Lev1.abk
+      relativePath: SOUND/SHIFTING/GEAR_MED_Lev1.abk
+      fileName: GEAR_MED_Lev1.abk
+      extension: .abk
+      byteLength: 26724
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '''&n?'
+      - t%UeG%B4*
+      - D5#'
+      - 3"!&
+      - '#U46M'
+      - DQ4B
+      - SCR6
+      - '#!CB'
+      - '%!.4'
+      - $A0^
+      - B:#"
+      - 2C3@V
+      - NT""1
+      - '#3/#'
+      - $"!"
+      - ?"1"
+      - '"%0#"'
+      - D!#.
+      - P5T/5L
+      - '"$D2"3'
+      - U.E#
+      - '#? ,'
+      - b/C5cB
+      - $R2?6#
+      - C!&E
+      - '%U2!'
+      - CF 32
+      - '!&`1'
+      - '"&B"#2'
+      - T#4#QD@
+      - 2&!"T
+      - A1#&
+      - 1""' $
+      - '''1"!'
+      - R$?C4/
+      - D!='
+      - '!a"@'
+      - '##%7'
+      - O&#A
+      - 21"""3!3323&
+      - 325"
+      - '!''UDd$Ub'
+      - CS4D'3ECTD3UU2fCE#F'2%4$DQ2342$C
+      - '#(SUDD4eCr3#CC'
+      - (BeD%S5DSEDTDTB(CTQ
+      - D#$#BeA!#2(3
+      - 4UAd
+      - (?A!0 !Q
+      - 0"21A
+      - O3/30(
+      - /?"#
+      - O)pOB
+      - 3!13"
+      - B#(BC"
+      - 20"?)O722
+      - A43"
+      - Nr./F
+      - _?13
+      - '*@OE'
+      - 21^#3
+      - RQ3"3>R#C)4 !S$4"%S6
+      - 1R3)_4%
+      - 0D!@D
+      - '#)4 "`'
+      - S32B>b"##) d
+      - PVD4
+      - b#0$"
+      - '}OMa'
+      - '#4C3'
+      - '#$"_*'
+      - '"Q!"'
+      - <!0"+
+      - +"2!
+      - +@/@
+      - ?O01
+      - ?,CD
+      - O?o3
+      - 20-A
+      - '43E0,=]'
+      - '%d= (?!'
+      - 3$"#B
+      - '#"35'
+      - 2 B 4
+      - 4$ac
+      - $#?"
+      - 2$14
+      - 5US$<
+      - UUBB#W$
+      - 3TQ$
+      - 4D5O
+      - DDScdTdUdeUee&VeWUfefVefeefV&eVVVFddeTdUTTT&EDE4D5%3BD#32A&AA2""!01
+      - 1 o4" C4
+      - +?.^1"
+      - '"!""&'
+      - wdveuufVVUVEF
+      - $20"
+      - T5# 2#A
+      - ^3C4
+      - AgT"
+      - rG?2/
+      - '#$=0'
+      - T! 4#
+      - '""$-3C'
+      - '"42#'
+      - $D#C
+      - '"02!'
+      - '! %"'
+      - ?%Es
+      - '"ET#D'
+      - '"''T$$$'
+      - /42?
+      - rR%/5UE ER"s5#d
+      - 0WD7O$
+      - U#C%
+      - D.?$
+      - '%@.4'
+      - '>0B1'
+      - '"D%C#C#'
+      - '#CEOdAT44$'
+      - '!1"!?#'
+      - A%1/
+      - '%#3B 4"'
+      - '"!!%'
+      - 0 "/
+      - '&$/2C!#@'
+      - '&%OtU/1D## sF'
+      - B/##
+      - '#%1B'
+      - '!!"S4#'
+      - '%"4A'
+      - 2/1@"!
+      - / ?@&
+      - '''5$O'
+      - CmTE
+      - 31!C!10
+      - '#R0%'
+      - B1#!3!?!12
+      - '"1&R3B4P'
+      - .2 !
+      - '"%"!'
+      - '!C"B!12'
+      - '%1A12'
+      - '#!&!2F14'
+      - '!&0"'
+      - E#6U
+      - '&2."'
+      - B1B1"C!&
+      - 3C1"Tb5D&
+      - $VB$RTB!5$1eC&
+      - 3"c#
+      - c""A
+      - '&B22C1$V4#S3T%3&d44CC%&QTFT5@c&1EESbRcG'
+      - '#E3 3&5$2%E?'
+      - '" $?&0'
+      - RT3$B1F4TRsUF&#
+      - $A3$
+      - '%33$13'
+      - A2!22A3
+      - '&#1"'
+      - '"2 42/$2''T'
+      - bB_S+
+      - '''RScs6'
+      - e`F4CSF&
+      - .O >
+      - '!M!<O'
+      - .' !
+      - '''DS2'
+      - r3S453T'4
+      - qT5BV66
+      - CdEC'BB46cr6D&BaSDE'bc
+      - EC$2FB4#BQD&!
+      - $'>1
+      - /.>P
+      - '`/!B4'
+      - 1/'oA
+      - '#/N2'
+      - '"''#?^'
+      - '!"(T'
+      - '#''B%34bc6%61rWFU&""B3$'
+      - '"2B#13'
+      - '"&#4#2#3'
+      - '"12"B2"''DDc2TsTbD3Q2'''
+      - '''#S#24'
+      - 1!1O?(]~
+      - <.1(
+      - BqW'`
+      - 11CBS'42S3
+      - 4"5DD$2F&
+      - '"@A"'
+      - 1!1 'AC
+      - 2@"1!?1
+      - '''!02!""'
+      - '#1D$"'
+      - '''$3F2%4$65BRRd4''T6%ESSUBceDSeE''44%DUCECSCBQT4''CB33CDC3'
+      - B2$"'1"Q2"
+      - '""00!'
+      - '""(B'
+      - Dr41'
+      - RB '
+      - C112C$B32"'333#3"
+      - '"3$42B2(fWC%!degV$F&5U(cE4'
+      - '@3DT'
+      - '#CE$(/!32A57DD#C'
+      - '"f''3'
+      - '!(t$11'
+      - 4VQ#!(
+      - ->V"(
+      - ScGC1
+      - $C3  !CA#
+      - '%(45'
+      - '"43TD%2(11335DDcc5ED"$(4$DUD53B3'
+      - 65SC(3CT3"EB352!34E(321
+      - '"!BB1'
+      - '"#)"'
+      - 4"""!3
+      - 3#%E(2BD5#DD44TEE4V(4EEUETUEEVUVFU(EE6WDUVeDTDFUF(E5ETCFFFDBD%E4(C3"4C3
+      - )322"
+      - $#CSC(#
+      - 4#32##A3DE3(2D54DD4DE4D5DU(EFCDCdVCedDFEE(FVEUEEVDD4UUFD(TTTTET3CD#CC44(C3C3C2$#$$#332)dUUSVuSED5EUE4)$323QD3132
+      - '*C1#4P'
+      - '!  D)EC3De#'
+      - CTFfuEV(4"23BBB2BC4B4#(3D443CD32$E54D(C3123443C433C3(42233#1322CB11)dE44FFEE%#4d3B)4"#2
+      - '"*cP'
+      - 2*T"4A
+      - '!c4?'
+      - '""CS2"'
+      - AT$!/
+      - D*3D4Q/ C
+      - 1de2"
+      - 222#
+      - 0 #"
+      - '*#A2'
+      - 32 O?
+      - 432)
+      - 2222DD)4D4444SRDTTECD)DDCSTTE44DDSCE)RD344#C$2552A#*3RT53CT2"
+      - 01!?*
+      - 3#$"1B44ee5F)#$BCC#4$D3T5DE)CCccE5EUSTTTUE)5DCUDE5E4DCE44)D4D3$3$#2C#
+      - '#*E323#21'
+      - '""3" 4#12+BC2C2!Tf6BCEE5+E5FGFFdtUduUGv*BS3$#433$3B344*444BD#32C3CBDD*$'
+      - 3B3C32335$#2*3
+      - 2Q21122
+      - +bDC23#$
+      - 2!0"##,bB1
+      - 2+""
+      - 1!3$23$
+      - '"#E53E4CCREDD+54ARD5TDCEEDSD+C3CS3CTSD4D4CB+3'
+      - $2B22AQ@B"#",
+      - 02A#%#
+      - '"3#3"%,'
+      - '"B3RR44CT2bTD,55E$bdEDSUD4sT+"2'
+      - 12#P
+      - 2",B4C7
+      - 410,c
+      - '"""!'
+      - '""#DEUUD2"#'
+      - 333"""""""""""
+      - -HES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_MED_Lev2
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_MED_Lev2.abk
+      relativePath: SOUND/SHIFTING/GEAR_MED_Lev2.abk
+      fileName: GEAR_MED_Lev2.abk
+      extension: .abk
+      byteLength: 27236
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - 12#2
+      - '!''M#'
+      - /31!
+      - B1B@
+      - $2"2
+      - P!!"
+      - 2V2#5c
+      - 0$1U"
+      - $-10="
+      - 4n,1
+      - 2Qf-
+      - '"!$"$'
+      - $?&?
+      - / 'n
+      - '&?!"'
+      - 3!rC
+      - C6#SS&S6%CE$sS3DdbC4&c4DFE
+      - UR%Dd2C7&%
+      - 34`0C3"
+      - /""A
+      - '? l^'
+      - C .0
+      - F"2d&
+      - //'J
+      - 4#`$
+      - ?M&=$
+      - .>&a
+      - '! !A&/A'
+      - 1@!1P&2
+      - $!!B13
+      - 2$0&!4
+      - '!1##'
+      - 22 0A
+      - '"A2"C3'
+      - 3&$$#B3B4"E
+      - 3%0R&D"C
+      - '#2B2#3'
+      - 3""&
+      - '!@&"!'
+      - '!"B!'
+      - '!1111A'
+      - bd$fT
+      - '>.''!'
+      - '!!P3'
+      - C@Mc"0&
+      - '#!@"'
+      - '!a P'
+      - 12#'B
+      - ^R?b
+      - OOO11
+      - 1A%"o#%
+      - A33'$
+      - '@aS1AC3'
+      - S1o2Q4!35
+      - '''P0DA1'
+      - 31m2#'$
+      - $! !#!<23
+      - c?-0
+      - 0? A
+      - A/" 2
+      - 0M' "#
+      - N!mD
+      - '@!"00'
+      - /? 1
+      - '{-Q/'
+      - '>"/N'
+      - ?/NA
+      - '!/??'''
+      - N?.2
+      - D<MD/
+      - . >4
+      - 2- B
+      - 1?'0
+      - '''O>0'
+      - /'?>_
+      - 1-@'
+      - 0U!0?
+      - AR.$
+      - 0O'_
+      - ',J<,='
+      - /? 0
+      - '#"@a$3'
+      - $6D3'
+      - ?/!(
+      - 2 1A
+      - '"0 2'
+      - E267
+      - '"O04'
+      - (/>/>1
+      - O_AP
+      - MK^\#
+      - M.]!
+      - /Zn1
+      - '""!#'
+      - .(*^
+      - '%>p@%$'
+      - (=_N
+      - ?(N1/@2
+      - /.]"0
+      - CAA"S3
+      - A//0
+      - =>=(?
+      - '" !!3'
+      - MKnN>
+      - =*]/<N
+      - E#5BE3b"T*
+      - -0*0
+      - -""=
+      - '!@/?#;o%,'
+      - O?#,
+      - '"..>2('
+      - '!!S2'
+      - ''',]#'
+      - BBS1!
+      - aAT444"`B$$
+      - O1!&MB
+      - O!2.
+      - '#"//'
+      - 0%-?
+      - u143b
+      - '&"t$"'
+      - '""m$2'
+      - $N #
+      - 4#QB
+      - '"C"2#O'
+      - 4?$/
+      - 50!#
+      - PCO#
+      - R!C"
+      - '&.!/'
+      - A"^#T
+      - C1#A
+      - 1>A"
+      - '"!=o'
+      - R2WBe##
+      - VB0!
+      - '#32%PEO'
+      - CUe#
+      - '!1"%CD4CD453DCCS4'
+      - /%s!!D
+      - WC3QCT"V14g1$
+      - 21 A B
+      - '!1"$"'
+      - '!1"!1"-T#'
+      - ',/0#'
+      - '%%@4'
+      - OR3RD
+      - B"%B
+      - '!2%$'
+      - D3tR!V35
+      - D3##%
+      - C$@&@S@5$0
+      - '&!!1'
+      - 4O"$
+      - '!"T3'
+      - '!@#"2'
+      - '%"4# #3"'
+      - '&64v644FBDS4QT5&#3#3/R"'
+      - '@!"#AD&'
+      - 15O35$A2`#$&R%1#CB#B3
+      - D$ 2&5"##
+      - L&0S
+      - '%#!2'
+      - 5#1%S12BS"#D3D36B$%52DCDDD
+      - S3a%SD%B44RBCD4#C4B4D%4
+      - C#2"!a
+      - '%23!""'
+      - 2$BR3BU
+      - $0T&23$A4$%
+      - D"B&1RC$"a%
+      - o%"#1#&##"
+      - 1!01 &A
+      - '@4#S5TETDUFU&'
+      - C0# P
+      - '''>L^!#'
+      - '''@?a'
+      - $ "o/!&A
+      - '!N3A'
+      - '''@ 1'
+      - C@D3C1#2CA2
+      - .)(r
+      - /^+"
+      - ?A(0#
+      - '''K02'
+      - AV!B
+      - $/2'0@4
+      - 3""3
+      - 1#'2"22OC#"
+      - '!_o''2$'
+      - '!1!!"!'
+      - o $'
+      - 0?C 3
+      - '@''!1'
+      - '%\`tbS('
+      - /-'@
+      - '>R"1 E'
+      - /C! m!(/
+      - 1!A03
+      - '"= ]ON2'
+      - C0S2C
+      - B#Q(_=@2
+      - (=".~
+      - 0>OLp
+      - O`A4
+      - $c!(
+      - NO.0!(
+      - '"T0q_A<C'
+      - )/;yL-J=
+      - .//>(
+      - 2!){D
+      - $$1!B!
+      - '!)I}'
+      - ?>>%)
+      - '>1Nm'
+      - 534D4
+      - 2@2##NR2(
+      - P0("
+      - '!/O"'
+      - )@0/
+      - ( /"
+      - 1AB!
+      - /=OM!//M@
+      - ?/.2
+      - '!*k1'
+      - \P/"1
+      - '"#343#'
+      - -pES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_MED_Lev3
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_MED_Lev3.abk
+      relativePath: SOUND/SHIFTING/GEAR_MED_Lev3.abk
+      fileName: GEAR_MED_Lev3.abk
+      extension: .abk
+      byteLength: 27236
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - 12#2
+      - '!''M#'
+      - /31!
+      - B1B@
+      - $2"2
+      - P!!"
+      - 2V2#5c
+      - 0$1U"
+      - $-10="
+      - 4n,1
+      - 2Qf-
+      - '"!$"$'
+      - $?&?
+      - / 'n
+      - '&?!"'
+      - 3!rC
+      - C6#SS&S6%CE$sS3DdbC4&c4DFE
+      - UR%Dd2C7&%
+      - 34`0C3"
+      - /""A
+      - '? l^'
+      - C .0
+      - F"2d&
+      - //'J
+      - 4#`$
+      - ?M&=$
+      - .>&a
+      - '! !A&/A'
+      - 1@!1P&2
+      - $!!B13
+      - 2$0&!4
+      - '!1##'
+      - 22 0A
+      - '"A2"C3'
+      - 3&$$#B3B4"E
+      - 3%0R&D"C
+      - '#2B2#3'
+      - 3""&
+      - '!@&"!'
+      - '!"B!'
+      - '!1111A'
+      - bd$fT
+      - '>.''!'
+      - '!!P3'
+      - C@Mc"0&
+      - '#!@"'
+      - '!a P'
+      - 12#'B
+      - ^R?b
+      - OOO11
+      - 1A%"o#%
+      - A33'$
+      - '@aS1AC3'
+      - S1o2Q4!35
+      - '''P0DA1'
+      - 31m2#'$
+      - $! !#!<23
+      - c?-0
+      - 0? A
+      - A/" 2
+      - 0M' "#
+      - N!mD
+      - '@!"00'
+      - /? 1
+      - '{-Q/'
+      - '>"/N'
+      - ?/NA
+      - '!/??'''
+      - N?.2
+      - D<MD/
+      - . >4
+      - 2- B
+      - 1?'0
+      - '''O>0'
+      - /'?>_
+      - 1-@'
+      - 0U!0?
+      - AR.$
+      - 0O'_
+      - ',J<,='
+      - /? 0
+      - '#"@a$3'
+      - $6D3'
+      - ?/!(
+      - 2 1A
+      - '"0 2'
+      - E267
+      - '"O04'
+      - (/>/>1
+      - O_AP
+      - MK^\#
+      - M.]!
+      - /Zn1
+      - '""!#'
+      - .(*^
+      - '%>p@%$'
+      - (=_N
+      - ?(N1/@2
+      - /.]"0
+      - CAA"S3
+      - A//0
+      - =>=(?
+      - '" !!3'
+      - MKnN>
+      - =*]/<N
+      - E#5BE3b"T*
+      - -0*0
+      - -""=
+      - '!@/?#;o%,'
+      - O?#,
+      - '"..>2('
+      - '!!S2'
+      - ''',]#'
+      - BBS1!
+      - aAT444"`B$$
+      - O1!&MB
+      - O!2.
+      - '#"//'
+      - 0%-?
+      - u143b
+      - '&"t$"'
+      - '""m$2'
+      - $N #
+      - 4#QB
+      - '"C"2#O'
+      - 4?$/
+      - 50!#
+      - PCO#
+      - R!C"
+      - '&.!/'
+      - A"^#T
+      - C1#A
+      - 1>A"
+      - '"!=o'
+      - R2WBe##
+      - VB0!
+      - '#32%PEO'
+      - CUe#
+      - '!1"%CD4CD453DCCS4'
+      - /%s!!D
+      - WC3QCT"V14g1$
+      - 21 A B
+      - '!1"$"'
+      - '!1"!1"-T#'
+      - ',/0#'
+      - '%%@4'
+      - OR3RD
+      - B"%B
+      - '!2%$'
+      - D3tR!V35
+      - D3##%
+      - C$@&@S@5$0
+      - '&!!1'
+      - 4O"$
+      - '!"T3'
+      - '!@#"2'
+      - '%"4# #3"'
+      - '&64v644FBDS4QT5&#3#3/R"'
+      - '@!"#AD&'
+      - 15O35$A2`#$&R%1#CB#B3
+      - D$ 2&5"##
+      - L&0S
+      - '%#!2'
+      - 5#1%S12BS"#D3D36B$%52DCDDD
+      - S3a%SD%B44RBCD4#C4B4D%4
+      - C#2"!a
+      - '%23!""'
+      - 2$BR3BU
+      - $0T&23$A4$%
+      - D"B&1RC$"a%
+      - o%"#1#&##"
+      - 1!01 &A
+      - '@4#S5TETDUFU&'
+      - C0# P
+      - '''>L^!#'
+      - '''@?a'
+      - $ "o/!&A
+      - '!N3A'
+      - '''@ 1'
+      - C@D3C1#2CA2
+      - .)(r
+      - /^+"
+      - ?A(0#
+      - '''K02'
+      - AV!B
+      - $/2'0@4
+      - 3""3
+      - 1#'2"22OC#"
+      - '!_o''2$'
+      - '!1!!"!'
+      - o $'
+      - 0?C 3
+      - '@''!1'
+      - '%\`tbS('
+      - /-'@
+      - '>R"1 E'
+      - /C! m!(/
+      - 1!A03
+      - '"= ]ON2'
+      - C0S2C
+      - B#Q(_=@2
+      - (=".~
+      - 0>OLp
+      - O`A4
+      - $c!(
+      - NO.0!(
+      - '"T0q_A<C'
+      - )/;yL-J=
+      - .//>(
+      - 2!){D
+      - $$1!B!
+      - '!)I}'
+      - ?>>%)
+      - '>1Nm'
+      - 534D4
+      - 2@2##NR2(
+      - P0("
+      - '!/O"'
+      - )@0/
+      - ( /"
+      - 1AB!
+      - /=OM!//M@
+      - ?/.2
+      - '!*k1'
+      - \P/"1
+      - '"#343#'
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  large:
+  - tierName: GEAR_LRG_Base
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_LRG_Base.abk
+      relativePath: SOUND/SHIFTING/GEAR_LRG_Base.abk
+      fileName: GEAR_LRG_Base.abk
+      extension: .abk
+      byteLength: 29412
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '!73?'
+      - $DB$C2
+      - 03P.
+      - O32<
+      - W1D"$
+      - 2.5<'
+      - V>7]C
+      - d"D!
+      - '"!""!22'
+      - $P4>4
+      - '#2"21#'
+      - 1:31
+      - 2$2""!
+      - s=2d=#
+      - QD/3
+      - '!"2"'
+      - 1?05
+      - 2P31
+      - tN2%
+      - 0010%3
+      - $ S%
+      - '">%"'
+      - '%1B23'
+      - '%!E32a'
+      - R12$%3C
+      - E?5.&
+      - N2R!3"%3
+      - 0C"20D
+      - '%?#C'
+      - '&%##@b@Bc#'
+      - '#%!%%@'
+      - Q!@OD
+      - 4 $!
+      - UdFfe%S3C3Q#C4C5$#E4%CTDR3D4CCS4D4C%CDCCDCCB$"CC
+      - C0A$
+      - '&O O'
+      - '>20"&'
+      - '@@#"O2'
+      - '"O/@'
+      - 1'N"
+      - N>'A1
+      - '!!0''N'
+      - 3$"S$C%
+      - '''#2E'
+      - aC1BU
+      - ?'nBO"?#
+      - pO##
+      - _&#24
+      - '"22&3!B1#'
+      - '''24b'
+      - o0"2A%
+      - /B"3
+      - Q"1@0'#2D
+      - 4"32
+      - 23P#'3
+      - 1@2"
+      - '%B5=_7'
+      - 3#"`V3sDs&R333T%
+      - E%bcU6E&d6TTreFEEU65e5&EbUD5SSCD35#D#&323$0B!B
+      - (B#3l1M
+      - 3!2`&"
+      - '##B4&$2BBC3D#34$$33''tfdeUUTSSSE%'
+      - 3(6E
+      - Z}_3
+      - ']O(4'
+      - (!"2/1!20/_$
+      - '''"R#$C3D4CT&Ccs&2#'
+      - 23#$!Q2#&2"A#
+      - 2?1@
+      - O"&!
+      - C6D&3eS&0Q3"2#3
+      - 1C!C#&2"33
+      - 1B#1A3"##'F5bscUV5674cG5'E&TDECEQS4Pc24(4g4SS
+      - Ab4Bd5TEdbvT'4
+      - 4B3C4&#DCSSE'STEEddUfFFVFeW&324#BBBC3$34#C&$2C#R#B#B23"22'cF&E45&$#$2#!3'
+        "
+      - 3A45
+      - 5C5UUD'1C
+      - B$!%
+      - '"0"''A!"'
+      - 1AC'15#$R%3DBDE4C4'C6CTDCCU3E
+      - B'a5
+      - 3"323@3#
+      - '"nCA1T#DCC2%4''2'
+      - '"#!31"2#'
+      - '"@#022'
+      - 2" '2
+      - B?%2
+      - '}%?U'
+      - 1.#B'
+      - q$sc
+      - 22"0'
+      - /R0!
+      - /1/0
+      - oa?''
+      - '%<0/'
+      - '"1#B(2'
+      - /"'.
+      - '!,>1'
+      - )P"@A#
+      - ?4"BS&*
+      - 0 A*
+      - '!00_A'
+      - '* n3'
+      - ?10#*
+      - +o/Bk3
+      - =S.?R
+      - 0CR2'
+      - AB11
+      - '#"BD'
+      - ??!!
+      - =M@.+>
+      - -//+
+      - B"2223$
+      - 3#*C$4$4$C3D345$5*$BDCCCD2RS5$34*AS34$#323"C
+      - 12+TRbqSR$B
+      - <>,.<
+      - 1_QA3+3#2C#Aa434344$+C&#D3C4C45$444+3D%#S$Ab3C
+      - 24+#2A4#"304
+      - ',c%S'
+      - 341QQ$
+      - 0@1,2
+      - '? > //'
+      - '"""""""""33'
+      - 33333334333333
+      - 33333333333333
+      - 33DDDDDDDDDDC3
+      - 43333332""""""
+      - '"""""""""""""2'
+      - 3333323"""""""
+      - '"!""'
+      - 31%&
+      - T>B*
+      - +O;t,`-n
+      - O-B*
+      - 0S/O
+      - 3#R5ED$
+      - '#C3a'
+      - '@%B #/'
+      - '!"$?'
+      - 7["/
+      - B%E4CC#RCC4FD#53%S53S4D4
+      - Ut3D
+      - e2$BC!
+      - .2!A
+      - 1"!1"!1 1
+      - '"%Q"B'
+      - '#"CDO'
+      - '%3#"$3.'
+      - 12A2 3
+      - 1##23
+      - '!""""'
+      - .14C$3"#!#
+      - -25!
+      - O  #N
+      - mQT_!1 C
+      - 6UVV3!
+      - e3WEVA
+      - '"%3$  $0'
+      - D3$$4
+      - t$ 02 2
+      - '%]##'
+      - '@11$"1! $%14'
+      - '!3"!'
+      - 1##2
+      - b3%D#T#T5a3V@%DCCS4D44D4
+      - 03B&c7
+      - 2qtTCD221!*E
+      - '%Q5$#F'
+      - '%&C4CTDA$"'
+      - '"!""!"!2'
+      - f#.!
+      - GM=&"" >A
+      - C24A3
+      - CCCD3%tCCB4#E%R
+      - 5"3$#
+      - 1$#R3AAAO!
+      - '!!"!"!"'
+      - E1S6PFR4r#DCC%DCCD4D44CD4Ab4%!Q
+      - 123"11"
+      - 1]4$$
+      - <B##
+      - '!1! "'
+      - '"2 %1 3"'
+      - E2!"
+      - '#!!!'
+      - '#"2$A'
+      - C?15<
+      - 54@0?
+      - '&eA_'
+      - 1#!$
+      - '&0!%4'
+      - C$5S$
+      - 1/@!
+      - '&b$C'
+      - '#$!1%2'
+      - 3"R2!C#D2D##%b24#U
+      - '#2S3C23'
+      - AAB!" R"!
+      - 0""&
+      - '#%###23$B4#$"2CB%2R'
+      - 5$#BC2R#2A2%##A$!12
+      - .A&# A
+      - 1AB@23
+      - BC#Cb7DRcS
+      - '"OC"2#'
+      - '"%1B'
+      - 21#1
+      - ?&&M
+      - '>.R&'
+      - _&!"O
+      - '''!mk6'
+      - O3!3/@&A
+      - A!3 B#2
+      - 3$1D@D
+      - '&3A@b'
+      - 2B#$&
+      - 1@B"#
+      - 110"2
+      - '''E12"1%'
+      - '&""!1'
+      - '"103#!$""&#'
+      - 3#"2
+      - 1!AA"
+      - '"!#!''B3bBB$@R1'
+      - 0  O@'
+      - '!-?"'''
+      - '!#.##'
+      - E'1"#A2a2
+      - '""41#''##"$#1'
+      - 1"11"?'"
+      - D$1"5
+      - 123"
+      - (]=E
+      - '"!!1#"'''
+      - '''A"Q'
+      - R!$/'%
+      - '!.##'
+      - '>^1N1D'
+      - '!6@"'
+      - '!OA''$'
+      - '!BA''"$1'
+      - 42@QE
+      - S##!!F
+      - B'!%
+      - B!" !B
+      - 30'?2
+      - ("//
+      - P?@A3(
+      - =(.1
+      - Nm/(1A
+      - _00)!
+      - .`ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_LRG_Lev1
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_LRG_Lev1.abk
+      relativePath: SOUND/SHIFTING/GEAR_LRG_Lev1.abk
+      fileName: GEAR_LRG_Lev1.abk
+      extension: .abk
+      byteLength: 29412
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '!73?'
+      - $DB$C2
+      - 03P.
+      - O32<
+      - W1D"$
+      - 2.5<'
+      - V>7]C
+      - d"D!
+      - '"!""!22'
+      - $P4>4
+      - '#2"21#'
+      - 1:31
+      - 2$2""!
+      - s=2d=#
+      - QD/3
+      - '!"2"'
+      - 1?05
+      - 2P31
+      - tN2%
+      - 0010%3
+      - $ S%
+      - '">%"'
+      - '%1B23'
+      - '%!E32a'
+      - R12$%3C
+      - E?5.&
+      - N2R!3"%3
+      - 0C"20D
+      - '%?#C'
+      - '&%##@b@Bc#'
+      - '#%!%%@'
+      - Q!@OD
+      - 4 $!
+      - UdFfe%S3C3Q#C4C5$#E4%CTDR3D4CCS4D4C%CDCCDCCB$"CC
+      - C0A$
+      - '&O O'
+      - '>20"&'
+      - '@@#"O2'
+      - '"O/@'
+      - 1'N"
+      - N>'A1
+      - '!!0''N'
+      - 3$"S$C%
+      - '''#2E'
+      - aC1BU
+      - ?'nBO"?#
+      - pO##
+      - _&#24
+      - '"22&3!B1#'
+      - '''24b'
+      - o0"2A%
+      - /B"3
+      - Q"1@0'#2D
+      - 4"32
+      - 23P#'3
+      - 1@2"
+      - '%B5=_7'
+      - 3#"`V3sDs&R333T%
+      - E%bcU6E&d6TTreFEEU65e5&EbUD5SSCD35#D#&323$0B!B
+      - (B#3l1M
+      - 3!2`&"
+      - '##B4&$2BBC3D#34$$33''tfdeUUTSSSE%'
+      - 3(6E
+      - Z}_3
+      - ']O(4'
+      - (!"2/1!20/_$
+      - '''"R#$C3D4CT&Ccs&2#'
+      - 23#$!Q2#&2"A#
+      - 2?1@
+      - O"&!
+      - C6D&3eS&0Q3"2#3
+      - 1C!C#&2"33
+      - 1B#1A3"##'F5bscUV5674cG5'E&TDECEQS4Pc24(4g4SS
+      - Ab4Bd5TEdbvT'4
+      - 4B3C4&#DCSSE'STEEddUfFFVFeW&324#BBBC3$34#C&$2C#R#B#B23"22'cF&E45&$#$2#!3'
+        "
+      - 3A45
+      - 5C5UUD'1C
+      - B$!%
+      - '"0"''A!"'
+      - 1AC'15#$R%3DBDE4C4'C6CTDCCU3E
+      - B'a5
+      - 3"323@3#
+      - '"nCA1T#DCC2%4''2'
+      - '"#!31"2#'
+      - '"@#022'
+      - 2" '2
+      - B?%2
+      - '}%?U'
+      - 1.#B'
+      - q$sc
+      - 22"0'
+      - /R0!
+      - /1/0
+      - oa?''
+      - '%<0/'
+      - '"1#B(2'
+      - /"'.
+      - '!,>1'
+      - )P"@A#
+      - ?4"BS&*
+      - 0 A*
+      - '!00_A'
+      - '* n3'
+      - ?10#*
+      - +o/Bk3
+      - =S.?R
+      - 0CR2'
+      - AB11
+      - '#"BD'
+      - ??!!
+      - =M@.+>
+      - -//+
+      - B"2223$
+      - 3#*C$4$4$C3D345$5*$BDCCCD2RS5$34*AS34$#323"C
+      - 12+TRbqSR$B
+      - <>,.<
+      - 1_QA3+3#2C#Aa434344$+C&#D3C4C45$444+3D%#S$Ab3C
+      - 24+#2A4#"304
+      - ',c%S'
+      - 341QQ$
+      - 0@1,2
+      - '? > //'
+      - '"""""""""33'
+      - 33333334333333
+      - 33333333333333
+      - 33DDDDDDDDDDC3
+      - 43333332""""""
+      - '"""""""""""""2'
+      - 3333323"""""""
+      - '"!""'
+      - 31%&
+      - T>B*
+      - +O;t,`-n
+      - O-B*
+      - 0S/O
+      - 3#R5ED$
+      - '#C3a'
+      - '@%B #/'
+      - '!"$?'
+      - 7["/
+      - B%E4CC#RCC4FD#53%S53S4D4
+      - Ut3D
+      - e2$BC!
+      - .2!A
+      - 1"!1"!1 1
+      - '"%Q"B'
+      - '#"CDO'
+      - '%3#"$3.'
+      - 12A2 3
+      - 1##23
+      - '!""""'
+      - .14C$3"#!#
+      - -25!
+      - O  #N
+      - mQT_!1 C
+      - 6UVV3!
+      - e3WEVA
+      - '"%3$  $0'
+      - D3$$4
+      - t$ 02 2
+      - '%]##'
+      - '@11$"1! $%14'
+      - '!3"!'
+      - 1##2
+      - b3%D#T#T5a3V@%DCCS4D44D4
+      - 03B&c7
+      - 2qtTCD221!*E
+      - '%Q5$#F'
+      - '%&C4CTDA$"'
+      - '"!""!"!2'
+      - f#.!
+      - GM=&"" >A
+      - C24A3
+      - CCCD3%tCCB4#E%R
+      - 5"3$#
+      - 1$#R3AAAO!
+      - '!!"!"!"'
+      - E1S6PFR4r#DCC%DCCD4D44CD4Ab4%!Q
+      - 123"11"
+      - 1]4$$
+      - <B##
+      - '!1! "'
+      - '"2 %1 3"'
+      - E2!"
+      - '#!!!'
+      - '#"2$A'
+      - C?15<
+      - 54@0?
+      - '&eA_'
+      - 1#!$
+      - '&0!%4'
+      - C$5S$
+      - 1/@!
+      - '&b$C'
+      - '#$!1%2'
+      - 3"R2!C#D2D##%b24#U
+      - '#2S3C23'
+      - AAB!" R"!
+      - 0""&
+      - '#%###23$B4#$"2CB%2R'
+      - 5$#BC2R#2A2%##A$!12
+      - .A&# A
+      - 1AB@23
+      - BC#Cb7DRcS
+      - '"OC"2#'
+      - '"%1B'
+      - 21#1
+      - ?&&M
+      - '>.R&'
+      - _&!"O
+      - '''!mk6'
+      - O3!3/@&A
+      - A!3 B#2
+      - 3$1D@D
+      - '&3A@b'
+      - 2B#$&
+      - 1@B"#
+      - 110"2
+      - '''E12"1%'
+      - '&""!1'
+      - '"103#!$""&#'
+      - 3#"2
+      - 1!AA"
+      - '"!#!''B3bBB$@R1'
+      - 0  O@'
+      - '!-?"'''
+      - '!#.##'
+      - E'1"#A2a2
+      - '""41#''##"$#1'
+      - 1"11"?'"
+      - D$1"5
+      - 123"
+      - (]=E
+      - '"!!1#"'''
+      - '''A"Q'
+      - R!$/'%
+      - '!.##'
+      - '>^1N1D'
+      - '!6@"'
+      - '!OA''$'
+      - '!BA''"$1'
+      - 42@QE
+      - S##!!F
+      - B'!%
+      - B!" !B
+      - 30'?2
+      - ("//
+      - P?@A3(
+      - =(.1
+      - Nm/(1A
+      - _00)!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_LRG_Lev2
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_LRG_Lev2.abk
+      relativePath: SOUND/SHIFTING/GEAR_LRG_Lev2.abk
+      fileName: GEAR_LRG_Lev2.abk
+      extension: .abk
+      byteLength: 29412
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '!73?'
+      - $DB$C2
+      - 03P.
+      - O32<
+      - W1D"$
+      - 2.5<'
+      - V>7]C
+      - d"D!
+      - '"!""!22'
+      - $P4>4
+      - '#2"21#'
+      - 1:31
+      - 2$2""!
+      - s=2d=#
+      - QD/3
+      - '!"2"'
+      - 1?05
+      - 2P31
+      - tN2%
+      - 0010%3
+      - $ S%
+      - '">%"'
+      - '%1B23'
+      - '%!E32a'
+      - R12$%3C
+      - E?5.&
+      - N2R!3"%3
+      - 0C"20D
+      - '%?#C'
+      - '&%##@b@Bc#'
+      - '#%!%%@'
+      - Q!@OD
+      - 4 $!
+      - UdFfe%S3C3Q#C4C5$#E4%CTDR3D4CCS4D4C%CDCCDCCB$"CC
+      - C0A$
+      - '&O O'
+      - '>20"&'
+      - '@@#"O2'
+      - '"O/@'
+      - 1'N"
+      - N>'A1
+      - '!!0''N'
+      - 3$"S$C%
+      - '''#2E'
+      - aC1BU
+      - ?'nBO"?#
+      - pO##
+      - _&#24
+      - '"22&3!B1#'
+      - '''24b'
+      - o0"2A%
+      - /B"3
+      - Q"1@0'#2D
+      - 4"32
+      - 23P#'3
+      - 1@2"
+      - '%B5=_7'
+      - 3#"`V3sDs&R333T%
+      - E%bcU6E&d6TTreFEEU65e5&EbUD5SSCD35#D#&323$0B!B
+      - (B#3l1M
+      - 3!2`&"
+      - '##B4&$2BBC3D#34$$33''tfdeUUTSSSE%'
+      - 3(6E
+      - Z}_3
+      - ']O(4'
+      - (!"2/1!20/_$
+      - '''"R#$C3D4CT&Ccs&2#'
+      - 23#$!Q2#&2"A#
+      - 2?1@
+      - O"&!
+      - C6D&3eS&0Q3"2#3
+      - 1C!C#&2"33
+      - 1B#1A3"##'F5bscUV5674cG5'E&TDECEQS4Pc24(4g4SS
+      - Ab4Bd5TEdbvT'4
+      - 4B3C4&#DCSSE'STEEddUfFFVFeW&324#BBBC3$34#C&$2C#R#B#B23"22'cF&E45&$#$2#!3'
+        "
+      - 3A45
+      - 5C5UUD'1C
+      - B$!%
+      - '"0"''A!"'
+      - 1AC'15#$R%3DBDE4C4'C6CTDCCU3E
+      - B'a5
+      - 3"323@3#
+      - '"nCA1T#DCC2%4''2'
+      - '"#!31"2#'
+      - '"@#022'
+      - 2" '2
+      - B?%2
+      - '}%?U'
+      - 1.#B'
+      - q$sc
+      - 22"0'
+      - /R0!
+      - /1/0
+      - oa?''
+      - '%<0/'
+      - '"1#B(2'
+      - /"'.
+      - '!,>1'
+      - )P"@A#
+      - ?4"BS&*
+      - 0 A*
+      - '!00_A'
+      - '* n3'
+      - ?10#*
+      - +o/Bk3
+      - =S.?R
+      - 0CR2'
+      - AB11
+      - '#"BD'
+      - ??!!
+      - =M@.+>
+      - -//+
+      - B"2223$
+      - 3#*C$4$4$C3D345$5*$BDCCCD2RS5$34*AS34$#323"C
+      - 12+TRbqSR$B
+      - <>,.<
+      - 1_QA3+3#2C#Aa434344$+C&#D3C4C45$444+3D%#S$Ab3C
+      - 24+#2A4#"304
+      - ',c%S'
+      - 341QQ$
+      - 0@1,2
+      - '? > //'
+      - '"""""""""33'
+      - 33333334333333
+      - 33333333333333
+      - 33DDDDDDDDDDC3
+      - 43333332""""""
+      - '"""""""""""""2'
+      - 3333323"""""""
+      - '"!""'
+      - 31%&
+      - T>B*
+      - +O;t,`-n
+      - O-B*
+      - 0S/O
+      - 3#R5ED$
+      - '#C3a'
+      - '@%B #/'
+      - '!"$?'
+      - 7["/
+      - B%E4CC#RCC4FD#53%S53S4D4
+      - Ut3D
+      - e2$BC!
+      - .2!A
+      - 1"!1"!1 1
+      - '"%Q"B'
+      - '#"CDO'
+      - '%3#"$3.'
+      - 12A2 3
+      - 1##23
+      - '!""""'
+      - .14C$3"#!#
+      - -25!
+      - O  #N
+      - mQT_!1 C
+      - 6UVV3!
+      - e3WEVA
+      - '"%3$  $0'
+      - D3$$4
+      - t$ 02 2
+      - '%]##'
+      - '@11$"1! $%14'
+      - '!3"!'
+      - 1##2
+      - b3%D#T#T5a3V@%DCCS4D44D4
+      - 03B&c7
+      - 2qtTCD221!*E
+      - '%Q5$#F'
+      - '%&C4CTDA$"'
+      - '"!""!"!2'
+      - f#.!
+      - GM=&"" >A
+      - C24A3
+      - CCCD3%tCCB4#E%R
+      - 5"3$#
+      - 1$#R3AAAO!
+      - '!!"!"!"'
+      - E1S6PFR4r#DCC%DCCD4D44CD4Ab4%!Q
+      - 123"11"
+      - 1]4$$
+      - <B##
+      - '!1! "'
+      - '"2 %1 3"'
+      - E2!"
+      - '#!!!'
+      - '#"2$A'
+      - C?15<
+      - 54@0?
+      - '&eA_'
+      - 1#!$
+      - '&0!%4'
+      - C$5S$
+      - 1/@!
+      - '&b$C'
+      - '#$!1%2'
+      - 3"R2!C#D2D##%b24#U
+      - '#2S3C23'
+      - AAB!" R"!
+      - 0""&
+      - '#%###23$B4#$"2CB%2R'
+      - 5$#BC2R#2A2%##A$!12
+      - .A&# A
+      - 1AB@23
+      - BC#Cb7DRcS
+      - '"OC"2#'
+      - '"%1B'
+      - 21#1
+      - ?&&M
+      - '>.R&'
+      - _&!"O
+      - '''!mk6'
+      - O3!3/@&A
+      - A!3 B#2
+      - 3$1D@D
+      - '&3A@b'
+      - 2B#$&
+      - 1@B"#
+      - 110"2
+      - '''E12"1%'
+      - '&""!1'
+      - '"103#!$""&#'
+      - 3#"2
+      - 1!AA"
+      - '"!#!''B3bBB$@R1'
+      - 0  O@'
+      - '!-?"'''
+      - '!#.##'
+      - E'1"#A2a2
+      - '""41#''##"$#1'
+      - 1"11"?'"
+      - D$1"5
+      - 123"
+      - (]=E
+      - '"!!1#"'''
+      - '''A"Q'
+      - R!$/'%
+      - '!.##'
+      - '>^1N1D'
+      - '!6@"'
+      - '!OA''$'
+      - '!BA''"$1'
+      - 42@QE
+      - S##!!F
+      - B'!%
+      - B!" !B
+      - 30'?2
+      - ("//
+      - P?@A3(
+      - =(.1
+      - Nm/(1A
+      - _00)!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_LRG_Lev3
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_LRG_Lev3.abk
+      relativePath: SOUND/SHIFTING/GEAR_LRG_Lev3.abk
+      fileName: GEAR_LRG_Lev3.abk
+      extension: .abk
+      byteLength: 29412
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '!73?'
+      - $DB$C2
+      - 03P.
+      - O32<
+      - W1D"$
+      - 2.5<'
+      - V>7]C
+      - d"D!
+      - '"!""!22'
+      - $P4>4
+      - '#2"21#'
+      - 1:31
+      - 2$2""!
+      - s=2d=#
+      - QD/3
+      - '!"2"'
+      - 1?05
+      - 2P31
+      - tN2%
+      - 0010%3
+      - $ S%
+      - '">%"'
+      - '%1B23'
+      - '%!E32a'
+      - R12$%3C
+      - E?5.&
+      - N2R!3"%3
+      - 0C"20D
+      - '%?#C'
+      - '&%##@b@Bc#'
+      - '#%!%%@'
+      - Q!@OD
+      - 4 $!
+      - UdFfe%S3C3Q#C4C5$#E4%CTDR3D4CCS4D4C%CDCCDCCB$"CC
+      - C0A$
+      - '&O O'
+      - '>20"&'
+      - '@@#"O2'
+      - '"O/@'
+      - 1'N"
+      - N>'A1
+      - '!!0''N'
+      - 3$"S$C%
+      - '''#2E'
+      - aC1BU
+      - ?'nBO"?#
+      - pO##
+      - _&#24
+      - '"22&3!B1#'
+      - '''24b'
+      - o0"2A%
+      - /B"3
+      - Q"1@0'#2D
+      - 4"32
+      - 23P#'3
+      - 1@2"
+      - '%B5=_7'
+      - 3#"`V3sDs&R333T%
+      - E%bcU6E&d6TTreFEEU65e5&EbUD5SSCD35#D#&323$0B!B
+      - (B#3l1M
+      - 3!2`&"
+      - '##B4&$2BBC3D#34$$33''tfdeUUTSSSE%'
+      - 3(6E
+      - Z}_3
+      - ']O(4'
+      - (!"2/1!20/_$
+      - '''"R#$C3D4CT&Ccs&2#'
+      - 23#$!Q2#&2"A#
+      - 2?1@
+      - O"&!
+      - C6D&3eS&0Q3"2#3
+      - 1C!C#&2"33
+      - 1B#1A3"##'F5bscUV5674cG5'E&TDECEQS4Pc24(4g4SS
+      - Ab4Bd5TEdbvT'4
+      - 4B3C4&#DCSSE'STEEddUfFFVFeW&324#BBBC3$34#C&$2C#R#B#B23"22'cF&E45&$#$2#!3'
+        "
+      - 3A45
+      - 5C5UUD'1C
+      - B$!%
+      - '"0"''A!"'
+      - 1AC'15#$R%3DBDE4C4'C6CTDCCU3E
+      - B'a5
+      - 3"323@3#
+      - '"nCA1T#DCC2%4''2'
+      - '"#!31"2#'
+      - '"@#022'
+      - 2" '2
+      - B?%2
+      - '}%?U'
+      - 1.#B'
+      - q$sc
+      - 22"0'
+      - /R0!
+      - /1/0
+      - oa?''
+      - '%<0/'
+      - '"1#B(2'
+      - /"'.
+      - '!,>1'
+      - )P"@A#
+      - ?4"BS&*
+      - 0 A*
+      - '!00_A'
+      - '* n3'
+      - ?10#*
+      - +o/Bk3
+      - =S.?R
+      - 0CR2'
+      - AB11
+      - '#"BD'
+      - ??!!
+      - =M@.+>
+      - -//+
+      - B"2223$
+      - 3#*C$4$4$C3D345$5*$BDCCCD2RS5$34*AS34$#323"C
+      - 12+TRbqSR$B
+      - <>,.<
+      - 1_QA3+3#2C#Aa434344$+C&#D3C4C45$444+3D%#S$Ab3C
+      - 24+#2A4#"304
+      - ',c%S'
+      - 341QQ$
+      - 0@1,2
+      - '? > //'
+      - '"""""""""33'
+      - 33333334333333
+      - 33333333333333
+      - 33DDDDDDDDDDC3
+      - 43333332""""""
+      - '"""""""""""""2'
+      - 3333323"""""""
+      - '"!""'
+      - 31%&
+      - T>B*
+      - +O;t,`-n
+      - O-B*
+      - 0S/O
+      - 3#R5ED$
+      - '#C3a'
+      - '@%B #/'
+      - '!"$?'
+      - 7["/
+      - B%E4CC#RCC4FD#53%S53S4D4
+      - Ut3D
+      - e2$BC!
+      - .2!A
+      - 1"!1"!1 1
+      - '"%Q"B'
+      - '#"CDO'
+      - '%3#"$3.'
+      - 12A2 3
+      - 1##23
+      - '!""""'
+      - .14C$3"#!#
+      - -25!
+      - O  #N
+      - mQT_!1 C
+      - 6UVV3!
+      - e3WEVA
+      - '"%3$  $0'
+      - D3$$4
+      - t$ 02 2
+      - '%]##'
+      - '@11$"1! $%14'
+      - '!3"!'
+      - 1##2
+      - b3%D#T#T5a3V@%DCCS4D44D4
+      - 03B&c7
+      - 2qtTCD221!*E
+      - '%Q5$#F'
+      - '%&C4CTDA$"'
+      - '"!""!"!2'
+      - f#.!
+      - GM=&"" >A
+      - C24A3
+      - CCCD3%tCCB4#E%R
+      - 5"3$#
+      - 1$#R3AAAO!
+      - '!!"!"!"'
+      - E1S6PFR4r#DCC%DCCD4D44CD4Ab4%!Q
+      - 123"11"
+      - 1]4$$
+      - <B##
+      - '!1! "'
+      - '"2 %1 3"'
+      - E2!"
+      - '#!!!'
+      - '#"2$A'
+      - C?15<
+      - 54@0?
+      - '&eA_'
+      - 1#!$
+      - '&0!%4'
+      - C$5S$
+      - 1/@!
+      - '&b$C'
+      - '#$!1%2'
+      - 3"R2!C#D2D##%b24#U
+      - '#2S3C23'
+      - AAB!" R"!
+      - 0""&
+      - '#%###23$B4#$"2CB%2R'
+      - 5$#BC2R#2A2%##A$!12
+      - .A&# A
+      - 1AB@23
+      - BC#Cb7DRcS
+      - '"OC"2#'
+      - '"%1B'
+      - 21#1
+      - ?&&M
+      - '>.R&'
+      - _&!"O
+      - '''!mk6'
+      - O3!3/@&A
+      - A!3 B#2
+      - 3$1D@D
+      - '&3A@b'
+      - 2B#$&
+      - 1@B"#
+      - 110"2
+      - '''E12"1%'
+      - '&""!1'
+      - '"103#!$""&#'
+      - 3#"2
+      - 1!AA"
+      - '"!#!''B3bBB$@R1'
+      - 0  O@'
+      - '!-?"'''
+      - '!#.##'
+      - E'1"#A2a2
+      - '""41#''##"$#1'
+      - 1"11"?'"
+      - D$1"5
+      - 123"
+      - (]=E
+      - '"!!1#"'''
+      - '''A"Q'
+      - R!$/'%
+      - '!.##'
+      - '>^1N1D'
+      - '!6@"'
+      - '!OA''$'
+      - '!BA''"$1'
+      - 42@QE
+      - S##!!F
+      - B'!%
+      - B!" !B
+      - 30'?2
+      - ("//
+      - P?@A3(
+      - =(.1
+      - Nm/(1A
+      - _00)!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  truck:
+  - tierName: GEAR_TK_Base
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_TK_Base.abk
+      relativePath: SOUND/SHIFTING/GEAR_TK_Base.abk
+      fileName: GEAR_TK_Base.abk
+      extension: .abk
+      byteLength: 22884
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - $ 2#
+      - '&g  %'
+      - 2F/R
+      - '%-J-'
+      - '!T%#'
+      - /1/2
+      - 262^UO!
+      - 33$2
+      - E!/#
+      - OS$O
+      - '%#N0F'
+      - '" .4'
+      - A2$!T$C1
+      - 5?%B
+      - R4f%D%C
+      - '''!O1'
+      - $!/!
+      - '@&6?1q6%'
+      - 3C#3$2
+      - ; ,$
+      - /""R
+      - '".!B'
+      - Vs"SCD4C$s3CS$  3!
+      - '% O@'
+      - 33%6
+      - '!%"^'
+      - B4Q1>
+      - $$1!
+      - 4C%_
+      - R$A?
+      - $!##
+      - '"0$@2'
+      - 3 !""
+      - '!/ $'
+      - 5$.3
+      - $,#$
+      - .E#&D
+      - b"sq4&
+      - '!$411'
+      - AQ"G
+      - E4"#
+      - 7#214
+      - '&23"CCRs'
+      - 2dT/5&
+      - $$D0
+      - 1&!014
+      - '!&#4'
+      - 4DE$3&"!02!@3AB
+      - '#"1''tteWUsTGVrcGWd&1'
+      - 33""
+      - '''CRB3$DB'
+      - 34#B3
+      - (UCC
+      - '>d5C('
+      - 3" 2
+      - C(dQ?!
+      - Sre%/?(
+      - '#PM?2'
+      - ?)DD>
+      - '@(02'
+      - '!(0#'
+      - )\<!
+      - 8 /_"&
+      - '%A)#55$'
+      - 01D3rS!2
+      - 21)33
+      - A^ #
+      - '"n<N'
+      - '"%1Q"'
+      - '"S"14%)3'
+      - B0^aQ2
+      - '"C21)"OQ"'
+      - 111O
+      - '@1)1'
+      - '""1!2'
+      - '&Ac553334T4!S*'
+      - AQ3$
+      - ^P101
+      - =0+-S]a
+      - O0@!
+      - P@+3
+      - Q4A41*"!
+      - 0*1!
+      - R"A+!!
+      - ',a2AQ$"'
+      - 0QA2
+      - '!!?#'
+      - N5s!
+      - $"C"
+      - 1!!M
+      - '"UCU&'
+      - 4Q01#N
+      - '%31 T'
+      - $0 "B
+      - 3B$@V
+      - '!1"!1"'
+      - 42"/
+      - '!1"!0'
+      - $04?.
+      - '`!1"'
+      - $"!1"
+      - '%CD4CCS4D453C#C$@!'
+      - '!3"!'
+      - '!C01'
+      - '# S@#'
+      - 4SRF0r
+      - D2$$B
+      - 2?%.
+      - '"%.$'
+      - .0$3
+      - 0%E0
+      - '#35"3%42D5%4#T5ATTB4CCRSC%RSCDCCD4CD4CD4%CD4CD435#4#CB"%S#'
+      - ?!A3
+      - NC 2!
+      - '&''2433''1$AD"Q`4&Q52'
+      - B"$3!T
+      - 22$&#"13!
+      - 1O&"1
+      - /#PC
+      - LRM!
+      - '"!1"'
+      - '"""&$@#22Q'
+      - 412S
+      - 2S!QC$$%
+      - D0R4%
+      - B!#"
+      - '"3 2"'
+      - ?$?B2
+      - .&#.1
+      - '&0!32"'
+      - 0C$#
+      - '#$2&R"23$2T'
+      - '"1S!B2&2B'
+      - 3!A2
+      - /2!"
+      - 1/2'
+      - / !  O
+      - OA#!^@P
+      - .B;S
+      - $#%@d
+      - '&@02"'
+      - '!"2!1"''bcC653EAG3%T&2''bF$qE'
+      - CcC'2CBD'3&
+      - '%!4$$"1BB'
+      - PP'$
+      - /!(R
+      - '`mC2'
+      - /N0>O$
+      - OO'B
+      - 1?@2$
+      - '''A@"""10"#'
+      - (0SARBA@C4
+      - P(AP
+      - /@!2
+      - (@#!C
+      - ?(D!
+      - '''/O? ?1'
+      - '!!''1@$'
+      - 1!"0#
+      - $A!0
+      - '#C4%SR(1'
+      - '"(1#2!#122'
+      - '! >02'
+      - '!. ('
+      - '>P@2#%'
+      - '`!OQ('
+      - /ON)P
+      - =M(-
+      - ?1"(N@2"
+      - 1Na"2(0@2
+      - ?2 ""
+      - 6BD$
+      - B231SS
+      - _RD(!#
+      - 112#"
+      - (3!B23#$23#
+      - AC#' ?@! "
+      - 3!2#
+      - 0](A O#
+      - /0?3
+      - ( OA
+      - N@)A3$
+      - '!)11! O1'
+      - .N0+o
+      - ?N!(0
+      - N0!"
+      - Pn)`$
+      - '!@A#'
+      - 0)OO3
+      - .^A B
+      - 0!)4"B40D
+      - )!^C02_2"$
+      - ~S0!]o
+      - ?)1!!O3
+      - P3!4
+      - AAAoaB%
+      - 324$)$
+      - '#4AR4'
+      - $$3C&")CC$Bo`QS
+      - '!!1!"'
+      - Q<"l$
+      - ?_B)
+      - '>_?P'
+      - /@?@
+      - '*@npF'
+      - pQ#*2
+      - RB5#
+      - '#" 2'
+      - '*-/.-'
+      - O?#*
+      - ?1O@""
+      - 1*21$
+      - B"#11B
+      - '*2#!A#"2'
+      - '!+D%E'
+      - 33`oBS
+      - 0R0+1
+      - <+.K
+      - '! O@@#'
+      - '!+@P6'
+      - 322QARC+
+      - $%24
+      - 244#+BPb3AC3$#3#31Q+$13#
+      - '@,QS2A'
+      - '>N0 ?'
+      - '>0,/"'
+      - UUDDDC332!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_TK_Lev1
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_TK_Lev1.abk
+      relativePath: SOUND/SHIFTING/GEAR_TK_Lev1.abk
+      fileName: GEAR_TK_Lev1.abk
+      extension: .abk
+      byteLength: 22884
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - $ 2#
+      - '&g  %'
+      - 2F/R
+      - '%-J-'
+      - '!T%#'
+      - /1/2
+      - 262^UO!
+      - 33$2
+      - E!/#
+      - OS$O
+      - '%#N0F'
+      - '" .4'
+      - A2$!T$C1
+      - 5?%B
+      - R4f%D%C
+      - '''!O1'
+      - $!/!
+      - '@&6?1q6%'
+      - 3C#3$2
+      - ; ,$
+      - /""R
+      - '".!B'
+      - Vs"SCD4C$s3CS$  3!
+      - '% O@'
+      - 33%6
+      - '!%"^'
+      - B4Q1>
+      - $$1!
+      - 4C%_
+      - R$A?
+      - $!##
+      - '"0$@2'
+      - 3 !""
+      - '!/ $'
+      - 5$.3
+      - $,#$
+      - .E#&D
+      - b"sq4&
+      - '!$411'
+      - AQ"G
+      - E4"#
+      - 7#214
+      - '&23"CCRs'
+      - 2dT/5&
+      - $$D0
+      - 1&!014
+      - '!&#4'
+      - 4DE$3&"!02!@3AB
+      - '#"1''tteWUsTGVrcGWd&1'
+      - 33""
+      - '''CRB3$DB'
+      - 34#B3
+      - (UCC
+      - '>d5C('
+      - 3" 2
+      - C(dQ?!
+      - Sre%/?(
+      - '#PM?2'
+      - ?)DD>
+      - '@(02'
+      - '!(0#'
+      - )\<!
+      - 8 /_"&
+      - '%A)#55$'
+      - 01D3rS!2
+      - 21)33
+      - A^ #
+      - '"n<N'
+      - '"%1Q"'
+      - '"S"14%)3'
+      - B0^aQ2
+      - '"C21)"OQ"'
+      - 111O
+      - '@1)1'
+      - '""1!2'
+      - '&Ac553334T4!S*'
+      - AQ3$
+      - ^P101
+      - =0+-S]a
+      - O0@!
+      - P@+3
+      - Q4A41*"!
+      - 0*1!
+      - R"A+!!
+      - ',a2AQ$"'
+      - 0QA2
+      - '!!?#'
+      - N5s!
+      - $"C"
+      - 1!!M
+      - '"UCU&'
+      - 4Q01#N
+      - '%31 T'
+      - $0 "B
+      - 3B$@V
+      - '!1"!1"'
+      - 42"/
+      - '!1"!0'
+      - $04?.
+      - '`!1"'
+      - $"!1"
+      - '%CD4CCS4D453C#C$@!'
+      - '!3"!'
+      - '!C01'
+      - '# S@#'
+      - 4SRF0r
+      - D2$$B
+      - 2?%.
+      - '"%.$'
+      - .0$3
+      - 0%E0
+      - '#35"3%42D5%4#T5ATTB4CCRSC%RSCDCCD4CD4CD4%CD4CD435#4#CB"%S#'
+      - ?!A3
+      - NC 2!
+      - '&''2433''1$AD"Q`4&Q52'
+      - B"$3!T
+      - 22$&#"13!
+      - 1O&"1
+      - /#PC
+      - LRM!
+      - '"!1"'
+      - '"""&$@#22Q'
+      - 412S
+      - 2S!QC$$%
+      - D0R4%
+      - B!#"
+      - '"3 2"'
+      - ?$?B2
+      - .&#.1
+      - '&0!32"'
+      - 0C$#
+      - '#$2&R"23$2T'
+      - '"1S!B2&2B'
+      - 3!A2
+      - /2!"
+      - 1/2'
+      - / !  O
+      - OA#!^@P
+      - .B;S
+      - $#%@d
+      - '&@02"'
+      - '!"2!1"''bcC653EAG3%T&2''bF$qE'
+      - CcC'2CBD'3&
+      - '%!4$$"1BB'
+      - PP'$
+      - /!(R
+      - '`mC2'
+      - /N0>O$
+      - OO'B
+      - 1?@2$
+      - '''A@"""10"#'
+      - (0SARBA@C4
+      - P(AP
+      - /@!2
+      - (@#!C
+      - ?(D!
+      - '''/O? ?1'
+      - '!!''1@$'
+      - 1!"0#
+      - $A!0
+      - '#C4%SR(1'
+      - '"(1#2!#122'
+      - '! >02'
+      - '!. ('
+      - '>P@2#%'
+      - '`!OQ('
+      - /ON)P
+      - =M(-
+      - ?1"(N@2"
+      - 1Na"2(0@2
+      - ?2 ""
+      - 6BD$
+      - B231SS
+      - _RD(!#
+      - 112#"
+      - (3!B23#$23#
+      - AC#' ?@! "
+      - 3!2#
+      - 0](A O#
+      - /0?3
+      - ( OA
+      - N@)A3$
+      - '!)11! O1'
+      - .N0+o
+      - ?N!(0
+      - N0!"
+      - Pn)`$
+      - '!@A#'
+      - 0)OO3
+      - .^A B
+      - 0!)4"B40D
+      - )!^C02_2"$
+      - ~S0!]o
+      - ?)1!!O3
+      - P3!4
+      - AAAoaB%
+      - 324$)$
+      - '#4AR4'
+      - $$3C&")CC$Bo`QS
+      - '!!1!"'
+      - Q<"l$
+      - ?_B)
+      - '>_?P'
+      - /@?@
+      - '*@npF'
+      - pQ#*2
+      - RB5#
+      - '#" 2'
+      - '*-/.-'
+      - O?#*
+      - ?1O@""
+      - 1*21$
+      - B"#11B
+      - '*2#!A#"2'
+      - '!+D%E'
+      - 33`oBS
+      - 0R0+1
+      - <+.K
+      - '! O@@#'
+      - '!+@P6'
+      - 322QARC+
+      - $%24
+      - 244#+BPb3AC3$#3#31Q+$13#
+      - '@,QS2A'
+      - '>N0 ?'
+      - '>0,/"'
+      - UUDDDC332!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_TK_Lev2
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_TK_Lev2.abk
+      relativePath: SOUND/SHIFTING/GEAR_TK_Lev2.abk
+      fileName: GEAR_TK_Lev2.abk
+      extension: .abk
+      byteLength: 22884
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - $ 2#
+      - '&g  %'
+      - 2F/R
+      - '%-J-'
+      - '!T%#'
+      - /1/2
+      - 262^UO!
+      - 33$2
+      - E!/#
+      - OS$O
+      - '%#N0F'
+      - '" .4'
+      - A2$!T$C1
+      - 5?%B
+      - R4f%D%C
+      - '''!O1'
+      - $!/!
+      - '@&6?1q6%'
+      - 3C#3$2
+      - ; ,$
+      - /""R
+      - '".!B'
+      - Vs"SCD4C$s3CS$  3!
+      - '% O@'
+      - 33%6
+      - '!%"^'
+      - B4Q1>
+      - $$1!
+      - 4C%_
+      - R$A?
+      - $!##
+      - '"0$@2'
+      - 3 !""
+      - '!/ $'
+      - 5$.3
+      - $,#$
+      - .E#&D
+      - b"sq4&
+      - '!$411'
+      - AQ"G
+      - E4"#
+      - 7#214
+      - '&23"CCRs'
+      - 2dT/5&
+      - $$D0
+      - 1&!014
+      - '!&#4'
+      - 4DE$3&"!02!@3AB
+      - '#"1''tteWUsTGVrcGWd&1'
+      - 33""
+      - '''CRB3$DB'
+      - 34#B3
+      - (UCC
+      - '>d5C('
+      - 3" 2
+      - C(dQ?!
+      - Sre%/?(
+      - '#PM?2'
+      - ?)DD>
+      - '@(02'
+      - '!(0#'
+      - )\<!
+      - 8 /_"&
+      - '%A)#55$'
+      - 01D3rS!2
+      - 21)33
+      - A^ #
+      - '"n<N'
+      - '"%1Q"'
+      - '"S"14%)3'
+      - B0^aQ2
+      - '"C21)"OQ"'
+      - 111O
+      - '@1)1'
+      - '""1!2'
+      - '&Ac553334T4!S*'
+      - AQ3$
+      - ^P101
+      - =0+-S]a
+      - O0@!
+      - P@+3
+      - Q4A41*"!
+      - 0*1!
+      - R"A+!!
+      - ',a2AQ$"'
+      - 0QA2
+      - '!!?#'
+      - N5s!
+      - $"C"
+      - 1!!M
+      - '"UCU&'
+      - 4Q01#N
+      - '%31 T'
+      - $0 "B
+      - 3B$@V
+      - '!1"!1"'
+      - 42"/
+      - '!1"!0'
+      - $04?.
+      - '`!1"'
+      - $"!1"
+      - '%CD4CCS4D453C#C$@!'
+      - '!3"!'
+      - '!C01'
+      - '# S@#'
+      - 4SRF0r
+      - D2$$B
+      - 2?%.
+      - '"%.$'
+      - .0$3
+      - 0%E0
+      - '#35"3%42D5%4#T5ATTB4CCRSC%RSCDCCD4CD4CD4%CD4CD435#4#CB"%S#'
+      - ?!A3
+      - NC 2!
+      - '&''2433''1$AD"Q`4&Q52'
+      - B"$3!T
+      - 22$&#"13!
+      - 1O&"1
+      - /#PC
+      - LRM!
+      - '"!1"'
+      - '"""&$@#22Q'
+      - 412S
+      - 2S!QC$$%
+      - D0R4%
+      - B!#"
+      - '"3 2"'
+      - ?$?B2
+      - .&#.1
+      - '&0!32"'
+      - 0C$#
+      - '#$2&R"23$2T'
+      - '"1S!B2&2B'
+      - 3!A2
+      - /2!"
+      - 1/2'
+      - / !  O
+      - OA#!^@P
+      - .B;S
+      - $#%@d
+      - '&@02"'
+      - '!"2!1"''bcC653EAG3%T&2''bF$qE'
+      - CcC'2CBD'3&
+      - '%!4$$"1BB'
+      - PP'$
+      - /!(R
+      - '`mC2'
+      - /N0>O$
+      - OO'B
+      - 1?@2$
+      - '''A@"""10"#'
+      - (0SARBA@C4
+      - P(AP
+      - /@!2
+      - (@#!C
+      - ?(D!
+      - '''/O? ?1'
+      - '!!''1@$'
+      - 1!"0#
+      - $A!0
+      - '#C4%SR(1'
+      - '"(1#2!#122'
+      - '! >02'
+      - '!. ('
+      - '>P@2#%'
+      - '`!OQ('
+      - /ON)P
+      - =M(-
+      - ?1"(N@2"
+      - 1Na"2(0@2
+      - ?2 ""
+      - 6BD$
+      - B231SS
+      - _RD(!#
+      - 112#"
+      - (3!B23#$23#
+      - AC#' ?@! "
+      - 3!2#
+      - 0](A O#
+      - /0?3
+      - ( OA
+      - N@)A3$
+      - '!)11! O1'
+      - .N0+o
+      - ?N!(0
+      - N0!"
+      - Pn)`$
+      - '!@A#'
+      - 0)OO3
+      - .^A B
+      - 0!)4"B40D
+      - )!^C02_2"$
+      - ~S0!]o
+      - ?)1!!O3
+      - P3!4
+      - AAAoaB%
+      - 324$)$
+      - '#4AR4'
+      - $$3C&")CC$Bo`QS
+      - '!!1!"'
+      - Q<"l$
+      - ?_B)
+      - '>_?P'
+      - /@?@
+      - '*@npF'
+      - pQ#*2
+      - RB5#
+      - '#" 2'
+      - '*-/.-'
+      - O?#*
+      - ?1O@""
+      - 1*21$
+      - B"#11B
+      - '*2#!A#"2'
+      - '!+D%E'
+      - 33`oBS
+      - 0R0+1
+      - <+.K
+      - '! O@@#'
+      - '!+@P6'
+      - 322QARC+
+      - $%24
+      - 244#+BPb3AC3$#3#31Q+$13#
+      - '@,QS2A'
+      - '>N0 ?'
+      - '>0,/"'
+      - UUDDDC332!
+      - ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: GEAR_TK_Lev3
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/SHIFTING/GEAR_TK_Lev3.abk
+      relativePath: SOUND/SHIFTING/GEAR_TK_Lev3.abk
+      fileName: GEAR_TK_Lev3.abk
+      extension: .abk
+      byteLength: 29412
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - BNKl
+      - '!73?'
+      - $DB$C2
+      - 03P.
+      - O32<
+      - W1D"$
+      - 2.5<'
+      - V>7]C
+      - d"D!
+      - '"!""!22'
+      - $P4>4
+      - '#2"21#'
+      - 1:31
+      - 2$2""!
+      - s=2d=#
+      - QD/3
+      - '!"2"'
+      - 1?05
+      - 2P31
+      - tN2%
+      - 0010%3
+      - $ S%
+      - '">%"'
+      - '%1B23'
+      - '%!E32a'
+      - R12$%3C
+      - E?5.&
+      - N2R!3"%3
+      - 0C"20D
+      - '%?#C'
+      - '&%##@b@Bc#'
+      - '#%!%%@'
+      - Q!@OD
+      - 4 $!
+      - UdFfe%S3C3Q#C4C5$#E4%CTDR3D4CCS4D4C%CDCCDCCB$"CC
+      - C0A$
+      - '&O O'
+      - '>20"&'
+      - '@@#"O2'
+      - '"O/@'
+      - 1'N"
+      - N>'A1
+      - '!!0''N'
+      - 3$"S$C%
+      - '''#2E'
+      - aC1BU
+      - ?'nBO"?#
+      - pO##
+      - _&#24
+      - '"22&3!B1#'
+      - '''24b'
+      - o0"2A%
+      - /B"3
+      - Q"1@0'#2D
+      - 4"32
+      - 23P#'3
+      - 1@2"
+      - '%B5=_7'
+      - 3#"`V3sDs&R333T%
+      - E%bcU6E&d6TTreFEEU65e5&EbUD5SSCD35#D#&323$0B!B
+      - (B#3l1M
+      - 3!2`&"
+      - '##B4&$2BBC3D#34$$33''tfdeUUTSSSE%'
+      - 3(6E
+      - Z}_3
+      - ']O(4'
+      - (!"2/1!20/_$
+      - '''"R#$C3D4CT&Ccs&2#'
+      - 23#$!Q2#&2"A#
+      - 2?1@
+      - O"&!
+      - C6D&3eS&0Q3"2#3
+      - 1C!C#&2"33
+      - 1B#1A3"##'F5bscUV5674cG5'E&TDECEQS4Pc24(4g4SS
+      - Ab4Bd5TEdbvT'4
+      - 4B3C4&#DCSSE'STEEddUfFFVFeW&324#BBBC3$34#C&$2C#R#B#B23"22'cF&E45&$#$2#!3'
+        "
+      - 3A45
+      - 5C5UUD'1C
+      - B$!%
+      - '"0"''A!"'
+      - 1AC'15#$R%3DBDE4C4'C6CTDCCU3E
+      - B'a5
+      - 3"323@3#
+      - '"nCA1T#DCC2%4''2'
+      - '"#!31"2#'
+      - '"@#022'
+      - 2" '2
+      - B?%2
+      - '}%?U'
+      - 1.#B'
+      - q$sc
+      - 22"0'
+      - /R0!
+      - /1/0
+      - oa?''
+      - '%<0/'
+      - '"1#B(2'
+      - /"'.
+      - '!,>1'
+      - )P"@A#
+      - ?4"BS&*
+      - 0 A*
+      - '!00_A'
+      - '* n3'
+      - ?10#*
+      - +o/Bk3
+      - =S.?R
+      - 0CR2'
+      - AB11
+      - '#"BD'
+      - ??!!
+      - =M@.+>
+      - -//+
+      - B"2223$
+      - 3#*C$4$4$C3D345$5*$BDCCCD2RS5$34*AS34$#323"C
+      - 12+TRbqSR$B
+      - <>,.<
+      - 1_QA3+3#2C#Aa434344$+C&#D3C4C45$444+3D%#S$Ab3C
+      - 24+#2A4#"304
+      - ',c%S'
+      - 341QQ$
+      - 0@1,2
+      - '? > //'
+      - '"""""""""33'
+      - 33333334333333
+      - 33333333333333
+      - 33DDDDDDDDDDC3
+      - 43333332""""""
+      - '"""""""""""""2'
+      - 3333323"""""""
+      - '"!""'
+      - 31%&
+      - T>B*
+      - +O;t,`-n
+      - O-B*
+      - 0S/O
+      - 3#R5ED$
+      - '#C3a'
+      - '@%B #/'
+      - '!"$?'
+      - 7["/
+      - B%E4CC#RCC4FD#53%S53S4D4
+      - Ut3D
+      - e2$BC!
+      - .2!A
+      - 1"!1"!1 1
+      - '"%Q"B'
+      - '#"CDO'
+      - '%3#"$3.'
+      - 12A2 3
+      - 1##23
+      - '!""""'
+      - .14C$3"#!#
+      - -25!
+      - O  #N
+      - mQT_!1 C
+      - 6UVV3!
+      - e3WEVA
+      - '"%3$  $0'
+      - D3$$4
+      - t$ 02 2
+      - '%]##'
+      - '@11$"1! $%14'
+      - '!3"!'
+      - 1##2
+      - b3%D#T#T5a3V@%DCCS4D44D4
+      - 03B&c7
+      - 2qtTCD221!*E
+      - '%Q5$#F'
+      - '%&C4CTDA$"'
+      - '"!""!"!2'
+      - f#.!
+      - GM=&"" >A
+      - C24A3
+      - CCCD3%tCCB4#E%R
+      - 5"3$#
+      - 1$#R3AAAO!
+      - '!!"!"!"'
+      - E1S6PFR4r#DCC%DCCD4D44CD4Ab4%!Q
+      - 123"11"
+      - 1]4$$
+      - <B##
+      - '!1! "'
+      - '"2 %1 3"'
+      - E2!"
+      - '#!!!'
+      - '#"2$A'
+      - C?15<
+      - 54@0?
+      - '&eA_'
+      - 1#!$
+      - '&0!%4'
+      - C$5S$
+      - 1/@!
+      - '&b$C'
+      - '#$!1%2'
+      - 3"R2!C#D2D##%b24#U
+      - '#2S3C23'
+      - AAB!" R"!
+      - 0""&
+      - '#%###23$B4#$"2CB%2R'
+      - 5$#BC2R#2A2%##A$!12
+      - .A&# A
+      - 1AB@23
+      - BC#Cb7DRcS
+      - '"OC"2#'
+      - '"%1B'
+      - 21#1
+      - ?&&M
+      - '>.R&'
+      - _&!"O
+      - '''!mk6'
+      - O3!3/@&A
+      - A!3 B#2
+      - 3$1D@D
+      - '&3A@b'
+      - 2B#$&
+      - 1@B"#
+      - 110"2
+      - '''E12"1%'
+      - '&""!1'
+      - '"103#!$""&#'
+      - 3#"2
+      - 1!AA"
+      - '"!#!''B3bBB$@R1'
+      - 0  O@'
+      - '!-?"'''
+      - '!#.##'
+      - E'1"#A2a2
+      - '""41#''##"$#1'
+      - 1"11"?'"
+      - D$1"5
+      - 123"
+      - (]=E
+      - '"!!1#"'''
+      - '''A"Q'
+      - R!$/'%
+      - '!.##'
+      - '>^1N1D'
+      - '!6@"'
+      - '!OA''$'
+      - '!BA''"$1'
+      - 42@QE
+      - S##!!F
+      - B'!%
+      - B!" !B
+      - 30'?2
+      - ("//
+      - P?@A3(
+      - =(.1
+      - Nm/(1A
+      - _00)!
+      - .8ES7yFX_SHIFTING_01
+      decodedClip: {fileID: 0}
+    eventNames: []

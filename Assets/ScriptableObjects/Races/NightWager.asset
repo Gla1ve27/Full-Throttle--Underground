@@ -15,10 +15,10 @@ MonoBehaviour:
   raceId: wager_run
   displayName: Neon Pinkslip
   raceType: 4
-  nightOnly: 1
-  entryFee: 0
   rewardMoney: 4000
   rewardReputation: 60
-  minReputation: 200
   laps: 1
+  nightOnly: 1
+  entryFee: 0
+  minReputation: 200
   allowsCarWager: 1

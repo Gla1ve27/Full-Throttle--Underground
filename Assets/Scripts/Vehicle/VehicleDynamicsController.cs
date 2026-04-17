@@ -35,8 +35,10 @@ namespace Underground.Vehicle
 
         [Header("Braking")]
         [SerializeField] private float maxHandbrakeTorque = 6500f;
+        [SerializeField, Range(0f, 1f)] private float poweredHandbrakeTorqueScale = 0.28f;
         [SerializeField] private float reverseEngageSpeedKph = 3f;
         [SerializeField] private float reverseReleaseSpeedKph = 1.5f;
+        [SerializeField] private float reverseHoldToEngageDelay = 0.12f;
         [SerializeField] private float aerodynamicDragCoefficient = 0.36f;
 
         [Header("Low-Speed Stabilization")]
@@ -56,6 +58,28 @@ namespace Underground.Vehicle
         [SerializeField] private float slideSideFrictionMultiplier = 0.7f;
         [SerializeField] private float slideForwardFrictionMultiplier = 0.96f;
 
+        [Header("UG2 Arcade Handling")]
+        [SerializeField] private float lowSpeedSteerLock = 34f;
+        [SerializeField] private float highSpeedSteerLock = 7.5f;
+        [SerializeField] private float steeringAuthorityHighSpeedFloor = 0.38f;
+        [SerializeField] private float stableGearboxRpmResponse = 14f;
+        [SerializeField, Range(0f, 1f)] private float launchWheelSlipRpmInfluence = 0.01f;
+        [SerializeField, Range(0f, 1f)] private float wheelSlipRpmInfluence = 0.03f;
+        [SerializeField] private float fullWheelRpmInfluenceSpeedKph = 65f;
+        [SerializeField, Range(0f, 1f)] private float shiftTorqueCut = 0.38f;
+        [SerializeField] private float handbrakeDriftWindow = 0.45f;
+        [SerializeField] private float driftSustainWindow = 0.35f;
+        [SerializeField] private float rearGripDriftMultiplier = 0.38f;
+        [SerializeField] private float driftYawAssist = 0.82f;
+        [SerializeField] private float driftSpeedPreservation = 0.985f;
+        [SerializeField, Range(0f, 1f)] private float handbrakeSlideRearGripMultiplier = 0.24f;
+        [SerializeField, Range(0f, 1f)] private float powerSlideRearGripMultiplier = 0.55f;
+        [SerializeField, Range(0f, 1f)] private float donutRearGripMultiplier = 0.18f;
+        [SerializeField] private float donutYawAssist = 3.6f;
+        [SerializeField] private float handbrakeRevTargetRpm01 = 0.72f;
+        [SerializeField] private float wallGlanceSpeedRetention = 0.90f;
+        [SerializeField] private float wallBounceImpulse = 2.25f;
+
         [Header("Weight Transfer")]
         [SerializeField] private float longitudinalTransferRate = 0.12f;
         [SerializeField] private float lateralTransferRate = 0.10f;
@@ -68,6 +92,7 @@ namespace Underground.Vehicle
         public Rigidbody Rigidbody { get; private set; }
         public VehicleStatsData BaseStats => baseStats;
         public RuntimeVehicleStats RuntimeStats => runtimeStats;
+        public WheelSet[] WheelSets => wheels;
         public float SpeedKph { get; private set; }
         public float ForwardSpeedKph { get; private set; }
         public float SlipAngleDegrees { get; private set; }
@@ -75,6 +100,13 @@ namespace Underground.Vehicle
         public bool IsGrounded { get; private set; }
         public bool IsReversing { get; private set; }
         public bool IsSliding { get; private set; }
+
+        private float smoothedGearboxWheelRpm;
+        private float handbrakeRevRpm01;
+        private float reverseHoldTimer;
+        private float driftInitiationTimer;
+        private float driftSustainTimer;
+        private bool wasHandbrakeHeld;
 
         /// <summary>Current longitudinal weight transfer (−1 = full front, +1 = full rear).</summary>
         public float LongitudinalLoadShift { get; private set; }
@@ -129,6 +161,7 @@ namespace Underground.Vehicle
             UpdateTelemetry();
             UpdateWeightTransfer();
             UpdateReverseState();
+            UpdateDriftStateTimers();
             ApplySteering();
             ApplyDrive();
             ApplyBraking();
@@ -149,6 +182,11 @@ namespace Underground.Vehicle
         private void LateUpdate()
         {
             SyncWheelVisuals();
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            ApplyArcadeWallGlance(collision);
         }
 
         // ─────────────────────────────────────────────────────────────────────
@@ -273,8 +311,14 @@ namespace Underground.Vehicle
             transform.SetPositionAndRotation(respawnPoint.position, respawnPoint.rotation);
             Rigidbody.position += Vector3.up * runtimeStats.ResetLift;
             IsReversing = false;
+            reverseHoldTimer = 0f;
             LongitudinalLoadShift = 0f;
             LateralLoadShift = 0f;
+            smoothedGearboxWheelRpm = 0f;
+            handbrakeRevRpm01 = 0f;
+            driftInitiationTimer = 0f;
+            driftSustainTimer = 0f;
+            wasHandbrakeHeld = false;
             gearbox?.ResetToFirstGear();
         }
 
@@ -381,11 +425,14 @@ namespace Underground.Vehicle
         private void ApplySteering()
         {
             float steerResponse = runtimeStats != null ? runtimeStats.SteeringResponse : 72f;
-            float speedFactor = Mathf.InverseLerp(0f, Mathf.Max(1f, runtimeStats.MaxSpeedKph), Mathf.Abs(ForwardSpeedKph));
-            float steeringLockT = Mathf.InverseLerp(20f, 200f, Mathf.Abs(ForwardSpeedKph));
-            float dynamicSteerLock = Mathf.Lerp(40f, 8f, steeringLockT);
-            float steerReduction = Mathf.Lerp(1f, runtimeStats.HighSpeedSteerReduction, speedFactor);
-            float targetSteerAngle = input.Steering * Mathf.Min(dynamicSteerLock, runtimeStats.MaxSteerAngle * steerReduction);
+            float absForwardSpeed = Mathf.Abs(ForwardSpeedKph);
+            float speedFactor = Mathf.InverseLerp(0f, Mathf.Max(1f, runtimeStats.MaxSpeedKph), absForwardSpeed);
+            float steeringLockT = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(25f, 205f, absForwardSpeed));
+            float dynamicSteerLock = Mathf.Lerp(lowSpeedSteerLock, highSpeedSteerLock, steeringLockT);
+            float highSpeedFloor = Mathf.Max(runtimeStats.HighSpeedSteerReduction, steeringAuthorityHighSpeedFloor);
+            float steerReduction = Mathf.Lerp(1f, highSpeedFloor, speedFactor);
+            float slideBonus = IsSliding ? Mathf.InverseLerp(slideSlipAngleThreshold, fullSlideSlipAngle, SlipAngleDegrees) * 2.5f : 0f;
+            float targetSteerAngle = input.Steering * Mathf.Min(dynamicSteerLock + slideBonus, runtimeStats.MaxSteerAngle * steerReduction);
 
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -416,15 +463,24 @@ namespace Underground.Vehicle
             if (input.Throttle > 0.05f)
             {
                 IsReversing = false;
+                reverseHoldTimer = 0f;
                 return;
             }
 
             if (!IsReversing)
             {
-                if (input.ConsumeReverseRequest() && Mathf.Abs(ForwardSpeedKph) <= reverseEngageSpeedKph)
+                if (input.ReverseHeld && Mathf.Abs(ForwardSpeedKph) <= reverseEngageSpeedKph)
                 {
-                    IsReversing = true;
-                    gearbox?.ResetToFirstGear();
+                    reverseHoldTimer += Time.fixedDeltaTime;
+                    if (reverseHoldTimer >= reverseHoldToEngageDelay)
+                    {
+                        IsReversing = true;
+                        gearbox?.ResetToFirstGear();
+                    }
+                }
+                else
+                {
+                    reverseHoldTimer = 0f;
                 }
 
                 return;
@@ -433,13 +489,39 @@ namespace Underground.Vehicle
             if (ForwardSpeedKph > reverseEngageSpeedKph)
             {
                 IsReversing = false;
+                reverseHoldTimer = 0f;
                 return;
             }
 
             if (!input.ReverseHeld && Mathf.Abs(ForwardSpeedKph) <= reverseReleaseSpeedKph)
             {
                 IsReversing = false;
+                reverseHoldTimer = 0f;
             }
+        }
+
+        private void UpdateDriftStateTimers()
+        {
+            bool handbrakePressed = input.Handbrake && !wasHandbrakeHeld;
+            if (handbrakePressed && SpeedKph > 8f)
+            {
+                driftInitiationTimer = handbrakeDriftWindow;
+            }
+
+            bool driftSustainInput = input.Handbrake && SpeedKph > 8f
+                || input.Throttle > 0.35f
+                    && Mathf.Abs(input.Steering) > 0.18f
+                    && SpeedKph > 12f
+                    && (driftInitiationTimer > 0f || IsSliding);
+
+            if (driftSustainInput)
+            {
+                driftSustainTimer = driftSustainWindow;
+            }
+
+            driftInitiationTimer = Mathf.Max(0f, driftInitiationTimer - Time.fixedDeltaTime);
+            driftSustainTimer = Mathf.Max(0f, driftSustainTimer - Time.fixedDeltaTime);
+            wasHandbrakeHeld = input.Handbrake;
         }
 
         // ─────────────────────────────────────────────────────────────────────
@@ -469,25 +551,27 @@ namespace Underground.Vehicle
             }
 
             averageDrivenWheelRpm /= drivenCount;
+            float gearboxWheelRpm = GetStableGearboxWheelRpm(averageDrivenWheelRpm);
+            gearboxWheelRpm = ApplyHandbrakeRevToGearboxWheelRpm(gearboxWheelRpm);
             if (IsReversing)
             {
-                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, GetReverseDriveRatio());
+                gearbox.UpdateRpmOnly(gearboxWheelRpm, baseStats, GetReverseDriveRatio());
             }
             else if (gearbox.UseManualTransmission)
             {
-                gearbox.UpdateRpmOnly(averageDrivenWheelRpm, baseStats, gearbox.GetCurrentDriveRatio(baseStats));
+                gearbox.UpdateRpmOnly(gearboxWheelRpm, baseStats, gearbox.GetCurrentDriveRatio(baseStats));
                 if (input.ConsumeUpshiftRequest())
                 {
-                    gearbox.TryShiftUp(baseStats, averageDrivenWheelRpm);
+                    gearbox.TryShiftUp(baseStats, gearboxWheelRpm);
                 }
                 else if (input.ConsumeDownshiftRequest())
                 {
-                    gearbox.TryShiftDown(baseStats, averageDrivenWheelRpm);
+                    gearbox.TryShiftDown(baseStats, gearboxWheelRpm);
                 }
             }
             else
             {
-                gearbox.UpdateAutomatic(averageDrivenWheelRpm, baseStats);
+                gearbox.UpdateAutomatic(gearboxWheelRpm, baseStats, input.Throttle, SpeedKph);
             }
 
             float driveRatio = IsReversing ? GetReverseDriveRatio() : gearbox.GetCurrentDriveRatio(baseStats);
@@ -497,6 +581,11 @@ namespace Underground.Vehicle
             float torqueCurveSample = EvaluateTorqueCurve(normalizedRpm);
 
             float driveInput = IsReversing && input.ReverseHeld ? -input.Brake : input.Throttle;
+            if (!IsReversing && gearbox != null && gearbox.IsShifting)
+            {
+                driveInput *= Mathf.Lerp(shiftTorqueCut, 1f, gearbox.ShiftBlend);
+            }
+
             float torquePerWheel = driveInput * runtimeStats.MaxMotorTorque * torqueCurveSample * driveRatio / drivenCount;
             bool canApplyTorque = driveInput >= 0f
                 ? SpeedKph < runtimeStats.MaxSpeedKph || driveInput < 0.05f
@@ -538,6 +627,64 @@ namespace Underground.Vehicle
             return 0.7f;
         }
 
+        private float GetStableGearboxWheelRpm(float colliderWheelRpm)
+        {
+            float averageRadius = 0f;
+            int radiusCount = 0;
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                WheelSet wheel = wheels[i];
+                if (wheel == null || wheel.collider == null || !wheel.drive)
+                {
+                    continue;
+                }
+
+                averageRadius += Mathf.Max(0.01f, wheel.collider.radius);
+                radiusCount++;
+            }
+
+            if (radiusCount == 0)
+            {
+                return colliderWheelRpm;
+            }
+
+            averageRadius /= radiusCount;
+            float circumference = Mathf.Max(0.01f, Mathf.PI * 2f * averageRadius);
+            float speedBasedRpm = (ForwardSpeedKph / 3.6f) / circumference * 60f;
+            float speedInfluence = Mathf.InverseLerp(12f, fullWheelRpmInfluenceSpeedKph, Mathf.Abs(ForwardSpeedKph));
+            float slipInfluence = Mathf.Lerp(launchWheelSlipRpmInfluence, wheelSlipRpmInfluence, speedInfluence);
+            float targetWheelRpm = Mathf.Lerp(speedBasedRpm, colliderWheelRpm, slipInfluence);
+            float response = 1f - Mathf.Exp(-Mathf.Max(0.01f, stableGearboxRpmResponse) * Time.fixedDeltaTime);
+            smoothedGearboxWheelRpm = Mathf.Lerp(smoothedGearboxWheelRpm, targetWheelRpm, response);
+            return smoothedGearboxWheelRpm;
+        }
+
+        private float ApplyHandbrakeRevToGearboxWheelRpm(float stableWheelRpm)
+        {
+            if (input == null || runtimeStats == null || gearbox == null || IsReversing)
+            {
+                handbrakeRevRpm01 = Mathf.MoveTowards(handbrakeRevRpm01, 0f, Time.fixedDeltaTime * 5f);
+                return stableWheelRpm;
+            }
+
+            bool canRevAgainstHandbrake = input.Handbrake && input.Throttle > 0.05f;
+            float targetRpm01 = canRevAgainstHandbrake
+                ? Mathf.Lerp(0.22f, handbrakeRevTargetRpm01, input.Throttle)
+                : 0f;
+            float response = canRevAgainstHandbrake ? 5.5f : 8f;
+            handbrakeRevRpm01 = Mathf.MoveTowards(handbrakeRevRpm01, targetRpm01, response * Time.fixedDeltaTime);
+
+            if (handbrakeRevRpm01 <= 0f)
+            {
+                return stableWheelRpm;
+            }
+
+            float targetEngineRpm = Mathf.Lerp(runtimeStats.IdleRPM, runtimeStats.MaxRPM, handbrakeRevRpm01);
+            float driveRatio = Mathf.Max(0.01f, Mathf.Abs(gearbox.GetCurrentDriveRatio(baseStats)));
+            float virtualWheelRpm = targetEngineRpm / driveRatio;
+            return Mathf.Max(stableWheelRpm, virtualWheelRpm);
+        }
+
         // ─────────────────────────────────────────────────────────────────────
         //  Braking
         // ─────────────────────────────────────────────────────────────────────
@@ -545,7 +692,8 @@ namespace Underground.Vehicle
         private void ApplyBraking()
         {
             float footBrakeTorque = IsReversing && input.ReverseHeld ? 0f : input.Brake * runtimeStats.MaxBrakeTorque;
-            float handbrakeTorque = input.Handbrake ? maxHandbrakeTorque : 0f;
+            float poweredRelease = Mathf.Lerp(1f, poweredHandbrakeTorqueScale, input.Throttle);
+            float handbrakeTorque = input.Handbrake ? maxHandbrakeTorque * poweredRelease : 0f;
 
             // Apply brake grip modifier from stats
             float brakeGripMod = runtimeStats != null ? runtimeStats.BrakeGrip : 1f;
@@ -629,6 +777,7 @@ namespace Underground.Vehicle
             float slideT = GetSlideBlend();
             float slideSideMultiplier = Mathf.Lerp(1f, slideSideFrictionMultiplier, slideT);
             float slideForwardMultiplier = Mathf.Lerp(1f, slideForwardFrictionMultiplier, slideT);
+            float driftAssistBlend = GetDriftAssistBlend();
 
             // Speed-based grip falloff — grip decreases slightly at extreme speed
             float speedGripFalloff = Mathf.Lerp(1f, 0.92f, Mathf.InverseLerp(180f, 350f, SpeedKph));
@@ -646,6 +795,7 @@ namespace Underground.Vehicle
                 }
 
                 bool isFront = wheel.axleId == "Front" || wheel.steer;
+                bool isRear = !isFront;
                 float axleGrip = isFront ? runtimeStats.FrontGrip : runtimeStats.RearGrip;
                 float tractionMod = runtimeStats.Traction;
 
@@ -665,9 +815,32 @@ namespace Underground.Vehicle
 
                 float combinedGrip = axleGrip * tractionMod * weightMul * loadBias * slipPenalty
                     * speedGripFalloff * (1f - throttleSteerGripLoss);
+                if (isRear && driftAssistBlend > 0f)
+                {
+                    combinedGrip *= Mathf.Lerp(1f, rearGripDriftMultiplier, driftAssistBlend);
+                }
+
+                if (isRear)
+                {
+                    float lowSpeedDonut = input.Handbrake && input.Throttle > 0.35f
+                        ? Mathf.InverseLerp(0.05f, 0.7f, Mathf.Abs(input.Steering) + input.Throttle * 0.35f)
+                        : 0f;
+                    float powerSlide = input.Throttle > 0.45f && Mathf.Abs(input.Steering) > 0.18f && SpeedKph > 8f
+                        ? Mathf.InverseLerp(8f, 45f, SpeedKph)
+                        : 0f;
+
+                    if (input.Handbrake)
+                    {
+                        combinedGrip *= Mathf.Lerp(1f, handbrakeSlideRearGripMultiplier, Mathf.Clamp01(input.Throttle + 0.35f));
+                    }
+
+                    combinedGrip *= Mathf.Lerp(1f, powerSlideRearGripMultiplier, Mathf.Clamp01(powerSlide));
+                    combinedGrip *= Mathf.Lerp(1f, donutRearGripMultiplier, Mathf.Clamp01(lowSpeedDonut));
+                }
 
                 WheelFrictionCurve forward = wheel.collider.forwardFriction;
-                forward.stiffness = runtimeStats.ForwardStiffness * combinedGrip * slideForwardMultiplier;
+                float forwardDriftMultiplier = isRear ? Mathf.Lerp(1f, driftSpeedPreservation, driftAssistBlend) : 1f;
+                forward.stiffness = runtimeStats.ForwardStiffness * combinedGrip * slideForwardMultiplier * forwardDriftMultiplier;
                 wheel.collider.forwardFriction = forward;
 
                 WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
@@ -701,6 +874,61 @@ namespace Underground.Vehicle
 
             Vector3 dragForce = -planarVelocity.normalized * speedMs * speedMs * aerodynamicDragCoefficient;
             Rigidbody.AddForce(dragForce, ForceMode.Force);
+        }
+
+        private void ApplyArcadeWallGlance(Collision collision)
+        {
+            if (collision == null || Rigidbody == null || SpeedKph < 18f)
+            {
+                return;
+            }
+
+            Vector3 wallNormal = Vector3.zero;
+            int normalCount = 0;
+            for (int i = 0; i < collision.contactCount; i++)
+            {
+                ContactPoint contact = collision.GetContact(i);
+                if (contact.normal.y > 0.45f)
+                {
+                    continue;
+                }
+
+                Vector3 planarNormal = Vector3.ProjectOnPlane(contact.normal, Vector3.up);
+                if (planarNormal.sqrMagnitude < 0.01f)
+                {
+                    continue;
+                }
+
+                wallNormal += planarNormal.normalized;
+                normalCount++;
+            }
+
+            if (normalCount == 0)
+            {
+                return;
+            }
+
+            wallNormal.Normalize();
+            Vector3 planarVelocity = Vector3.ProjectOnPlane(Rigidbody.linearVelocity, Vector3.up);
+            float intoWallSpeed = -Vector3.Dot(planarVelocity, wallNormal);
+            if (intoWallSpeed <= 0.2f)
+            {
+                return;
+            }
+
+            Vector3 tangentVelocity = planarVelocity - Vector3.Project(planarVelocity, wallNormal);
+            float retainedSpeed = planarVelocity.magnitude * Mathf.Clamp01(wallGlanceSpeedRetention);
+            if (tangentVelocity.sqrMagnitude > 0.01f)
+            {
+                tangentVelocity = tangentVelocity.normalized * Mathf.Max(tangentVelocity.magnitude, retainedSpeed * 0.65f);
+            }
+            else
+            {
+                tangentVelocity = Vector3.Reflect(planarVelocity, wallNormal) * 0.35f;
+            }
+
+            Rigidbody.linearVelocity = tangentVelocity + Vector3.Project(Rigidbody.linearVelocity, Vector3.up);
+            Rigidbody.AddForce(wallNormal * wallBounceImpulse, ForceMode.VelocityChange);
         }
 
         private void ApplyLowSpeedStopAssist()
@@ -782,7 +1010,8 @@ namespace Underground.Vehicle
             }
 
             Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.linearVelocity);
-            float handbrakeGripReduction = input.Handbrake ? runtimeStats.HandbrakeGripMultiplier : 1f;
+            float driftBlend = Mathf.Max(input.Handbrake ? 1f : 0f, GetDriftAssistBlend());
+            float handbrakeGripReduction = Mathf.Lerp(1f, runtimeStats.HandbrakeGripMultiplier, driftBlend);
             Vector3 correctiveForce = -transform.right * localVelocity.x * runtimeStats.LateralGripAssist * handbrakeGripReduction;
             Rigidbody.AddForce(correctiveForce, ForceMode.Acceleration);
         }
@@ -968,35 +1197,27 @@ namespace Underground.Vehicle
                 return;
             }
 
-            // Active during handbrake or when throttle + steer exceed threshold
-            bool isDriftInput = input.Handbrake
-                || (input.Throttle > 0.6f && Mathf.Abs(input.Steering) > 0.5f && SpeedKph > 35f);
-
-            if (!isDriftInput)
+            float assistBlend = GetDriftAssistBlend() * driftStrength;
+            if (assistBlend <= 0f)
             {
                 return;
             }
 
-            // Briefly reduce rear sideways stiffness to help initiate drifts
-            for (int i = 0; i < wheels.Length; i++)
+            float steerDirection = Mathf.Abs(input.Steering) > 0.05f
+                ? Mathf.Sign(input.Steering)
+                : Mathf.Sign(SignedSlipAngleDegrees);
+            float speedT = Mathf.Clamp01(Mathf.InverseLerp(8f, 130f, SpeedKph));
+            float handbrakeDonutT = input.Handbrake && input.Throttle > 0.25f
+                ? Mathf.Clamp01(Mathf.Abs(input.Steering) + input.Throttle * 0.45f)
+                : 0f;
+            float yawStrength = driftYawAssist * assistBlend * Mathf.Max(speedT, handbrakeDonutT * donutYawAssist);
+            Rigidbody.AddTorque(Vector3.up * steerDirection * yawStrength, ForceMode.Acceleration);
+
+            Vector3 localVelocity = transform.InverseTransformDirection(Rigidbody.linearVelocity);
+            if (localVelocity.z > 1f)
             {
-                WheelSet wheel = wheels[i];
-                if (wheel == null || wheel.collider == null)
-                {
-                    continue;
-                }
-
-                bool isRear = wheel.axleId == "Rear" || (!wheel.steer && !wheel.drive && wheel.handbrake)
-                    || (wheel.axleId != "Front" && !wheel.steer);
-
-                if (!isRear)
-                {
-                    continue;
-                }
-
-                WheelFrictionCurve sideways = wheel.collider.sidewaysFriction;
-                sideways.stiffness *= Mathf.Lerp(1f, 0.65f, driftStrength);
-                wheel.collider.sidewaysFriction = sideways;
+                localVelocity.z *= Mathf.Lerp(1f, driftSpeedPreservation, assistBlend * Time.fixedDeltaTime * 3f);
+                Rigidbody.linearVelocity = transform.TransformDirection(localVelocity);
             }
         }
 
@@ -1090,6 +1311,14 @@ namespace Underground.Vehicle
             }
 
             return Mathf.InverseLerp(slideSlipAngleThreshold, Mathf.Max(slideSlipAngleThreshold + 0.01f, fullSlideSlipAngle), SlipAngleDegrees);
+        }
+
+        private float GetDriftAssistBlend()
+        {
+            float initiation = handbrakeDriftWindow > 0f ? Mathf.Clamp01(driftInitiationTimer / handbrakeDriftWindow) : 0f;
+            float sustain = driftSustainWindow > 0f ? Mathf.Clamp01(driftSustainTimer / driftSustainWindow) : 0f;
+            float slide = Mathf.InverseLerp(slideSlipAngleThreshold * 0.65f, fullSlideSlipAngle, SlipAngleDegrees);
+            return Mathf.Clamp01(Mathf.Max(initiation, sustain * 0.75f, slide * 0.35f));
         }
 
         private static void UpdateWheelPose(WheelCollider wheel, Transform visual)

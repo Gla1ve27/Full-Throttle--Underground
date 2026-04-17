@@ -29,9 +29,9 @@ namespace Underground.Vehicle
         // ── Powertrain ───────────────────────────────────────────────────────
         [Header("Powertrain")]
         public float horsepower = 320f;
-        public float maxMotorTorque = 540f;
+        public float maxMotorTorque = 620f;
         public float maxBrakeTorque = 4800f;
-        public float maxSpeedKph = 136f;
+        public float maxSpeedKph = 245f;
 
         [Tooltip("Normalized torque curve (0–1 RPM range → 0–1 torque output).")]
         public AnimationCurve torqueCurve = new AnimationCurve(
@@ -44,20 +44,20 @@ namespace Underground.Vehicle
 
         [Header("Transmission")]
         public float idleRPM = 900f;
-        public float maxRPM = 5800f;
+        public float maxRPM = 7800f;
         [Tooltip("RPM threshold to upshift (used by GearboxSystem).")]
-        public float shiftUpRPM = 5000f;
+        public float shiftUpRPM = 7350f;
         [Tooltip("RPM threshold to downshift (used by GearboxSystem).")]
-        public float shiftDownRPM = 1800f;
-        public float finalDriveRatio = 3.85f;
-        public float[] gearRatios = { 0f, 2.35f, 1.82f, 1.42f, 1.08f, 0.92f, 0.74f };
+        public float shiftDownRPM = 2300f;
+        public float finalDriveRatio = 3.75f;
+        public float[] gearRatios = { 0f, 3.10f, 2.05f, 1.52f, 1.18f, 0.94f, 0.76f };
 
         // ── Chassis ──────────────────────────────────────────────────────────
         [Header("Chassis")]
         public float defaultMass = 1480f;
         public float weightDistributionFront = 0.52f;
-        public float centerOfMassHeight = -0.48f;
-        public Vector3 centerOfMassOffset = new Vector3(0f, -0.48f, 0.03f);
+        public float centerOfMassHeight = -0.54f;
+        public Vector3 centerOfMassOffset = new Vector3(0f, -0.54f, 0.04f);
 
         [Tooltip("Rigidbody linear drag. Lower = faster top speed. Default 0.02.")]
         public float linearDamping = 0.02f;
@@ -73,33 +73,33 @@ namespace Underground.Vehicle
 
         // ── Steering ──────────────────────────────────────────────────────────
         [Header("Steering")]
-        public float maxSteerAngle = 20.5f;
-        public float highSpeedSteerReduction = 0.18f;
-        public float steeringResponse = 72f;
+        public float maxSteerAngle = 32f;
+        public float highSpeedSteerReduction = 0.38f;
+        public float steeringResponse = 94f;
 
         // ── Grip & Handling ────────────────────────────────────────────────
         [Header("Grip & Handling")]
-        public float forwardStiffness = 1.28f;
-        public float sidewaysStiffness = 1.45f;
-        public float frontGrip = 1.0f;
-        public float rearGrip = 1.0f;
+        public float forwardStiffness = 1.30f;
+        public float sidewaysStiffness = 1.58f;
+        public float frontGrip = 1.06f;
+        public float rearGrip = 0.98f;
         public float traction = 1.0f;
         public float brakeGrip = 1.0f;
         public float slipAngle = 15f;
-        public float recoveryRate = 3.5f;
-        public float highSpeedStability = 1.0f;
+        public float recoveryRate = 4.0f;
+        public float highSpeedStability = 0.86f;
 
         [Header("Stability")]
-        public float downforce = 34f;
-        public float lateralGripAssist = 1.15f;
-        public float handbrakeGripMultiplier = 0.5f;
+        public float downforce = 38f;
+        public float lateralGripAssist = 0.95f;
+        public float handbrakeGripMultiplier = 0.42f;
         public float resetLift = 1.2f;
 
         // ── Assist Layer ─────────────────────────────────────────────────────
         [Header("Assist Layer")]
-        public float driftAssist = 0.5f;
-        public float counterSteerAssist = 0.6f;
-        public float yawStability = 0.4f;
+        public float driftAssist = 0.72f;
+        public float counterSteerAssist = 0.42f;
+        public float yawStability = 0.32f;
         public float nitrousGripAssist = 0.15f;
 
         // ── UI Summary (keep for tools) ───────────────────────────────────────

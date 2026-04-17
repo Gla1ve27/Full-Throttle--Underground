@@ -1,3 +1,5 @@
+using System;
+
 namespace Underground.Core.Architecture
 {
     public interface ISessionService
@@ -9,6 +11,7 @@ namespace Underground.Core.Architecture
         void AddMoney(int amount);
         void AddReputation(int amount);
         void BankSession(float worldTime = 12f);
+        [Obsolete("Vehicle totalled flow removed for milestone 1")]
         void OnVehicleTotalled();
     }
 }

@@ -13,7 +13,6 @@ using Underground.Garage;
 using Underground.Progression;
 using Underground.Race;
 using Underground.Save;
-using Underground.Session;
 using Underground.TimeSystem;
 using Underground.UI;
 using Underground.Vehicle;
@@ -125,7 +124,6 @@ namespace Underground.EditorTools
             ConfigureTagsAndLayers();
             EnsureRuntimeRoot(false);
             EnsureWorldSystems(GetOrCreateSceneObject("UndergroundGameplay").transform);
-            EnsureHighStakesRaceSystem(GetOrCreateSceneObject("UndergroundGameplay").transform);
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
@@ -286,8 +284,6 @@ namespace Underground.EditorTools
             CreateRaceStartUnder(raceRoot, "Neon Pinkslip", wagerRace, anchors.wagerRacePose);
 
             EnsureTrafficSystem(gameplayRoot, playerCar.transform, builtHugeCity);
-            EnsureHighStakesRaceSystem(gameplayRoot);
-
             RenderSettings.skybox = LoadDaySkyboxMaterial();
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.ambientIntensity = 1.0f;
@@ -308,11 +304,10 @@ namespace Underground.EditorTools
                 return;
             }
 
-            DayNightCycleController dayNight = systemsRoot.GetComponentInChildren<DayNightCycleController>(true);
-            if (dayNight != null)
+            TimeOfDay packageTimeOfDay = systemsRoot.GetComponentInChildren<TimeOfDay>(true);
+            if (packageTimeOfDay != null)
             {
-                // Set to 2 PM to ensure peak sun intensity and crisp shadows for the city layout.
-                dayNight.SetTime(14f);
+                PackageTimeOfDayUtility.SetHours(packageTimeOfDay, 14f);
             }
 
             Light sunLight = systemsRoot.GetComponentInChildren<Light>(true);
@@ -337,8 +332,7 @@ namespace Underground.EditorTools
             GetOrAddComponent<PersistentRuntimeRoot>(runtimeRoot);
             GetOrAddComponent<SaveSystem>(runtimeRoot);
             GetOrAddComponent<PersistentProgressManager>(runtimeRoot);
-            GetOrAddComponent<RiskSystem>(runtimeRoot);
-            GetOrAddComponent<SessionManager>(runtimeRoot);
+            AddRuntimeSessionManager(runtimeRoot);
             GetOrAddComponent<VehicleOwnershipSystem>(runtimeRoot);
             GameSettingsManager settingsManager = GetOrAddComponent<GameSettingsManager>(runtimeRoot);
             SetObjectReference(settingsManager, "audioMixer", LoadSlimUiMixer());
@@ -565,19 +559,6 @@ namespace Underground.EditorTools
 
             CreateTrafficVehicleUnder(trafficRoot, "TrafficTaxi", LoadTaxiTrafficPrefab(), positions[0], waypoints);
             CreateTrafficVehicleUnder(trafficRoot, "TrafficPolice", LoadPoliceTrafficPrefab(), positions[2], waypoints);
-        }
-
-        private static void EnsureHighStakesRaceSystem(Transform parent)
-        {
-            Transform existing = parent.Find("HighStakesRaceSystem");
-            if (existing != null)
-            {
-                Object.DestroyImmediate(existing.gameObject);
-            }
-
-            GameObject systemObject = new GameObject("HighStakesRaceSystem");
-            systemObject.transform.SetParent(parent, false);
-            systemObject.AddComponent<HighStakesRaceSystem>();
         }
 
         private static GameObject CreatePlayerCarInstance(Transform parent, GameObject playerCarPrefab, Pose pose)

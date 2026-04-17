@@ -11,7 +11,7 @@ namespace Underground.Garage
     {
         [SerializeField] private SessionManager sessionManager;
         [SerializeField] private PersistentProgressManager persistentProgress;
-        [SerializeField] private DayNightCycleController dayNightCycle;
+        [SerializeField] private TimeOfDay packageTimeOfDay;
         [SerializeField] private string worldSceneName = "World";
 
         private bool autoSavedOnGarageEntry;
@@ -30,10 +30,9 @@ namespace Underground.Garage
                     ?? FindFirstObjectByType<PersistentProgressManager>();
             }
 
-            if (dayNightCycle == null)
+            if (packageTimeOfDay == null)
             {
-                dayNightCycle = ServiceResolver.Resolve<ITimeOfDayService>(null) as DayNightCycleController
-                    ?? FindFirstObjectByType<DayNightCycleController>();
+                packageTimeOfDay = PackageTimeOfDayUtility.FindPackageTimeOfDay();
             }
         }
 
@@ -44,13 +43,8 @@ namespace Underground.Garage
 
         public void SaveAndBankProgress()
         {
-            if (QuickRaceSessionData.IsActive)
-            {
-                return;
-            }
-
-            float currentTime = dayNightCycle != null
-                ? dayNightCycle.TimeOfDay
+            float currentTime = packageTimeOfDay != null
+                ? PackageTimeOfDayUtility.GetHours(packageTimeOfDay)
                 : (persistentProgress != null ? persistentProgress.WorldTimeOfDay : 12f);
             sessionManager?.BankSession(currentTime);
             persistentProgress?.SaveNow(currentTime);
@@ -58,8 +52,8 @@ namespace Underground.Garage
 
         public void ExitGarageToWorld()
         {
-            float currentTime = dayNightCycle != null
-                ? dayNightCycle.TimeOfDay
+            float currentTime = packageTimeOfDay != null
+                ? PackageTimeOfDayUtility.GetHours(packageTimeOfDay)
                 : (persistentProgress != null ? persistentProgress.WorldTimeOfDay : 12f);
 
             persistentProgress?.SaveNow(currentTime, worldSceneName);
@@ -69,7 +63,7 @@ namespace Underground.Garage
 
         private void AutoSaveOnGarageEntry()
         {
-            if (autoSavedOnGarageEntry || QuickRaceSessionData.IsActive)
+            if (autoSavedOnGarageEntry)
             {
                 return;
             }

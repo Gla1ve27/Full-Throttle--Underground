@@ -1,0 +1,719 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f2c016b953c5e4992fd4c6ae904ead, type: 3}
+  m_Name: UG2StyleEventRegistry
+  m_EditorClassIdentifier: UG2Audio.Runtime::UG2Audio.Data.UG2StyleEventRegistry
+  sourceRoot: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2
+  registrySources:
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+    relativePath: SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+    fileName: MW_MAIN_AEMS.csi
+    extension: .csi
+    byteLength: 144
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - FX_SKID
+    - FX_SPARKCHATTER
+    - FX_NITROUS_01
+    - FX_SHIFTING_01
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_SIREN_AEMS.csi
+    relativePath: SOUND/EVT_SYS/MW_SIREN_AEMS.csi
+    fileName: MW_SIREN_AEMS.csi
+    extension: .csi
+    byteLength: 60
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - SIREN
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+    relativePath: SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+    fileName: UG2_ENGINES_AEMS2.csi
+    extension: .csi
+    byteLength: 156
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - Sputter_Message
+    - CAR_SputOutput
+    - CAR_Sputter
+    - CAR_SWTN
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+    relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+    fileName: UG2_ENVIRO_AEMS.csi
+    extension: .csi
+    byteLength: 216
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - ENV_STATIC
+    - FX_WIND_Weather
+    - FX_ROADNOISE
+    - FX_TRAFFIC
+    - FX_ROADNOISE_TRANS
+    - FX_MAIN_MEM
+    - FX_WIND
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_FE_AEMS.csi
+    relativePath: SOUND/EVT_SYS/UG2_FE_AEMS.csi
+    fileName: UG2_FE_AEMS.csi
+    extension: .csi
+    byteLength: 160
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - FEDriveOn
+    - PlayFrontEndSample
+    - PlayCommonSample
+    - PlayFrontEndSample_loop
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+    relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+    fileName: UG2_MAIN_AEMS.csi
+    extension: .csi
+    byteLength: 280
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - FX_PURGE
+    - FX_SKID
+    - FX_Weather
+    - FX_Scrape
+    - FX_Hydr_Bounce
+    - FX_Hydraulic
+    - FX_NITROUS
+    - FX_SPARKCHATTER
+    - FX_Camera
+    - FX_SHIFTING_01
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+    relativePath: SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+    fileName: UG2_STITCH_AEMS.csi
+    extension: .csi
+    byteLength: 100
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - AEMS_StichWoosh
+    - AEMS_StichCollision
+    decodedClip: {fileID: 0}
+  - sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_TURBO.csi
+    relativePath: SOUND/EVT_SYS/UG2_TURBO.csi
+    fileName: UG2_TURBO.csi
+    extension: .csi
+    byteLength: 64
+    signature: MOIR
+    identifiers:
+    - MOIR
+    - FX_TURBO_01
+    decodedClip: {fileID: 0}
+  events:
+  - eventName: FX_SKID
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      fileName: MW_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 144
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_SKID
+      - FX_SPARKCHATTER
+      - FX_NITROUS_01
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_SPARKCHATTER
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      fileName: MW_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 144
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_SKID
+      - FX_SPARKCHATTER
+      - FX_NITROUS_01
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_NITROUS_01
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      fileName: MW_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 144
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_SKID
+      - FX_SPARKCHATTER
+      - FX_NITROUS_01
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_SHIFTING_01
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/MW_MAIN_AEMS.csi
+      fileName: MW_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 144
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_SKID
+      - FX_SPARKCHATTER
+      - FX_NITROUS_01
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: SIREN
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/MW_SIREN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/MW_SIREN_AEMS.csi
+      fileName: MW_SIREN_AEMS.csi
+      extension: .csi
+      byteLength: 60
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - SIREN
+      decodedClip: {fileID: 0}
+  - eventName: Sputter_Message
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      fileName: UG2_ENGINES_AEMS2.csi
+      extension: .csi
+      byteLength: 156
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - Sputter_Message
+      - CAR_SputOutput
+      - CAR_Sputter
+      - CAR_SWTN
+      decodedClip: {fileID: 0}
+  - eventName: CAR_SputOutput
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      fileName: UG2_ENGINES_AEMS2.csi
+      extension: .csi
+      byteLength: 156
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - Sputter_Message
+      - CAR_SputOutput
+      - CAR_Sputter
+      - CAR_SWTN
+      decodedClip: {fileID: 0}
+  - eventName: CAR_Sputter
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      fileName: UG2_ENGINES_AEMS2.csi
+      extension: .csi
+      byteLength: 156
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - Sputter_Message
+      - CAR_SputOutput
+      - CAR_Sputter
+      - CAR_SWTN
+      decodedClip: {fileID: 0}
+  - eventName: CAR_SWTN
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENGINES_AEMS2.csi
+      fileName: UG2_ENGINES_AEMS2.csi
+      extension: .csi
+      byteLength: 156
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - Sputter_Message
+      - CAR_SputOutput
+      - CAR_Sputter
+      - CAR_SWTN
+      decodedClip: {fileID: 0}
+  - eventName: ENV_STATIC
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_WIND_Weather
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_ROADNOISE
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_TRAFFIC
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_ROADNOISE_TRANS
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_MAIN_MEM
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FX_WIND
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_ENVIRO_AEMS.csi
+      fileName: UG2_ENVIRO_AEMS.csi
+      extension: .csi
+      byteLength: 216
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - ENV_STATIC
+      - FX_WIND_Weather
+      - FX_ROADNOISE
+      - FX_TRAFFIC
+      - FX_ROADNOISE_TRANS
+      - FX_MAIN_MEM
+      - FX_WIND
+      decodedClip: {fileID: 0}
+  - eventName: FEDriveOn
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      fileName: UG2_FE_AEMS.csi
+      extension: .csi
+      byteLength: 160
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FEDriveOn
+      - PlayFrontEndSample
+      - PlayCommonSample
+      - PlayFrontEndSample_loop
+      decodedClip: {fileID: 0}
+  - eventName: PlayFrontEndSample
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      fileName: UG2_FE_AEMS.csi
+      extension: .csi
+      byteLength: 160
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FEDriveOn
+      - PlayFrontEndSample
+      - PlayCommonSample
+      - PlayFrontEndSample_loop
+      decodedClip: {fileID: 0}
+  - eventName: PlayCommonSample
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      fileName: UG2_FE_AEMS.csi
+      extension: .csi
+      byteLength: 160
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FEDriveOn
+      - PlayFrontEndSample
+      - PlayCommonSample
+      - PlayFrontEndSample_loop
+      decodedClip: {fileID: 0}
+  - eventName: PlayFrontEndSample_loop
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_FE_AEMS.csi
+      fileName: UG2_FE_AEMS.csi
+      extension: .csi
+      byteLength: 160
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FEDriveOn
+      - PlayFrontEndSample
+      - PlayCommonSample
+      - PlayFrontEndSample_loop
+      decodedClip: {fileID: 0}
+  - eventName: FX_PURGE
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_SKID
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_Weather
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_Scrape
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_Hydr_Bounce
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_Hydraulic
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_NITROUS
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_SPARKCHATTER
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_Camera
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: FX_SHIFTING_01
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_MAIN_AEMS.csi
+      fileName: UG2_MAIN_AEMS.csi
+      extension: .csi
+      byteLength: 280
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_PURGE
+      - FX_SKID
+      - FX_Weather
+      - FX_Scrape
+      - FX_Hydr_Bounce
+      - FX_Hydraulic
+      - FX_NITROUS
+      - FX_SPARKCHATTER
+      - FX_Camera
+      - FX_SHIFTING_01
+      decodedClip: {fileID: 0}
+  - eventName: AEMS_StichWoosh
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+      fileName: UG2_STITCH_AEMS.csi
+      extension: .csi
+      byteLength: 100
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - AEMS_StichWoosh
+      - AEMS_StichCollision
+      decodedClip: {fileID: 0}
+  - eventName: AEMS_StichCollision
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+      relativePath: SOUND/EVT_SYS/UG2_STITCH_AEMS.csi
+      fileName: UG2_STITCH_AEMS.csi
+      extension: .csi
+      byteLength: 100
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - AEMS_StichWoosh
+      - AEMS_StichCollision
+      decodedClip: {fileID: 0}
+  - eventName: FX_TURBO_01
+    source:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/EVT_SYS/UG2_TURBO.csi
+      relativePath: SOUND/EVT_SYS/UG2_TURBO.csi
+      fileName: UG2_TURBO.csi
+      extension: .csi
+      byteLength: 64
+      signature: MOIR
+      identifiers:
+      - MOIR
+      - FX_TURBO_01
+      decodedClip: {fileID: 0}
+  allEventNames:
+  - AEMS_StichCollision
+  - AEMS_StichWoosh
+  - CAR_SputOutput
+  - CAR_Sputter
+  - CAR_SWTN
+  - ENV_STATIC
+  - FEDriveOn
+  - FX_Camera
+  - FX_Hydraulic
+  - FX_Hydr_Bounce
+  - FX_MAIN_MEM
+  - FX_NITROUS
+  - FX_NITROUS_01
+  - FX_PURGE
+  - FX_ROADNOISE
+  - FX_ROADNOISE_TRANS
+  - FX_Scrape
+  - FX_SHIFTING_01
+  - FX_SKID
+  - FX_SPARKCHATTER
+  - FX_TRAFFIC
+  - FX_TURBO_01
+  - FX_Weather
+  - FX_WIND
+  - FX_WIND_Weather
+  - PlayCommonSample
+  - PlayFrontEndSample
+  - PlayFrontEndSample_loop
+  - SIREN
+  - Sputter_Message

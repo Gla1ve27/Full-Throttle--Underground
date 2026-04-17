@@ -382,7 +382,62 @@ namespace Underground.EditorTools
                 }
             }
 
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            for (int assemblyIndex = 0; assemblyIndex < assemblies.Length; assemblyIndex++)
+            {
+                Type[] assemblyTypes;
+                try
+                {
+                    assemblyTypes = assemblies[assemblyIndex].GetTypes();
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    assemblyTypes = ex.Types;
+                }
+
+                if (assemblyTypes == null)
+                {
+                    continue;
+                }
+
+                for (int typeIndex = 0; typeIndex < assemblyTypes.Length; typeIndex++)
+                {
+                    Type candidate = assemblyTypes[typeIndex];
+                    if (candidate == null)
+                    {
+                        continue;
+                    }
+
+                    for (int nameIndex = 0; nameIndex < typeNames.Length; nameIndex++)
+                    {
+                        string typeName = typeNames[nameIndex];
+                        if (candidate.FullName == typeName || candidate.Name == typeName)
+                        {
+                            return candidate;
+                        }
+                    }
+                }
+            }
+
             return null;
+        }
+
+        private static Component AddRuntimeSessionManager(GameObject target)
+        {
+            if (target == null)
+            {
+                return null;
+            }
+
+            Type sessionManagerType = FindType("Underground.Session.SessionManager", "SessionManager");
+            if (sessionManagerType == null || !typeof(Component).IsAssignableFrom(sessionManagerType))
+            {
+                Debug.LogWarning("[UndergroundPrototypeBuilder] SessionManager type was not found. RuntimeRoot will be created without session banking.");
+                return null;
+            }
+
+            Component existing = target.GetComponent(sessionManagerType);
+            return existing != null ? existing : target.AddComponent(sessionManagerType);
         }
 
         private static void InvokeMethodIfPresent(object instance, string methodName)
@@ -460,26 +515,36 @@ namespace Underground.EditorTools
             {
                 asset.vehicleId = PlayerCarCatalog.StarterCarId;
                 asset.displayName = "RMCar26";
-                asset.maxMotorTorque = 540f;
+                asset.drivetrain = DrivetrainType.RWD;
+                asset.maxMotorTorque = 620f;
                 asset.maxBrakeTorque = 4800f;
-                asset.maxSpeedKph = 136f;
-                asset.maxSteerAngle = 20.5f;
-                asset.highSpeedSteerReduction = 0.18f;
-                asset.downforce = 34f;
-                asset.lateralGripAssist = 1.15f;
+                asset.maxSpeedKph = 245f;
+                asset.maxSteerAngle = 32f;
+                asset.highSpeedSteerReduction = 0.38f;
+                asset.steeringResponse = 94f;
+                asset.downforce = 38f;
+                asset.lateralGripAssist = 0.95f;
                 asset.antiRollForce = 3200f;
-                asset.handbrakeGripMultiplier = 0.5f;
-                asset.centerOfMassOffset = new Vector3(0f, -0.48f, 0.03f);
+                asset.handbrakeGripMultiplier = 0.42f;
+                asset.centerOfMassHeight = -0.54f;
+                asset.centerOfMassOffset = new Vector3(0f, -0.54f, 0.04f);
                 asset.spring = 30000f;
                 asset.damper = 3900f;
                 asset.suspensionDistance = 0.18f;
-                asset.forwardStiffness = 1.28f;
-                asset.sidewaysStiffness = 1.45f;
-                asset.maxRPM = 5800f;
-                asset.shiftUpRPM = 5000f;
-                asset.shiftDownRPM = 1800f;
-                asset.finalDriveRatio = 3.85f;
-                asset.gearRatios = new[] { 0f, 2.35f, 1.82f, 1.42f, 1.08f, 0.92f, 0.74f };
+                asset.forwardStiffness = 1.30f;
+                asset.sidewaysStiffness = 1.58f;
+                asset.frontGrip = 1.06f;
+                asset.rearGrip = 0.98f;
+                asset.highSpeedStability = 0.86f;
+                asset.driftAssist = 0.72f;
+                asset.counterSteerAssist = 0.42f;
+                asset.yawStability = 0.32f;
+                asset.idleRPM = 900f;
+                asset.maxRPM = 7800f;
+                asset.shiftUpRPM = 7350f;
+                asset.shiftDownRPM = 2300f;
+                asset.finalDriveRatio = 3.75f;
+                asset.gearRatios = new[] { 0f, 3.10f, 2.05f, 1.52f, 1.18f, 0.94f, 0.76f };
                 asset.defaultMass = 1480f;
             });
         }
@@ -529,10 +594,8 @@ namespace Underground.EditorTools
                 asset.raceId = "night_run";
                 asset.displayName = "Midnight Run";
                 asset.raceType = RaceType.Underground;
-                asset.nightOnly = true;
                 asset.rewardMoney = 1900;
                 asset.rewardReputation = 30;
-                asset.minReputation = 50;
             });
         }
 
@@ -543,11 +606,8 @@ namespace Underground.EditorTools
                 asset.raceId = "wager_run";
                 asset.displayName = "Neon Pinkslip";
                 asset.raceType = RaceType.Wager;
-                asset.nightOnly = true;
                 asset.rewardMoney = 4000;
                 asset.rewardReputation = 60;
-                asset.minReputation = 200;
-                asset.allowsCarWager = true;
             });
         }
 

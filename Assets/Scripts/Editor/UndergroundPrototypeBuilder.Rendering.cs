@@ -96,7 +96,7 @@ namespace Underground.EditorTools
             ConfigureDepthOfField(profile);
 
             DisableWorldVolumeLookOverrides(profile);
-            ConfigureHdrpSky(profile, LoadDaySkyCubemap(), ResolveSkyExposure(LoadDaySkyboxMaterial(), 0.95f), 1f);
+            DisablePackageSkyInterference(profile);
         }
 
         private static void ConfigureGarageVolumeProfile(VolumeProfile profile)
@@ -118,7 +118,7 @@ namespace Underground.EditorTools
             ConfigureAmbientOcclusion(profile, 0.85f, 0.5f);
             ConfigureContactShadows(profile);
 
-            ConfigureHdrpSky(profile, null, -10f, 0f); // Pure dark background for focus.
+            DisablePackageSkyInterference(profile);
         }
 
         private static void AttachGlobalVolume(Transform parent, string objectName, string profilePath)
@@ -527,6 +527,16 @@ namespace Underground.EditorTools
             DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.HDRISky, Unity.RenderPipelines.HighDefinition.Runtime");
             DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.GradientSky, Unity.RenderPipelines.HighDefinition.Runtime");
             DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.PhysicallyBasedSky, Unity.RenderPipelines.HighDefinition.Runtime");
+        }
+
+        private static void DisablePackageSkyInterference(VolumeProfile profile)
+        {
+            DisableHdrpSkyOverride(profile);
+            DisableHdrpExposure(profile);
+            DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.VisualEnvironment, Unity.RenderPipelines.HighDefinition.Runtime");
+            DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.Fog, Unity.RenderPipelines.HighDefinition.Runtime");
+            DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.VolumetricClouds, Unity.RenderPipelines.HighDefinition.Runtime");
+            DisableVolumeComponent(profile, "UnityEngine.Rendering.HighDefinition.CloudLayer, Unity.RenderPipelines.HighDefinition.Runtime");
         }
 
         private static void DisableWorldVolumeLookOverrides(VolumeProfile profile)

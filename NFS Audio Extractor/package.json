@@ -1,0 +1,20 @@
+{
+  "name": "nfs_snd_decoders",
+  "version": "1.0.0",
+  "description": "*.ABK and *.GIN extraction script - Need For Speed Underground (2) audio files extractor",
+  "main": "decode.js",
+  "scripts": {
+    "start": "node decode.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/pisarivskiy/nfs-audio-extractor.git"
+  },
+  "keywords": ["nfs", ".abk", ".gin", "extractor"],
+  "author": "Anatolii Pisarivskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/pisarivskiy/nfs-audio-extractor/issues"
+  },
+  "homepage": "https://gitlab.com/pisarivskiy/nfs-audio-extractor#README"
+}

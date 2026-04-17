@@ -17,7 +17,6 @@ namespace Underground.UI
         public GameObject optionsPanel;
 
         [SerializeField] private MainMenuController mainMenuController;
-        [SerializeField] private QuickRaceFlowManager quickRaceFlowManager;
         [SerializeField] private float fadeDuration = 0.25f;
         [SerializeField] private Selectable mainMenuDefaultSelectable;
         [SerializeField] private Selectable careerDefaultSelectable;
@@ -36,10 +35,9 @@ namespace Underground.UI
             GoToState(MenuState.Splash, false, true);
         }
 
-        public void Initialize(MainMenuController controller, QuickRaceFlowManager quickRaceManager)
+        public void Initialize(MainMenuController controller)
         {
             mainMenuController = controller;
-            quickRaceFlowManager = quickRaceManager;
         }
 
         public void SetDefaultSelectables(
@@ -128,13 +126,7 @@ namespace Underground.UI
 
         public void StartQuickRace()
         {
-            if (quickRaceFlowManager != null)
-            {
-                quickRaceFlowManager.EnterQuickRace();
-                return;
-            }
-
-            mainMenuController?.OpenQuickRace();
+            mainMenuController?.OpenWorld();
         }
 
         public void OpenAudioOptions()

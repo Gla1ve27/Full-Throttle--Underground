@@ -7,6 +7,8 @@ namespace Underground.Core
     {
         private static PersistentRuntimeRoot instance;
 
+        [SerializeField] private bool persistAcrossScenes = true;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -18,7 +20,11 @@ namespace Underground.Core
             instance = this;
             ServiceLocator.Reset();
             ServiceLocator.Register<IEventBus>(ServiceLocator.EventBus);
-            DontDestroyOnLoad(gameObject);
+            
+            if (persistAcrossScenes)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 }

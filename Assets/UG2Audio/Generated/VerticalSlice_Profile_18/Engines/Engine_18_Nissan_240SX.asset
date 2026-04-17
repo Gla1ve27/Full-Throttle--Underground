@@ -1,0 +1,4809 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15621340520794647850b54dc1b8d7a7, type: 3}
+  m_Name: Engine_18_Nissan_240SX
+  m_EditorClassIdentifier: UG2Audio.Runtime::UG2Audio.Data.UG2StyleEnginePackage
+  profileNumber: 18
+  profileName: Nissan_240SX
+  originalMappingSource: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/speed2.exe
+  accelGin:
+    sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/ENGINE/GIN_Nissan_240SX.gin
+    relativePath: SOUND/ENGINE/GIN_Nissan_240SX.gin
+    fileName: GIN_Nissan_240SX.gin
+    extension: .gin
+    byteLength: 100255
+    signature: Gnsu20
+    identifiers:
+    - Gnsu20
+    - ^""B 3A!2
+    - 1"0r1
+    - S@CC#62
+    - kD5#BA&Q2
+    - 5M2R@
+    - N!4/
+    - G".$?
+    - 1?"B
+    - '"!!"'
+    - B$$C
+    - E!!$
+    - A!2?%Q
+    - ']CbG'
+    - 1@3"
+    - '#!rD'
+    - D0B%b
+    - _U`C`$s1E$$
+    - E" /
+    - R*5-A
+    - 241#
+    - '>U<B'
+    - )5*D_
+    - BC24%
+    - U1C5AEbg
+    - '!2U0'
+    - A5!F 7OT
+    - -d/"
+    - 4BO5S!
+    - R4T#
+    - ']%\D1&'
+    - F1$S
+    - bT6RF5T
+    - '"113#"7e8R6Od'
+    - 1@?c
+    - P535B3#4`
+    - '!T/4@C'
+    - D%&q
+    - '!r/u2.'
+    - 0"5!2
+    - R42#SBB2R
+    - 50T"r^%^1%2
+    - +22"B
+    - 1!rNtM
+    - 1UdU4D
+    - '#0?"c'
+    - 6!' $
+    - A1>!
+    - =B&U%>
+    - '#"#0%?#/6'
+    - A4?$1
+    - 2!A20TBH
+    - '>A&B&'
+    - JEL"/V?
+    - FBLuL?
+    - '% #$'
+    - '!"b;u91'
+    - /1-$b0
+    - M4B?&B?
+    - ?"c2"4
+    - 02b7
+    - R)e'`
+    - B*U)
+    - r%%%P
+    - LuMUO%0614!Q
+    - A$_30
+    - O5/c
+    - '"`)E'
+    - 0"3!D
+    - '%0#"1'
+    - '"u%%'
+    - NBDP$
+    - 2%%#
+    - '"3U3'
+    - r.40
+    - 2+E+4<
+    - 5/#-%-$!
+    - y]!1
+    - '"BB"06'
+    - '"-''>'
+    - 0B(E&B
+    - 1 u!
+    - U.#2
+    - '"11B@'
+    - b22"
+    - 3@%2$
+    - '!2L%K5'
+    - 1 22
+    - MEP;
+    - 2A$a
+    - '#4"LtM'
+    - r=U>
+    - '"NuM3!1'
+    - 0C"4
+    - B0#A
+    - +C$"!
+    - '@*5'''
+    - '! B@`'
+    - 3""GdH
+    - '!$_1F\2L4L #'
+    - 4e3"
+    - R9T<
+    - /bK%I>!
+    - 0.""
+    - bTDTA
+    - Q0#c
+    - '#-/A'
+    - d_e"3C3#4T"q
+    - '&@1"[$['
+    - '!!! ?$ "'
+    - /%,QL
+    - y#6D
+    - 7#4R
+    - Rj4l
+    - C "#
+    - S3"3
+    - 4rCTF
+    - '!Bmtn"'
+    - '"/1S'
+    - 2wew
+    - '`UN5'
+    - 3!!A
+    - rs4t
+    - BQtQ
+    - -#!.
+    - bEEE
+    - rgtg2
+    - '!# "'
+    - c!234/B
+    - u5 !
+    - '%-4"'
+    - rT5AD5c"%AT]bV
+    - EBjTi#
+    - 33""#41"
+    - A# $!
+    - '"2!Rx'
+    - '`$>!%'
+    - oDn1
+    - /"0#
+    - ptr#
+    - '"00$'
+    - rudu
+    - b0U.
+    - bt5to
+    - OTR2
+    - '#/30'
+    - hDf!
+    - u!/2S
+    - ^2C6
+    - beUgQ
+    - BDBC$$`
+    - VNFT$Rq$r
+    - '" #@'
+    - '#"rm'
+    - A!!1
+    - A0!#
+    - DbmDm1"#!#0
+    - pS!FD
+    - TE.Tt
+    - Ar-%-
+    - '&A D5!#'
+    - t/UB6rbgTh1
+    - /!/""NDM/1
+    - '] 15'
+    - 0$b_4^
+    - 24B3
+    - eA3"M$P
+    - C."#@
+    - '@0RX'
+    - LeKF
+    - p 3&.4
+    - a5dl%TB
+    - ?C1#Q1
+    - ',b0t4'
+    - 3BfDg
+    - v!1"
+    - 2 "B
+    - 10$!
+    - 2ZDY
+    - ?!.#
+    - 2"ZT\1
+    - t$2,
+    - S!2`
+    - e2!RAECFrhDh
+    - 0"!A3
+    - $?"C
+    - '"$0 !P'
+    - 2nDk
+    - 1BrdoS/#
+    - -,>J
+    - 3t7/
+    - '''##b2'
+    - N3 #
+    - 12rDq
+    - 2 0@
+    - 3/"0
+    - ^t`"1
+    - 4nO#B5
+    - S%UR
+    - hTh2
+    - 1R>t8"
+    - B%T&
+    - S!2c$e@
+    - '!rkdi1'
+    - T$W"
+    - 1/Q0
+    - bJ4H
+    - 3r+4-"4
+    - 5$63
+    - B>$0
+    - OB ##
+    - 2N3B
+    - '"LtJ'
+    - K "!1
+    - b,E'o
+    - r+d0
+    - QEtA
+    - '%/"@!Bi'
+    - WeYQ
+    - R.T*
+    - r)D#
+    - 1/RMtK@
+    - r4rT
+    - 1IDG
+    - .B=e6
+    - '"rdq'
+    - '"uAcK5OE'
+    - MrFT@
+    - 3! #
+    - rV4\ $
+    - E4D3
+    - ~21A'
+    - 2?!0
+    - rX$]1
+    - Q"PDM
+    - arMdK
+    - WtQ-
+    - CdD4
+    - BrK$L2@
+    - '" "A1'
+    - '"CC44T'
+    - '!0!2'
+    - 29t7
+    - 74;M
+    - 2N4JD
+    - C0!"
+    - RTtP
+    - '!3%0bs'
+    - '!2SDS'
+    - 6M512R
+    - :t;"3
+    - 3D-1?
+    - O!O@
+    - lR "/
+    - 7".E
+    - .r=eA,4!
+    - 7U?&
+    - B]tb
+    - '!0":'
+    - RyDz
+    - 0!2J$O
+    - 4$2b
+    - 2"2##
+    - b0u.
+    - /E!7!#&
+    - Q#C*
+    - QRLuK
+    - '#r6t9'
+    - :46"?
+    - B/D1
+    - '@4AQ'
+    - HC 5.
+    - 31|#O
+    - 6d4"
+    - d/31
+    - 2\DX/
+    - 7D1?
+    - '"!/""Q'
+    - \4c"
+    - r/d2
+    - I4G1
+    - rL'.$
+    - '"u4u'
+    - 3 .#
+    - 2 2B>DD
+    - 2!D#
+    - Cb8$<E
+    - '#1# 2O'
+    - rw$x
+    - '!"+T,2'
+    - B-%)
+    - 2 1#
+    - '"]Dd'
+    - b"@2#
+    - ^$/5
+    - '!OA"'
+    - r8T4
+    - $BNtV
+    - 1"""1
+    - a5!D@!f
+    - AD>%
+    - qA#A
+    - $#"!""
+    - 7t8$
+    - 4Bz$y
+    - d#Qt
+    - '"12O'
+    - U!?CO
+    - R1D2
+    - Q3!C
+    - 2#"#
+    - 2rx$z
+    - /Dt22U
+    - $3-"
+    - l4o2!
+    - ^R+4,
+    - BIUG
+    - JTQ C
+    - 5T1"
+    - _A?/
+    - '"RSDP2'
+    - '!3!12'
+    - 1Lbh
+    - /C0#
+    - rmtoQ
+    - '#t"!0'
+    - 02?"1!
+    - 2153a
+    - '>bT%4t%DRS@3'
+    - ."BrJ
+    - AA4>.
+    - '!!02'
+    - BRU#3D=U
+    - '"<$;'
+    - RvDx
+    - B8D:?
+    - DB)T0#
+    - rtt$
+    - rHtNN%/
+    - cThR
+    - '!-".'
+    - '"#>T.'
+    - 0Bctk
+    - S 4!
+    - T 32[
+    - ^gB04
+    - p4t !#
+    - '!KdH'
+    - BB02
+    - '[T\N.B'
+    - '"BB!$P'
+    - 2! 2w
+    - HtR0%
+    - 0$A"4
+    - 3/044
+    - AReTjA
+    - '!#3D'
+    - '%A##@'
+    - '"5? !'
+    - 0/34
+    - '"#?4#'
+    - RET?
+    - 2$!B
+    - 2"!Q
+    - '!$2">EbdTj?@'
+    - T C!
+    - ']eV@'
+    - R0d/
+    - A"3"3"
+    - vDq!
+    - A$@#
+    - iDm11
+    - EO2!0
+    - BdJ!Q$
+    - '!L+/'
+    - TD[/5@
+    - RPDH
+    - '@2!3"'
+    - '!205'
+    - '>1#/'
+    - oDp#0
+    - '"0=#'
+    - '!S!@##'
+    - B.D*
+    - Bh4m
+    - '%Mrktc"'
+    - q#?E
+    - iTg&
+    - ?""3
+    - '"nTo'
+    - rD$<"
+    - '!RoDi'
+    - Rndq
+    - +C2E2T4>A
+    - rG$L
+    - ',t56'
+    - 5!R1d:?
+    - B>1!
+    - Cr]E^A
+    - ',!RN'
+    - '!Q2T25E2'
+    - RHUD
+    - )t'>
+    - 0Q,d.%/t
+    - ;45!
+    - +D&2
+    - eDfCC
+    - b4t2
+    - '"D)"'
+    - 1N&2
+    - J`#-
+    - 4B402
+    - -T+1
+    - 2!"/
+    - '"ad%`5'
+    - V/Bh
+    - '%/b,T3'
+    - AABZ
+    - '["BTF'
+    - ''' 4^'
+    - 5M"C
+    - '>d62'
+    - '#!$!'
+    - 2"#>$R
+    - C% ?
+    - GDF?"
+    - DDD1F
+    - P"W$[3
+    - CR.t/b
+    - B>uJ
+    - '"@eG'
+    - qlR)T+&.
+    - 2D55
+    - b_t\!
+    - 3S3$B
+    - .3-R
+    - $+$"1
+    - B>#"
+    - 6t83=
+    - 'C2<"% ":'
+    - 4 2"
+    - 4&,%0
+    - 1#52">&#S
+    - 2"A-
+    - '#!/l'
+    - ./"%C%B
+    - ;CC2
+    - '"DR"$.'
+    - '#"@!'
+    - '#-2O'
+    - '>$>$'
+    - '#T&U'
+    - 2=4C
+    - '% P"K'
+    - b736
+    - RESH
+    - 2"$#
+    - R.C*
+    - /"-4(
+    - 045*
+    - 2=#8@
+    - 2$C&
+    - G/4BD10
+    - 2,3-
+    - /d3N
+    - 4#3?
+    - K$#2#
+    - R3c0
+    - '#V2T5U'
+    - q1B5
+    - a/S"
+    - '"*c+C'
+    - 233C$
+    - 0R(4/o
+    - A'B0
+    - 1T$Ue2!"3!q;
+    - FDB4O$18
+    - 36Q& $
+    - '!#24$33#""'
+    - '>2%c'
+    - Wr%B,/
+    - .R.s%
+    - S;P@
+    - 2OCK
+    - '*"#"#"""?'
+    - $A"#1
+    - BD4?13\
+    - $T"3
+    - 7#-S
+    - '""2#'
+    - +39"
+    - 4*O'
+    - '!0#A'
+    - Rmcn
+    - RtCr
+    - FCB#0
+    - '#DE33'
+    - '"2C303#'
+    - 8sA#
+    - 1$/@
+    - lTca
+    - ri#o
+    - yCu1
+    - '@1"3d>P'
+    - =sDA
+    - 1"YcT0
+    - S;q9#""!1
+    - d,BO
+    - 1"#3B
+    - 244B#
+    - '#23#"'
+    - c1%A%!
+    - 2<r,
+    - 'RXc]'
+    - ?"?3=
+    - '!112'
+    - 3DCD#
+    - 1RbM
+    - 2msr
+    - 2S%R
+    - R_sY0
+    - '"/ /'
+    - rC#N
+    - -c,"
+    - A$DB43!
+    - J$Q[
+    - rQcK
+    - 1$"aE
+    - nsc@
+    - 2"UEU
+    - r/C"
+    - .b1s&
+    - '",S&'
+    - )S5?
+    - s%>"
+    - R#V4,
+    - 2!3C$
+    - 3$33D2m
+    - $1Sr
+    - =&02MCR
+    - D2$?
+    - 7$3#3v
+    - 3"5?3
+    - '!4#.'
+    - /R3c9!
+    - 29B>
+    - ;31>
+    - / .@
+    - B&3)
+    - '[FbF'
+    - 3"3-
+    - /bA3G/
+    - E$5#
+    - r"#,
+    - CERb
+    - B$3>1
+    - ZCSd
+    - B4DR
+    - 5$<G
+    - R C!
+    - _cX"
+    - 1/$_
+    - 4T3D-
+    - 'Q2b:'
+    - R$C >
+    - '!>S:'
+    - RnTk@
+    - '*C-1'
+    - BzDu
+    - 7d5+
+    - E#VCD@
+    - E2"Q
+    - rXCV
+    - r,S#
+    - BM3H
+    - Na3c*
+    - P,B/4
+    - .30ER
+    - PSJ4
+    - SbGcC
+    - 2=38
+    - bXsR
+    - ',C=r1S5!'
+    - 28#<
+    - B"(#,3
+    - rHdKl
+    - T>"3
+    - b/#<
+    - r%3(!
+    - T#S"
+    - '"@#F'
+    - PcVM
+    - CP6e
+    - LTLb
+    - //D?
+    - CCD"
+    - W420
+    - 9s=2
+    - /!"43<
+    - b+c&
+    - E3A102
+    - b8#'
+    - /B-+
+    - U#UO
+    - TSR#
+    - 6#34
+    - RCPO
+    - '"D$AR'
+    - R/32
+    - '"%3)'
+    - r^3f
+    - BL#K
+    - '"B#S*!/'
+    - rWCa)
+    - '*C--'
+    - '"P$Q*'
+    - H"N?
+    - b+#+
+    - Rd3[
+    - 2g3\
+    - ("!#
+    - kcq/
+    - B<sL
+    - -&!=
+    - B735
+    - rQ3S
+    - b,S&
+    - '&d17'
+    - 4dA$U0#
+    - '''#/A'
+    - SC!30
+    - bV5B!bA
+    - 2130
+    - A2!-
+    - EcN>
+    - r#r%
+    - M2-T/
+    - BSCS
+    - '!0$1'
+    - JS>#
+    - '%C+0'
+    - '#!51'
+    - fffffgffffffffg
+    decodedClip: {fileID: 8300000, guid: 70e6c6f1382b6054f843fb7057d56787, type: 3}
+  decelGin:
+    sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/ENGINE/GIN_Nissan_350ZX_Jason_DCL.gin
+    relativePath: SOUND/ENGINE/GIN_Nissan_350ZX_Jason_DCL.gin
+    fileName: GIN_Nissan_350ZX_Jason_DCL.gin
+    extension: .gin
+    byteLength: 54672
+    signature: Gnsu20
+    identifiers:
+    - Gnsu20
+    - bcB|
+    - r$3#
+    - 'rCb]'
+    - R.b'
+    - '"32J'
+    - r&C".
+    - '>$?D0'
+    - '"ErF'
+    - '"3C!'
+    - 53!-"
+    - 7U94UA
+    - B4@S
+    - '$1":'
+    - SBO!
+    - Za"S
+    - 2%T%"
+    - '3#B]'
+    - f1 C
+    - C&N#C@
+    - '!%C3'
+    - n6TR
+    - $2'U
+    - '#!Rat]'
+    - 1U6d
+    - '"Ar_4aC3'
+    - R23A1
+    - D@24B
+    - $$4D
+    - 74@"S/
+    - TrCB
+    - P"54A
+    - DFG$D
+    - UPuF
+    - D42$7"
+    - 6E#3
+    - 03%DQ
+    - '"T2D'
+    - 2"B4
+    - '@!$VC'
+    - '!"#44s'
+    - 2"#DRRw
+    - '`Dj1'
+    - +d!5A$!
+    - 2@R~
+    - '"TUT'
+    - D$"/
+    - 1#A/"bU
+    - $!B`
+    - 1500O
+    - '"!25'
+    - 23/.
+    - '%E&/K'
+    - b,4*
+    - 2!RR
+    - rFd[M
+    - $1#P
+    - b$k3
+    - f=#12
+    - CCV/
+    - b^4Y
+    - RVT\C
+    - R$3S
+    - '"At5'
+    - E#DB
+    - '"%bD#L'
+    - '%$eB'
+    - BiT`
+    - '"X$S'
+    - cde>
+    - $32f
+    - 4bU3
+    - x,/+
+    - '!!4?'
+    - 2atV
+    - '#2CBD'
+    - 3#"-
+    - '@513!'
+    - '!0RB'
+    - B 1&
+    - Pt_O
+    - '%fE#0$'
+    - Ro$m
+    - 51D43
+    - '`$T0'
+    - '!2jTp'
+    - $gBUS
+    - :036T
+    - iSe@
+    - '%12D'
+    - 0B2s2
+    - -VqC
+    - '"%4#'
+    - 4c"!S"
+    - STg=
+    - '!WdP!$'
+    - 2449
+    - 4d1&0
+    - 32 !
+    - '"3F3'
+    - fUN!
+    - 3TSBB+
+    - A4vA
+    - b_tQ
+    - $6S!/
+    - $47SK
+    - '%c3!"0'
+    - D7eRD
+    - '#dS"1'
+    - edS0
+    - '".T1'
+    - 'bE$:'
+    - CtH1
+    - 2&uA
+    - '!UB#'
+    - C2R"
+    - O/B>
+    - /b~$|
+    - rl4l
+    - 2Q30
+    - '!U$2'
+    - KeI#
+    - WSeR3
+    - TU4t!
+    - B"SN6
+    - B5%8
+    - Cbr>
+    - '!!/-'
+    - 31B1
+    - S#fBV1
+    - MEL0$
+    - e'6q
+    - a""31
+    - r/e(
+    - S!3#7UD3
+    - '#B"2'
+    - 2VuQ
+    - $ !2
+    - 7%3$Q
+    - D 604
+    - 0e.C
+    - ?ES6
+    - 2C."
+    - JEK0
+    - $T10
+    - R&%$
+    - '&@/B'
+    - $U ^
+    - '@"$>B'
+    - '!!#O2A%&$%'
+    - Ye]B7A
+    - b*u-
+    - B$!R+
+    - P#?!T10
+    - '''!@d'
+    - ET"3E4
+    - '! V_'
+    - 5$ "1
+    - ;3G2
+    - 20$5A
+    - bA$"
+    - RDUc#'2
+    - '#V2%DU5$'
+    - uBSU#e$
+    - 2EeD
+    - '& $0"'
+    - c"$$
+    - 53R4
+    - 73R>
+    - '!A1r'
+    - V $1O
+    - 21 4
+    - '%CD"4'
+    - '[m?.'
+    - L?O@!
+    - ']?.Cq1'
+    - 1b//
+    - r&T&
+    - .u-~@?YN
+    - O$"I
+    - /0"+
+    - -" @
+    - iDh1
+    - '#r%R0nT6='
+    - Q#^bS
+    - '#C51'
+    - '%52KEM>'
+    - '")d,"20/'
+    - '!0@!'
+    - dF-1
+    - 4E#2;
+    - '>% 613'
+    - '&#EM-'
+    - '#3G!#P'
+    - aEVR#
+    - 4R#E#!U
+    - 302"
+    - 3CP1
+    - $A"!
+    - 3B2Q
+    - '*r43%!'
+    - '%$1"'
+    - Q#A1$C#%/#b
+    - '"BE>'
+    - Q-#3EB+
+    - ?%?!
+    - 5!4TA $
+    - 4#DDC?2T
+    - b9%5$"
+    - DR,u-4#
+    - $#!!
+    - '#$ !'
+    - D/"B
+    - /b!e
+    - 22&u"
+    - 5E>6
+    - /2 "+U- E!
+    - /&/4
+    - '"(U''2'
+    - 43%0
+    - T2 "
+    - Q2#DAc#BNeQ
+    - A"!6
+    - B3$!$UUDa0D21
+    - '#@4!@'
+    - '!3"<'
+    - 01#1"
+    - '#1D0'
+    - B+U*
+    - AS3CU#N
+    - '#2 ?314b;'
+    - 2B%"
+    - ',5,C'
+    - '''"e$1'
+    - '!5''!'
+    - '!B2E1'
+    - '!RD%E4CT#Wc/c'
+    - 4r"4
+    - cQ2@2
+    - '>u=R'
+    - R+E."
+    - 4B"5
+    - :!%#2$$
+    - '#$#B!'
+    - SA$?
+    - 1E#!c%SR
+    - j"!4"
+    - M$O"3
+    - '""C$Ca'
+    - C#3D5
+    - 30!$
+    - '!,e*'
+    - $2 2
+    - '@b>%>50$'
+    - '!@B&'
+    - 1F/1
+    - '!/#$#3'
+    - b#31RNESSA
+    - 4 #b0%1#
+    - '"@0D46B'
+    - T"e3
+    - 3!B?
+    - TEB!3
+    - QFQS0O
+    - RCc#2
+    - '>e@3'
+    - 1r3u5"C#
+    - '"3"D'
+    - 4142!
+    - F2/r/
+    - /r/u1
+    - 13543/3
+    - 2>"C
+    - 3A3A
+    - 1/"/
+    - '%"^dD'
+    - EuJD
+    - 3$#31BRC332#"r[
+    - 2!!B
+    - 3324$
+    - '""54'
+    - 4u7E
+    - C@U1CCDC$D$D2
+    - k5j$
+    - //3?A
+    - '!!00'
+    - '#"%!'
+    - R31B
+    - 2b#B
+    - 203B4"G
+    - JEcFb
+    - D#?$40
+    - '"C3@'
+    - O!TP
+    - 223#
+    - 2!b>
+    - EQ21# #
+    - 3"!2rAuBB"5
+    - DRO2
+    - 1#5$$2R
+    - D#CR"@2
+    - 1@"A
+    - M5tR
+    - C$13!b#Q
+    - '!2%A2M'
+    - 6V#o"?
+    - 4NTb
+    - d?/F34
+    - B*e*2
+    - 51"!!
+    - $!B<&<#C#dVB#
+    - '!B"21C"!2#rE'
+    - S#4C
+    - 31t CbF%H3$C
+    - '"05C'
+    - '"Bb:e;!"'
+    - 4"333D #""#
+    - I6G?"
+    - _ES$F#B%U(S
+    - 21"B
+    - 85<31
+    - 112$4
+    - 0e54
+    - 2cTT!S2
+    - VVUd
+    - 23"!15$%CP
+    - aecD5
+    - $ 3B21
+    - C2Q%"
+    - Ae@3$T""41
+    - '" 42'
+    - =5@"#
+    - ?!b=
+    - 22+%-CA
+    - bHVEA
+    - '"##DR3E6"3'
+    - '"22A4#$"'
+    - Q"1$!
+    - 0$#$!
+    - J#$2"#!"
+    - BRbAfCe6
+    - VCS#2C&?
+    - E2&B2"b
+    - 520CE3VC
+    - ']5S44M'
+    - 1F/0
+    - 2"$4#254341"4B
+    - ^U_CC
+    - 4"B#C!#
+    - VV#P2&u)%4F"#$CAE2#EB"$rc
+    - 2!#3"Q
+    - BA342R
+    - SVVSt
+    - '&1SBTBE2.'
+    - 1"2"4 A
+    - '! 1#'
+    - $E%B=%B443CD$DE"C
+    - V32B
+    - k%jB
+    - 2$E4$UTrl
+    - pS"4##c
+    - D42S2O
+    - RS4TB3cD#"3"S2C4rc
+    - O" D
+    - D"1#"!"B%!1#B2
+    - D 22%#&aD"C
+    - '`DB3B'
+    - /V2Vd
+    - Tdt521T2
+    - B2'U*2"4#31b#5
+    - B$ "3
+    - '#0222'
+    - O6#B3#33
+    - d3eT
+    - -D4E23CCC"331$%1
+    - ']e]21'
+    - S!5_S$
+    - '"3"%'
+    - ',3B0F"1'
+    - '#3a/""'
+    - 55%S-5DD34B
+    - '#""234C$aDA$R`'
+    - aTDAFC
+    - 4!S"2
+    - 121"!4121BC2"
+    - NR'C
+    - '!1!2Cb#2CCbWeZR43"$R'
+    - RIFF2
+    - E1#2#$#B$33
+    - Z$C#
+    - $12Q
+    - L32"BT
+    - A!$!1
+    - 5fSeBv
+    - ;5>023C3BRCC$634
+    - jejA"$"!!
+    - '"2$$4"2"C2$3C'
+    - 33#62
+    - '%T$rB'
+    - '"" 4'
+    - B#4#3#4#B
+    - XR%B
+    - SR$F
+    - '#3C!!4BC$3T'
+    - ']$5D5DSC#BU'
+    - '`e]#'
+    - AB"4
+    - 3"2IEJ2S233
+    - 2#O#
+    - '&S6D"&'
+    - 2!2D
+    - R 2#
+    - eveefU4
+    - I!U3AT2#D3#B$2
+    - 12ZeX
+    - UA2FB4_V&U
+    - :342
+    - B3"2E
+    - $4"$4rN
+    - Oev412
+    - '"33#'
+    - B%C3
+    - B@"B23
+    - '!!%@'
+    - '!# 3#"'
+    - KU34TtS
+    - 03"$3RC5D5B3bi
+    - k%5DS45EE$424"122e
+    - B$32D2T$BBbd%eCC5B
+    - DB2S""0
+    - c"Vd&UW
+    - 3e8R#D4CC3Ee2&$4U"
+    - wC4433@
+    - 9U="2DC
+    - D1#2A"
+    - U%T1.
+    - 0!1"A
+    - R#2rN
+    - $##R
+    - 26#B
+    - '"2"3$B22RS#34T"c'
+    - d42533BC"12
+    - 'R>u:'
+    - 33AD$CD
+    - VuY5EC4$34RU2#CCT2
+    - nUnC
+    - C24E63
+    - 232!"bN
+    - '@###$2CRS$12'
+    - VDfDUeW6dUvfrTuU#14"4
+    - '#U7"&d'
+    - ',"234'
+    - 2A23###1#3RQvQa
+    - A31!
+    - 1""2!"#1"
+    - C6CB"3
+    - AB"4S"C
+    - Y$##1BD2
+    - D"C2#D
+    - _##C##C3!"1
+    - 2DCC3DCDR4CD"
+    - peo"T24
+    - 2#B3#3"B
+    - $B33BC
+    - b"A3A
+    - BA1 /#
+    - $"BBC"IEL5
+    - $3C4$4$2!QD"
+    - 2[uZ3!"$
+    - '!C1B"%'
+    - ?2#4"$$2$
+    - 3$!3C"
+    - XT6TEtF"!U1P
+    - 3"R45%TC3F%3#5
+    - '%3DUER'
+    - '*D1d4BV2CD5C3A#'
+    - B3!3"
+    - MuN2d
+    - 1CA$
+    - P&OB
+    - '%BDD3 dA6b0'
+    - 0dR4rUC
+    - 64ES/U !B2
+    - '#252'
+    - '""C#32T'
+    - Q1#1 2"
+    - b*5(
+    - '##"R5"CD4tADUd3'
+    - ?DU3
+    - dB$52'
+    - 2&2!
+    - '#4#A'
+    - VUV4"4"R"!""
+    - 21""#AC$2
+    - M31C@4$$
+    - bL6J2S2
+    - 2A3B
+    - 2"RN
+    - N$21#QB2$02!1!!!R@6>B
+    - '!O2C'
+    - H3%2352$$DC
+    - C2222af_t4DA
+    - '"2#2'
+    - S4BOvQTDWV5UEUSTTc5$e
+    - G&F#
+    - 43#SFB5eFtRBA
+    - BBEc3D%q
+    - Q"2C
+    - 12"14$b>
+    - A424#CB2$C2D
+    - cuc$B1"2" !
+    - '###2#A2'
+    - 2"?3
+    - 42BJUJ"D
+    - 54dEsF6dCR%
+    - CFDVcgVvTVfCg2A2A
+    - '!C#!#C$3'
+    - 32PfQ
+    - UT#$D
+    - '"2#3$B3U6RcDR8E:'
+    - 21S#$"!5
+    - 423"2
+    - '#31#2"'
+    - S5b!c
+    - B# "R
+    - D5eGSfUE%4E4S64RD
+    - D%CCd#$
+    - '!21D!3"2!rI'
+    - HCT4U$6DCC
+    - 2"4$4#4$
+    - 2321C#$!A
+    - 1 m1
+    - 5B4CWEQ3
+    - a&c3eFU
+    - 1#4"640
+    - Q4BT3
+    - ',CAS'
+    - 04$!
+    - 2"1BB
+    - '"37cU%EG2#'
+    - 6B.F-F
+    - 2CC#5$SE#dd
+    - '#4e2='
+    - '#Bd42'
+    - 3"S2
+    - ET"TCC$B3E '%2D
+    - $32bbG&D3$#TE
+    - 12"!>1Q22?
+    - ?#"!R%5c$5$a2
+    - B4""
+    - A24$D%
+    - $#3T!3
+    - (6)"@"
+    - ccFA5
+    - '"2fD&2'
+    - '!!"%eDE52.F0S'
+    - + AQ !R 0
+    - 445#4VS
+    - '! BR'
+    - '##B3C6S'
+    - 'cTC$$Rb2:'
+    - 9"#0
+    - '#FSA'
+    - '!1Q2'
+    - '""R#5'
+    - U]d%
+    - '"/35AS'
+    - 3D52%
+    - $6!c#4
+    - d1&#
+    - O1 "?
+    - '@R!4/23'
+    - '#!#A'
+    - D13011
+    - 31C#2#6B
+    - $"#?
+    - 04%Q%4$"5/ "
+    - EF/?
+    - '"123'
+    - 30# !
+    - 2#@D
+    - '"@433'
+    - '''6''"#!'
+    - '&B$C'
+    - $B"2
+    - c4D"
+    - '"#"@'
+    - $G"%
+    - B$#72$A32#A4#R
+    - D41A
+    - 15R#$S
+    - DB$D
+    - T#D$2E"RAA
+    - E64VE
+    - w!t#E4V73ee3WV
+    - '@3%33#U2'
+    - -V/"C#4$43@#
+    - '!v !"'
+    - 20"2$#3
+    - '"v#D'
+    - '" C31'
+    - '"1$5'
+    - SBC#
+    - )&+DB5P$2"41$43#"
+    - '*33.'
+    - '#BBAEd54e42$DD5'
+    - ;45AECCU"4/"!10!
+    - 8V93V$2BS4""#!"
+    - 3F4eeU
+    - '#$R4DA4C'
+    - '!BTb-v-311B2'
+    - 9E8Q
+    - 01!!!
+    - +$!11
+    - '#24"'
+    - '"""13B32'
+    - IFfVED73S4ED"R2
+    - 0"2"D2"4#D26CU6"7f8f$FdVd3D54CD4C#
+    - <';eeBUAR"
+    - W4C%$U$
+    - '!""""#3"C222'
+    - OTdeF5F3UUUFDEDdBIfH1Q
+    - '!5$E&SeFV&DCQT'
+    - '@6f2EB6B2"E#0'
+    - 4B#C43DCUr
+    - 7V9VFTd
+    - e3DV7CTF$CbD
+    - C&CD452"A
+    - B24&3ED2E
+    - 4$CC4##"$1#%3$3"
+    - ',G,CS d'
+    - '&%DD34CE#6FVUFDV'
+    - H4C6DbRfTDD&S
+    - 2"455EE4SBE%FE5
+    - '@6AS2B32C%A4'
+    - R%w#
+    - D33UDD
+    - 2TFSEFVEdEfDUEfE
+    - M5eDTDTC
+    - 2C"3
+    - 1#"*V(
+    - 024"#3DQ
+    - '*TS4DEC7DRTdDE4F'
+    - C6C23Cd"2$C
+    - '!2#22T$C4'
+    - ',6.VEVESV5UTDdSDRVRG&GDDD3B2!1""'
+    - '"#P#D'
+    - 5$2U21
+    - 2UGESE57rTvDUE&C
+    - IBD53B3#"
+    - B4AFCDEU
+    - ;f<DtEuT$Ff$EfEEUE
+    - LFLESEBDS$EC1B
+    - 4%%E24
+    - 5Ce4$TT3RUfD"DSU
+    - AfACEDE&
+    - BA$22
+    - '##1!D'
+    - 221C3BR)
+    - '*CTedFA%EDST6dDe'
+    - F&G3cdcD$442D3163B
+    - 463#"C0
+    - '#3# 4B1'
+    - '"v#3d2S'
+    - $RVRcEDe3TbB
+    - AU%b
+    - TSCd"T2S
+    - CRr5
+    - cAVcSB
+    - DC02TcD#4DEdE3
+    - ?DT%4u54E5euEt3d
+    - K&KEETD
+    - AD204B#@
+    - 1B""V1T"$
+    - R%r0e1
+    - <$UD3%4233##
+    - $&#C
+    - D2$#
+    - '''B3$V3DD4cCSUE54'
+    - AD3FSdSDTC
+    - C"=v<C
+    - O4E1
+    - 4!BE"5#FCEDU
+    - ;5=!#
+    - C1222"!"2BH
+    - H3"DDAB3T
+    - 7@3"
+    - '#14"23$CQ2UFS5'
+    - 9V%5DtDS5T42$WUS
+    - AvA54!$V#B3#U#3#C!
+    - /ECB
+    - $12#
+    - '!31#'
+    - '&BC D4TC'
+    - eed$3
+    - '>VF3TR6fSc34dS2C'
+    - 2!134D2!
+    - '"3U3D3EECFVDE5UT'
+    - F6GUEeTFUEcFDdCR13
+    - 2.20
+    - '#"#3E4DDQ!VED352;'
+    - ;D4Ccua$US144V53b=
+    - =D33c53C31
+    - 1Q0"
+    - B%F#
+    - '"0%2"5E3CE4Sd6Eb?'
+    - '@CSDeFFDETV6eCST'
+    - ITC5ED"ED53
+    - CBD!
+    - 3f3B3!4
+    - 3eD3T
+    - 2"$$""D%SCCc3T3
+    - 8&9TcDCUDBTFTU4eB%rC
+    - BDDBCd%D2CD4C
+    - $2B3
+    - 221dA#
+    - $!2D#T
+    - )45S5UTDFEtUEEtdRM
+    - MVTEVVTS%RGD$"4D
+    - =&<$S$C
+    - '#1#$3"'
+    - '#22'''
+    - '''"45SC'
+    - '!"3BT3CB+'
+    - ',5SdU%TED3EEEUST'
+    - EFFSDFET3T6DCE5E1Cb>
+    - =3D"3$2#21C
+    - '!5#r#'
+    - $C32S5#RDUT44STTr?
+    - '@3T44E4433#5%#3#R3'
+    - 2SutF23U543!51
+    - 3 527
+    - 2BBBCC$233
+    - /6034c244D"E53C3QB
+    - 5C3414
+    - 1$2C
+    - $"3"
+    - )')FAWTD
+    - FwR7D#1t
+    - '##123C'
+    - '#DC32T3C'
+    - 32D$34%B332323RB
+    - /V/23C#121#
+    - '"&"!'
+    - A$!"
+    - 12#"#
+    - 2D2"&##2#3E$2C$
+    - 4B23B21
+    - 03R24%2"C$
+    - 332"r+
+    - +!B3"2
+    - 3"#1?#
+    - '"43$'
+    - '#""!C'
+    - 432$
+    - (2C234C%"R422Q$#2/
+    - .GUDe
+    - U7%42S"
+    - B$32U5U
+    - '"33232'
+    - 2DeT
+    - 22C3RSD3DSSEEUD
+    - AECSUTED3ET34DSCb>
+    - =CD3"#D#A24
+    - '#32'''
+    - '&CTf2'
+    - .$e4
+    - '"B2233B22D3#C'
+    - .f/D343D%$#2$#C$"3
+    - .&.22"$3"
+    - '"2B1r%6%"C112BAS3B!3'
+    - 1#2(
+    - '''W24'
+    - '#$2B#3'
+    - 42S5#SC4DD"SR
+    - 7#5"BB##23
+    - '!BB"!'
+    - (w(42$eSC#u23
+    - 121"3
+    - '#"#45'
+    - ',C432TBDQ3SCE'
+    - 7f7C343#44R23$2234
+    - .4$3C
+    - Q32#"CA3C42-6-432R243!
+    - 2"4"
+    - 4CBEEe3TtCVETeF
+    - K4UE6D%FTE3BDR3Sr=
+    - <4%C34313##13##"
+    - )G(TTVF%G35cR""4V
+    - '"42E%S'
+    - '!3"2$4DDEC44CDTR;'
+    - ;E63DDR5B4C3332324f333!"22
+    - '!1"0"!'
+    - f CC
+    - 3#44#D"*6,DEEDDVFEFDTd4UU
+    - J6J%SSDTD
+    - CcBC3C#C
+    - 413"
+    - '" B#'
+    - CS1DW2
+    - '#12B23342S2D$D3'
+    - 3v43S443R4DCA3C32323
+    - 2#233#
+    - '"A332!B2'
+    - D###3D##3$!B
+    - +d&e3B2
+    - 23"##1B44
+    - )2S4D
+    - E4B#4D425S
+    - 63CA4E#3ACQ#3443
+    - 0603
+    - B242
+    - '#$dUS''3V7B'
+    - 412%UdSTUW
+    - 32R1R4RBC4BR3C324f4CT3333353$$
+    - 2"4".
+    - ."1B#$##C
+    - A3""3!
+    - '&1###"B43#C2$2#3'
+    - +44"#1
+    - '!"#2'
+    - '"B3444T4RD'
+    - 6&75DE4DDS%5CD
+    - 45$b9&92#D31A3"232A#$"
+    - '"A#2 "#'
+    - '#"#2B'
+    - '"&V&"4"22'
+    - EbEDCFS
+    - '#33D2433D#C34##'
+    - 2333B4$B33"#22!4R*W*eV5WTfVE%REe6DE
+    - $32132#1CBB335B$
+    - 0UD4B201
+    - 4$334CCEDb5
+    - 755EE54TCSDD4C3T
+    - =2BDB444"D#"5
+    - 12r-6-#
+    - 2"!2
+    - 6SFP"3#
+    - 4Uc55c
+    - '#"243#$$33'
+    - $Cr.
+    - .2ACCC3
+    - '#1B242B#B+'
+    - '*EDuUTE5dDUUdUST2%'
+    - '%SDEVdUFvfTfgETV'
+    - '"2#3##%2"&&''3333442R243$23"'
+    - /"33##$522$3$2$$
+    - 3314
+    - '#1r#'
+    - 2"$3
+    - B2""
+    - 2"$$DeUEd
+    - 543BCTCSCSDT655b?f?D4BR34BCC3334
+    - /vE&ecTE%S3CFu4
+    - '"#2 1"'
+    - 4AEQ6fD6WB
+    - 3D3SCT543#bT24$
+    - 7f7S2435#334"42
+    - 432#3B2#$"1
+    - )fD6d5UCUuUTcW43
+    - 12333CBC3CCDR3
+    - 34CD333%$3$5#$#
+    - 0dfE4fUUDDT&TVd6
+    - $&$2""1B!2#A
+    - '"4$"4334#A4'
+    - '"!3"6'
+    - '"2$2SCDSDUDTdSVRD&EUUTV5TEDSTE5E46'
+    - DVDCS4$C5$$#%"B2#0B-
+    - '#"11#"2"'
+    - BU15C30"
+    - 3213!DESB
+    - '!1B"4'
+    - '#1B323"C4R+'
+    - +4#5#2#3325"2#4B
+    - .&.333
+    - BB4#$%#3453
+    - 1F21RR53$#RR$4SB34
+    - 4w4VF5c3C3A
+    - '""#3!'
+    - '"CR544BD5$ECBC$$'
+    - 7f74C4
+    - 3D"24"3"121
+    - 2!"!
+    - aE3VCSUFTfER%BD
+    - 3B#BC#3C5%$
+    - 1&2U4$C54BD$RC
+    - 43Rr3
+    - '#$A3'
+    - B2#2#
+    - '%32#1$3"#B#!24$!'
+    - ($3B3S6!`R
+    - '!!2%v#'
+    - 33CC3D46%dCE
+    - <v=D4CDdU$3TCc3CCS
+    - <v<45342S52"!D1#2Cb,6,032#
+    - '##2 3B'
+    - $3dU6r5DD2B#>
+    - $##EDDVC7B
+    - 323ABD#BC$##24$
+    - .2#4
+    - 2#2!#
+    - '#w#Ud32c4ES'
+    - CU5CDQ
+    - 2"#""#
+    - 1!3#333"R(
+    - (#B5B522"1"1
+    - 2D4FDEEeU5fTVTUBN
+    - NUEE555TdCST4RDC"@
+    - ?#2$!33#A
+    - S@$3URB$U"
+    - '&RDE4N'
+    - '#24FdTGR'
+    - '#3$#3R$335'
+    - 44#3B3G3SgeTffs6VUedDrE
+    - '''''''''e6''BTUF4Uevcuc'
+    - (2BB2$$"D
+    - 32CB##r,G,gTBE
+    - 2"3B&f&U6vR
+    - '!CD4"SDT4C3T2EDRb;f;4CAS$C33B22$#"2B,'
+    - +6t3EEEU4SE$STG6
+    - '!210'
+    - '""B 3#"1#E'
+    - '%G&bD11C'
+    - '!"""2$B1R2b''6(4$DD3B3$"33BC31'
+    - /&/""23""#
+    - 0A$A23"2&6&12BB2223"4$433
+    - R-V-3BRE55#3TC454%$
+    - 8TT$""
+    - 324334C"+
+    - ',5TDDDDSCdD243SSB<'
+    - ;D5$3CRS%3B#"4
+    - /TUc46B3UE6B33CQ"
+    - 2# 3
+    - f ##
+    - D4"3US%GGUTFff
+    - '''344#$34'
+    - 4%14"23
+    - -dCTfUsc7%VdC7eC"%
+    - $6cVR44DT4CCdTRf
+    - 6!"3
+    - 32B24
+    - '#$BCD3B0'
+    - 02CR2!3
+    - 2"C##4Fb$
+    - '''DTTdEUSeUceUDFE'
+    - LTDd5444D4$CC3"325W4V53fU"UACE"7O
+    - '#c#2c5'
+    - d$b4CEtb
+    - R$2$#!
+    - $#43$$
+    - '#4$$2b.f.3#34B3C33#'
+    - ',UVueb5fUT6STWRF'
+    - '%f%"##12#$'
+    - 123#
+    - '&''&VDFdFCC2#'
+    - 2#EDUTEg
+    - 434BS3DDCE$334$r7
+    - 72C3###34B#31
+    - '!"R&'
+    - '%3E$DB3TT33'
+    - 4#SE2
+    - 3CC54%76s3TD5DV
+    - '!6"C232$S##"'
+    - '"$#ARD4TC45DSd4'
+    - '>BD5DCD52T3D3BRTB9'
+    - 9223D#$$""
+    - '"30"!'
+    - '#w#3%4U3S5C6"5%eBQ'
+    - Tc6f4fEFFD4Dd
+    - 2%"5#54SST4D4B;
+    - ;U4SC5CCS5D4S43C2;F;B3C33"4$"131"#"b'
+    - '&BbdE54ECE$#Db2S'
+    - '"#A24B%!C23@'
+    - 2#C#3CCBEDDSb8
+    - 9E6TEECDDCD
+    - 4C4#
+    - 9F8322#41121A
+    - '#1!1'
+    - '!33!S4'
+    - 3"D1T3C3%
+    - 2###2B#3#$4T3D3
+    - 4D3$32#"
+    - '"2C452"'
+    - $555ED6VSeUee64eRN
+    - NUTTcDE5CTDC4$#S2;&:#
+    - '"#CC'
+    - '!UE4r'
+    - D45rW!U1$!!0"
+    - ?#2F1T"
+    - '!#311D$312322$$B+V+'
+    - CBB2"B3
+    - 1B2#""
+    - '&EFTCFSEETBW5eTR'
+    - '#&$!B2D123#3B32C34'
+    - /BBC2S3342"2
+    - '"#V!'
+    - '"1B"$33C#D4T35B'
+    - 74BTS4CCSDD$4CCC
+    - 9C334#B43$"C"3
+    - +v+"
+    - A2#"""$
+    - '#!C"AC'
+    - BRC3B51"2b-
+    - ',2$""0'
+    - R%$#CS4
+    - 061E4D3DCC2RD3$2$3
+    - 13#B
+    - '!w!2D4bS42FR#EeuBE'
+    - 2C$3BCS2D4CEBB7
+    - 74434"B1#
+    - O"$CVV4R
+    - 423DC453S3SDCD3
+    - :C53ECDD#C2343ACb3
+    - 23cUdEE$ED
+    - BCD#5"
+    - E$$s44RTu25VuFsr$
+    - $$4B3CD43
+    - '"5#33CCC5DD'
+    - 7E4454CBC%$C#3#4
+    - 2eTeEUDDUc
+    - DTC$C
+    - B$6TE54EdFTFVVW
+    - '''224$C4B4#4CCD3DB6'
+    - 643$#
+    - 1! /!
+    - 3%3CDB(
+    - '*EETUUVFEtVeUVFV'
+    - SUdTSF4DD5$#34#$b6
+    - 5WTD&DD#5?4
+    - '#!#D'
+    - '#"$122!11'
+    - 2#"AC$2D4S3$42
+    - 3E43CB$BC1D##24"b.
+    - .EFE3FR3
+    - S3BDE#Br
+    - 43DD3SEUDTF
+    - '!#"B1C#$CC32C4$3'
+    - 1u6Dt
+    - 2#$#33C
+    - '&F(5$DCTDCD34C44C4B9'
+    - 92C4$
+    - A2#$#
+    - (w(S3F4dC5#u3$TDV5R v "3
+    - 213143"B")V)3%$3234BA"!2
+    - '!24$CDDD3D5$'
+    - 8E4Cd4D3CRC3$3B124
+    - 3$A22" !
+    - 041#R26DVC
+    - TUs'
+    - 1ACRB4CCR2DSDCr7
+    - 7CCD22"C!0
+    - E"3U5e
+    - C$RSECDCTcCEDU5RB
+    - BTDSCSD5C343R32BR5f4"C3
+    - '#"22'
+    - 4"4B*
+    - +34C33D33DD
+    - 432B
+    - 2ADQO2
+    - '"223$BTCD5D'
+    - 5F7DEEE4TDSST54CDCr?
+    - '>3CAT"32"32"121!'
+    - $SDBAR4
+    - '%EB4cD3t'
+    - '#324'
+    - 43CC3B0
+    - 043RBDCCCD2Q"$""".
+    - 3C4D65DST2<
+    - '>V6EETEeEVDET3G#'
+    - FE45
+    - 2T$%C
+    - A#"23",6+!#!3
+    - '#2!3'
+    - 3"""B212R13
+    - (fFDST
+    - CBSCeR
+    - 33433%CDC$DD54D
+    - :v;CBCD%C%$C43C4CC
+    - 7673C33E"B3322444#
+    - 03S42CD%2SD4DDD3
+    - :3RT4CCC#S4C4#$
+    - 1#342
+    - '!! "12234343'
+    - )&+DC5CDDCTTT54455
+    - '@C4DD3S454ACD2C4r6'
+    - 5TugcdfEuUgdeVee
+    decodedClip: {fileID: 8300000, guid: 05bc1d9cc1931d243b3a770abec6d7f7, type: 3}
+  engineSpuBank:
+    sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/ENGINE/CAR_18_ENG_MB_SPU.abk
+    relativePath: SOUND/ENGINE/CAR_18_ENG_MB_SPU.abk
+    fileName: CAR_18_ENG_MB_SPU.abk
+    extension: .abk
+    byteLength: 106384
+    signature: "ABKC\x01\x01\x01"
+    identifiers:
+    - ABKC
+    - j3iJh]glfwe~d
+    - b{ar`f_V^B]+\
+    - VUU%T
+    - L}K4J
+    - '##U&'
+    - :@={?
+    - A7CPE-G
+    - T]VuW
+    - '[V]K^'
+    - c}dLe
+    - nPorp
+    - q=rPs
+    - xkyky
+    - '{f|h|'
+    - '},~4~4~'
+    - BNKl
+    - '#"!B2%!'
+    - 0AB "
+    - '%B542'
+    - c3C%5!%b4E3F3F3$5%4CC%#S
+    - '&51!'
+    - a5RbE6CVEE%#330D32
+    - '%R23#4%B2%$#B##'
+    - '#"B N'
+    - b$W%41
+    - S!ER33
+    - T3B%%%4R4DS%TB4CD45%313R"C"A$
+    - A&B^T$
+    - P&RSCBu
+    - SB15CB
+    - cARCCU
+    - '!!RQ'
+    - -1!&
+    - '>"1!1P`'
+    - _3""`4
+    - 5333#%#0"#1
+    - 0S5BD%
+    - 5%ARP'ACSCT61BU3%5SC4CD45
+    - D32A2%Q3#1
+    - '%#33233"C3$B3D"%2#5"B1C'
+    - '#@"0"'
+    - '!Cb"D154D'
+    - '#c%3cDC4&`E43DCCD%CCD4D1S3'
+    - '#&#DQ&'
+    - B$&T\
+    - '&C$5!'
+    - 24A $.P
+    - '!"&/C'
+    - '&41c'
+    - .$O&
+    - '@`44'
+    - '!%3221Q2"'
+    - '&SbEB2S%'
+    - '"""N'
+    - AT#.
+    - '%""1!34'
+    - '!Q"#%'
+    - S$A#AC4
+    - F4$%3CCS4U3CR4SA3
+    - '%24#'
+    - 1!#!4
+    - '#2%#$'
+    - 2DCC4##2B3
+    - B"$"#
+    - 0 30
+    - '%434D3EBBF4c#CS%4D04#Q"C13'
+    - '&Ub#$'
+    - '&#0$0B'
+    - 0&&S
+    - 03&#
+    - '&/4!'
+    - ']& V'
+    - '@5/0m%4'
+    - C"#1!B
+    - A0O%#
+    - '#"$!'
+    - '%%d$CD3D43D5DBD%4CCS4D"QEC33b4%'
+    - '!"""#!#%'
+    - 0R323$
+    - R2#B"%C#
+    - '#"3"11#!!1!&E'
+    - b%"A1
+    - S4U3
+    - '%4DQDB&3&SqB5CC%D4CD3SB'
+    - '@"%S ?3C'
+    - '>#5!3S!#'
+    - /1#>A
+    - '"3&/'
+    - 5#6/
+    - '" #%'
+    - B1"%
+    - $!1$
+    - '##R#1$"!%BD%"C#$31%3#S!%C22'
+    - '%"3#'
+    - '#11434'
+    - C24%2
+    - '"A3#S##"'
+    - R #^
+    - '%"#21!"B14#'
+    - RR2%"5$0E$4
+    - E45#CC%E4QD#5$0E#"%#
+    - .&DR0U
+    - 6  A1&
+    - 5.o"
+    - 4!%34
+    - m1&A
+    - 42>3$$$B"%B53R2D$5CD63C4%$t#4D4CD453DAC%2#3C#1# 3@
+    - S3S4DeQ2DfU%!##2"Q$B##$
+    - C1%4132
+    - 02"!&"D
+    - 44RR%A"c%U53CoFS tR%4CD4C
+    - E#$2 %5!
+    - S5CE@%
+    - 0&B5"5
+    - d61/c&
+    - 3$!-
+    - '!&1"0^'
+    - 1O2'
+    - _""2<c
+    - 2!B42
+    - C"B%@"
+    - '&13?#$4'
+    - 0 &".
+    - 3#!C
+    - 3A$S$%#1DR4%5#$CBD6$DTCBCD%4CD4C#25" B
+    - '@@&o4!'
+    - FD%""2233
+    - 3332
+    - 3%A$2S"B#$
+    - 1&t#3B2EQ
+    - $B#%
+    - '!C#!!4$"!DC$3%4'
+    - '#G!CRSFC5D#C%D4CB5BRC$3A#%0%4'
+    - 5  3!
+    - '"  #'
+    - $/?"!2
+    - 0!&4S
+    - 2S1&
+    - '!B_&$'''
+    - 4"00.
+    - ?& #
+    - .@,!
+    - B"4N/S
+    - 4/>&
+    - 1%14
+    - 2A#"
+    - -e?41
+    - ^&!11B
+    - u%2%
+    - BOD21
+    - 4"C%"UC44$!D%CC&DD%4E2D44CD4CD33
+    - '%AD"2D"$'
+    - '""A#3'
+    - '#2143"D12BA5$%3#BB2AB1B02"'
+    - '#&#51$'
+    - 0# "
+    - '!""!""%44CD4Ab'
+    - '!$@2AA%2'
+    - '!"/12!'
+    - '&C!14@"'
+    - Q!UC613%
+    - A! !
+    - ?!!%
+    - '&+>A'
+    - T??%
+    - 224"!3
+    - 202D
+    - '"QP%Q#%'
+    - $0E"#D231c%B#DCCF%37$a44C%D4C#5%##@#!0"
+    - '&0 !'
+    - B# uedE%
+    - 2#4CR$$
+    - 41%E"$$R4
+    - $"$2
+    - '#!&BRcPT'
+    - '"A3BB4QD3%"D'
+    - D4bU4D#53S5%3S53S5
+    - 2BR"R!4%#C
+    - Q&O3
+    - _@E!6A4
+    - '&oE2"R$'
+    - SROU
+    - '&B4A'
+    - u4!"6 6
+    - '@"B43'
+    - 32b"
+    - 3%2#
+    - A?"4Q
+    - '!%D43C6'
+    - D5$3Drb4%BD4CD4CD4CD44
+    - '%#1R31'
+    - '%1#%5dRbcEF%#B2$43#3"4#B5#%QD31221$#$'
+    - '&3#A%@4'
+    - B$C%
+    - '#RS0TT'
+    - '""%%453D'
+    - 3_D#
+    - S"2%
+    - 1 1&& 3b4#s
+    - QO3R1BB
+    - 2.#Qc
+    - '""!2"!$5'
+    - '%B "1@11BC'
+    - '#41#'
+    - '"0!%3113'
+    - '##42"2C2%D3C3T'
+    - E4C4B5DC%$RC0B
+    - '!C!B5B2cG4DE%1C##3""4$"DC#E%2'
+    - 3#"BB$##
+    - '"!1&@'
+    - D$3D"2C4
+    - D4%T#U%SCC3S53S53%S53BD
+    - '%D5"3'
+    - F0$1PD
+    - T4?c3%
+    - '#&12E#00cQ5'
+    - '& /#Q/'
+    - /& >
+    - 033"&
+    - L1O1
+    - '!% A'
+    - '#31B'
+    - d%$#?53BS
+    - D"#"A%
+    - Tb%B
+    - 2""5C#3DC%E3BAD4C25cT4$D%C4CD4CD4CD4@4
+    - '%33220#'
+    - 1s2"$f%eTBVbD%C
+    - C2"T"BRB3B$$%24
+    - BC3#12
+    - '&4$2#'
+    - '%1SPQbS'
+    - S32%cC
+    - $Tb2SSbC4D4%4D43C41#23#1
+    - 2&qBcB0E
+    - '&2a1'
+    - '''-&0Z'
+    - Q&?"602_
+    - 2#AE"!R%D
+    - A##2B"30
+    - '"D0D'
+    - D"!0
+    - '"2%QC443#2C%D'
+    - T4D%"E$4T$RSCDCD3S%53S53B2
+    - '@32"E1S5EE%3'
+    - '#41#33C1D22$%32CD$3#32#'
+    - '&D3D3#'
+    - '"!3B'
+    - T3&#%3q5CSD42BD$
+    - '%4C343415"'
+    - '"2&2U!A'
+    - '&31bF''p?C'
+    - 6A#%#"
+    - '&@C /'
+    - '''?m=A'
+    - /0A&&$,
+    - /1=B
+    - N!3$
+    - 1!%B!"
+    - 2"3AB$%C4$42C4BC!DT
+    - 4%3dS2S
+    - C6#3b@#C&F$ERG$4C
+    - '>^3%'
+    - 32423
+    - BR"%b
+    - 3%##
+    - 3!1#"
+    - '&b4A2"'
+    - '%#TU'
+    - BQCp
+    - /r!o%"
+    - '&P/0'
+    - eQ&B!#
+    - 2>01!
+    - '%"?%'
+    - '!/&`3'
+    - '!A #'
+    - '"B1%OR32$'
+    - '#D%C34AB%AQC4#D4%%S3'
+    - F SeDASFV3%"AR3#33$231A32%2%33#%#"#"2!#"&N$AS
+    - BS154
+    - S%B3443TDDQSD3D4%CCS4D44"R$11C@&VSD646
+    - '>4=B1&T"4Mt'
+    - ARB5
+    - '%"O1'
+    - '>01`'
+    - /&??
+    - A/M&E
+    - '>  U'
+    - '@3$!B'
+    - '&Ds!TV'
+    - '&N"D'
+    - C" "4
+    - C12F#%%2346"4
+    - 43543S%S5CT$44CD4CD!4%B$#"$
+    - S$1C1432333
+    - B%241$53#"1#
+    - /""&3$
+    - '%2D$C$4Au3pD%BE%C4CDC5413$'
+    - 1$%R
+    - 4S"b
+    - '&D>R=E"02'
+    - $& B .C
+    - -'R_
+    - F%DQF3%
+    - '>&0B'
+    - 231%1!#$!4!B#24
+    - 5A%44!T2552$T45SC%6#@C3C%
+    - '#""!'
+    - 221C#3%#$233%2$%332B312
+    - T2S#"0
+    - 1%D%#C3DE4$S35bE%2CQR23c34#"B%
+    - '%3""2'
+    - 11D$
+    - '&C2%"'
+    - B!&1%%1#41%
+    - '%E2>$%1'
+    - '! &2P"'
+    - $12#
+    - 1@SC/"$%4
+    - '#p"!$#$!>'
+    - 5D"%2
+    - '"$S$DC#C$3#&R%D'
+    - 3SBD5AB
+    - 531#%D"""0#3
+    - '@% "'
+    - 2"#21@%4$!C"C
+    - B$#A$2B%4
+    - 2B%"4
+    - B1413
+    - '? /%'
+    - As26$
+    - '# 22'
+    - '%%44CD4BB'
+    - '!"&"'
+    - '%$!$"""'
+    - F &S4_3
+    - '!$$3RP%$&">B'
+    - A24o
+    - 0d21
+    - '&&0?'
+    - A</&
+    - $.&"R
+    - RS%/
+    - '%$P0$'
+    - '!l!" a'
+    - /!$%
+    - 1A%&12
+    - 1B5!C5A%%TS
+    - d1u3T
+    - CCC4%!3U
+    - /#2!
+    - 4A20
+    - '#%0R'
+    - '@O"/"'
+    - 0Y-?C
+    - '%T1#c'
+    - 33235
+    - '%E$4D'
+    - CD@s3@E$B%B$C#35!5B24
+    - 3#&&QW0"G
+    - ^"!$
+    - Q%#1 E!O%#D
+    - R$3B$
+    - '"103'
+    - '%CCRSCD'
+    - 3.%C"
+    - '%A00##0"$#$'
+    - d3F!E#E3C%3426QDC2C34132%AQ$!4!AB
+    - '!@ T'
+    - 23=V
+    - A$4@G
+    - $R%%CDRBTDU#%44D44$!
+    - c"5!%
+    - '#"$"'
+    - '!1%E#5'
+    - 2e22S%%BC&%Q
+    - R%2C3D#C
+    - 2#C%
+    - 23R"#4"33%"F0E#BS&R5DSRQ%D5%44B
+    - 1"B"!1
+    - '"1##1'
+    - B1BE
+    - Q%U"5#SB4RF1EC45%2c
+    - aS3C%S"2
+    - '%4$1'
+    - Q%1B3C
+    - S"3R
+    - '%BEC5$Cc'
+    - '@T44#D%'
+    - S!B&S
+    - s%E0b
+    - 44RF?V34#C%2CRC3PE2
+    - Q"1%TO4
+    - B3Aq%$0DS35$DC$S%TC%p4CD4CD"!3A
+    - D &5Of
+    - ?%##
+    - B3BS$%
+    - E1721V
+    - CU#$T#%DBRCT2cD#53$
+    - B%%!"#%1B"C
+    - />%#-
+    - S"52$cC
+    - R4D5%5DB$6$T$BDD6"4%%3C
+    - '>&$)'
+    - '%R3#"10'
+    - q$1d
+    - 31E"%q%%CB443S6"U$A4R5%3#C3"T"42424
+    - '#&&G'
+    - 2 4/
+    - '% #>#42$1b'
+    - 5"D1%E
+    - C#DRQV
+    - S5354%44CD4C EB23/
+    - '%M6P&'
+    - E1U4S
+    - CS#"%""B"
+    - c4Q$"
+    - '!0$ $$'
+    - d%!1T
+    - s0U!D3%
+    - R$EAW"SPF$B
+    - d%2$1 D
+    - '&>QA'
+    - c$S#71B5#2d3%2CU
+    - 2DB#5Q#D
+    - 4A$%
+    - B3!U40%d$R
+    - E!e%
+    - f#d3C%D44CD43B1#Q
+    - 1##1$
+    - 3#%/5
+    - '"!!"1'
+    - '"0#%0F!d45AF'
+    - E1RB$2%4$
+    - '!%Ab?'
+    - A42U
+    - 3"D%
+    - '*4/""'
+    - 0%VS1r&
+    - R2633
+    - CD%E"U"DR42R%B
+    - 4#@3TS3C$%
+    - 1!2#!!1!%SCDCCD"@'!%
+    - '#"&3r/'
+    - 6N"#
+    - '"% "1#'
+    - '%!/!2'
+    - S$#!E!%T"Bb2T%#4dE%#B%c$R6AEE
+    - U1D!%3#35
+    - '"4 0D!'
+    - PD%%CD
+    - d3sD2CD3R
+    - '%U!3!'
+    - C$2%#!B
+    - 6@3#ST
+    - '%s4%C3SE'
+    - aE$D5A%D5B4"U
+    - 62a%
+    - R0"$
+    - '!%$D$'
+    - 3S"G!FR'T#%C53DCCC##4
+    - '%2""$"$"0C!'
+    - ',"/L'
+    - 2%$T3d4B544BD"4A%#3!#
+    - B1"B?
+    - '#&0E'
+    - P6?E"6
+    - 4BC5"S4CD4%QR%C5
+    - A#!%0
+    - 2-2=
+    - QEU4#D4CCR5%A3BT
+    - CATQ%A#2"%S#
+    - NQ0!
+    - D$%CS$V3S4C%44CD4CD1R4
+    - 1$O%"A
+    - '#B###'
+    - C"##
+    - '"3!"'
+    - E2$%^
+    - 4BC&B3
+    - QTDB$
+    - 02 !3
+    - '%T"C/5A'
+    - '!"11"R%3B5'
+    - '%CEQ4UBd#4CC$$3%#T'
+    - _T%2
+    - /E %@$2
+    - 0/31
+    - '"01!'
+    - '%1S$R'
+    - E$2SD%Cs#%D5A5!E$D
+    - $! /#
+    - '!#!"1"'
+    - '%CCD4D4"'
+    - '"!4%'
+    - '#$!P'
+    - '""#?A C'
+    - 11#2
+    - A@$"!
+    - $"!#!
+    - 40%2"4
+    - '&&"A'
+    - u$SV%
+    - '%/!%'
+    - V3DS55oS53S52%C"
+    - '#E&@$2A'
+    - '%$"F2%@E'
+    - B$##%!B
+    - '&3#BD1?'
+    - '#13R3!C3c%'
+    - E23b
+    - 3DA6#7C#%r&QCCDC!$!3!2
+    - 0DRVC&F$Tc%"
+    - '!1!!$#'
+    - 2.$%
+    - '%Q5aTS#D$43CP$'
+    - AB"T
+    - '%//4'
+    - V0U63CT"c251%62"$2
+    - '!1!0?2%'
+    - '@%#@ ""!"!!"'
+    - $QF2S
+    - '%rS4%Q'
+    - CS$CER%553523#R"BR
+    - '% !-00'
+    - .c/%c" U
+    - D3443bE5DRBC%D4CD222T#23
+    - '#-1C!'
+    - $!$-
+    - /%/1
+    - $/F!4Q3$"
+    - '%R%RCRTDAS&'
+    - '%U!5'
+    - B?$!a
+    - $C33"
+    - '!a"$5'
+    - '%T5CRd4E$$CD44'
+    - '%"4"4'
+    - 101"%
+    - _&T&C7$#s$@4u
+    - T!%B!3
+    - eD%A
+    - _6CC5%34C4S%E
+    - a5CATS%
+    - C1D V
+    - '&22!"!!'
+    - '&4#!'
+    - '"!1""%534CD4B'
+    - '"2#2!"3'
+    - 0S4"%U
+    - 4#3R
+    - CdQ&E%4%3CD$T443Bc
+    - D%"A
+    - ',]0B2@3'
+    - '@hACB'
+    - FpG/G
+    - HUJiJ
+    - wNuds
+    - '[*T}N'
+    - 7d4#3v1C1
+    - 12%/D41
+    - $! 4#$1
+    - ?4!?!1"
+    - 413$
+    - '#!C2'
+    - ?%#K
+    - /$"02
+    - '"!B!'
+    - A3"A4
+    - '%D$.:'
+    - '"$#11CR'
+    - /"O14
+    - '"2$"BMR'
+    - U`"O4
+    - Q#Q%>u
+    - '!#03'
+    - 1"%r
+    - '"1!3'
+    - '"!1/'
+    - /2!BB7
+    - '!%B&'
+    - a%a!
+    - p$A 1
+    - '%E.T'
+    - b3$"
+    - '@ ""'
+    - $!1.
+    - $0!/
+    - '!%$bf5dtQ'
+    - '@%f5'
+    - b$""
+    - $0/C
+    - 45&$2D
+    - ?!1.
+    - 20#4!2
+    - '%C53It'
+    - $^T$#
+    - '"A33%t'
+    - '"AR$'
+    - C 0#!
+    - '"1$333'
+    - 24!B
+    - '%?R3S3'
+    - '"/"1'
+    - _0 /
+    - $1S!3"
+    - '%d35"#'
+    - E$#$24
+    - '%Q4?U4'
+    - '"31B'
+    - '>%44CD<'
+    - Q#e!$@
+    - '!$3#'
+    - MN$#
+    - '" >1'
+    - AC"B.
+    - '#-"2'
+    - $23$
+    - A"#"12$
+    - b@t$
+    - '!!4#"'
+    - 20!"!
+    - ?##D!UTf
+    - 11D1
+    - .1 !
+    - '>3%6a7f'
+    - SCD2?
+    - '"3A2'
+    - $!$AB"#
+    - $$ !1!
+    - '%-f "3'
+    - $"2P4%
+    - . 2$
+    - ?$42
+    - R%C^4D=
+    - 01$"!
+    - '!B #"0'
+    - 3q$&
+    - '# %e5c'
+    - '%1"C!'
+    - '", $'
+    - . 1$
+    - '"!>-C'
+    - '!1$3'
+    - aBB$
+    - / 1#
+    - '%sDS'
+    - ?da#
+    - Q%?%.
+    - 31e%.CB
+    - T43$"OD2S0%V
+    - '>A$ 214!'
+    - '#/$$'
+    - Q3D2A$
+    - 3"140
+    - 1!$1
+    - S#1."
+    - 1#2B$ Q
+    - '%o2`$'
+    - A" %cu
+    - 1"a6
+    - B0$$
+    - /"!"
+    - 3 $"!
+    - '|%R$'
+    - A12#
+    - '%n1e$F'
+    - '!1$!""'
+    - 0D@B
+    - 3"$3
+    - '"2"A1'
+    - '[6$$'
+    - '%@6RUG'
+    - '%E}4D4.'
+    - $./$
+    - $42#!#
+    - 2"42
+    - '%^CS<>'
+    - 2!A3
+    - C#5%1l34
+    - 3/%T
+    - 52U$
+    - '#>"/'
+    - '"/$$'
+    - '%s3$CD'
+    - $" #0!
+    - '# #%'
+    - b$03
+    - N!"/
+    - '>" $'
+    - B"1C!M$""
+    - $@#OA
+    - 3 !1
+    - 1042!3$2
+    - 20"!
+    - '!$B"$!/$'
+    - $ BB
+    - 1/R!@A0%s_534
+    - 3$!! #BC
+    - 1! B"
+    - '@u$##4'
+    - 2 $ B
+    - $$#2
+    - '@2S#%'
+    - '!DC@'
+    - '".A$'
+    - /2$b$4 .!.A
+    - $!2##
+    - '""?#1'
+    - VA45"
+    - O@%$
+    - '#%0C'
+    - cc2W3$_
+    - $B R4
+    - $!#"
+    - $R$"2M
+    - .$#"3/Q
+    - 3B"O
+    - 1!N6
+    - '!Q1$!4'
+    - 1!3#D"
+    - $"21B
+    - P[=\
+    - '''/=\P['
+    - M/AG7z36.G(_
+    - KAF+B
+    - tbe$/
+    - 51?#
+    - E"$3
+    - TgCST
+    - D44$@r$
+    - '!BGC'
+    - '"3B!'
+    - T&2$"
+    - Mue5t2
+    - 3$$N
+    - '#1"B3'
+    - $%ET
+    - B$"AA
+    - '##B?0'
+    - $$P6
+    - '"B$#'
+    - 212B$
+    - '!!"S""#'
+    - 0$C1
+    - O#"33
+    - 3E4>1"D
+    - A3$q4
+    - 5C"2@"
+    - '"!$#B2'
+    - $A4#
+    - '!3# S#'
+    - $"eDA
+    - STc%R
+    - Et$"
+    - QE"1$1
+    - B1$!.
+    - 6Bf$
+    - $."?
+    - C2#!
+    - $Q,#!
+    - DCC!
+    - '%4PR!'
+    - '"12F'
+    - B #0
+    - 3#22$
+    - 355#
+    - $5S#%O
+    - 2!EN0
+    - 33$BA
+    - $33!
+    - $R14
+    - r!B-E
+    - /6ep$
+    - C6F$O
+    - 3$AV
+    - 163$@!
+    - B#A$
+    - '!B32$'
+    - C!$3?
+    - O4""@3
+    - 0B%!
+    - '%r "'
+    - CVBa
+    - R3$%
+    - '!$$!"A'
+    - $$B$
+    - 03#!BB!
+    - dT%4d
+    - '"$2$V%'
+    - '!5''$ #T'
+    - 043$"
+    - 3B##
+    - '!#%"A'
+    - 1BC1
+    - eG$!b
+    - $$Rdtc0
+    - p&"!!3B"
+    - 2"$A"
+    - $A45>
+    - '##!C ?'
+    - UQ4T1
+    - Ve$#
+    - 3B$A01%
+    - '!AR1#'
+    - Mb$By#
+    - 3##0
+    - 2#3.
+    - BF4"2!
+    - 5UgA%*
+    - d33P"2
+    - '>5f$C3'
+    - 2"$#
+    - '##1D#'
+    - cW$!M
+    - 2#A2?
+    - '# $P'
+    - '#1R#$'
+    - O#$!5$
+    - 1!%#
+    - '#S2#'
+    - V4#A
+    - $%2b
+    - e6%!"0
+    - '#2&"'
+    - '!&EA 4"2'
+    - C#$@#
+    - 4!!1
+    - B#"3@!
+    - $/sD
+    - U!! 1
+    - N244$D
+    - $@F@
+    - '"@37$'
+    - 3Q1$B
+    - EC&$O
+    - uEC#
+    - SQD"
+    - '"2#"1.#'
+    - A4CT
+    - '!##20'
+    - /B"T
+    - '!"1#Q1'
+    - 5S 4
+    - =vf$
+    - fQ##,
+    - 312!.
+    - <T"#
+    - 2$P1
+    - 2$FeS@
+    - TR221F
+    - Ra$$
+    - '"""$uP'
+    - 34B"$
+    - 3&6Et3#!
+    - 3!"#.%
+    - a'3@
+    - 3$RO
+    - 1431/
+    - 21$=
+    - fFU/
+    - 3FdR61
+    - O$C#/
+    - '#2C2'
+    - 32$a
+    - EEC#
+    - $%2fVUO
+    - '#"$#'
+    - '###11'
+    - 4`$D!
+    - '"C$Ea"'
+    - '"&$$N/S$"'
+    - '#@3C$!'
+    - VEQ$4$
+    - 3B2/
+    - '!$4?'
+    - 1C$R!
+    - /1$#2!
+    - RD05PT$
+    - cCT""
+    - '"531'
+    - /BDB"
+    - UUA55
+    - '#1!E1'
+    - '!2$"0'
+    - '!$"###!/'
+    - 2$dUUo
+    - $3$D%"
+    - C$$"
+    - '!##$BD'
+    - 4D$A
+    - 4 B"#
+    - '$>2:'
+    - Te$A
+    - 4S1A
+    - c2d$?
+    - R25!$!
+    - '!#242'
+    - U3%3%13
+    - '!!$$`'
+    - '!!$"#4"'
+    - CuS"$0
+    - '#C%$21'
+    - '!2%#0'
+    - '"$#!3'
+    - '"2!"'
+    - C3$#
+    - ttb!
+    - '"!C1!0'
+    - $!$0#
+    - '"/$.'
+    - 2""D1
+    - '"$!"/'
+    - cf!2
+    - '!123$!'
+    - 02213"
+    - 1C#$?
+    - $1BD
+    - $5&Uc5P
+    - 2$@$F
+    - '!2#$%0'
+    - '!"!R'
+    - 3#$ 1
+    - '#4B $?'
+    - '"V3#'
+    - 3T# A
+    - 1$B2
+    - '!##3'
+    - $7R!
+    - DBgU1$
+    - 7E!R
+    - $$2?
+    - '%T30'
+    - $/3$Q
+    - '!#3% R'
+    - 6S$A3
+    - 0$uF/
+    - CB$1
+    - m45$"
+    - '#1$"'
+    - 3T4$@
+    - /" B23
+    - '%$T1'
+    - 4$@#
+    - B!$4
+    - $A2$
+    - '"4!"'
+    - S%4O"
+    - 12S"
+    - $3$@
+    - C21/,
+    - 4E?#
+    - 4%R$4$
+    - $3#Q$
+    - 4""/
+    - AE$4"O
+    - '"$qd$'
+    - 3%aW
+    - Fq@ -
+    - (L*n*
+    - 4V6b:2@ Fq
+    - fDjHn+rYuLuQv3v9v
+    - ?$ 1
+    - '"/"@03'
+    - 2@"NT
+    - ./$/
+    - '!1#$'
+    - ccd&QD
+    - A$0O
+    - 1.10
+    - 0A12""""!2"$!"
+    - '"!"/#'
+    - '%$1Q'
+    - $/`!
+    - QC2#
+    - '!?$1'
+    - ?$ #
+    - -0N$
+    - '" %A'
+    - QC@"
+    - '%!1A3U'
+    - SFC"
+    - '"pA$'
+    - ??%o
+    - '"FAU5$!'
+    - T"EQ6@$#
+    - '#/N"'
+    - 2#O"
+    - E4BUR U#
+    - /%Ao#"-%
+    - L#1/A
+    - '!#N%D'
+    - '! /$#'
+    - P0AA
+    - '%4D44D44AC0R'
+    - Sd$1
+    - '"$!!0'
+    - '!! B'
+    - '#/?>!'
+    - '%Mc!D103'
+    - '>"%?'
+    - $OaA
+    - '!$1/'
+    - '! 11"4'
+    - $]P"
+    - 0"]B
+    - /0 %
+    - AA# R.D$
+    - 302?A
+    - '!/%G'
+    - 0#12Ac&#
+    - $01"!1"!0#
+    - $"""$?3
+    - 1 A2!#
+    - '%4CA'
+    - ?/C%
+    - '#-a3"!'
+    - ?1@3
+    - '! $^'
+    - '%/L/'
+    - '%"?!'
+    - A"4+E
+    - 2!3#ANO
+    - $0l!
+    - '!1""'
+    - '"$!1'
+    - '!3A@$'
+    - B%51a
+    - B2<_
+    - '"!1!2'
+    - ',0#/'
+    - '! #1'
+    - 4CD4CD4C
+    - 13-$_
+    - '#"2 R'
+    - 3345bF5T#
+    - '%CN$#.E'
+    - ']_~"'
+    - '"!1"!#'
+    - 3D4CD4CCS4MS
+    - '"!"!'
+    - '!%?4'
+    - C4p$12
+    - 1#0V
+    - c62d%S#
+    - 01nOC
+    - $?0m4
+    - A!""
+    - '"$ O0!'
+    - '"!1"'
+    - '"2A&0'
+    - '!@.#'
+    - '@A122R#2'
+    - '"!1"!1  !'
+    - '"QQ&&5UD$3'
+    - _"mA
+    - 3?%#,
+    - 3">$""
+    - /?$!
+    - Z:2#
+    - _01""
+    - P/%5
+    - BrPrcRE
+    - '!0#?'
+    - $"!1"
+    - '%4>#'
+    - 3D5 V$
+    - =^$C
+    - '"!$1!/P'
+    - $O@"
+    - +?#<
+    - '!#0:r'
+    - bO1!
+    - $?O>
+    - //0,Q
+    - 1!1"!1"/^2
+    - 0PQ"#
+    - $-@O@1
+    - 10$A
+    - '%P"01'
+    - 0VU$B!"
+    - 10$"
+    - 1_11
+    - '!$1"!'
+    - B$!!
+    - '%A#-"$!='
+    - '!1"!#'
+    - '! !%3'
+    - '#!21_!A?$'
+    - '"""2'
+    - '"2""%$544CD4C%'
+    - A1$3
+    - '!1%S53@1A'
+    - 3NS%@
+    - 3P!$
+    - '!""$A0"'
+    - A!_2!_!#
+    - q1B!#?S/#
+    - .1%CD
+    - 5De71
+    - BkD%/3
+    - '!/1!$?$'
+    - $!@40
+    - '` ^#'
+    - $""!/@
+    - '%.a@7'
+    - P"P1
+    - /2!2
+    - O/" 3
+    - B.$"
+    - ./="#
+    - '!1" /'
+    - /$! P
+    - '!$0"'
+    - PD3B#!
+    - N1%$
+    - LfPHOkI$B
+    - $$04/
+    - '"$!a.'
+    - $:&^
+    - $>$2
+    - 3!$2/&4">
+    - 0$%" A
+    - 3"22
+    - '!$4@!4@34'
+    - $T25B
+    - 3"7/#
+    - '"$$/2$'
+    - '!" $#2'
+    - 3?@%
+    - '>C/$'
+    - DB"0
+    - 0_%F
+    - e+ "
+    - '!##2'
+    - p  C$
+    - $B$$@$
+    - '"#"!'
+    - 2%5r
+    - '!>"!'
+    - q!@$
+    - B6#,
+    - $T#2DC
+    - 2!"?P$1
+    - $$ &.C
+    - ?5.24
+    - B>6#
+    - /$-&_
+    - 25"3#
+    - /22D
+    - 5O%,
+    - $?5Q03N%
+    - 1"_1!
+    - 34$$$
+    - '"$4R'
+    - '%"%.'
+    - C/$0
+    - Q$"D//
+    - $L5!S"
+    - RD43P
+    - '"B#2'
+    - 2%Q7
+    - 6"$%A
+    - d#7N2
+    - '"$!b"2"2'
+    - '? .#'
+    - C!E>
+    - / &/
+    - 5!CA#"T,3
+    - =#'/Q
+    - $Q&2
+    - 32S2
+    - 0E!$M
+    - B"1P
+    - '!T&@'
+    - B 5A
+    - N3!Q
+    - $D $#
+    - '!4C2$$?'
+    - /"$3
+    - D1$/6
+    - R'.T #
+    - '&%0"'
+    - /!$$$S
+    - /!?2
+    - D EP$
+    - '!2$1'
+    - F.3$
+    - P5C!&1
+    - '#$/!O'
+    - $"6S
+    - 3D313
+    - '"/!#!'
+    - '#0!$"'
+    - '@"#3'
+    - $T0?
+    - O4!c
+    - $B32B
+    - 2$!!
+    - '!%>"4'
+    - F"%3
+    - ?$53!
+    - $5/2c
+    - C>%3
+    - Q_%R
+    - $r"R
+    - Eb/##>
+    - /$Dd
+    - 0$M$
+    - ^1"+
+    - A#/$2
+    - 2%#R"#
+    - '").%'
+    - PpcNu$y
+    - USLH3
+    - '"O!/'
+    - 2B!2"
+    - '# ?Cp'
+    - b0#C
+    - ?P4C
+    - 45#"
+    - '@U./'
+    - ?# !
+    - N#"T
+    - $44B1
+    - CD4C!"
+    - 2$B3"
+    - '!"FfU1'
+    - '@''#!'
+    - '#2A!'
+    - '!%DDVB'
+    - 5UVT.
+    - '"%#O/'
+    - 2  /1
+    - '#OM-'
+    - '"443A!"'
+    - '# -A'
+    - '"/ "'
+    - '#RD4"'
+    - ?"b /
+    - ^14=
+    - $?B!
+    - '#2ABc'
+    - '! #01'
+    - '#S #'
+    - /&#1
+    - 3455"
+    - /"/=
+    - '! "!'
+    - DU"T1
+    - '!"! "'
+    - '#""1'
+    - '!E#2'
+    - '#a"2A'
+    - ?33#6
+    - '%!##'
+    - '"41a'
+    - '%1?;'
+    - '#10e'
+    - $2//
+    - 0"20
+    - '!.16'
+    - p/o/
+    - H(["j
+    - ?L@<
+    - J)4(
+    - '"$2!'
+    - ',1#ND'
+    - n0>$
+    - C3 4
+    - 1"+L"
+    - 5c5$
+    - 30B2
+    - ."N$
+    - P$$">1!
+    - O%!!
+    - 0?"B
+    - 33 !
+    - C4D!
+    - '"C#"'
+    - $41/
+    - '#"!1'
+    - '#!2$411'
+    - '! 1%'
+    - '"DV!'
+    - 3%4.
+    - '&6C03'
+    - 'ABK Pass A: signature=ABKC'
+    - 'ABK Pass A: byteLength=106384'
+    - 'ABK Pass A: dataOffset=0x2800'
+    - 'ABK Pass A: BNKl offset=0x2800 found=True'
+    - 'ABK Pass A: first cue count candidate=8 at 0x80'
+    - 'ABK Pass A: stable generated cue slots=8'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_01 index=1 tableOffset=0x80 sampleOffset=0x628
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_02 index=2 tableOffset=0x84 sampleOffset=0x834
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_03 index=3 tableOffset=0x88 sampleOffset=0x978
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_04 index=4 tableOffset=0x8C sampleOffset=0xC4C
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_05 index=5 tableOffset=0x90 sampleOffset=0xDCC
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_06 index=6 tableOffset=0x94 sampleOffset=0xF34
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_07 index=7 tableOffset=0x98 sampleOffset=0x1078
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_08 index=8 tableOffset=0x9C sampleOffset=0x1158
+      confidence=stable-engine-bank-count'
+    decodedClip: {fileID: 0}
+  engineEeBank:
+    sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/ENGINE/CAR_18_ENG_MB_EE.abk
+    relativePath: SOUND/ENGINE/CAR_18_ENG_MB_EE.abk
+    fileName: CAR_18_ENG_MB_EE.abk
+    extension: .abk
+    byteLength: 104720
+    signature: "ABKC\x01\x01\x01"
+    identifiers:
+    - ABKC
+    - j3iJh]glfwe~d
+    - b{ar`f_V^B]+\
+    - VUU%T
+    - L}K4J
+    - '##U&'
+    - :@={?
+    - A7CPE-G
+    - T]VuW
+    - '[V]K^'
+    - c}dLe
+    - nPorp
+    - q=rPs
+    - xkyky
+    - '{f|h|'
+    - '},~4~4~'
+    - BNKl
+    - '#"!B2%!'
+    - 0AB "
+    - '%B542'
+    - c3C%5!%b4E3F3F3$5%4CC%#S
+    - '&51!'
+    - a5RbE6CVEE%#330D32
+    - '%R23#4%B2%$#B##'
+    - '#"B N'
+    - b$W%41
+    - S!ER33
+    - T3B%%%4R4DS%TB4CD45%313R"C"A$
+    - A&B^T$
+    - P&RSCBu
+    - SB15CB
+    - cARCCU
+    - '!!RQ'
+    - -1!&
+    - '>"1!1P`'
+    - _3""`4
+    - 5333#%#0"#1
+    - 0S5BD%
+    - 5%ARP'ACSCT61BU3%5SC4CD45
+    - D32A2%Q3#1
+    - '%#33233"C3$B3D"%2#5"B1C'
+    - '#@"0"'
+    - '!Cb"D154D'
+    - '#c%3cDC4&`E43DCCD%CCD4D1S3'
+    - '#&#DQ&'
+    - B$&T\
+    - '&C$5!'
+    - 24A $.P
+    - '!"&/C'
+    - '&41c'
+    - .$O&
+    - '@`44'
+    - '!%3221Q2"'
+    - '&SbEB2S%'
+    - '"""N'
+    - AT#.
+    - '%""1!34'
+    - '!Q"#%'
+    - S$A#AC4
+    - F4$%3CCS4U3CR4SA3
+    - '%24#'
+    - 1!#!4
+    - '#2%#$'
+    - 2DCC4##2B3
+    - B"$"#
+    - 0 30
+    - '%434D3EBBF4c#CS%4D04#Q"C13'
+    - '&Ub#$'
+    - '&#0$0B'
+    - 0&&S
+    - 03&#
+    - '&/4!'
+    - ']& V'
+    - '@5/0m%4'
+    - C"#1!B
+    - A0O%#
+    - '#"$!'
+    - '%%d$CD3D43D5DBD%4CCS4D"QEC33b4%'
+    - '!"""#!#%'
+    - 0R323$
+    - R2#B"%C#
+    - '#"3"11#!!1!&E'
+    - b%"A1
+    - S4U3
+    - '%4DQDB&3&SqB5CC%D4CD3SB'
+    - '@"%S ?3C'
+    - '>#5!3S!#'
+    - /1#>A
+    - '"3&/'
+    - 5#6/
+    - '" #%'
+    - B1"%
+    - $!1$
+    - '##R#1$"!%BD%"C#$31%3#S!%C22'
+    - '%"3#'
+    - '#11434'
+    - C24%2
+    - '"A3#S##"'
+    - R #^
+    - '%"#21!"B14#'
+    - RR2%"5$0E$4
+    - E45#CC%E4QD#5$0E#"%#
+    - .&DR0U
+    - 6  A1&
+    - 5.o"
+    - 4!%34
+    - m1&A
+    - 42>3$$$B"%B53R2D$5CD63C4%$t#4D4CD453DAC%2#3C#1# 3@
+    - S3S4DeQ2DfU%!##2"Q$B##$
+    - C1%4132
+    - 02"!&"D
+    - 44RR%A"c%U53CoFS tR%4CD4C
+    - E#$2 %5!
+    - S5CE@%
+    - 0&B5"5
+    - d61/c&
+    - 3$!-
+    - '!&1"0^'
+    - 1O2'
+    - _""2<c
+    - 2!B42
+    - C"B%@"
+    - '&13?#$4'
+    - 0 &".
+    - 3#!C
+    - 3A$S$%#1DR4%5#$CBD6$DTCBCD%4CD4C#25" B
+    - '@@&o4!'
+    - FD%""2233
+    - 3332
+    - 3%A$2S"B#$
+    - 1&t#3B2EQ
+    - $B#%
+    - '!C#!!4$"!DC$3%4'
+    - '#G!CRSFC5D#C%D4CB5BRC$3A#%0%4'
+    - 5  3!
+    - '"  #'
+    - $/?"!2
+    - 0!&4S
+    - 2S1&
+    - '!B_&$'''
+    - 4"00.
+    - ?& #
+    - .@,!
+    - B"4N/S
+    - 4/>&
+    - 1%14
+    - 2A#"
+    - -e?41
+    - ^&!11B
+    - u%2%
+    - BOD21
+    - 4"C%"UC44$!D%CC&DD%4E2D44CD4CD33
+    - '%AD"2D"$'
+    - '""A#3'
+    - '#2143"D12BA5$%3#BB2AB1B02"'
+    - '#&#51$'
+    - 0# "
+    - '!""!""%44CD4Ab'
+    - '!$@2AA%2'
+    - '!"/12!'
+    - '&C!14@"'
+    - Q!UC613%
+    - A! !
+    - ?!!%
+    - '&+>A'
+    - T??%
+    - 224"!3
+    - 202D
+    - '"QP%Q#%'
+    - $0E"#D231c%B#DCCF%37$a44C%D4C#5%##@#!0"
+    - '&0 !'
+    - B# uedE%
+    - 2#4CR$$
+    - 41%E"$$R4
+    - $"$2
+    - '#!&BRcPT'
+    - '"A3BB4QD3%"D'
+    - D4bU4D#53S5%3S53S5
+    - 2BR"R!4%#C
+    - Q&O3
+    - _@E!6A4
+    - '&oE2"R$'
+    - SROU
+    - '&B4A'
+    - u4!"6 6
+    - '@"B43'
+    - 32b"
+    - 3%2#
+    - A?"4Q
+    - '!%D43C6'
+    - D5$3Drb4%BD4CD4CD4CD44
+    - '%#1R31'
+    - '%1#%5dRbcEF%#B2$43#3"4#B5#%QD31221$#$'
+    - '&3#A%@4'
+    - B$C%
+    - '#RS0TT'
+    - '""%%453D'
+    - 3_D#
+    - S"2%
+    - 1 1&& 3b4#s
+    - QO3R1BB
+    - 2.#Qc
+    - '""!2"!$5'
+    - '%B "1@11BC'
+    - '#41#'
+    - '"0!%3113'
+    - '##42"2C2%D3C3T'
+    - E4C4B5DC%$RC0B
+    - '!C!B5B2cG4DE%1C##3""4$"DC#E%2'
+    - 3#"BB$##
+    - '"!1&@'
+    - D$3D"2C4
+    - D4%T#U%SCC3S53S53%S53BD
+    - '%D5"3'
+    - F0$1PD
+    - T4?c3%
+    - '#&12E#00cQ5'
+    - '& /#Q/'
+    - /& >
+    - 033"&
+    - L1O1
+    - '!% A'
+    - '#31B'
+    - d%$#?53BS
+    - D"#"A%
+    - Tb%B
+    - 2""5C#3DC%E3BAD4C25cT4$D%C4CD4CD4CD4@4
+    - '%33220#'
+    - 1s2"$f%eTBVbD%C
+    - C2"T"BRB3B$$%24
+    - BC3#12
+    - '&4$2#'
+    - '%1SPQbS'
+    - S32%cC
+    - $Tb2SSbC4D4%4D43C41#23#1
+    - 2&qBcB0E
+    - '&2a1'
+    - '''-&0Z'
+    - Q&?"602_
+    - 2#AE"!R%D
+    - A##2B"30
+    - '"D0D'
+    - D"!0
+    - '"2%QC443#2C%D'
+    - T4D%"E$4T$RSCDCD3S%53S53B2
+    - '@32"E1S5EE%3'
+    - '#41#33C1D22$%32CD$3#32#'
+    - '&D3D3#'
+    - '"!3B'
+    - T3&#%3q5CSD42BD$
+    - '%4C343415"'
+    - '"2&2U!A'
+    - '&31bF''p?C'
+    - 6A#%#"
+    - '&@C /'
+    - '''?m=A'
+    - /0A&&$,
+    - /1=B
+    - N!3$
+    - 1!%B!"
+    - 2"3AB$%C4$42C4BC!DT
+    - 4%3dS2S
+    - C6#3b@#C&F$ERG$4C
+    - '>^3%'
+    - 32423
+    - BR"%b
+    - 3%##
+    - 3!1#"
+    - '&b4A2"'
+    - '%#TU'
+    - BQCp
+    - /r!o%"
+    - '&P/0'
+    - eQ&B!#
+    - 2>01!
+    - '%"?%'
+    - '!/&`3'
+    - '!A #'
+    - '"B1%OR32$'
+    - '#D%C34AB%AQC4#D4%%S3'
+    - F SeDASFV3%"AR3#33$231A32%2%33#%#"#"2!#"&N$AS
+    - BS154
+    - S%B3443TDDQSD3D4%CCS4D44"R$11C@&VSD646
+    - '>4=B1&T"4Mt'
+    - ARB5
+    - '%"O1'
+    - '>01`'
+    - /&??
+    - A/M&E
+    - '>  U'
+    - '@3$!B'
+    - '&Ds!TV'
+    - '&N"D'
+    - C" "4
+    - C12F#%%2346"4
+    - 43543S%S5CT$44CD4CD!4%B$#"$
+    - S$1C1432333
+    - B%241$53#"1#
+    - /""&3$
+    - '%2D$C$4Au3pD%BE%C4CDC5413$'
+    - 1$%R
+    - 4S"b
+    - '&D>R=E"02'
+    - $& B .C
+    - -'R_
+    - F%DQF3%
+    - '>&0B'
+    - 231%1!#$!4!B#24
+    - 5A%44!T2552$T45SC%6#@C3C%
+    - '#""!'
+    - 221C#3%#$233%2$%332B312
+    - T2S#"0
+    - 1%D%#C3DE4$S35bE%2CQR23c34#"B%
+    - '%3""2'
+    - 11D$
+    - '&C2%"'
+    - B!&1%%1#41%
+    - '%E2>$%1'
+    - '! &2P"'
+    - $12#
+    - 1@SC/"$%4
+    - '#p"!$#$!>'
+    - 5D"%2
+    - '"$S$DC#C$3#&R%D'
+    - 3SBD5AB
+    - 531#%D"""0#3
+    - '@% "'
+    - 2"#21@%4$!C"C
+    - B$#A$2B%4
+    - 2B%"4
+    - B1413
+    - '? /%'
+    - As26$
+    - '# 22'
+    - '%%44CD4BB'
+    - '!"&"'
+    - '%$!$"""'
+    - F &S4_3
+    - '!$$3RP%$&">B'
+    - A24o
+    - 0d21
+    - '&&0?'
+    - A</&
+    - $.&"R
+    - RS%/
+    - '%$P0$'
+    - '!l!" a'
+    - /!$%
+    - 1A%&12
+    - 1B5!C5A%%TS
+    - d1u3T
+    - CCC4%!3U
+    - /#2!
+    - 4A20
+    - '#%0R'
+    - '@O"/"'
+    - 0Y-?C
+    - '%T1#c'
+    - 33235
+    - '%E$4D'
+    - CD@s3@E$B%B$C#35!5B24
+    - 3#&&QW0"G
+    - ^"!$
+    - Q%#1 E!O%#D
+    - R$3B$
+    - '"103'
+    - '%CCRSCD'
+    - 3.%C"
+    - '%A00##0"$#$'
+    - d3F!E#E3C%3426QDC2C34132%AQ$!4!AB
+    - '!@ T'
+    - 23=V
+    - A$4@G
+    - $R%%CDRBTDU#%44D44$!
+    - c"5!%
+    - '#"$"'
+    - '!1%E#5'
+    - 2e22S%%BC&%Q
+    - R%2C3D#C
+    - 2#C%
+    - 23R"#4"33%"F0E#BS&R5DSRQ%D5%44B
+    - 1"B"!1
+    - '"1##1'
+    - B1BE
+    - Q%U"5#SB4RF1EC45%2c
+    - aS3C%S"2
+    - '%4$1'
+    - Q%1B3C
+    - S"3R
+    - '%BEC5$Cc'
+    - '@T44#D%'
+    - S!B&S
+    - s%E0b
+    - 44RF?V34#C%2CRC3PE2
+    - Q"1%TO4
+    - B3Aq%$0DS35$DC$S%TC%p4CD4CD"!3A
+    - D &5Of
+    - ?%##
+    - B3BS$%
+    - E1721V
+    - CU#$T#%DBRCT2cD#53$
+    - B%%!"#%1B"C
+    - />%#-
+    - S"52$cC
+    - R4D5%5DB$6$T$BDD6"4%%3C
+    - '>&$)'
+    - '%R3#"10'
+    - q$1d
+    - 31E"%q%%CB443S6"U$A4R5%3#C3"T"42424
+    - '#&&G'
+    - 2 4/
+    - '% #>#42$1b'
+    - 5"D1%E
+    - C#DRQV
+    - S5354%44CD4C EB23/
+    - '%M6P&'
+    - E1U4S
+    - CS#"%""B"
+    - c4Q$"
+    - '!0$ $$'
+    - d%!1T
+    - s0U!D3%
+    - R$EAW"SPF$B
+    - d%2$1 D
+    - '&>QA'
+    - c$S#71B5#2d3%2CU
+    - 2DB#5Q#D
+    - 4A$%
+    - B3!U40%d$R
+    - E!e%
+    - f#d3C%D44CD43B1#Q
+    - 1##1$
+    - 3#%/5
+    - '"!!"1'
+    - '"0#%0F!d45AF'
+    - E1RB$2%4$
+    - '!%Ab?'
+    - A42U
+    - 3"D%
+    - '*4/""'
+    - 0%VS1r&
+    - R2633
+    - CD%E"U"DR42R%B
+    - 4#@3TS3C$%
+    - 1!2#!!1!%SCDCCD"@'!%
+    - '#"&3r/'
+    - 6N"#
+    - '"% "1#'
+    - '%!/!2'
+    - S$#!E!%T"Bb2T%#4dE%#B%c$R6AEE
+    - U1D!%3#35
+    - '"4 0D!'
+    - PD%%CD
+    - d3sD2CD3R
+    - '%U!3!'
+    - C$2%#!B
+    - 6@3#ST
+    - '%s4%C3SE'
+    - aE$D5A%D5B4"U
+    - 62a%
+    - R0"$
+    - '!%$D$'
+    - 3S"G!FR'T#%C53DCCC##4
+    - '%2""$"$"0C!'
+    - ',"/L'
+    - 2%$T3d4B544BD"4A%#3!#
+    - B1"B?
+    - '#&0E'
+    - P6?E"6
+    - 4BC5"S4CD4%QR%C5
+    - A#!%0
+    - 2-2=
+    - QEU4#D4CCR5%A3BT
+    - CATQ%A#2"%S#
+    - NQ0!
+    - D$%CS$V3S4C%44CD4CD1R4
+    - 1$O%"A
+    - '#B###'
+    - C"##
+    - '"3!"'
+    - E2$%^
+    - 4BC&B3
+    - QTDB$
+    - 02 !3
+    - '%T"C/5A'
+    - '!"11"R%3B5'
+    - '%CEQ4UBd#4CC$$3%#T'
+    - _T%2
+    - /E %@$2
+    - 0/31
+    - '"01!'
+    - '%1S$R'
+    - E$2SD%Cs#%D5A5!E$D
+    - $! /#
+    - '!#!"1"'
+    - '%CCD4D4"'
+    - '"!4%'
+    - '#$!P'
+    - '""#?A C'
+    - 11#2
+    - A@$"!
+    - $"!#!
+    - 40%2"4
+    - '&&"A'
+    - u$SV%
+    - '%/!%'
+    - V3DS55oS53S52%C"
+    - '#E&@$2A'
+    - '%$"F2%@E'
+    - B$##%!B
+    - '&3#BD1?'
+    - '#13R3!C3c%'
+    - E23b
+    - 3DA6#7C#%r&QCCDC!$!3!2
+    - 0DRVC&F$Tc%"
+    - '!1!!$#'
+    - 2.$%
+    - '%Q5aTS#D$43CP$'
+    - AB"T
+    - '%//4'
+    - V0U63CT"c251%62"$2
+    - '!1!0?2%'
+    - '@%#@ ""!"!!"'
+    - $QF2S
+    - '%rS4%Q'
+    - CS$CER%553523#R"BR
+    - '% !-00'
+    - .c/%c" U
+    - D3443bE5DRBC%D4CD222T#23
+    - '#-1C!'
+    - $!$-
+    - /%/1
+    - $/F!4Q3$"
+    - '%R%RCRTDAS&'
+    - '%U!5'
+    - B?$!a
+    - $C33"
+    - '!a"$5'
+    - '%T5CRd4E$$CD44'
+    - '%"4"4'
+    - 101"%
+    - _&T&C7$#s$@4u
+    - T!%B!3
+    - eD%A
+    - _6CC5%34C4S%E
+    - a5CATS%
+    - C1D V
+    - '&22!"!!'
+    - '&4#!'
+    - '"!1""%534CD4B'
+    - '"2#2!"3'
+    - 0S4"%U
+    - 4#3R
+    - CdQ&E%4%3CD$T443Bc
+    - D%"A
+    - ',]0B2@3'
+    - '@hACB'
+    - FpG/G
+    - HUJiJ
+    - wNuds
+    - '[*T}N'
+    - 7d4#3v1C1
+    - 12%/D41
+    - $! 4#$1
+    - ?4!?!1"
+    - 413$
+    - '#!C2'
+    - ?%#K
+    - /$"02
+    - '"!B!'
+    - A3"A4
+    - '%D$.:'
+    - '"$#11CR'
+    - /"O14
+    - '"2$"BMR'
+    - U`"O4
+    - Q#Q%>u
+    - '!#03'
+    - 1"%r
+    - '"1!3'
+    - '"!1/'
+    - /2!BB7
+    - '!%B&'
+    - a%a!
+    - p$A 1
+    - '%E.T'
+    - b3$"
+    - '@ ""'
+    - $!1.
+    - $0!/
+    - '!%$bf5dtQ'
+    - '@%f5'
+    - b$""
+    - $0/C
+    - 45&$2D
+    - ?!1.
+    - 20#4!2
+    - '%C53It'
+    - $^T$#
+    - '"A33%t'
+    - '"AR$'
+    - C 0#!
+    - '"1$333'
+    - 24!B
+    - '%?R3S3'
+    - '"/"1'
+    - _0 /
+    - $1S!3"
+    - '%d35"#'
+    - E$#$24
+    - '%Q4?U4'
+    - '"31B'
+    - '>%44CD<'
+    - Q#e!$@
+    - '!$3#'
+    - MN$#
+    - '" >1'
+    - AC"B.
+    - '#-"2'
+    - $23$
+    - A"#"12$
+    - b@t$
+    - '!!4#"'
+    - 20!"!
+    - ?##D!UTf
+    - 11D1
+    - .1 !
+    - '>3%6a7f'
+    - SCD2?
+    - '"3A2'
+    - $!$AB"#
+    - $$ !1!
+    - '%-f "3'
+    - $"2P4%
+    - . 2$
+    - ?$42
+    - R%C^4D=
+    - 01$"!
+    - '!B #"0'
+    - 3q$&
+    - '# %e5c'
+    - '%1"C!'
+    - '", $'
+    - . 1$
+    - '"!>-C'
+    - '!1$3'
+    - aBB$
+    - / 1#
+    - '%sDS'
+    - ?da#
+    - Q%?%.
+    - 31e%.CB
+    - T43$"OD2S0%V
+    - '>A$ 214!'
+    - '#/$$'
+    - Q3D2A$
+    - 3"140
+    - 1!$1
+    - S#1."
+    - 1#2B$ Q
+    - '%o2`$'
+    - A" %cu
+    - 1"a6
+    - B0$$
+    - /"!"
+    - 3 $"!
+    - '|%R$'
+    - A12#
+    - '%n1e$F'
+    - '!1$!""'
+    - 0D@B
+    - 3"$3
+    - '"2"A1'
+    - '[6$$'
+    - '%@6RUG'
+    - '%E}4D4.'
+    - $./$
+    - $42#!#
+    - 2"42
+    - '%^CS<>'
+    - 2!A3
+    - C#5%1l34
+    - 3/%T
+    - 52U$
+    - '#>"/'
+    - '"/$$'
+    - '%s3$CD'
+    - $" #0!
+    - '# #%'
+    - b$03
+    - N!"/
+    - '>" $'
+    - B"1C!M$""
+    - $@#OA
+    - 3 !1
+    - 1042!3$2
+    - 20"!
+    - '!$B"$!/$'
+    - $ BB
+    - 1/R!@A0%s_534
+    - 3$!! #BC
+    - 1! B"
+    - '@u$##4'
+    - 2 $ B
+    - $$#2
+    - '@2S#%'
+    - '!DC@'
+    - '".A$'
+    - /2$b$4 .!.A
+    - $!2##
+    - '""?#1'
+    - VA45"
+    - O@%$
+    - '#%0C'
+    - cc2W3$_
+    - $B R4
+    - $!#"
+    - $R$"2M
+    - .$#"3/Q
+    - 3B"O
+    - 1!N6
+    - '!Q1$!4'
+    - 1!3#D"
+    - $"21B
+    - +`8%@=C/DiD
+    - p+ef
+    - UgL-K'L
+    - '[LY-U'
+    - Y+YE\
+    - j~f(T
+    - 1DB4"
+    - Tc4#
+    - /21_
+    - S53"
+    - _B3 !
+    - 664B
+    - /3!!
+    - ET/?
+    - '#O!!'
+    - '""10'
+    - /#/1
+    - $E#5#0
+    - ..!!
+    - dD2"#
+    - O$#""
+    - '%d#Q #'
+    - TCb0
+    - .1 #
+    - '%Daq#'
+    - DSD>
+    - $ #/
+    - 0"3!1
+    - 5ECS
+    - '>T!#'
+    - '#6Be2'
+    - '#aDR?'
+    - A#t&@
+    - 15D#
+    - DcR#>
+    - 3U31#
+    - '@"%#'
+    - F$T`
+    - '@$"1#'
+    - 1#$!.1
+    - '&Ae2'
+    - '#6&E!'
+    - /`2B
+    - '%#cD0'
+    - '"!@?!'
+    - OCA0
+    - 45bb#0
+    - $SSB
+    - O"R"
+    - '"QM#$'
+    - T6D`1
+    - ?I+#
+    - '&41NO'
+    - '!R02'
+    - DTBQ
+    - '%10/'
+    - /#1!
+    - A#Bb3
+    - '#""1/'
+    - S#e3 ,
+    - /3d!# ^
+    - '%Rc5#'
+    - '#!21.@'
+    - SU4 #
+    - cV&1
+    - '"23#'
+    - aA1#
+    - '"bcD'
+    - =A/#
+    - 3D%0>
+    - 1"#01
+    - 03""
+    - 1#3!>
+    - '>""2'
+    - Re4_
+    - '># @'
+    - '"""0'
+    - '"3#US#'
+    - '#E!#@>"'
+    - '""!#^'
+    - 3#.!
+    - C#"3
+    - $TEP
+    - ?P2#
+    - $"#A
+    - TTT@
+    - .0C""#
+    - 1!?#
+    - DEaO
+    - 2"AO/
+    - CE%T?
+    - '##@+'
+    - D55^
+    - 1P#?0
+    - $'C~
+    - 44_B
+    - '#UD6"'
+    - /#A/!
+    - '#4ba'
+    - '"b#eC'
+    - /.#!
+    - 1@#/N.
+    - 6U4q#?
+    - 0s"?
+    - B!1/#
+    - 4V21
+    - _^=0>2
+    - EE5C/
+    - ?#!0
+    - 1!@Q
+    - '#TEA'
+    - '#%4B'
+    - '!$/O<'
+    - '!"22'
+    - '#/$ NA'
+    - -2T4#
+    - Q#M/
+    - 1#32
+    - 0!$#
+    - '"!2C#'
+    - eDc!
+    - '#bR&'
+    - 1ReB
+    - C%B0/>
+    - '# #?3'
+    - E54@
+    - /3A"!
+    - DsD2
+    - '#DTD"'
+    - '"#Ss1'
+    - A#FB
+    - EVD5#
+    - '!#0B'
+    - '!~^?'
+    - 3#A1!
+    - '>2!03#'
+    - '&BS0'
+    - '#sae'
+    - '#SRA'
+    - .O#/
+    - a1@/
+    - 3D#e2
+    - '"11#'
+    - 4U21#
+    - '!%#!@'
+    - uDD_
+    - L"1#
+    - C"!#
+    - '#5EQ'
+    - F@0/
+    - '# @.'
+    - 6bTB
+    - '%Pa??'
+    - CT6#
+    - '%C##'
+    - $>\*
+    - '#e&F"'
+    - B1."
+    - 1#UBB
+    - .#$1
+    - P21//
+    - 6D%R#
+    - 45B!#
+    - /1#%
+    - 4T51?#
+    - 0@-!
+    - 2#!?
+    - V$d0
+    - MnC7S
+    - -#1$
+    - <=#o
+    - 2!"?P?
+    - BG&?
+    - '@@" .'
+    - D5D2
+    - '#5CU3'
+    - /C#!0
+    - T#'AP
+    - EO#_O.
+    - Cbc#
+    - '#!04'
+    - 3S4"$
+    - ChQD
+    - $bU2
+    - fD4@
+    - '!@Q#'
+    - '!-!B'
+    - '"""1'
+    - '"//>'
+    - -?A#!
+    - '#TaV"'
+    - B#US1
+    - '#cEC#0'
+    - 2SE1 #
+    - O.N/
+    - '##0O'
+    - eCF".
+    - b5#\"
+    - '#. 0'
+    - Fq@ -
+    - (L*n*
+    - 4V6b:2@ Fq
+    - fDjHn+rYuLuQv3v9v
+    - ?$ 1
+    - '"/"@03'
+    - 2@"NT
+    - ./$/
+    - '!1#$'
+    - ccd&QD
+    - A$0O
+    - 1.10
+    - 0A12""""!2"$!"
+    - '"!"/#'
+    - '%$1Q'
+    - $/`!
+    - QC2#
+    - '!?$1'
+    - ?$ #
+    - -0N$
+    - '" %A'
+    - QC@"
+    - '%!1A3U'
+    - SFC"
+    - '"pA$'
+    - ??%o
+    - '"FAU5$!'
+    - T"EQ6@$#
+    - '#/N"'
+    - 2#O"
+    - E4BUR U#
+    - /%Ao#"-%
+    - L#1/A
+    - '!#N%D'
+    - '! /$#'
+    - P0AA
+    - '%4D44D44AC0R'
+    - Sd$1
+    - '"$!!0'
+    - '!! B'
+    - '#/?>!'
+    - '%Mc!D103'
+    - '>"%?'
+    - $OaA
+    - '!$1/'
+    - '! 11"4'
+    - $]P"
+    - 0"]B
+    - /0 %
+    - AA# R.D$
+    - 302?A
+    - '!/%G'
+    - 0#12Ac&#
+    - $01"!1"!0#
+    - $"""$?3
+    - 1 A2!#
+    - '%4CA'
+    - ?/C%
+    - '#-a3"!'
+    - ?1@3
+    - '! $^'
+    - '%/L/'
+    - '%"?!'
+    - A"4+E
+    - 2!3#ANO
+    - $0l!
+    - '!1""'
+    - '"$!1'
+    - '!3A@$'
+    - B%51a
+    - B2<_
+    - '"!1!2'
+    - ',0#/'
+    - '! #1'
+    - 4CD4CD4C
+    - 13-$_
+    - '#"2 R'
+    - 3345bF5T#
+    - '%CN$#.E'
+    - ']_~"'
+    - '"!1"!#'
+    - 3D4CD4CCS4MS
+    - '"!"!'
+    - '!%?4'
+    - C4p$12
+    - 1#0V
+    - c62d%S#
+    - 01nOC
+    - $?0m4
+    - A!""
+    - '"$ O0!'
+    - '"!1"'
+    - '"2A&0'
+    - '!@.#'
+    - '@A122R#2'
+    - '"!1"!1  !'
+    - '"QQ&&5UD$3'
+    - _"mA
+    - 3?%#,
+    - 3">$""
+    - /?$!
+    - Z:2#
+    - _01""
+    - P/%5
+    - BrPrcRE
+    - '!0#?'
+    - $"!1"
+    - '%4>#'
+    - 3D5 V$
+    - =^$C
+    - '"!$1!/P'
+    - $O@"
+    - +?#<
+    - '!#0:r'
+    - bO1!
+    - $?O>
+    - //0,Q
+    - 1!1"!1"/^2
+    - 0PQ"#
+    - $-@O@1
+    - 10$A
+    - '%P"01'
+    - 0VU$B!"
+    - 10$"
+    - 1_11
+    - '!$1"!'
+    - B$!!
+    - '%A#-"$!='
+    - '!1"!#'
+    - '! !%3'
+    - '#!21_!A?$'
+    - '"""2'
+    - '"2""%$544CD4C%'
+    - A1$3
+    - '!1%S53@1A'
+    - 3NS%@
+    - 3P!$
+    - '!""$A0"'
+    - A!_2!_!#
+    - q1B!#?S/#
+    - .1%CD
+    - 5De71
+    - BkD%/3
+    - '!/1!$?$'
+    - $!@40
+    - '` ^#'
+    - $""!/@
+    - '%.a@7'
+    - P"P1
+    - /2!2
+    - O/" 3
+    - B.$"
+    - ./="#
+    - '!1" /'
+    - /$! P
+    - '!$0"'
+    - PD3B#!
+    - N1%$
+    - LfPHOkI$B
+    - $$04/
+    - '"$!a.'
+    - $:&^
+    - $>$2
+    - 3!$2/&4">
+    - 0$%" A
+    - 3"22
+    - '!$4@!4@34'
+    - $T25B
+    - 3"7/#
+    - '"$$/2$'
+    - '!" $#2'
+    - 3?@%
+    - '>C/$'
+    - DB"0
+    - 0_%F
+    - e+ "
+    - '!##2'
+    - p  C$
+    - $B$$@$
+    - '"#"!'
+    - 2%5r
+    - '!>"!'
+    - q!@$
+    - B6#,
+    - $T#2DC
+    - 2!"?P$1
+    - $$ &.C
+    - ?5.24
+    - B>6#
+    - /$-&_
+    - 25"3#
+    - /22D
+    - 5O%,
+    - $?5Q03N%
+    - 1"_1!
+    - 34$$$
+    - '"$4R'
+    - '%"%.'
+    - C/$0
+    - Q$"D//
+    - $L5!S"
+    - RD43P
+    - '"B#2'
+    - 2%Q7
+    - 6"$%A
+    - d#7N2
+    - '"$!b"2"2'
+    - '? .#'
+    - C!E>
+    - / &/
+    - 5!CA#"T,3
+    - =#'/Q
+    - $Q&2
+    - 32S2
+    - 0E!$M
+    - B"1P
+    - '!T&@'
+    - B 5A
+    - N3!Q
+    - $D $#
+    - '!4C2$$?'
+    - /"$3
+    - D1$/6
+    - R'.T #
+    - '&%0"'
+    - /!$$$S
+    - /!?2
+    - D EP$
+    - '!2$1'
+    - F.3$
+    - P5C!&1
+    - '#$/!O'
+    - $"6S
+    - 3D313
+    - '"/!#!'
+    - '#0!$"'
+    - '@"#3'
+    - $T0?
+    - O4!c
+    - $B32B
+    - 2$!!
+    - '!%>"4'
+    - F"%3
+    - ?$53!
+    - $5/2c
+    - C>%3
+    - Q_%R
+    - $r"R
+    - Eb/##>
+    - /$Dd
+    - 0$M$
+    - ^1"+
+    - A#/$2
+    - 2%#R"#
+    - '").%'
+    - PpcNu$y
+    - USLH3
+    - '"O!/'
+    - 2B!2"
+    - '# ?Cp'
+    - b0#C
+    - ?P4C
+    - 45#"
+    - '@U./'
+    - ?# !
+    - N#"T
+    - $44B1
+    - CD4C!"
+    - 2$B3"
+    - '!"FfU1'
+    - '@''#!'
+    - '#2A!'
+    - '!%DDVB'
+    - 5UVT.
+    - '"%#O/'
+    - 2  /1
+    - '#OM-'
+    - '"443A!"'
+    - '# -A'
+    - '"/ "'
+    - '#RD4"'
+    - ?"b /
+    - ^14=
+    - $?B!
+    - '#2ABc'
+    - '! #01'
+    - '#S #'
+    - /&#1
+    - 3455"
+    - /"/=
+    - '! "!'
+    - DU"T1
+    - '!"! "'
+    - '#""1'
+    - '!E#2'
+    - '#a"2A'
+    - ?33#6
+    - '%!##'
+    - '"41a'
+    - '%1?;'
+    - '#10e'
+    - $2//
+    - 0"20
+    - '!.16'
+    - p/o/
+    - H(["j
+    - ?L@<
+    - J)4(
+    - '"$2!'
+    - ',1#ND'
+    - n0>$
+    - C3 4
+    - 1"+L"
+    - 5c5$
+    - 30B2
+    - ."N$
+    - P$$">1!
+    - O%!!
+    - 0?"B
+    - 33 !
+    - C4D!
+    - '"C#"'
+    - $41/
+    - '#"!1'
+    - '#!2$411'
+    - '! 1%'
+    - '"DV!'
+    - 3%4.
+    - '&6C03'
+    - 'ABK Pass A: signature=ABKC'
+    - 'ABK Pass A: byteLength=104720'
+    - 'ABK Pass A: dataOffset=0x2800'
+    - 'ABK Pass A: BNKl offset=0x2800 found=True'
+    - 'ABK Pass A: first cue count candidate=8 at 0x80'
+    - 'ABK Pass A: stable generated cue slots=8'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_01 index=1 tableOffset=0x80 sampleOffset=0x3FC
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_02 index=2 tableOffset=0x84 sampleOffset=0x70C
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_03 index=3 tableOffset=0x88 sampleOffset=0x918
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_04 index=4 tableOffset=0x8C sampleOffset=0xA5C
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_05 index=5 tableOffset=0x90 sampleOffset=0xD5C
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_06 index=6 tableOffset=0x94 sampleOffset=0xEDC
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_07 index=7 tableOffset=0x98 sampleOffset=0x1014
+      confidence=stable-engine-bank-count'
+    - 'ABK Pass A cue: CAR_18_ENG_MB_EE_08 index=8 tableOffset=0x9C sampleOffset=0x114C
+      confidence=stable-engine-bank-count'
+    decodedClip: {fileID: 0}
+  sweetenerBank:
+    sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/ENGINE/SWTN_CAR_18_MB.abk
+    relativePath: SOUND/ENGINE/SWTN_CAR_18_MB.abk
+    fileName: SWTN_CAR_18_MB.abk
+    extension: .abk
+    byteLength: 41952
+    signature: "ABKC\x01\x01\x01"
+    identifiers:
+    - ABKC
+    - BNKl
+    - '"2C5EUff*44CDDDDSE4SCD4+WfVTU44#"!'
+    - 2#343S'TEFEeUd%2A"
+    - 12#26D&WfvuvfVeUTU4D$'VE43
+    - '#333434BD43D3$"'
+    - 1!1!
+    - '&dTE4BCA1!'
+    - B#"'
+    - '!"R#"2'''
+    - '"@EDRGEU6&""'
+    - 23$4%55CSBD&BB3#3242C3
+    - '''4"#"4CCTETTdDC&"!'
+    - '!!13##C4334&#23"2$#BD444CS&D4B43S4$D5TEDD&UD4D3C4%34$D4E&5CTD534323$#33&BCRC34#32"1211''55TdTueVUEDDDA''C4E'
+    - 3BT4F3VDED'4C4DC#334CCUCe'DEEDVEDDDTDTRT&
+    - '!23#2C'
+    - B$B4&4%#3%454CD4C3C'vesVSV6D4"3"
+    - T2"E4!$GE5g'3$1R4SD2DBFC53'4$4B33C2#3C#
+    - 1'"!"11
+    - 1!22$4$'4TFEefvVVuvVff'euVeUUE3BB32#"'
+    - '"!!"'
+    - 2#!"33D4'DTDTDUEUTTSD33(fCB3
+    - '!"#$3Uf&"#23CCD53SDUDd&FDTDCCC33#1222''F32CUVUEVUETVT''ETDDTFfwfuVU45''3"343434'
+    - $55U5'33RB!
+    - '#$4e4Wffw&CB4C344$#23'
+    - (U2#
+    - '"2$CDUEC''4234C4$#3#'
+    - '"23''3C21'
+    - C&23#34#3BS43332'EF3A"
+    - '"12#22''3#23"'
+    - 23CEUUDS(gVVe
+    - 3'""2#"$5UUvgdTU'UTDC"!
+    - '!#%DUEe&43CD54DCSD322#''TddFECTSSTC55'
+    - '#!BD3&4CBDR3CB'
+    - e2%cA&CR
+    - 11!D$!DSD(C$D"
+    - '##%545#FS(UDSSD5C2#'
+    - 2#$3D&CSEDEEEEEDTTET&EDD4CC332B#"""'DTED4D522
+    - '#D2#2&'
+    - '"4#BDCC&DEDDTDUUUUefff&fWeeededteVUeU&UFDTTEDTETFDTE&TEETUEEDE5DD3R&RRC32B""'
+    - 1224&""##$#43SCDC4C&E5EDCSTDDDTUUU&eVFEVWWWffufUe&UeddUUTT533221'T#"!
+    - 2$!D0DVuWff'"$#DEED5CTAABB(u54!
+    - (cS3SC2
+    - 55FUdgeF&
+    - '"24#3343D3#&2$$$4CTDUDU3C#&23$3333DCC3'
+    - '''25454DCSC"'
+    - '''"%344C#'
+    - 433$5D(feVgucVWvfvTS
+    - 4S25EFV'TDBD33"
+    - 2#23DC'TCS$"D54STC32C(UgUTTC"
+    - '!!)A'
+    - '#44"BCC4C3''3$$D3A'
+    - 113#
+    - 4'DTU55TDCTefUDe'USTutfETD43ECU'UDUUgVvVVeugfv&4$C$44D53D$B23'TdT32
+    - '!223BC4DVe''gWffdTeefVefeE''ED43B2"#'
+    - $43B2"2$4C(edFfVUUTUFUT3
+    - '"VfeED3'
+    - $DT#D'2""
+    - '""134CEEUE''TTSC43T55D53CC(WfVTDD31!'
+    - )B3!
+    - '"233D&4DCE5DETETVFEd&UEUDTDDE44$323''4D32"!'
+    - 3DFFU&2BC4CE5565DCST&EDSSD4C4$#2"
+    - 22B#&
+    - '""24#CD5D&TdeWWfggfgfvvw&gggwgguveuVTcU&4CD#2!"'
+    - 245Eefe&C4DEDEE65EDE54&CD3D4CCC4$2C33'ugVFESB1!
+    - 1#2C343CDCC'D5UVUedUUUdddT'UFETddEUDD5$33'4$332##$3D%3SS'SU5TEUUUVUeeuv'gfvwggffuuuVFE'DE3B2!
+    - '##34C%"2223234$34C4C%D4DCSD34CDCCD4%CD"323"3"2222#&FDTE54D444$32#''5321'
+    - '"""23343S&EDETTUFFFUVFVV&VWWVeeeUEUTTdF&EETTDCS444$#2"''bS321'
+    - '''2233C44CDE5EEU&23$$$#BC3CCCD4&CD4CSSDE4TDTTD&T5CRRRC3323#"#''$C21"#'
+    - '!113$CTEeWWg&CE4TTVEeVVfgWf&wwwggwwgfwfvfW&UeTdTEDDE5453C''vgVUTE53BA1"'
+    - '!)7ggfwgtcB1'
+    - '#34$CDD%DDCT244CD4CD4C%D23$"3""1! !'
+    - 5#"!"#"11
+    - '#C533#'
+    - '""223445D''DUDTUETTU5DDD4''333$$#33$45EUu''gfwgvvwggWfVee''VEED5$2"'
+    - '#33C55EFe&2C3444DDTUEUUV&VVefWWfgVueufV&tvWVfVeeeeUUUE&TEDCSC4$#22"'
+    - '##D&""B3C44D555554&TDDSSD3CC3C33#''tUTUDSD3C3332#''#'
+    - '"222#'
+    - '"#$$3E&"#2B43CDCDD4SD&DDSTTEDDCSSCCC''wggguueUEE4C#2(DB1!'
+    - '!BDEE4(!'
+    - '#5E''224$CEDTtuWeee''vffUUTdTCB2#$D''FDTDCAA!'
+    - '""(EUUUDSD3311"'
+    - 23345%"##233$2C4%3SD%D555#4CD4CD4CD%41B323"#
+    - '!! !''BA1'
+    - '"345EVV&4$CSDDDTEE65DT&5CSC433232"1#'
+    - (w5C4#
+    - '#$$$CDEUUfW&4%45DDTTUFFVUe&eefffffgfggfvv&ggWWffuffeeeVF&ETSTDCC3B22!! &'
+    - '"2#C55E)##2B3C%$443CCD)44D44D4DCCDCD4)D4DCDCSDCSD4CC)D$BC333#22#'
+    - +WUcSC#
+    - '#4Ddf+34$2S445555DEF*#$"C$3C4DDEETV*FeWVgfwfwgggvv*vgffgUfVTdUECT*53CC3B4'
+    - 1#+%4#21!
+    - '!#34CTTd*#2#33C4$C43433+tddF5DDCDCDScS+dE565TV7Etuffg+fvvvWffUueFTUF+DT5CCCBRCC34#3+3'
+    - '##3C3C*'
+    - '#3333C*3D4CDDDDEDTEET*UUFFFFUeeVeefV*tveuuuvfgWfvvv*gvguvfgVfeufVe*UeUFFEEEDE3SCD+WfeeDD3C2!!'
+    - 0A2B445CdFVF*3$$34CCDSE5TEU*EUUUUeUfVVffWf*ffvfwWuwWfwggg*fgffvffuffffVu*VVdfFEdeEUEEDT*EDCT4CC3B323"2+TEDD44$#222""",32BB4#
+    - 11###3$3BS4C+CSDDD64TDTSdU6+EETTcVDTcTcTTT+DTECTSE4DCCS44+4%$4$BBBC33#B3+3$$#3$$
+    - B3#323+2B32B2C"C##222,UETDRaR433"A21,
+    - ./.!
+    - (T#1
+    - q'%24
+    - '#6b$5"!'
+    - '#R5''RB2/'
+    - 4&22C435B23!2#"
+    - 1 ""C4#31(Dc!!
+    - '""T2'
+    - '"4!'''
+    - 21#"#43$DDTU&#2C4$44DDFd4Q#&
+    - '"2453D%&3322'
+    - 24$534
+    - '&2##2"B'
+    - '#2BESTF&UfvUfVTUDSD4D3&C3CR3232$1A'
+    - '"#34CTESSD3&C$cD$C334DCcTT&DTCTTBB323"B#!''D!2!'
+    - '&BR?'
+    - 235%2#BB2C2""
+    - 110&b""
+    - '"D3C2B22''4#'
+    - '"4A"'
+    - $Db$
+    - '%DC1'
+    - '&c#5D#CtT$%e'
+    - '!2"3#333C44&4CSE5DTEEDcUED&UDTTDT5CSD443C''eeED22!'
+    - 22C4BRD#CDEUf'
+    - '!2"3#B43D44CS''53SC43BBC33323(FEE44""'
+    - '"3D''2344DDUEUVUvfv&C444CSCSSDCSSD&E4DE4SSDCRS4CC''wgvvgfufefUUUE''5CCC$#"11!'
+    - )4"32
+    - +BTUdRDDACEGVU3)
+    - '!1!!"#"##3)2'
+    - '"!33STD5$##")222'
+    - '"#"2BBS4DD)DCCBB3##24DE43)BSEEEEUUTUEFET)ETEEDdE432"!!'
+    - '"21!'
+    - 2CCTTDC!"+7U
+    - '"$$32CD3D53*cDR3'
+    - AD+"13#$$BCD4CCS5+%$C35
+    - 32B3#"2",DBS$$$"2#
+    - Y!z#
+    - 0,2"4,6%8^9
+    - '#4B2'
+    - '!"&c333U3T2$EGVVG%#2CCTTUU_$4CD4$!1""'
+    - '%5TRC2!'
+    - '# 4F'
+    - '!#$#4S'
+    - '%A212$EUVFEN%44%O'
+    - '"""#'
+    - '!!!2#&SeuVFSS3!!'
+    - (5!.
+    - 3SC3$3'2$#B5333CE5D4T'TEUUVVVVVfffWV'uvggggWgefVefV'efGFVFFDdTUFDT'TSSSD53BB##2"
+    - (#CSSC##!
+    - '")4GVU4!"1'
+    - 12$44D3!"
+    - )dC3321
+    - DWEE#S*UTT5T $eeVcffw)2T322
+    - '"4+3!'
+    - QTa)k
+    - wFzR{
+    - $4#&3EeT3"FEDgFUvU%#3"$3#2#2"R
+    - '&R%s5TS4TR#S'
+    - EdDCC2
+    - '"0!$!'
+    - 1 !3$4"!!0!"!.
+    - 4$52
+    - 454SA
+    - 3R /
+    - D0B5&
+    - eDdT
+    - 2EtBS63C&DGAT1%"!$3&d3A%
+    - S""T
+    - '#"''1'
+    - 30$fT'
+    - 2"'"
+    - $-F5/4R
+    - (A&N
+    - '!(!!F'
+    - 426!(
+    - $13S
+    - $@C3%3)!4C$2b
+    - D" 5T2*
+    - '%B4F"r3'
+    - 2C"*3F2Q51
+    - CTVSFuf)3#
+    - 4$3"#$4C
+    - 4B)C#33SCDS#B33B%)5#3C34333$BD5C)SBS43$3
+    - '"#2*5EDD54'
+    - '#4Q2"'
+    - C1!B#C5Ufd*3D#C43$CUCTTT6*DTE5UUDUTTTEDC*E5%554D3DBC232+TUEDE4E2S#"1"
+    - u0u0
+    - ',\;nG*OhPWM'
+    - jHqnx;|P~
+    - T}LZC
+    - 3u+."
+    - '!13%$"AC4EETUE'
+    - 4CD%4?$
+    - '#3DC3TECFE%'
+    - D4C01""!
+    - '%""D1FFTVd4.D'
+    - '!B#B'
+    - $CRT&fG/
+    - EdT@2
+    - '!/#%`'
+    - '%12VBTe3?'
+    - '%A"2B!'
+    - 4##2
+    - eGTESD%eTS
+    - QD&#3
+    - O$CC5B@"WTQ&C5C4C
+    - /".-
+    - fCB$@
+    - '"Us35VVDVGG*CBD5DUDDUUTTF4*DCDS53221!'
+    - '"1224CCeE)222$#B4#C4C54C)SD4CC2CA"!C"'
+    - '!*"332'
+    - '##CCEEVTDTT)!#455CTTDU4TDT)555EUFUTE55TF6)5SC3BDC"#3'
+    - '""*3'
+    - '#4V)"!13#22334434C)CBD3S33$##34$3*fFEDSR321"111'
+    - '#*#!'
+    - '#$$BSSdduf)3C43CD4E5EDTDS)DSDDDDD3DC5333*FddDE4B11!'
+    - '!1#%EF*$$C$3D5DETUEUT*eVttfUfVVVtfWG*UuVfeVVdUUF5SS*D4443$33#'
+    - '!3CBC2'
+    - 2E$43
+    - '!A3$#$3*CD$3D44CSE4DD6*5DDCD43C3B3323+G6E4D3$"3'
+    - 00!,#
+    - 9)HBW
+    - ^fW?P3%
+    - '&2"BSBC%4DUSDCE&U5uVWTSSuDTUD4%32'
+    - '!" 0'
+    - 44E$40
+    - B%Cb
+    - '"C6$""T%c'
+    - 0A3#3#"
+    - '!32#'
+    - '%2S2'
+    - '#2"!#3C2.'
+    - 5D2$
+    - 304@
+    - '&$>#'
+    - B!cB&!2c
+    - '''1S4'
+    - c2D3
+    - R''2F
+    - 31&/
+    - '''4!##'
+    - 0!%!s
+    - '''1$"'
+    - UB5%cBDGG%!$
+    - B#3AG#
+    - 4AA3E
+    - '@D3%-'
+    - 1D"@2!
+    - $G$tSR
+    - 25%S
+    - 1&1ED
+    - 5"$m
+    - .(d2
+    - 2)U?
+    - )E$O
+    - A$4 %
+    - U#c4f(323$
+    - S1TDCE3SD(&T$3U3Cc%SDE44(ED5TS6CD53D331(2B
+    - 1R"#C
+    - AE1)
+    - C2#3C$2CTS)U5V5EDUTddFguf(4#33$3#BC$BC32)GgVeWWGefFDeU4)TDS5C4B32#""13*5#C2
+    - '*#"C$"3C4CDSFF5*UUvvwVgwWffwVU*eUEFdeEUUSTEEE*3B3'
+    - e\mgt
+    - a4Q~A
+    - '%#SCD4CD4CD4CD4%CD0'
+    - FUW$/
+    - E5tA
+    - c3A2$$
+    - $@1"
+    - 13FFO
+    - Q4U4Ud$#C
+    - (b$4V
+    - 2!421
+    - 3'3"
+    - '"4##0'
+    - 1(%bCC2U"3
+    - C)!21"C
+    - $3)!1!C#D#
+    - $"21B3)2
+    - 2 !*31641
+    - AP1B
+    - '"1 0O'
+    - '''43""1C33333CCC''3D21!0'
+    - '"C"!'
+    - $&%4"C"
+    - '"6s@'
+    - 3#%C43"
+    - $3E7UEU
+    - '%4CD4CD'
+    - '!1B2#ftDUf&2SC3CEDD55Teff%4$3SCDDDDDACD4%CD1'
+    - '##3$33333C%D44CD53C3#22#'
+    - '&DEDUDdETdeFEUT&TUTDD5%$4$#"32''tEEFVUFETUETDD''55BD##'
+    - PE#S
+    - '"2""""#!2B24''#3BCdDCSCcTDSd''FDeTEECUeU5T5T''eDDE4DD4SSC2C1(WSUFdDTC1A"D32)22#0D#!.'
+    - '*55S5F@'
+    - '!")3U3S##D!'
+    - '#CCB)R"21!3'
+    - +SU5
+    - BeFFR*0#C2
+    - +DdSTcS$3!
+    - C32!+ 1
+    - 11354D31$R,S5$564B"
+    - ',BR?1'
+    - '!%A"2Ee+"!#CS#$$DST!DE+D4UeUUeVdufeE6+D452BB223##BC2+2#'
+    - 33)"2CEDeE6FVFUde)VveVUuvUffwggv)wfgVdeEDUE5D4D*WfWfeU5RS"
+    - '#%3f)!#'
+    - 12$#3$C43DC)CC344$55B
+    - CCC2)212D2
+    - 2C5DUU(343DDTUEeVegWg'C444CDCDCSSDSD'SE4SE4DD4S5444(gvgWfVVVFTTTDC(C4#3#""
+    - '!23344)1223#BC44CDEDE)TUUUdeUeUeVUfU)fVefefeeefVTeV)dV666DU55EE4CC)D3B32#"11'
+    - DD*4$3BCCCD55ETUU*fVWFeFUVUeUddd*eFDTETEDTTD4CC+VVUETTUDUTSTDS+DCTDD4DCDCTDEF*$$$334$BC444DD*E5DSTEE66DUDUE*E545%$3BB33
+    - '""+D2"!!'
+    - '""3BTTeevf*CDDDTTUETdeeVf*VWWWefeufufeuf*VVVUVEV6EUETSS*D4BC33"22#'
+    - +332#
+    - 213+"23#B5$%3D4E74+UUUVUdeUfUeeuW+defEf7EEFDdTDS+TC53323"#
+    - '@0",'
+    - 2"423S5DDSdDd+3#3$%
+    - C33C$435+%3SDSD53D4S4RS+DCD4$43332AC##,DTD4B6
+    - '""22B3435%+DEEETeVfGVWgew*2RC4343C44$4BD*$C%$$34#32B2B$+EUFESe5E4DCC3B,tueETTT5B341C!,'
+    - .0/?2
+    - '#"B#,C$2S4CSEF5TseU,UeW7VeevVVWUWe,eEu6eTtUFEUDTE,DDD5'
+    - $#221B,1#
+    - 1PAB3$#$B4,$3BRCC3R5$4%$B,CC42BD
+    - 21,2"
+    - 30%A0
+    - D4CD
+    - 5c23Dc
+    - '!$?#'
+    - 35%tV"
+    - 4&$/
+    - 7@4B
+    - 11#"
+    - 6SG'
+    - $!(/
+    - )"2!
+    - )!$B
+    - 22 4! *
+    - dSF=
+    - C34DDC32""!
+    - '##########################################'
+    - A2#B34$2SR4&DEC#UE1EEC3E2E&2$4$
+    - D332"
+    - '#DT2&'
+    - 3&#A3S
+    - '@15De3'
+    - BG%2#32$63R%1
+    - 3&$C
+    - uTR4BC#34C&%"A
+    - $B21
+    - '"#1"'
+    - $Ut%33
+    - $D3?
+    - FA$V4UVDf%2RB3$23#&DCVCD%oCD4CD?
+    - '&6cS#0'
+    - $ADS"B
+    - '#464e*3CCTETUVTdUgVf)BC%$3C3CC3C323*VUF543#2#"'
+    - '#W4%%deUTC*4Ed#DVuDTfeefU*fVWGUufVDeUduE*ddD33"'
+    - '!##3ceV)3D4TUUVVfffgfv(C43D4CDCD4DCSD(D4D44CC3323332)eTdE554D334"3"*Uc0'
+    - 2*!""#33466DTVeV)2433E43E5DDEE5)DTDSTTDDEE#STE)DD4BD33$$4#"3
+    - '*DD43$"2!2'
+    - '!"#"B4C+'
+    - DCcE4eEUETETd+ETTETDTUEDTDCD+54D4444$33#3##,&UTDcS443C333",$
+    - '}''F8'
+    - B#$?
+    - 4TC"3
+    - -$#!
+    - 1"#/
+    - '""#!2'
+    - ED4!
+    - EWB$4A
+    - DuUe5(
+    - '#S22"!#'
+    - '&(C"'
+    - e0#B//
+    - '# $(c'
+    - 3AB#"#d#d'
+    - 2!R#"
+    - '!''!#'
+    - 3#!4FU#F(U"SRD3B15S
+    - 3 "(A
+    - B""2 B
+    - )CQ!A15eEfd"33
+    - )#C!
+    - C*C"
+    - 2EBE)TQ
+    - '#"!2'
+    - 43*R"
+    - '*"5R'
+    - '#D!#E)'
+    - '*C " #1'
+    - De3&uCF)2$#6D3
+    - CC433$3)342"
+    - 222"
+    - 4B !*
+    - '"21"*!2$'
+    - DC43
+    - +"Su$!43# @
+    - '#$B,'
+    - A3+T53U1
+    - E+"!E#
+    - '"%,P0DE0'
+    - /3 4
+    - $C!!@
+    - -6,$
+    - '! >0'
+    - ',$".'
+    - 4#!#!
+    - 4@^%
+    - $"0%
+    - '>(.C'
+    - (m50K
+    - _(5a4
+    - 4"4C3FEv4(#1!12"21B#"145(2EP
+    - W#21DB#(B3#"B
+    - C#3S?
+    - )3C!
+    - 4##EQ"
+    - '"ER#5DB4c34C*!#U""$UTTB#6@#+TG33C#V'
+    - 2,?.
+    - hYxCAR_SWTN
+    - CAR_SputOutput
+    - 6CAR_Sputter
+    - 'ABK Pass A: signature=ABKC'
+    - 'ABK Pass A: byteLength=41952'
+    - 'ABK Pass A: dataOffset=0xC80'
+    - 'ABK Pass A: BNKl offset=0xC80 found=True'
+    - 'ABK Pass A: first cue count candidate=1 at 0x80'
+    - 'ABK Pass A: stable generated cue slots=0'
+    - 'ABK Pass A warning: cue slot count is not stable enough for generated clip
+      names yet.'
+    decodedClip: {fileID: 0}
+  engineEventNames:
+  - cARCCU
+  sweetenerEventNames:
+  - CAR_SputOutput
+  missingRefs: []

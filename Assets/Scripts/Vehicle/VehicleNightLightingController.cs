@@ -31,7 +31,7 @@ namespace Underground.Vehicle
         // ─────────────────────────────────────────────────────────────────────
 
         [SerializeField] private Transform modelRoot;
-        [SerializeField] private DayNightCycleController dayNightCycle;
+        [SerializeField] private TimeOfDay packageTimeOfDay;
         [SerializeField] private InputReader input;
         [SerializeField] private Rigidbody vehicleBody;
         [SerializeField] private bool trafficLighting;
@@ -148,7 +148,7 @@ namespace Underground.Vehicle
             }
 
             EnsureLightingRig();
-            bool nightActive = dayNightCycle != null && dayNightCycle.IsNight;
+            bool nightActive = PackageTimeOfDayUtility.IsNight(packageTimeOfDay);
             ApplyLighting(nightActive);
         }
 
@@ -186,9 +186,9 @@ namespace Underground.Vehicle
                 modelRoot = candidate != null ? candidate : transform;
             }
 
-            if (dayNightCycle == null)
+            if (packageTimeOfDay == null)
             {
-                dayNightCycle = FindFirstObjectByType<DayNightCycleController>();
+                packageTimeOfDay = PackageTimeOfDayUtility.FindPackageTimeOfDay();
             }
 
             if (input == null)

@@ -1,8 +1,6 @@
 using System;
 using Underground.Core.Architecture;
 using Underground.Save;
-using Underground.Session;
-using Underground.TimeSystem;
 using UnityEngine;
 
 namespace Underground.Race
@@ -14,49 +12,46 @@ namespace Underground.Race
         public static event Action<RaceManager> RaceStarted;
         public static event Action<RaceManager> RaceEnded;
 
+        public enum RaceState
+        {
+            Idle,
+            Armed,
+            Countdown,
+            Active,
+            Finished,
+            Results,
+            FreeRoam
+        }
+
         [Header("Race Setup")]
         [SerializeField] private RaceDefinition activeRace;
-        [SerializeField] private SessionManager sessionManager;
-        [SerializeField] private RiskSystem riskSystem;
-        [SerializeField] private DayNightCycleController dayNightCycle;
         [SerializeField] private PersistentProgressManager progressManager;
 
-        [Header("Track Limiter")]
+        [Header("Countdown")]
+        [SerializeField] private float countdownDuration = 3f;
+
+        [Header("Prototype Course")]
         [SerializeField] private float raceLength = 240f;
         [SerializeField] private float halfTrackWidth = 16f;
         [SerializeField] private float limiterSpacing = 20f;
         [SerializeField] private float limiterHeight = 2.4f;
         [SerializeField] private float finishTriggerDepth = 14f;
 
+        private Renderer[] markerRenderers;
         private Transform activeCourseRoot;
         private RaceFinishTrigger finishTrigger;
-        private Renderer[] markerRenderers;
+        private float countdownTimer;
 
-        public bool IsRaceActive { get; private set; }
+        public RaceState CurrentState { get; private set; } = RaceState.Idle;
+        public bool IsRaceActive => CurrentState is RaceState.Active or RaceState.Countdown or RaceState.Finished or RaceState.Results;
         public RaceDefinition ActiveDefinition => activeRace;
         public string DisplayName => activeRace != null && !string.IsNullOrWhiteSpace(activeRace.displayName) ? activeRace.displayName : gameObject.name;
         public string ActiveObjectiveText => IsRaceActive ? $"{DisplayName} - Reach the finish gate" : string.Empty;
+        public float CountdownProgress => countdownTimer / countdownDuration;
+        public int CountdownNumber => Mathf.CeilToInt(countdownTimer);
 
         private void Awake()
         {
-            if (sessionManager == null)
-            {
-                sessionManager = ServiceResolver.Resolve<ISessionService>(null) as SessionManager
-                    ?? FindFirstObjectByType<SessionManager>();
-            }
-
-            if (riskSystem == null)
-            {
-                riskSystem = ServiceResolver.Resolve<IRiskService>(null) as RiskSystem
-                    ?? FindFirstObjectByType<RiskSystem>();
-            }
-
-            if (dayNightCycle == null)
-            {
-                dayNightCycle = ServiceResolver.Resolve<ITimeOfDayService>(null) as DayNightCycleController
-                    ?? FindFirstObjectByType<DayNightCycleController>();
-            }
-
             if (progressManager == null)
             {
                 progressManager = ServiceResolver.Resolve<IProgressService>(null) as PersistentProgressManager
@@ -66,19 +61,32 @@ namespace Underground.Race
             markerRenderers = GetComponentsInChildren<Renderer>(true);
         }
 
+        private void Update()
+        {
+            if (CurrentState == RaceState.Armed)
+            {
+                CurrentState = RaceState.Countdown;
+                BuildRaceCourse();
+            }
+
+            if (CurrentState != RaceState.Countdown)
+            {
+                return;
+            }
+
+            countdownTimer -= Time.deltaTime;
+            if (countdownTimer <= 0f)
+            {
+                countdownTimer = 0f;
+                CurrentState = RaceState.Active;
+            }
+        }
+
         public bool CanStartRace()
         {
-            if (activeRace == null || IsRaceActive || (ActiveRace != null && ActiveRace != this))
-            {
-                return false;
-            }
-
-            if (activeRace.nightOnly && (dayNightCycle == null || !dayNightCycle.IsNight))
-            {
-                return false;
-            }
-
-            return true;
+            return CurrentState == RaceState.Idle
+                && activeRace != null
+                && (ActiveRace == null || ActiveRace == this);
         }
 
         public string GetStartPrompt()
@@ -93,11 +101,6 @@ namespace Underground.Race
                 return ActiveObjectiveText;
             }
 
-            if (activeRace.nightOnly && (dayNightCycle == null || !dayNightCycle.IsNight))
-            {
-                return $"{DisplayName} - Night only";
-            }
-
             return $"Press F or Enter to start {DisplayName}";
         }
 
@@ -108,11 +111,14 @@ namespace Underground.Race
                 return false;
             }
 
-            IsRaceActive = true;
+            CurrentState = RaceState.Armed;
             ActiveRace = this;
             ToggleMarker(false);
-            BuildRaceCourse();
+            countdownTimer = countdownDuration;
+
+            ServiceLocator.EventBus.Publish(new RaceStartedEvent(activeRace.raceId));
             RaceStarted?.Invoke(this);
+
             return true;
         }
 
@@ -143,24 +149,16 @@ namespace Underground.Race
                 return;
             }
 
-            if (QuickRaceSessionData.IsActive)
-            {
-                return;
-            }
-
             if (!string.IsNullOrWhiteSpace(activeRace.raceId))
             {
                 progressManager?.RegisterRaceCompletion(activeRace.raceId);
             }
 
-            bool isNight = dayNightCycle != null && dayNightCycle.IsNight;
-            float multiplier = riskSystem != null ? riskSystem.GetRewardMultiplier(isNight) : 1f;
+            int money = activeRace.rewardMoney;
+            int rep = activeRace.rewardReputation;
 
-            int money = Mathf.RoundToInt(activeRace.rewardMoney * multiplier);
-            int rep = Mathf.RoundToInt(activeRace.rewardReputation * multiplier);
-
-            sessionManager?.AddMoney(money);
-            sessionManager?.AddReputation(rep);
+            ServiceLocator.EventBus.Publish(new RaceFinishedEvent(activeRace.raceId, playerWon, money, rep));
+            ServiceLocator.EventBus.Publish(new RaceRewardsBankedEvent(money, rep));
         }
 
         private void CompleteAndCloseRace(bool playerWon)
@@ -170,21 +168,19 @@ namespace Underground.Race
                 CompleteRace(true);
             }
 
-            CleanupRaceCourse();
-            IsRaceActive = false;
-
-            if (ActiveRace == this)
-            {
-                ActiveRace = null;
-            }
-
+            CurrentState = RaceState.Finished;
+            ActiveRace = null;
             ToggleMarker(true);
             RaceEnded?.Invoke(this);
 
-            if (activeRace != null && QuickRaceSessionData.IsSelectedRace(activeRace.raceId))
-            {
-                QuickRaceSessionData.Clear();
-            }
+            // Return to free roam after brief delay
+            Invoke(nameof(ReturnToFreeRoam), 2f);
+        }
+
+        private void ReturnToFreeRoam()
+        {
+            CleanupRaceCourse();
+            CurrentState = RaceState.Idle;
         }
 
         private void BuildRaceCourse()

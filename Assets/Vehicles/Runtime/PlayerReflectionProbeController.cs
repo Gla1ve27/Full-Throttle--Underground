@@ -86,13 +86,13 @@ namespace Underground.Vehicle
 
         private void OnWorldTimeChanged(WorldTimeChangedEvent e)
         {
-            // DayNightCycleController publishes time in 0–24 range
+            // The DayNight Sun prefab publishes time in 0-24 range.
             _normalizedTimeOfDay = e.TimeOfDay / 24f;
             _isNight = e.IsNight;
             _receivedTimeEvent = true;
         }
 
-        // ── Called by DayNightCycleController after transition settles ───────
+        // Called by the active day/night service after transition settles.
 
         /// <summary>
         /// Call this after a day→night or night→day transition fully completes.

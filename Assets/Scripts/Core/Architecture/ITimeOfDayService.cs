@@ -4,6 +4,7 @@ namespace Underground.Core.Architecture
     {
         float TimeOfDay { get; }
         bool IsNight { get; }
+        TimeWindow CurrentWindow { get; }
         void SetTime(float timeOfDay);
     }
 }

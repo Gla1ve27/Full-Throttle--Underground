@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 // ForzaLightingSetup is an EDIT MODE ONLY tool.
 // It bakes a lighting preset into the scene before you press Play.
-// DayNightCycleController owns all lighting at runtime and will overwrite
+// The DayNight Sun prefab owns all lighting at runtime and will overwrite
 // any changes this tool makes during Play Mode every frame — so running it
 // during Play Mode is both useless and causes InvalidOperationException errors.
 public class ForzaLightingSetup : EditorWindow
@@ -18,7 +18,7 @@ public class ForzaLightingSetup : EditorWindow
         {
             Debug.LogWarning("[ForzaLightingSetup] This tool only works in Edit Mode. " +
                 "Exit Play Mode first, then apply the preset. " +
-                "DayNightCycleController controls lighting at runtime.");
+                "The DayNight Sun prefab controls lighting at runtime.");
             return;
         }
         ApplyLighting(true);
@@ -31,7 +31,7 @@ public class ForzaLightingSetup : EditorWindow
         {
             Debug.LogWarning("[ForzaLightingSetup] This tool only works in Edit Mode. " +
                 "Exit Play Mode first, then apply the preset. " +
-                "DayNightCycleController controls lighting at runtime.");
+                "The DayNight Sun prefab controls lighting at runtime.");
             return;
         }
         ApplyLighting(false);

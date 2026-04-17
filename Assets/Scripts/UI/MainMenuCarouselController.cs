@@ -271,7 +271,7 @@ namespace Underground.UI
                     menuController?.OpenCareer();
                     break;
                 case MenuAction.QuickRace:
-                    menuController?.OpenQuickRace();
+                    menuController?.OpenWorld();
                     break;
                 case MenuAction.Settings:
                     if (settingsPanel != null)

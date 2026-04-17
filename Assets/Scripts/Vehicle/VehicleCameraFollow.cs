@@ -6,7 +6,16 @@ namespace Underground.Vehicle
     [RequireComponent(typeof(Camera))]
     public class VehicleCameraFollow : MonoBehaviour
     {
-        private const int RecommendedPresetVersion = 4;
+        public enum CameraViewMode
+        {
+            CloseChase = 0,
+            FarChase = 1,
+            Hood = 2,
+            Bumper = 3
+        }
+
+        private const int RecommendedPresetVersion = 5;
+        private const int CameraViewModeCount = 4;
 
         [Header("References")]
         public Transform target;
@@ -30,6 +39,21 @@ namespace Underground.Vehicle
         public float highSpeedLookAheadDistance = 6.4f;
         public float focusHeight = 0.36f;
         public float rotationSharpness = 13.5f;
+
+        [Header("Camera Cycling")]
+        public KeyCode cameraCycleKey = KeyCode.C;
+        public CameraViewMode viewMode = CameraViewMode.CloseChase;
+        public float farChaseDistance = 7.25f;
+        public float farChaseHeight = 1.8f;
+        public float farChaseLookAhead = 7.5f;
+        public float hoodCameraForwardOffset = 1.55f;
+        public float hoodCameraHeight = 0.82f;
+        public float hoodCameraLookAhead = 12f;
+        public float bumperCameraForwardOffset = 2.35f;
+        public float bumperCameraHeight = 0.42f;
+        public float bumperCameraLookAhead = 13.5f;
+        public float mountedViewFieldOfView = 86f;
+        public float mountedViewSpeedFieldOfViewAdd = 8f;
 
         [Header("Heading")]
         public float velocityHeadingBlend = 0.08f;
@@ -124,6 +148,7 @@ namespace Underground.Vehicle
         {
             Transform existingTarget = target;
             Rigidbody existingBody = targetBody;
+            CameraViewMode existingViewMode = viewMode;
 
             targetOffset = new Vector3(0f, 0.20f, 0f);
 
@@ -135,6 +160,20 @@ namespace Underground.Vehicle
             highSpeedLookAheadDistance = 6.4f;
             focusHeight = 0.36f;
             rotationSharpness = 13.5f;
+
+            cameraCycleKey = KeyCode.C;
+            viewMode = CameraViewMode.CloseChase;
+            farChaseDistance = 7.25f;
+            farChaseHeight = 1.8f;
+            farChaseLookAhead = 7.5f;
+            hoodCameraForwardOffset = 1.55f;
+            hoodCameraHeight = 0.82f;
+            hoodCameraLookAhead = 12f;
+            bumperCameraForwardOffset = 2.35f;
+            bumperCameraHeight = 0.42f;
+            bumperCameraLookAhead = 13.5f;
+            mountedViewFieldOfView = 86f;
+            mountedViewSpeedFieldOfViewAdd = 8f;
 
             velocityHeadingBlend = 0.08f;
             headingResponsiveness = 6.0f;
@@ -173,6 +212,7 @@ namespace Underground.Vehicle
             {
                 target = existingTarget;
                 targetBody = existingBody;
+                viewMode = existingViewMode;
             }
         }
 
@@ -205,6 +245,8 @@ namespace Underground.Vehicle
                 }
             }
 
+            UpdateCameraCycleInput();
+
             float dt = Mathf.Max(0.0001f, Time.deltaTime);
 
             Vector3 velocity = targetBody != null ? targetBody.linearVelocity : Vector3.zero;
@@ -217,7 +259,7 @@ namespace Underground.Vehicle
             Vector3 pivot = GetStablePivot();
             Vector3 planarForward = GetPlanarForward(dt);
 
-            bool isOrbiting = Input.GetMouseButton(1);
+            bool isOrbiting = IsChaseView(viewMode) && Input.GetMouseButton(1);
 
             if (isOrbiting)
             {
@@ -230,6 +272,17 @@ namespace Underground.Vehicle
 
             UpdateCameraPose(pivot, planarForward, speedT, dt, isOrbiting);
             UpdateFieldOfView(speedT, dt);
+        }
+
+        private void UpdateCameraCycleInput()
+        {
+            if (!Input.GetKeyDown(cameraCycleKey))
+            {
+                return;
+            }
+
+            int nextView = ((int)viewMode + 1) % CameraViewModeCount;
+            viewMode = (CameraViewMode)nextView;
         }
 
         private Vector3 GetStablePivot()
@@ -335,14 +388,25 @@ Vector3 localVelocity = referenceTransform.InverseTransformDirection(targetBody.
             );
         }
 
+        private static bool IsChaseView(CameraViewMode mode)
+        {
+            return mode == CameraViewMode.CloseChase || mode == CameraViewMode.FarChase;
+        }
+
+        private Transform GetVehicleReferenceTransform()
+        {
+            return targetBody != null ? targetBody.transform : target;
+        }
+
         private void UpdateCameraPose(Vector3 pivot, Vector3 planarForward, float speedT, float dt, bool isOrbiting)
         {
             Vector3 desiredPosition;
             Quaternion desiredRotation;
 
-            bool isReturning = Mathf.Abs(currentOrbitYaw) > 0.1f || Mathf.Abs(currentOrbitPitch) > 0.1f;
+            bool canOrbit = IsChaseView(viewMode);
+            bool isReturning = canOrbit && (Mathf.Abs(currentOrbitYaw) > 0.1f || Mathf.Abs(currentOrbitPitch) > 0.1f);
 
-            if (isOrbiting || isReturning)
+            if (canOrbit && (isOrbiting || isReturning))
             {
                 // Align orbit basis with car forward so offset puts camera behind
                 Quaternion orbitBasis = Quaternion.LookRotation(planarForward, Vector3.up);
@@ -354,11 +418,19 @@ Vector3 localVelocity = referenceTransform.InverseTransformDirection(targetBody.
                 Vector3 orbitLookTarget = pivot + Vector3.up * orbitLookHeight;
                 desiredRotation = Quaternion.LookRotation(orbitLookTarget - desiredPosition, Vector3.up);
             }
-            else
+            else if (IsChaseView(viewMode))
             {
-                float distance = Mathf.Lerp(followDistance, highSpeedFollowDistance, speedT);
-                float height = Mathf.Lerp(followHeight, highSpeedFollowHeight, speedT);
-                float lookAhead = Mathf.Lerp(lookAheadDistance, highSpeedLookAheadDistance, speedT);
+                bool farChase = viewMode == CameraViewMode.FarChase;
+                float distance = farChase
+                    ? Mathf.Lerp(farChaseDistance, farChaseDistance + 0.85f, speedT)
+                    : Mathf.Lerp(followDistance, highSpeedFollowDistance, speedT);
+                float height = farChase
+                    ? Mathf.Lerp(farChaseHeight, farChaseHeight + 0.35f, speedT)
+                    : Mathf.Lerp(followHeight, highSpeedFollowHeight, speedT);
+                float lookAhead = farChase
+                    ? Mathf.Lerp(farChaseLookAhead, farChaseLookAhead + 1.5f, speedT)
+                    : Mathf.Lerp(lookAheadDistance, highSpeedLookAheadDistance, speedT);
+                float lookHeight = farChase ? focusHeight + 0.34f : focusHeight;
                 float speedPitch = Mathf.Lerp(0f, speedPitchAtMax, speedT);
 
                 Vector3 lateral = Vector3.Cross(Vector3.up, planarForward).normalized;
@@ -370,7 +442,7 @@ Vector3 localVelocity = referenceTransform.InverseTransformDirection(targetBody.
                     pivot
                     + planarForward * lookAhead
                     + lateral * lateralLook
-                    + Vector3.up * focusHeight;
+                    + Vector3.up * lookHeight;
 
                 desiredRotation = Quaternion.LookRotation(lookTarget - desiredPosition, Vector3.up);
                 desiredRotation *= Quaternion.Euler(speedPitch, 0f, 0f);
@@ -378,6 +450,37 @@ Vector3 localVelocity = referenceTransform.InverseTransformDirection(targetBody.
                 if (enableCameraShake)
                 {
                     desiredPosition += GetBuffetingOffset(planarForward, smoothedSpeedKph);
+                    desiredRotation *= GetShakeRotationOffset(smoothedSpeedKph);
+                }
+            }
+            else
+            {
+                Transform referenceTransform = GetVehicleReferenceTransform();
+                Vector3 carForward = referenceTransform != null
+                    ? Vector3.ProjectOnPlane(referenceTransform.forward, Vector3.up).normalized
+                    : planarForward;
+
+                if (carForward.sqrMagnitude < 0.001f)
+                {
+                    carForward = planarForward;
+                }
+
+                bool hoodView = viewMode == CameraViewMode.Hood;
+                float forwardOffset = hoodView ? hoodCameraForwardOffset : bumperCameraForwardOffset;
+                float height = hoodView ? hoodCameraHeight : bumperCameraHeight;
+                float lookAhead = hoodView ? hoodCameraLookAhead : bumperCameraLookAhead;
+                float lookLift = hoodView ? 0.18f : 0.10f;
+                float speedPitch = Mathf.Lerp(0f, -2.25f, speedT);
+
+                Vector3 carPosition = referenceTransform != null ? referenceTransform.position : pivot;
+                desiredPosition = carPosition + carForward * forwardOffset + Vector3.up * height;
+                Vector3 lookTarget = desiredPosition + carForward * lookAhead + Vector3.up * lookLift;
+                desiredRotation = Quaternion.LookRotation(lookTarget - desiredPosition, Vector3.up);
+                desiredRotation *= Quaternion.Euler(speedPitch, 0f, 0f);
+
+                if (enableCameraShake)
+                {
+                    desiredPosition += GetBuffetingOffset(carForward, smoothedSpeedKph) * 0.65f;
                     desiredRotation *= GetShakeRotationOffset(smoothedSpeedKph);
                 }
             }
@@ -400,7 +503,9 @@ Vector3 localVelocity = referenceTransform.InverseTransformDirection(targetBody.
             }
 
             float fovBlend = Mathf.Pow(speedT, fovWarpPower);
-            float targetFov = Mathf.Lerp(minFieldOfView, maxFieldOfView, fovBlend);
+            float targetFov = IsChaseView(viewMode)
+                ? Mathf.Lerp(minFieldOfView, maxFieldOfView, fovBlend)
+                : mountedViewFieldOfView + mountedViewSpeedFieldOfViewAdd * fovBlend;
 
             attachedCamera.fieldOfView = Mathf.Lerp(
                 attachedCamera.fieldOfView,

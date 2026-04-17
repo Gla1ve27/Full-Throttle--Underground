@@ -15,10 +15,10 @@ MonoBehaviour:
   raceId: day_sprint
   displayName: Industrial Sprint
   raceType: 0
-  nightOnly: 0
-  entryFee: 0
   rewardMoney: 900
   rewardReputation: 12
-  minReputation: 0
   laps: 1
+  nightOnly: 0
+  entryFee: 0
+  minReputation: 0
   allowsCarWager: 0

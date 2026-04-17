@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using Underground.Core;
 using Underground.Progression;
 using Underground.Save;
-using Underground.Session;
-using Underground.TimeSystem;
 using Underground.UI;
 using Underground.Vehicle;
 using Underground.World;
@@ -45,8 +43,7 @@ namespace Underground.EditorTools
             root.AddComponent<PersistentRuntimeRoot>();
             root.AddComponent<SaveSystem>();
             root.AddComponent<PersistentProgressManager>();
-            root.AddComponent<RiskSystem>();
-            root.AddComponent<SessionManager>();
+            AddRuntimeSessionManager(root);
             root.AddComponent<VehicleOwnershipSystem>();
 
             GameSettingsManager settingsManager = root.AddComponent<GameSettingsManager>();
@@ -66,36 +63,28 @@ namespace Underground.EditorTools
 
             GameObject worldSystems = new GameObject("WorldSystems");
             Transform sunPivot = CreateEmptyChild(worldSystems.transform, "SunPivot", Vector3.zero);
+            Transform moonPivot = CreateEmptyChild(worldSystems.transform, "MoonPivot", Vector3.zero);
 
             GameObject sunObject = new GameObject("Directional Light");
             sunObject.transform.SetParent(sunPivot, false);
-            sunObject.transform.rotation = Quaternion.Euler(45f, -35f, 0f);
             Light sunLight = sunObject.AddComponent<Light>();
             sunLight.type = LightType.Directional;
             sunLight.intensity = 0.34f;
             sunLight.shadows = LightShadows.Soft;
             sunLight.shadowStrength = 0.88f;
-            sunLight.shadowBias = 0.06f;
-            sunLight.shadowNormalBias = 0.65f;
+            // Keep the sun shadow grounded on streets and curbs instead of letting it
+            // "climb" vertical facades when HDRP uses the generated light in gameplay.
+            sunLight.shadowBias = 0.04f;
+            sunLight.shadowNormalBias = 0.2f;
             sunLight.color = new Color(1f, 0.95f, 0.9f);
 
             GameObject moonObject = new GameObject("Moon Light");
-            moonObject.transform.SetParent(sunPivot, false);
-            moonObject.transform.localRotation = Quaternion.Euler(180f, 0f, 0f);
+            moonObject.transform.SetParent(moonPivot, false);
             Light moonLight = moonObject.AddComponent<Light>();
             moonLight.type = LightType.Directional;
             moonLight.intensity = 0.05f;
             moonLight.color = new Color(0.5f, 0.6f, 1f);
             moonLight.shadows = LightShadows.None;
-
-            DayNightCycleController dayNight = worldSystems.AddComponent<DayNightCycleController>();
-            SetObjectReference(dayNight, "sunPivot", sunPivot);
-            SetObjectReference(dayNight, "sunLight", sunLight);
-            SetObjectReference(dayNight, "moonLight", moonLight);
-            SetBoolValue(dayNight, "lockVisualsToAuthoredDay", true);
-            SetBoolValue(dayNight, "overrideAmbientWithGradient", false);
-            SetObjectReference(dayNight, "daySkyboxMaterial", LoadDaySkyboxMaterial());
-            SetObjectReference(dayNight, "nightSkyboxMaterial", LoadNightSkyboxMaterial());
 
             AttachGlobalVolume(worldSystems.transform, "GlobalVolume", ProjectWorldVolumeProfilePath);
 

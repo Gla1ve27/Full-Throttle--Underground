@@ -9,14 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: affae1b9c6db9444abc1b2de8179f72b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6261ba0e25a55e9409b6a3696eb78711, type: 3}
   m_Name: StarterGripUpgrade
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.UpgradeDefinition
   upgradeId: tires_stage_1
   displayName: Street Tire Compound
-  category: 1
-  cost: 1200
+  category: 0
+  description: 
   reputationRequired: 25
+  price: 0
+  cost: 1200
+  visualPrefabOverridePath: 
+  statsModifier:
+    frontGripDelta: 0
+    rearGripDelta: 0
+    steeringResponseDelta: 0
+    driftAssistDelta: 0
+    horsepowerDelta: 0
+    torqueDelta: 0
+    massDelta: 0
+  handlingModifier: {fileID: 0}
   motorTorqueAdd: 0
   brakeTorqueAdd: 0
   forwardStiffnessAdd: 0.15
@@ -24,6 +36,3 @@ MonoBehaviour:
   springAdd: 0
   damperAdd: 0
   massDelta: 0
-  shiftSpeedBonus: 0
-  visualPrefabOverridePath: 
-  handlingModifier: {fileID: 0}

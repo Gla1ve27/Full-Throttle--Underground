@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ebaf0a77bcd3d04780e21fce8edbb92, type: 3}
+  m_Name: Debug_Profile_18_Nissan_240SX
+  m_EditorClassIdentifier: UG2Audio.Runtime::UG2Audio.Data.UG2StyleProfileDebugReport
+  profileNumber: 18
+  profileName: Nissan_240SX
+  profile: {fileID: 11400000, guid: a09db117edbf6794586ece85b1439c36, type: 2}
+  accelGinRef: SOUND/ENGINE/GIN_Nissan_240SX.gin
+  decelGinRef: SOUND/ENGINE/GIN_Nissan_350ZX_Jason_DCL.gin
+  spuBankRef: SOUND/ENGINE/CAR_18_ENG_MB_SPU.abk
+  eeBankRef: SOUND/ENGINE/CAR_18_ENG_MB_EE.abk
+  sweetenerRef: SOUND/ENGINE/SWTN_CAR_18_MB.abk
+  accelDecodedClip: {fileID: 8300000, guid: 70e6c6f1382b6054f843fb7057d56787, type: 3}
+  decelDecodedClip: {fileID: 8300000, guid: 05bc1d9cc1931d243b3a770abec6d7f7, type: 3}
+  spuDecodedClip: {fileID: 0}
+  eeDecodedClip: {fileID: 0}
+  sweetenerDecodedClip: {fileID: 0}
+  abkRelationshipValidation:
+  - 'SPU engine bank: OK expected=CAR_18_ENG_MB_SPU.abk actual=CAR_18_ENG_MB_SPU.abk'
+  - 'EE engine bank: OK expected=CAR_18_ENG_MB_EE.abk actual=CAR_18_ENG_MB_EE.abk'
+  - 'sweetener bank: OK expected=SWTN_CAR_18_MB.abk actual=SWTN_CAR_18_MB.abk'
+  spuBankPassAMetadata:
+  - 'ABK Pass A: signature=ABKC'
+  - 'ABK Pass A: byteLength=106384'
+  - 'ABK Pass A: dataOffset=0x2800'
+  - 'ABK Pass A: BNKl offset=0x2800 found=True'
+  - 'ABK Pass A: first cue count candidate=8 at 0x80'
+  - 'ABK Pass A: stable generated cue slots=8'
+  eeBankPassAMetadata:
+  - 'ABK Pass A: signature=ABKC'
+  - 'ABK Pass A: byteLength=104720'
+  - 'ABK Pass A: dataOffset=0x2800'
+  - 'ABK Pass A: BNKl offset=0x2800 found=True'
+  - 'ABK Pass A: first cue count candidate=8 at 0x80'
+  - 'ABK Pass A: stable generated cue slots=8'
+  sweetenerBankPassAMetadata:
+  - 'ABK Pass A: signature=ABKC'
+  - 'ABK Pass A: byteLength=41952'
+  - 'ABK Pass A: dataOffset=0xC80'
+  - 'ABK Pass A: BNKl offset=0xC80 found=True'
+  - 'ABK Pass A: first cue count candidate=1 at 0x80'
+  - 'ABK Pass A: stable generated cue slots=0'
+  - 'ABK Pass A warning: cue slot count is not stable enough for generated clip names
+    yet.'
+  spuBankCueNames:
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_01 index=1 tableOffset=0x80 sampleOffset=0x628
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_02 index=2 tableOffset=0x84 sampleOffset=0x834
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_03 index=3 tableOffset=0x88 sampleOffset=0x978
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_04 index=4 tableOffset=0x8C sampleOffset=0xC4C
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_05 index=5 tableOffset=0x90 sampleOffset=0xDCC
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_06 index=6 tableOffset=0x94 sampleOffset=0xF34
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_07 index=7 tableOffset=0x98 sampleOffset=0x1078
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_SPU_08 index=8 tableOffset=0x9C sampleOffset=0x1158
+    confidence=stable-engine-bank-count'
+  eeBankCueNames:
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_01 index=1 tableOffset=0x80 sampleOffset=0x3FC
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_02 index=2 tableOffset=0x84 sampleOffset=0x70C
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_03 index=3 tableOffset=0x88 sampleOffset=0x918
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_04 index=4 tableOffset=0x8C sampleOffset=0xA5C
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_05 index=5 tableOffset=0x90 sampleOffset=0xD5C
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_06 index=6 tableOffset=0x94 sampleOffset=0xEDC
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_07 index=7 tableOffset=0x98 sampleOffset=0x1014
+    confidence=stable-engine-bank-count'
+  - 'ABK Pass A cue: CAR_18_ENG_MB_EE_08 index=8 tableOffset=0x9C sampleOffset=0x114C
+    confidence=stable-engine-bank-count'
+  sweetenerBankCueNames: []
+  shiftCandidates:
+  - GEAR_SML_Base -> SOUND/SHIFTING/GEAR_SML_Base.abk
+  - GEAR_SML_Lev1 -> SOUND/SHIFTING/GEAR_SML_Lev1.abk
+  - GEAR_SML_Lev2 -> SOUND/SHIFTING/GEAR_SML_Lev2.abk
+  - GEAR_SML_Lev3 -> SOUND/SHIFTING/GEAR_SML_Lev3.abk
+  - GEAR_MED_Base -> SOUND/SHIFTING/GEAR_MED_Base.abk
+  - GEAR_MED_Lev1 -> SOUND/SHIFTING/GEAR_MED_Lev1.abk
+  - GEAR_MED_Lev2 -> SOUND/SHIFTING/GEAR_MED_Lev2.abk
+  - GEAR_MED_Lev3 -> SOUND/SHIFTING/GEAR_MED_Lev3.abk
+  - GEAR_LRG_Base -> SOUND/SHIFTING/GEAR_LRG_Base.abk
+  - GEAR_LRG_Lev1 -> SOUND/SHIFTING/GEAR_LRG_Lev1.abk
+  - GEAR_LRG_Lev2 -> SOUND/SHIFTING/GEAR_LRG_Lev2.abk
+  - GEAR_LRG_Lev3 -> SOUND/SHIFTING/GEAR_LRG_Lev3.abk
+  - GEAR_TK_Base -> SOUND/SHIFTING/GEAR_TK_Base.abk
+  - GEAR_TK_Lev1 -> SOUND/SHIFTING/GEAR_TK_Lev1.abk
+  - GEAR_TK_Lev2 -> SOUND/SHIFTING/GEAR_TK_Lev2.abk
+  - GEAR_TK_Lev3 -> SOUND/SHIFTING/GEAR_TK_Lev3.abk
+  turboCandidates:
+  - TURBO_SML1_0_MB -> SOUND/TURBO/TURBO_SML1_0_MB.abk
+  - TURBO_SML1_1_MB -> SOUND/TURBO/TURBO_SML1_1_MB.abk
+  - TURBO_SML1_2_MB -> SOUND/TURBO/TURBO_SML1_2_MB.abk
+  - TURBO_SML2_0_MB -> SOUND/TURBO/TURBO_SML2_0_MB.abk
+  - TURBO_SML2_1_MB -> SOUND/TURBO/TURBO_SML2_1_MB.abk
+  - TURBO_SML2_2_MB -> SOUND/TURBO/TURBO_SML2_2_MB.abk
+  - TURBO_MED_0_MB -> SOUND/TURBO/TURBO_MED_0_MB.abk
+  - TURBO_MED_1_MB -> SOUND/TURBO/TURBO_MED_1_MB.abk
+  - TURBO_MED_2_MB -> SOUND/TURBO/TURBO_MED_2_MB.abk
+  - TURBO_BIG_0_MB -> SOUND/TURBO/TURBO_BIG_0_MB.abk
+  - TURBO_BIG_1_MB -> SOUND/TURBO/TURBO_BIG_1_MB.abk
+  - TURBO_BIG_2_MB -> SOUND/TURBO/TURBO_BIG_2_MB.abk
+  - TURBO_TRUCK_0_MB -> SOUND/TURBO/TURBO_TRUCK_0_MB.abk
+  - TURBO_TRUCK_1_MB -> SOUND/TURBO/TURBO_TRUCK_1_MB.abk
+  - TURBO_TRUCK_2_MB -> SOUND/TURBO/TURBO_TRUCK_2_MB.abk
+  skidCandidates:
+  - SKID_PAV_MB -> SOUND/SKIDS/SKID_PAV_MB.abk
+  - SKID_PAV2_MB -> SOUND/SKIDS/SKID_PAV2_MB.abk
+  - SKIDS_DRIFT_MB -> SOUND/SKIDS/SKIDS_DRIFT_MB.abk
+  - SKIDS_DRIFT2_MB -> SOUND/SKIDS/SKIDS_DRIFT2_MB.abk
+  eventNames:
+  - AEMS_StichCollision
+  - AEMS_StichWoosh
+  - CAR_SputOutput
+  - CAR_Sputter
+  - CAR_SWTN
+  - ENV_STATIC
+  - FEDriveOn
+  - FX_Camera
+  - FX_Hydraulic
+  - FX_Hydr_Bounce
+  - FX_MAIN_MEM
+  - FX_NITROUS
+  - FX_NITROUS_01
+  - FX_PURGE
+  - FX_ROADNOISE
+  - FX_ROADNOISE_TRANS
+  - FX_Scrape
+  - FX_SHIFTING_01
+  - FX_SKID
+  - FX_SPARKCHATTER
+  - FX_TRAFFIC
+  - FX_TURBO_01
+  - FX_Weather
+  - FX_WIND
+  - FX_WIND_Weather
+  - PlayCommonSample
+  - PlayFrontEndSample
+  - PlayFrontEndSample_loop
+  - SIREN
+  - Sputter_Message
+  warnings: []

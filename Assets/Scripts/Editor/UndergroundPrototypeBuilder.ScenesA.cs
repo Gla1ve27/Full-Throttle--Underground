@@ -11,7 +11,6 @@ using Underground.Core;
 using Underground.Garage;
 using Underground.Progression;
 using Underground.Save;
-using Underground.Session;
 using Underground.UI;
 using Underground.Vehicle;
 using Underground.World;

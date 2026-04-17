@@ -1,2 +1,17 @@
 fileFormatVersion: 2
 guid: 35bb2be452da28441a28e9970c8e48f3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioBank: {instanceID: 0}
+  - tierSelector: {instanceID: 0}
+  - gearbox: {instanceID: 0}
+  - vehicle: {instanceID: 0}
+  - input: {instanceID: 0}
+  - sourceRoot: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

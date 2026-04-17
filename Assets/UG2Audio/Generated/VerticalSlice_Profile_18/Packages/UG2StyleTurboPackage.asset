@@ -1,0 +1,2264 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ac2388c54fae3b4a806bab9ff49df05, type: 3}
+  m_Name: UG2StyleTurboPackage
+  m_EditorClassIdentifier: UG2Audio.Runtime::UG2Audio.Data.UG2StyleTurboPackage
+  eventName: FX_TURBO_01
+  small1:
+  - tierName: TURBO_SML1_0_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML1_0_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML1_0_MB.abk
+      fileName: TURBO_SML1_0_MB.abk
+      extension: .abk
+      byteLength: 59896
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - B/>!
+      - DC!.
+      - $;;_
+      - f?`Ra
+      - '##B?-'
+      - 4/m=
+      - '&1?S'
+      - 3&.B
+      - '#C=.'
+      - =T.[
+      - '@!>1'
+      - -L\,
+      - -C3e
+      - 1?"/
+      - C@1"
+      - B5S/
+      - '!m213'
+      - NN2N
+      - '!!BB'
+      - lnQ<
+      - '"0"!!'
+      - +/,2
+      - '!R1.'
+      - '>!40'
+      - 1=#1
+      - <<N1
+      - 0lcQAB
+      - T$/M
+      - b"/"
+      - '*oLO'
+      - 5=#F
+      - '!="JO2'
+      - 1/,"
+      - '#*11'
+      - '#2_?:'
+      - 32#?
+      - 01>!
+      - '%E.2'
+      - 4RS1
+      - 0$1,
+      - eU5Q
+      - 1&R,
+      - Ce4+
+      - S4.C
+      - 9?OQ
+      - 124"
+      - 6;a#
+      - ANA5
+      - '"$AQ'
+      - '>?&^'
+      - A7'LK+
+      - ']>o.'
+      - '!4$!'
+      - 6"@0
+      - bU77
+      - B#D1o
+      - <(K_
+      - /$2/=
+      - n$/0
+      - '!4CS'
+      - A$O"
+      - 455d
+      - C2T#b
+      - S63A
+      - 0f5f
+      - SDT6
+      - ',%SA'
+      - $dFP
+      - 1%CB
+      - 2#!!
+      - ^vCk
+      - '#4 "'
+      - '#2B31'
+      - '@2 &'
+      - B$-N
+      - c6-V
+      - BB1C
+      - '"Lc#"'
+      - 0$ !
+      - 12Bt
+      - B3$/_#
+      - E%R"
+      - 2"B!
+      - aVER3EB
+      - 1$!"
+      - 1#%/
+      - .P?%
+      - -$<N
+      - '!32"'
+      - C$4/
+      - Cd6Tb
+      - U4S$
+      - C!$N!
+      - 4$C%
+      - .34"1
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_SML1_1_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML1_1_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML1_1_MB.abk
+      fileName: TURBO_SML1_1_MB.abk
+      extension: .abk
+      byteLength: 75512
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - C/!&
+      - 2"-23
+      - -d%!
+      - '!b$0'
+      - '@`$?A'
+      - '`F#O'
+      - BR,5/
+      - '!/4/'
+      - ']I;oM'
+      - 3$0!!
+      - '"!4>'
+      - ;3<+
+      - ."FP
+      - PT2%^-
+      - '#2C1'
+      - '!R ;'
+      - C03#O
+      - SE0d#
+      - b0D3
+      - VC./
+      - U!E#
+      - A#--
+      - 1VEgS
+      - / !%
+      - 1"!"#
+      - '%P#T'
+      - 3.!=
+      - Q-4?
+      - a#"#3
+      - S250
+      - $0#"
+      - O$4e
+      - K#$/
+      - 4CC4
+      - '"2C40'
+      - 30&M
+      - $2^0
+      - B!!3
+      - /8!#
+      - P8!0
+      - CBM)Q
+      - '@eS0'
+      - 9/RN
+      - '#R"BP  .'
+      - 3b01
+      - 336&
+      - a[$!
+      - OMuS
+      - '''_B/'
+      - P6v&
+      - 1402
+      - '"$_"'
+      - '#M$"'
+      - 521/
+      - B3>6/
+      - '#!B='
+      - s^^5
+      - \BW5
+      - '#3MR'
+      - 5EB#
+      - C3$-
+      - A/!%
+      - '%cA%'
+      - '? ".'
+      - <0"/ #
+      - '#/)R'
+      - '!Q"$'
+      - <-!2
+      - 321?
+      - cR"@GBE
+      - Ad%C3""
+      - '#!3!'
+      - DC5E$
+      - TC !
+      - 5/TB#1
+      - $o>RT
+      - 1A"&S/
+      - C$@B
+      - E0p%
+      - '""  #D'
+      - R7J?
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_SML1_2_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML1_2_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML1_2_MB.abk
+      fileName: TURBO_SML1_2_MB.abk
+      extension: .abk
+      byteLength: 74360
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - C/!&
+      - 2"-23
+      - -d%!
+      - '!b$0'
+      - '@`$?A'
+      - '`F#O'
+      - DO2!
+      - 22""4
+      - R43!/
+      - 3t3D
+      - D%2/
+      - AF$L
+      - '&4S24'
+      - '!"A#?'
+      - '!"2>'
+      - A".!
+      - ']"z0'
+      - '!$!!'
+      - 3%$DB
+      - PRUQQ
+      - ?#"a
+      - bV>C
+      - +> [
+      - P$%=
+      - 1?>@
+      - J$,E
+      - 0E,/
+      - ',0% +'
+      - ec6U,
+      - $B2#
+      - C/4n2
+      - TDTe
+      - C 1"4
+      - 3;"$
+      - -R06
+      - '&,3o'
+      - /" 7
+      - 3-7!
+      - .=M=-
+      - aB?P$
+      - '!B.N'
+      - ', -$'
+      - C!>#
+      - 24/!
+      - 0B_&
+      - 0$#O
+      - / 1?
+      - 5#"U
+      - A$>3
+      - 310B
+      - T=$5@
+      - '"!T0'
+      - :lM1
+      - '!]_'''
+      - '!!D32'
+      - '"332@'
+      - 4>!M
+      - '%31SD@'
+      - MofQ
+      - />/0
+      - '#C22'
+      - 15$6
+      - '!42BC1'
+      - '!&b3'
+      - $1#!
+      - 2$#^
+      - A4/4/
+      - '#.Gn'
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  small2:
+  - tierName: TURBO_SML2_0_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML2_0_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML2_0_MB.abk
+      fileName: TURBO_SML2_0_MB.abk
+      extension: .abk
+      byteLength: 63864
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - C/!&
+      - 2"-23
+      - -d%!
+      - '!b$0'
+      - '@`$?A'
+      - '`F#O'
+      - 23!3
+      - <O!^
+      - 1@-1
+      - 1+=A
+      - A "/
+      - 'C01:'
+      - 6de@
+      - ?1$$
+      - $PT!"
+      - ',0:@'
+      - .=][/
+      - /=/2
+      - Zi,/
+      - ',;LD'
+      - ',[-,'
+      - '#! R'
+      - -K@->
+      - '=34]'
+      - B/aa
+      - APE3
+      - 3">:2
+      - P6.;
+      - ', :@'
+      - Zj,/
+      - ']1j=Z'
+      - ',;LC'
+      - ',K.,'
+      - '>B<#'
+      - '"P^.'
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_SML2_1_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML2_1_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML2_1_MB.abk
+      fileName: TURBO_SML2_1_MB.abk
+      extension: .abk
+      byteLength: 78072
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - O&0f
+      - '#5<E'
+      - OE!-#O
+      - '!BGOA'
+      - +O,#
+      - M5 K
+      - ?"#!
+      - '!e.3'
+      - ?#. !
+      - /+1\
+      - '%j/ :'
+      - 2N4o
+      - 6!kM
+      - '8Oe0:'
+      - 0 P!
+      - N4"E
+      - .?"D
+      - NYO"
+      - ']/!!'
+      - '&!!% 5?'
+      - $CG#-
+      - SA62
+      - :kO/
+      - /"22
+      - b1>1
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_SML2_2_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_SML2_2_MB.abk
+      relativePath: SOUND/TURBO/TURBO_SML2_2_MB.abk
+      fileName: TURBO_SML2_2_MB.abk
+      extension: .abk
+      byteLength: 78456
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - O&0f
+      - 5q%^
+      - '"#!/'
+      - kG;5
+      - S0-!
+      - Bg/$Q
+      - '""#`'
+      - 03-N
+      - /!M#
+      - /$,?
+      - .()S
+      - //38
+      - A"C1
+      - SObA
+      - L>="
+      - '"3A0'
+      - '3n3]'
+      - ']C.S4b%'
+      - ?D_T
+      - 153%5
+      - ?#?4
+      - 27/S
+      - n%"c
+      - 2@"-
+      - '@4!!'
+      - '"1>!'
+      - 22!#
+      - G76#
+      - :."=M
+      - .,0!
+      - ?#-B#Q
+      - o-.?
+      - 0L="
+      - '[=!,C'
+      - $"Dd
+      - 0N?.
+      - S5EB,
+      - ',c4$@'
+      - '!3?@'
+      - '#4F7F'
+      - \'%#
+      - 0/10
+      - '"3Q,'
+      - +O:6
+      - '!#!# !'
+      - F0!,
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  medium:
+  - tierName: TURBO_MED_0_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_MED_0_MB.abk
+      relativePath: SOUND/TURBO/TURBO_MED_0_MB.abk
+      fileName: TURBO_MED_0_MB.abk
+      extension: .abk
+      byteLength: 76536
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - ^?5*
+      - B+..
+      - .MR!
+      - 2"+N
+      - B* 0C
+      - 0BC/
+      - '>3_*'
+      - '>4A`'
+      - F, +
+      - 4!o0
+      - :"@.
+      - ',n,n'
+      - b]"%
+      - CAT%
+      - 3$d,!4Q
+      - '#@<O'
+      - '##!"'
+      - =;21
+      - '&10='
+      - ER#2
+      - C1!/
+      - L2B,
+      - -+%=
+      - ;*?0
+      - S"cR
+      - '%EB$2BD'
+      - 2A%+2C
+      - $232>
+      - 3 P"
+      - $"10
+      - ;/2=
+      - Nd4!#
+      - $0&FaO
+      - '%1QD'
+      - C3*C
+      - '&!"P'
+      - D4"O
+      - 0C"C
+      - ?52O
+      - '@$%Q'
+      - $M31
+      - 1BSgC
+      - '@#$E?'
+      - '"C "'
+      - '>=52'
+      - 11%Q
+      - 10"4
+      - 3#C1
+      - 6Eu#2
+      - 5Btv
+      - 14"!
+      - $4S60,
+      - bF$6
+      - '&B#<'
+      - 0j,[.|
+      - A0"1
+      - T3d#?
+      - '"WR#0'
+      - +10/
+      - ; #/
+      - '%1! 4'
+      - '#$10'
+      - P4!m
+      - 21/^
+      - 04Rf
+      - 2-"\
+      - '"3"2'
+      - '#-5c'
+      - '!/%a'
+      - '#,60% $='
+      - '# _6'
+      - S1!7n
+      - '!0?B'
+      - /00 A
+      - '"0,]'
+      - 0D62L
+      - $42C
+      - 1b<0
+      - '!/"<'
+      - A>O!
+      - 504C
+      - d",5
+      - 5P4N
+      - 5*2#
+      - .%,6
+      - /&N.
+      - '#"/!'
+      - 8<%_
+      - 3;9$
+      - '%2>#'
+      - 1+#9
+      - 2#41
+      - '#1$t'
+      - '*Q/!'
+      - '>/KA'
+      - 030.
+      - 31 [
+      - '>\//'
+      - '%.C2'
+      - P.12
+      - 5R%-
+      - '##!c'
+      - CDB3
+      - '#d$,'
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_MED_1_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_MED_1_MB.abk
+      relativePath: SOUND/TURBO/TURBO_MED_1_MB.abk
+      fileName: TURBO_MED_1_MB.abk
+      extension: .abk
+      byteLength: 76024
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - O&0f
+      - '!O!2'
+      - O6=?
+      - 61A.
+      - .G@;
+      - /UUD
+      - EsCE!
+      - 7T3S
+      - gAE-"
+      - '"R&R'
+      - rD#n
+      - WcC4<
+      - 6DS#T
+      - DuC3
+      - e2U1
+      - $U$UD4;
+      - C#?E6
+      - 5/!"
+      - FA$#A
+      - '#"95,'
+      - O!RT
+      - 4;5D
+      - V 2!
+      - WS52C&m
+      - 447W8
+      - 4gfwvdeos
+      - 2v?/
+      - $ED%
+      - f"1/
+      - gfgEd
+      - 7d$a
+      - s5TE2dA
+      - Re6eT
+      - lGDKQ
+      - btCO
+      - .^ED
+      - r4B1
+      - '`3@D'
+      - BEO`
+      - VeB7@
+      - /TDA
+      - N@<3
+      - cgUEB
+      - eU_D
+      - B5P"
+      - gTs#!
+      - wFt$Vc
+      - /'PA
+      - 4TSC
+      - 4A2C
+      - /!$323
+      - 4:,JE
+      - 1%5.2
+      - '"2$1'
+      - '@#/"'
+      - '"A0Q'
+      - '%3>C'
+      - PO/"
+      - ?#"!0
+      - P@.c
+      - \`A2
+      - ?+ =
+      - '!"!!'
+      - W/e>7UU
+      - G2w-
+      - VDfTs
+      - b%#K
+      - VdB>
+      - g4ugS
+      - '>1''>a'
+      - ?AcC
+      - '/75b:'
+      - '&-;B'
+      - 7=wT
+      - .@7FU
+      - fDv&u1
+      - l7VA@
+      - ?$1V@
+      - TP3U
+      - D3sU
+      - R7wg
+      - 7fFU&0vTTU
+      - 3geww
+      - S#4E
+      - Rfee
+      - 4P7Tu&aD
+      - '''1G?'
+      - u262$4>
+      - uVVC5
+      - '%UdFf'
+      - FvT3C
+      - 3+,=
+      - tRUb
+      - DUUDU2DCDN
+      - =-^2
+      - C?&_
+      - C !"
+      - 4 !O
+      - '"S%."'
+      - e"5!
+      - $#eSQ5
+      - fA33
+      - '#"5!E@'
+      - WDC"u
+      - 04C3^
+      - +"!#
+      - 0"/#
+      - 351D3
+      - m<#$C"1
+      - u#"%
+      - 12!%-
+      - 26.?
+      - 4202
+      - C"#P
+      - B5 1
+      - B13!
+      - '!@.0'
+      - '":/_'
+      - /0-O
+      - 2%TVe^
+      - 1S$/
+      - '" 1"1'
+      - 4$3C$.
+      - '%2>#'
+      - 1+#9
+      - 2#41
+      - '#1$t'
+      - '*Q/!'
+      - '>/KA'
+      - 030.
+      - 31 [
+      - '>\//'
+      - '%.C2'
+      - P.12
+      - 5R%-
+      - '##!c'
+      - CDB3
+      - '#d$,'
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_MED_2_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_MED_2_MB.abk
+      relativePath: SOUND/TURBO/TURBO_MED_2_MB.abk
+      fileName: TURBO_MED_2_MB.abk
+      extension: .abk
+      byteLength: 87928
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - O&0f
+      - '"4c2'
+      - a# $
+      - rGd5
+      - u6</
+      - GC3!
+      - 4EC5
+      - p5Vn$
+      - '!%P'''
+      - 5F=c
+      - '#5P/5'
+      - ?% "
+      - '#T"4'
+      - '!Q$-'
+      - 20"1
+      - 5RV/
+      - '!D!E'
+      - R$<!
+      - B"2?
+      - T%"b
+      - '"#C"'
+      - 2$/4
+      - 4Q$1
+      - C04-
+      - '"FeR'
+      - '@3&3'
+      - S$"C
+      - FC7l
+      - '>-#<'
+      - DA"Q
+      - Gd$_
+      - 0%2/
+      - '"E6|'
+      - '!05$'
+      - 42!Q
+      - 4A% 0,
+      - ACD$!
+      - '!3A$'
+      - '""-0'
+      - '"Q>%'
+      - '#1U''2.'
+      - 1%CFA$
+      - T#!N
+      - ;/$R
+      - $S3A
+      - '"b!3'
+      - 2&1m
+      - ND$>
+      - /(#=&
+      - V0%VO
+      - '#DT*'
+      - 2,!/
+      - AF$V
+      - /] o
+      - u"tDC
+      - WeEU.
+      - WT<@
+      - SVUUS
+      - c43CC
+      - eeeeOCT5DDR
+      - '#EEEE'
+      - EfeeK
+      - v5ff
+      - rffc
+      - CWS?
+      - P^0A<}
+      - 1 [#
+      - 01!00
+      - P"+2
+      - $!02"-
+      - 5S2"E0
+      - '!#!2'
+      - O7SS
+      - SfggT
+      - '%ww0$%'
+      - '#A0"""'
+      - '%z:='
+      - 251#
+      - E#BJ"
+      - aE"$
+      - '"f6UVU'
+      - U4T444400v
+      - 'JpsMeNG:'
+      - Do_*
+      - '{-r.'
+      - 4!1Z
+      - Y.+4
+      - sAsD
+      - 'DE,]'
+      - S^v2
+      - ',/aB'
+      - E uBE#E
+      - '%Lq&'
+      - Qbc2
+      - WBS_Z!1
+      - 1" GT
+      - 4DQpO
+      - <dDE
+      - 9&M7
+      - 3sB_&
+      - '''*qj'
+      - IT0]&
+      - /u03
+      - 3@D$
+      - T3.C
+      - '!#21'
+      - '&`''k'
+      - $.$"
+      - '!#"A'
+      - 2$0#
+      - T4@!
+      - ']4BJ'
+      - .O>c
+      - T&SU
+      - QBB&
+      - =!&,
+      - .1@"
+      - '!"$"#N'
+      - T22>&O
+      - e "5,
+      - C51F
+      - U2$B4T
+      - _E#U5
+      - 2$06
+      - '#U0f'
+      - '#$/E'
+      - 0"!$
+      - '" $ 2'
+      - 4#2"A$!"1
+      - Cl04
+      - 1!!?A
+      - E3S4SE33#D)
+      - Uo7Tfua
+      - g%V?
+      - wwt23D
+      - F6rC
+      - '''2FVQ'
+      - -M!,
+      - fBuWww
+      - '%wFVUB'
+      - 02?,
+      - ggwwS.
+      - wwwTC"
+      - 1MjM
+      - 4SwwFwb%N
+      - 1D31
+      - eFru1
+      - 7TD0
+      - bWgr
+      - GwwfO
+      - wgGeOE -
+      - Bt3%E
+      - $.s61C
+      - 01!2#
+      - 'c4vwA:'
+      - VtguGqW
+      - 2wTf>
+      - '!#!Q'
+      - BE5TD5//
+      - '#42%'
+      - RG!.
+      - '#76vF@V'
+      - 50,c
+      - /0K?
+      - '|53}uP'
+      - .">*L
+      - W'<A=1Q
+      - wpDZ
+      - ?#lo
+      - p&.j1
+      - cA2G}
+      - p~'n%|A
+      - qG^E
+      - 97IG
+      - CPLs
+      - w%TD.G
+      - '#1D/'
+      - =5>2n
+      - N2!1S50q$ !.
+      - c$Md
+      - '"-C2SA'
+      - '>$ 4'
+      - 3#2$
+      - '" 2/$'
+      - /2!A
+      - Y/I3
+      - B3B!"
+      - fA%cS
+      - o% %A
+      - 7>r!
+      - /$""@
+      - R!C/
+      - '#%!#O'
+      - ?"2!
+      - /2BP&
+      - N3#!"
+      - '"32V'
+      - 10 Q
+      - Ml-M
+      - Q!!/
+      - '!OL!'
+      - b?*PQ
+      - 0&.A.3
+      - KQ=#N
+      - /'JR
+      - MoP03
+      - 3SB3
+      - '>@4"^'
+      - Lj1\
+      - -@KB
+      - .L?>?
+      - '>P201'
+      - O`.-
+      - N?\!
+      - -O)>
+      - .!1;
+      - .n=?
+      - K} M@
+      - '" .A'
+      - N0=0
+      - <-o+
+      - ']?=N'
+      - '>=-.j'
+      - ZjN>
+      - ;<l#
+      - +^k;_
+      - =ZL>
+      - =K.0
+      - '%2>#'
+      - 1+#9
+      - 2#41
+      - '#1$t'
+      - '*Q/!'
+      - '>/KA'
+      - 030.
+      - 31 [
+      - '>\//'
+      - '%.C2'
+      - P.12
+      - 5R%-
+      - '##!c'
+      - CDB3
+      - '#d$,'
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  big:
+  - tierName: TURBO_BIG_0_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_BIG_0_MB.abk
+      relativePath: SOUND/TURBO/TURBO_BIG_0_MB.abk
+      fileName: TURBO_BIG_0_MB.abk
+      extension: .abk
+      byteLength: 84856
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - :%A0
+      - '|B`B'
+      - '}ET;'
+      - 5>0.b
+      - P0.R
+      - 2!?5
+      - Co&@
+      - '"1Qe'
+      - 33"3
+      - ^VCw-
+      - RT1f
+      - 5R1F
+      - T350
+      - d+#B
+      - 4?#N
+      - 2_>#
+      - /!Q,
+      - '!:RM'
+      - '!N4@'
+      - '!E Q'
+      - S.4/
+      - '#34EEdUeef%334444CSDCSD$4%CCS4C"C#223'
+      - '"1&T34'
+      - '"2CD%###2C2CB4#33B4%$43CD4CSD55344$"'
+      - '%R523 2'
+      - $#/$
+      - 0PO2@
+      - '@]2^'
+      - CSE"
+      - 3@1N_N
+      - 2 N^
+      - '- C""E'
+      - '!#&4'
+      - 1>B1
+      - iL<.0
+      - '!>@/'
+      - gea@
+      - /R@$
+      - '>#""'
+      - S$.1
+      - =3"C
+      - '"""+'
+      - 03 O
+      - '#%1?'
+      - A@20#N$A2R%
+      - 3B1!
+      - '!.\N'
+      - 3-1N#
+      - 3TEF
+      - 2 B1
+      - O>0!$
+      - RO""
+      - VNOr
+      - /,-@,
+      - N@"D
+      - '"0=!'
+      - 222#13
+      - 151!
+      - 11?/
+      - $#D.
+      - /442
+      - ?2 -
+      - '*]>/'
+      - 0. !
+      - A##=
+      - '!$?U2'
+      - ',2]?'
+      - -@/2
+      - '!f5!'
+      - .b43
+      - '&71?'
+      - 6fBa3
+      - 22o_
+      - 2_&O
+      - $^!4
+      - 3Ob#
+      - b4#!
+      - .42MO
+      - .334
+      - m,]#
+      - '!3~1'
+      - '%-0NO'
+      - '>0+%'
+      - 5_521=
+      - e5]?
+      - '%@`='
+      - 15^PT3
+      - ',Q#!'
+      - '%^0?'
+      - '"521'
+      - ',A!5'
+      - cE?5
+      - '&")F'
+      - '!6Q;'
+      - /$$>
+      - /2T.6
+      - PO6.
+      - Q641!
+      - m#`3
+      - '#0@$'
+      - '|$#2'
+      - '"$0&'
+      - 2$A&
+      - '!AB2'
+      - O;=-
+      - E4 0
+      - D27#
+      - 1C2 .
+      - T1AO
+      - '''@!,'
+      - S#?8"
+      - N `/
+      - 1?2b$
+      - '*#!^'
+      - :#!<
+      - .]SQ
+      - 0!,-+
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_BIG_1_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_BIG_1_MB.abk
+      relativePath: SOUND/TURBO/TURBO_BIG_1_MB.abk
+      fileName: TURBO_BIG_1_MB.abk
+      extension: .abk
+      byteLength: 65784
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - :%A0
+      - '|B`B'
+      - '}ET;'
+      - 5>0.b
+      - P0.R
+      - '!D12'
+      - O#3O#a
+      - '@"/O'
+      - '#u20'
+      - '"d#?'
+      - 3#@-T
+      - '#="1'
+      - D3SN
+      - M4 "
+      - $1#B
+      - '!"5!'
+      - 0"/!
+      - 2/2@
+      - '!3=1'
+      - '#O#2'
+      - /" "
+      - '#$4@'
+      - 3"23!
+      - $24!
+      - 4C@$
+      - 3/R$
+      - 2-2?
+      - 4B4AA3
+      - 51#"
+      - '&OAZ'
+      - +197
+      - 7"U3
+      - 7`"P5
+      - 2N#=
+      - o#3="
+      - '"B4c'
+      - '@C?!'
+      - /]")a
+      - 4ED2
+      - '! \|'
+      - '"O5V'
+      - C42S5W
+      - 3C$UT?
+      - .cC0
+      - DV_.
+      - ;Z^L
+      - $b,$
+      - <-"0
+      - '>N".O'
+      - N2;!
+      - = 4;U
+      - -.?4
+      - L-L-4
+      - D5B1
+      - /</!9,/
+      - $!&B
+      - b,S#
+      - '%D>M'
+      - <0M<
+      - 0$1#
+      - B/%@
+      - /^ M
+      - 4"B22
+      - .^&0
+      - .%>#
+      - '#3$11'
+      - P"^2
+      - .A3!
+      - -$"A
+      - ?#."
+      - ^313
+      - B4>E1!
+      - -B#c
+      - 3E c
+      - K],@
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_BIG_2_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_BIG_2_MB.abk
+      relativePath: SOUND/TURBO/TURBO_BIG_2_MB.abk
+      fileName: TURBO_BIG_2_MB.abk
+      extension: .abk
+      byteLength: 74488
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - :%A0
+      - '|B`B'
+      - '}ET;'
+      - 5>0.b
+      - P0.R
+      - D4"1
+      - '%S00'
+      - '!C6A""'
+      - 32"A
+      - /3"J
+      - -12S/
+      - '&C31'
+      - 7SD0
+      - 1\Y0
+      - 0!0 >
+      - =.!!
+      - -M !
+      - '#? !1'
+      - ;|0R
+      - '#5U_'
+      - '[ 0?'
+      - '[?n='
+      - '!# ,'
+      - <!^D1
+      - 0,,0
+      - A#^P
+      - S1E0
+      - '@410'
+      - 2 -0
+      - '%A/='
+      - '5dB]'
+      - '!2>N'
+      - L #;
+      - /!B<
+      - /!#!
+      - c1AA
+      - '"A5C'
+      - _6AL
+      - A2K7_
+      - c7N"
+      - A.$2
+      - .,=/
+      - ?AD<
+      - BPT6F&eB
+      - 2>"#$LR
+      - D0T"4A
+      - J[>1
+      - 3*Y?
+      - R/N=
+      - '>,?.'
+      - /=<.
+      - ',^,@'
+      - /K_K
+      - L?o-
+      - 5*j[
+      - .5KB
+      - 3&@9
+      - e"<;
+      - '"?#2"'
+      - oADC
+      - lO1#
+      - 122"E2%
+      - 12SP
+      - DBR3
+      - /!"3
+      - bS3T%4"
+      - '!0. /Q'
+      - ?Q/?
+      - '!00"'
+      - QDd2
+      - '!D1!'
+      - $.DP
+      - '`=.L'
+      - m/9b
+      - O>3k
+      - O2."
+      - -^0?
+      - 6<\B
+      - '"# 7'
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  truck:
+  - tierName: TURBO_TRUCK_0_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_TRUCK_0_MB.abk
+      relativePath: SOUND/TURBO/TURBO_TRUCK_0_MB.abk
+      fileName: TURBO_TRUCK_0_MB.abk
+      extension: .abk
+      byteLength: 82552
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - O&0f
+      - K%\$
+      - 0222
+      - -E6C,
+      - c$e$0
+      - 5CVO3
+      - T!$A
+      - B34!#
+      - Q5EE
+      - '&A1B'
+      - VT2S%
+      - B""@
+      - '#41"'
+      - A#E24"R
+      - '!U04"'
+      - 3B%3Da
+      - '&#040'
+      - BT!E
+      - '"#!30'
+      - =#!0#/!%
+      - 2A`5
+      - OI!p
+      - '# "N"'
+      - t5Q5
+      - o'/e
+      - q&0U
+      - p'CU
+      - 163a
+      - r&_G1c
+      - CE4/3
+      - '# E#0'
+      - D34>
+      - 3>#$
+      - 03/#
+      - '@D$B'
+      - /"TV
+      - $O45<
+      - 0$"!
+      - '""D?'
+      - 34B$C
+      - 1#G0
+      - '`6t&Cb'
+      - 1 .2
+      - 2D-"
+      - 5E%o
+      - 2# ?
+      - $!5C
+      - 3\,?
+      - 6b5'/
+      - $$dCqR_
+      - 3e"2
+      - '>V%r'
+      - .%>4
+      - ?%.$
+      - 2%?!
+      - ?tC5
+      - /2"B4
+      - U1&4
+      - D1##0
+      - ?$!4
+      - '? 1!'
+      - B$^V
+      - l'mV
+      - 3M/?O
+      - ?$;T
+      - 2C!2
+      - =6<3
+      - /".#
+      - /%>"
+      - ^#-5
+      - $=O!
+      - $"$%
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_TRUCK_1_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_TRUCK_1_MB.abk
+      relativePath: SOUND/TURBO/TURBO_TRUCK_1_MB.abk
+      fileName: TURBO_TRUCK_1_MB.abk
+      extension: .abk
+      byteLength: 54520
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - C/!&
+      - 2"-23
+      - -d%!
+      - '!b$0'
+      - '@`$?A'
+      - '`F#O'
+      - '>/."'
+      - /BN"
+      - =#2E
+      - r! d
+      - '#4a2#'
+      - ',/</?'
+      - '!25E'
+      - .$>"
+      - D2Q3 2 #!C
+      - 2!#1""$3
+      - 5+55
+      - 0/24/
+      - G2"e
+      - '#*a-<1o'
+      - Oia=
+      - =]=_
+      - 3-;>
+      - '>D1d'
+      - A&5%
+      - 6$U$
+      - 'B!$]'
+      - 4!PTD
+      - _$M!
+      - .>$B
+      - E $,
+      - S$&$
+      - '%T-T'
+      - '%!NS'
+      - -2>%
+      - e"0$
+      - .! 5 @,.
+      - C"PR
+      - 3A_#
+      - 5U'B
+      - 15~F%
+      - P$U<
+      - '&#;1'
+      - '"//-%'
+      - 3%Bd
+      - $2F4
+      - '''/-"'
+      - A2>#
+      - ?3?&
+      - 5DS01
+      - 535/&!#
+      - ;0/"
+      - VVFR"
+      - '"''</'
+      - '@7##EA'
+      - '"%S('
+      - 1(/0
+      - '@"/0'
+      - 2B-K
+      - 3#$.
+      - 3"!<
+      - S6_R&2
+      - '"3C1"'
+      - 2433
+      - C#40c
+      - '>/01'
+      - NQ/"
+      - 2TC A?
+      - $ $,3
+      - 34$#TE
+      - 1"$;
+      - B$Q/
+      - 2%`2o*
+      - BD23$
+      - 47F1]*
+      - '*A1N'
+      - '`C/b'
+      - '#Rc4c^5'
+      - 3R4-0
+      - ']L>@N@'
+      - . -/
+      - -$./
+      - 1$C/
+      - 4R@Q
+      - E#S"4
+      - $"A!
+      - <$->
+      - ',$<.!'
+      - I%=0
+      - d/ ?
+      - QC#=
+      - 22S<%0
+      - ',A"O3'
+      - 1%"^A
+      - DD1"
+      - '*SdTS/'
+      - 6!N!
+      - y2 {
+      - N"5$&
+      - 04.1
+      - o!>?
+      - R2@-
+      - 06fQP!
+      - '"/10'
+      - 0()?
+      - O2/@
+      - 1>^!
+      - -C"/
+      - ',9$!'
+      - 0:"S
+      - b#]*
+      - 00:Q
+      - T_">
+      - -1Qn+
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []
+  - tierName: TURBO_TRUCK_2_MB
+    bank:
+      sourcePath: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/SOUND/TURBO/TURBO_TRUCK_2_MB.abk
+      relativePath: SOUND/TURBO/TURBO_TRUCK_2_MB.abk
+      fileName: TURBO_TRUCK_2_MB.abk
+      extension: .abk
+      byteLength: 55672
+      signature: "ABKC\x01\x01\x01"
+      identifiers:
+      - ABKC
+      - '& 2!'
+      - '''E)a*'
+      - 2]4u5*7E8
+      - K(M|N&P\Q
+      - ^&_L`
+      - b)cOd
+      - hEiwj
+      - umvUw
+      - 0=2)4p5
+      - MfN\O
+      - R(TpUfV
+      - hGi=j
+      - mfn[o
+      - '{(|z|'
+      - '}p}p}'
+      - ~e~e~
+      - BNKl
+      - :%A0
+      - '|B`B'
+      - '}ET;'
+      - 5>0.b
+      - P0.R
+      - '%m.4'
+      - '&"24'
+      - ///$4
+      - D4CD4CD44D!#Nf"-
+      - '" 2"'
+      - /3""!""!""!"
+      - 1"!1!11
+      - '#" A B'
+      - 3!"32#
+      - '>C!5S'
+      - .#/!
+      - N$??
+      - '"$34'
+      - A/%/&
+      - '#!Q"'
+      - 4!..
+      - /"/(#"=F
+      - '"$S)'
+      - ) 0^
+      - 1$S2
+      - OC2Q
+      - b$.)
+      - '!1.4'
+      - $ACD*
+      - '#>$*@4" $'
+      - '#&"*D#12'
+      - 2!C#C23)
+      - '*/3$'
+      - O`2"b!
+      - C.C*O
+      - F2%."@
+      - A1""
+      - Cb10
+      - ^%/q
+      - $OB2
+      - T/*"A
+      - 1122"/5/#22
+      - '"&1A'
+      - D;6,
+      - '>,?#'
+      - 2!$!
+      - 13<1,
+      - ',0?%'
+      - '>1>O'
+      - LO?!
+      - $2BRCB3
+      - 3DTC3A"@3
+      - '%?!3'
+      - J1=5
+      - C$%_
+      - B332
+      - D4B3
+      - 2$Q#
+      - +F$.
+      - '!4#B$'
+      - '"4@T'
+      - '!420%'
+      - 04B"
+      - A2$@
+      - 0#'D
+      - AF.5_
+      - )-u!X
+      - '>1>_'
+      - $2BRDB3
+      - 3DTD3Q"@3
+      - D3$"$
+      - 0C"1
+      - .0  2N
+      - 0 3*1
+      - FAe%/
+      - 4Z$m51
+      - M4Qe
+      - '#D22'
+      - S6A#
+      - b6"f
+      - />//
+      - S?#0
+      - =o_"
+      - .-/!
+      - N"//
+      - 1; .
+      - /.=O>
+      - .M>>
+      - '[@C3'
+      - ;.Za
+      - '#>*N'
+      - '@43O'
+      - ?0/.
+      - -I]"
+      - n0!/
+      - ->@.>
+      - /,/!
+      - ?*2.
+      - Ob ]M
+      - '*N,*'
+      - .\-N
+      - /N]-
+      - <>#@
+      - 0 ./
+      - '*[Nb'
+      - )+>!
+      - =O.!
+      - ?+LF
+      - .^?/
+      - 'L{/]'
+      - '>j?&'
+      - '><!"'
+      - <]^1
+      - Om0!
+      - ',-=$'
+      - .<%0
+      - .;>#
+      - ^FX_TURBO_01
+      decodedClip: {fileID: 0}
+    eventNames: []

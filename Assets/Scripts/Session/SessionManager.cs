@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Underground.Core.Architecture;
@@ -8,7 +9,7 @@ namespace Underground.Session
     public class SessionManager : MonoBehaviour, ISessionService
     {
         [SerializeField] private PersistentProgressManager persistentProgress;
-        [SerializeField] private RiskSystem riskSystem;
+
         [SerializeField] private string garageSceneName = "Garage";
 
         public int SessionMoney { get; private set; }
@@ -22,11 +23,7 @@ namespace Underground.Session
                     ?? FindFirstObjectByType<PersistentProgressManager>();
             }
 
-            if (riskSystem == null)
-            {
-                riskSystem = ServiceResolver.Resolve<IRiskService>(null) as RiskSystem
-                    ?? FindFirstObjectByType<RiskSystem>();
-            }
+
 
             ServiceLocator.Register<ISessionService>(this);
         }
@@ -40,20 +37,20 @@ namespace Underground.Session
         {
             SessionMoney = 0;
             SessionReputation = 0;
-            riskSystem?.ResetRisk();
+
             ServiceLocator.EventBus.Publish(new SessionStartedEvent(SceneManager.GetActiveScene().name));
         }
 
         public void AddMoney(int amount)
         {
             SessionMoney += Mathf.Max(0, amount);
-            riskSystem?.IncreaseRisk(0.5f);
+
         }
 
         public void AddReputation(int amount)
         {
             SessionReputation += Mathf.Max(0, amount);
-            riskSystem?.IncreaseRisk(0.75f);
+
         }
 
         public void BankSession(float worldTime = 12f)
@@ -69,22 +66,15 @@ namespace Underground.Session
             persistentProgress.AddReputation(SessionReputation);
             SessionMoney = 0;
             SessionReputation = 0;
-            riskSystem?.ResetRisk();
+
             persistentProgress.SaveNow(worldTime, garageSceneName);
             ServiceLocator.EventBus.Publish(new SessionBankedEvent(moneyBanked, reputationBanked, worldTime));
         }
 
+        [Obsolete("Vehicle totalled flow removed for milestone 1")]
         public void OnVehicleTotalled()
         {
-            SessionMoney = 0;
-            SessionReputation = 0;
-            riskSystem?.ResetRisk();
-            ServiceLocator.EventBus.Publish(new SessionFailedEvent("VehicleTotalled"));
-            if (QuickRaceSessionData.IsActive)
-            {
-                QuickRaceSessionData.Clear();
-            }
-            SceneManager.LoadScene(garageSceneName);
+            // No operation - vehicle totalled flow is disabled for first milestone
         }
     }
 }

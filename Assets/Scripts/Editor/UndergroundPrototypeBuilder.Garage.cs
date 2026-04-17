@@ -27,11 +27,7 @@ namespace Underground.EditorTools
 
             GameObject systemsRoot = new GameObject("GarageSystems");
             GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
-            RepairSystem repairSystem = systemsRoot.AddComponent<RepairSystem>();
-            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();
-            SetObjectReference(repairSystem, "playerDamageSystem", backdrop.car.GetComponent<VehicleDamageSystem>());
-            SetObjectReference(repairSystem, "currentCarStats", backdrop.vehicle != null ? backdrop.vehicle.BaseStats : null);
-            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
+            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
 
             Canvas canvas = CreateCanvas("GarageCanvas");
             GarageUiBuild uiBuild = CreateGarageShowroomUi(canvas.transform);
@@ -42,9 +38,7 @@ namespace Underground.EditorTools
             SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
 
             SerializedObject uiSo = new SerializedObject(garageUi);
-            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;
-            uiSo.FindProperty("repairSystem").objectReferenceValue = repairSystem;
-            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
+            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
             uiSo.FindProperty("showroomController").objectReferenceValue = backdrop.showroomController;
             uiSo.FindProperty("displayedVehicle").objectReferenceValue = backdrop.vehicle;
             uiSo.FindProperty("moneyText").objectReferenceValue = uiBuild.moneyText;
@@ -94,14 +88,10 @@ namespace Underground.EditorTools
 
             GameObject systemsRoot = new GameObject("GarageSystems");
             GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
-            RepairSystem repairSystem = systemsRoot.AddComponent<RepairSystem>();
-            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();
-            SetObjectReference(repairSystem, "playerDamageSystem", backdrop.car.GetComponent<VehicleDamageSystem>());
-            SetObjectReference(repairSystem, "currentCarStats", backdrop.vehicle != null ? backdrop.vehicle.BaseStats : null);
-            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
+            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
 
             Canvas canvas = preservedCanvas != null ? preservedCanvas : CreateCanvas("GarageCanvas");
-            ConfigureGarageShowroomUi(canvas, backdrop, garageManager, repairSystem, upgradeSystem, engineUpgrade);
+            ConfigureGarageShowroomUi(canvas, backdrop, garageManager, upgradeSystem, engineUpgrade);
 
             EditorSceneManager.MarkSceneDirty(scene);
         }
@@ -152,7 +142,6 @@ namespace Underground.EditorTools
             Canvas canvas,
             GarageBackdropBuild backdrop,
             GarageManager garageManager,
-            RepairSystem repairSystem,
             UpgradeSystem upgradeSystem,
             UpgradeDefinition engineUpgrade)
         {
@@ -200,9 +189,7 @@ namespace Underground.EditorTools
                 SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
             }
 
-            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;
-            uiSo.FindProperty("repairSystem").objectReferenceValue = repairSystem;
-            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
+            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
             uiSo.FindProperty("showroomController").objectReferenceValue = backdrop.showroomController;
             uiSo.FindProperty("displayedVehicle").objectReferenceValue = backdrop.vehicle;
             uiSo.ApplyModifiedPropertiesWithoutUndo();

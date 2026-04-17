@@ -11,7 +11,6 @@ namespace Underground.UI
     {
         [SerializeField] private PersistentProgressManager progressManager;
         [SerializeField] private GarageManager garageManager;
-        [SerializeField] private RepairSystem repairSystem;
         [SerializeField] private UpgradePurchaseAction engineUpgradeAction;
         [SerializeField] private GarageShowroomController showroomController;
         [SerializeField] private VehicleDynamicsController displayedVehicle;
@@ -44,11 +43,6 @@ namespace Underground.UI
             if (garageManager == null)
             {
                 garageManager = FindFirstObjectByType<GarageManager>();
-            }
-
-            if (repairSystem == null)
-            {
-                repairSystem = FindFirstObjectByType<RepairSystem>();
             }
 
             if (engineUpgradeAction == null)
@@ -194,8 +188,7 @@ namespace Underground.UI
 
         public void RepairCar()
         {
-            bool repaired = repairSystem != null && repairSystem.Repair();
-            SetStatus(repaired ? "Car repaired." : "Repair unavailable.");
+            SetStatus("Repair unavailable.");
             Refresh();
         }
 

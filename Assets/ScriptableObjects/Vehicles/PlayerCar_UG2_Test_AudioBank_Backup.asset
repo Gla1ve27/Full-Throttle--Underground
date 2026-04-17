@@ -1,0 +1,836 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b297e876a62f2f34cab48a9b4be27a23, type: 3}
+  m_Name: PlayerCar_UG2_Test_AudioBank_Backup
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Audio.NFSU2CarAudioBank
+  defaultTier: 0
+  tuning:
+    masterVolume: 1
+    spatialBlend: 1
+    minDistance: 4
+    maxDistance: 85
+    layerFadeSpeed: 6
+    rpmRiseResponse: 14
+    rpmFallResponse: 5
+    throttleResponse: 16
+    brakeResponse: 16
+    speedResponse: 8
+    idleUpper01: 0.18
+    decelSweepLowRpmCutoff01: 0.18
+    lowUpper01: 0.42
+    midUpper01: 0.72
+    limiterEnter01: 0.94
+    throttleOnThreshold: 0.284
+    throttleOffThreshold: 0.06
+    idleSpeedThresholdKph: 6
+    launchThrottleThreshold: 0.62
+    launchRpmUpper01: 0.36
+    launchSpeedUpperKph: 9
+    launchHoldTime: 0.22
+    band01Center: 0.08
+    band02Center: 0.16
+    band03Center: 0.28
+    band04Center: 0.4
+    band05Center: 0.54
+    band06Center: 0.68
+    band07Center: 0.82
+    band08Center: 0.94
+    engineBandWidth: 0.16
+    loopBankDominantVolume: 0.82
+    accelCharacterVolume: 0.15
+    decelCharacterVolume: 0.1
+    sweepSeekResponse: 6
+    sweepDominantVolume: 0.35
+    sweepResyncThresholdSeconds: 0.75
+    sweepPitchCorrectionLimit: 0.025
+    interiorDetectionExtents: {x: 1.2, y: 1.1, z: 1.7}
+    interiorTransitionSpeed: 6
+  stock:
+    tierMasterVolume: 2
+    engineBands:
+    - exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.98, y: 1.05}
+    - exteriorClip: {fileID: 8300000, guid: 033e493931991a449b80f25507807e52, type: 3}
+      interiorClip: {fileID: 8300000, guid: 400201ca606ab3b429565ae1b7befad1, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9742857, y: 1.0457143}
+    - exteriorClip: {fileID: 8300000, guid: 237d364d3823a594ea2b4ca4005dd631, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3acf1d1fff427924390d292689781e82, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9685714, y: 1.0414286}
+    - exteriorClip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
+      interiorClip: {fileID: 8300000, guid: dd557434e5bd474408895ded7a6267f9, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9628571, y: 1.0371429}
+    - exteriorClip: {fileID: 8300000, guid: e57d1f209fb685e459ef1b6d1c5f98c3, type: 3}
+      interiorClip: {fileID: 8300000, guid: 7dc78d4249dde1742b92b74c1fe38aa2, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9571429, y: 1.0328571}
+    - exteriorClip: {fileID: 8300000, guid: e22bf5b20ccdcba4a9959d42ff4dc369, type: 3}
+      interiorClip: {fileID: 8300000, guid: e76e341a9048b7541bd540c73d2c9253, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9514286, y: 1.0285714}
+    - exteriorClip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3b1d324a7d6a81741948c61f1dff2535, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9457143, y: 1.0242857}
+    - exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.94, y: 1.02}
+    idle:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.95
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      interiorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      exteriorVolume: 0.3
+      interiorVolume: 0.18
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.22
+      interiorVolume: 0.14
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelMid:
+      exteriorClip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelHigh:
+      exteriorClip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    limiter:
+      exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 0.72
+      interiorVolume: 0.55
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.65
+      interiorVolume: 0.5
+      pitchRange: {x: 0.65, y: 1}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 8300000, guid: fb9e6b18de0c2a649b9d5894a9fe1103, type: 3}
+        volume: 0.1
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 8300000, guid: f9d1191a8a2265c4d81fbb980897e44f, type: 3}
+        volume: 0.1
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.55
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        interiorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        exteriorVolume: 0.22
+        interiorVolume: 0.12
+        pitchRange: {x: 0.9, y: 1.12}
+      whistle:
+        exteriorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        interiorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.07
+        pitchRange: {x: 0.95, y: 1.12}
+      blowOff:
+        clip: {fileID: 8300000, guid: a5df3f60d2685674dab571fb00dc1184, type: 3}
+        volume: 0.4
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        interiorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        exteriorVolume: 0.1
+        interiorVolume: 0.08
+        pitchRange: {x: 0.98, y: 1.02}
+      drivetrain:
+        exteriorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        interiorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        exteriorVolume: 0.08
+        interiorVolume: 0.06
+        pitchRange: {x: 0.98, y: 1.02}
+      sputter:
+        exteriorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        interiorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.1
+        pitchRange: {x: 0.99, y: 1.01}
+      crackle:
+        clip: {fileID: 8300000, guid: 12c4a6c29f4ec564eb504ed3efee870f, type: 3}
+        volume: 0.22
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 8300000, guid: de37773b8d3847948979bd4ddfae4815, type: 3}
+        volume: 0.16
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.4
+      crackleChancePerSecond: 1.8
+      sputterMinRpm01: 0.3
+      sputterThrottleUpper: 0.14
+      sputterVolume: 0.1
+      sparkChatterChancePerSecond: 0.6
+    skid:
+      skid:
+        exteriorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        interiorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        exteriorVolume: 0.45
+        interiorVolume: 0.16
+        pitchRange: {x: 0.9, y: 1.08}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  street:
+    tierMasterVolume: 1.05
+    engineBands:
+    - exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.98, y: 1.05}
+    - exteriorClip: {fileID: 8300000, guid: 033e493931991a449b80f25507807e52, type: 3}
+      interiorClip: {fileID: 8300000, guid: 400201ca606ab3b429565ae1b7befad1, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9742857, y: 1.0457143}
+    - exteriorClip: {fileID: 8300000, guid: 237d364d3823a594ea2b4ca4005dd631, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3acf1d1fff427924390d292689781e82, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9685714, y: 1.0414286}
+    - exteriorClip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
+      interiorClip: {fileID: 8300000, guid: dd557434e5bd474408895ded7a6267f9, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9628571, y: 1.0371429}
+    - exteriorClip: {fileID: 8300000, guid: e57d1f209fb685e459ef1b6d1c5f98c3, type: 3}
+      interiorClip: {fileID: 8300000, guid: 7dc78d4249dde1742b92b74c1fe38aa2, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9571429, y: 1.0328571}
+    - exteriorClip: {fileID: 8300000, guid: e22bf5b20ccdcba4a9959d42ff4dc369, type: 3}
+      interiorClip: {fileID: 8300000, guid: e76e341a9048b7541bd540c73d2c9253, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9514286, y: 1.0285714}
+    - exteriorClip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3b1d324a7d6a81741948c61f1dff2535, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9457143, y: 1.0242857}
+    - exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.94, y: 1.02}
+    idle:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.95
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      interiorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      exteriorVolume: 0.3
+      interiorVolume: 0.18
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.22
+      interiorVolume: 0.14
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    limiter:
+      exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 0.72
+      interiorVolume: 0.55
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.65
+      interiorVolume: 0.5
+      pitchRange: {x: 0.65, y: 1}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 8300000, guid: fb9e6b18de0c2a649b9d5894a9fe1103, type: 3}
+        volume: 0.9
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 8300000, guid: f9d1191a8a2265c4d81fbb980897e44f, type: 3}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.55
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        interiorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        exteriorVolume: 0.22
+        interiorVolume: 0.12
+        pitchRange: {x: 0.9, y: 1.12}
+      whistle:
+        exteriorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        interiorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.07
+        pitchRange: {x: 0.95, y: 1.12}
+      blowOff:
+        clip: {fileID: 8300000, guid: a5df3f60d2685674dab571fb00dc1184, type: 3}
+        volume: 0.4
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        interiorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        exteriorVolume: 0.1
+        interiorVolume: 0.08
+        pitchRange: {x: 0.98, y: 1.02}
+      drivetrain:
+        exteriorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        interiorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        exteriorVolume: 0.08
+        interiorVolume: 0.06
+        pitchRange: {x: 0.98, y: 1.02}
+      sputter:
+        exteriorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        interiorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.1
+        pitchRange: {x: 0.99, y: 1.01}
+      crackle:
+        clip: {fileID: 8300000, guid: 12c4a6c29f4ec564eb504ed3efee870f, type: 3}
+        volume: 0.22
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 8300000, guid: de37773b8d3847948979bd4ddfae4815, type: 3}
+        volume: 0.16
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.4
+      crackleChancePerSecond: 1.8
+      sputterMinRpm01: 0.3
+      sputterThrottleUpper: 0.14
+      sputterVolume: 0.1
+      sparkChatterChancePerSecond: 0.6
+    skid:
+      skid:
+        exteriorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        interiorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        exteriorVolume: 0.45
+        interiorVolume: 0.16
+        pitchRange: {x: 0.9, y: 1.08}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  pro:
+    tierMasterVolume: 1.1
+    engineBands:
+    - exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.98, y: 1.05}
+    - exteriorClip: {fileID: 8300000, guid: 033e493931991a449b80f25507807e52, type: 3}
+      interiorClip: {fileID: 8300000, guid: 400201ca606ab3b429565ae1b7befad1, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9742857, y: 1.0457143}
+    - exteriorClip: {fileID: 8300000, guid: 237d364d3823a594ea2b4ca4005dd631, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3acf1d1fff427924390d292689781e82, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9685714, y: 1.0414286}
+    - exteriorClip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
+      interiorClip: {fileID: 8300000, guid: dd557434e5bd474408895ded7a6267f9, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9628571, y: 1.0371429}
+    - exteriorClip: {fileID: 8300000, guid: e57d1f209fb685e459ef1b6d1c5f98c3, type: 3}
+      interiorClip: {fileID: 8300000, guid: 7dc78d4249dde1742b92b74c1fe38aa2, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9571429, y: 1.0328571}
+    - exteriorClip: {fileID: 8300000, guid: e22bf5b20ccdcba4a9959d42ff4dc369, type: 3}
+      interiorClip: {fileID: 8300000, guid: e76e341a9048b7541bd540c73d2c9253, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9514286, y: 1.0285714}
+    - exteriorClip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3b1d324a7d6a81741948c61f1dff2535, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9457143, y: 1.0242857}
+    - exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.94, y: 1.02}
+    idle:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.95
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      interiorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      exteriorVolume: 0.3
+      interiorVolume: 0.18
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.22
+      interiorVolume: 0.14
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    limiter:
+      exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 0.72
+      interiorVolume: 0.55
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.65
+      interiorVolume: 0.5
+      pitchRange: {x: 0.65, y: 1}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 8300000, guid: fb9e6b18de0c2a649b9d5894a9fe1103, type: 3}
+        volume: 0.9
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 8300000, guid: f9d1191a8a2265c4d81fbb980897e44f, type: 3}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.55
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        interiorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        exteriorVolume: 0.22
+        interiorVolume: 0.12
+        pitchRange: {x: 0.9, y: 1.12}
+      whistle:
+        exteriorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        interiorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.07
+        pitchRange: {x: 0.95, y: 1.12}
+      blowOff:
+        clip: {fileID: 8300000, guid: a5df3f60d2685674dab571fb00dc1184, type: 3}
+        volume: 0.4
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        interiorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        exteriorVolume: 0.1
+        interiorVolume: 0.08
+        pitchRange: {x: 0.98, y: 1.02}
+      drivetrain:
+        exteriorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        interiorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        exteriorVolume: 0.08
+        interiorVolume: 0.06
+        pitchRange: {x: 0.98, y: 1.02}
+      sputter:
+        exteriorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        interiorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.1
+        pitchRange: {x: 0.99, y: 1.01}
+      crackle:
+        clip: {fileID: 8300000, guid: 12c4a6c29f4ec564eb504ed3efee870f, type: 3}
+        volume: 0.22
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 8300000, guid: de37773b8d3847948979bd4ddfae4815, type: 3}
+        volume: 0.16
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.4
+      crackleChancePerSecond: 1.8
+      sputterMinRpm01: 0.3
+      sputterThrottleUpper: 0.14
+      sputterVolume: 0.1
+      sparkChatterChancePerSecond: 0.6
+    skid:
+      skid:
+        exteriorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        interiorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        exteriorVolume: 0.45
+        interiorVolume: 0.16
+        pitchRange: {x: 0.9, y: 1.08}
+      slipThreshold: 0.18
+      fullSlip: 0.75
+  extreme:
+    tierMasterVolume: 1.15
+    engineBands:
+    - exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.98, y: 1.05}
+    - exteriorClip: {fileID: 8300000, guid: 033e493931991a449b80f25507807e52, type: 3}
+      interiorClip: {fileID: 8300000, guid: 400201ca606ab3b429565ae1b7befad1, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9742857, y: 1.0457143}
+    - exteriorClip: {fileID: 8300000, guid: 237d364d3823a594ea2b4ca4005dd631, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3acf1d1fff427924390d292689781e82, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9685714, y: 1.0414286}
+    - exteriorClip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
+      interiorClip: {fileID: 8300000, guid: dd557434e5bd474408895ded7a6267f9, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9628571, y: 1.0371429}
+    - exteriorClip: {fileID: 8300000, guid: e57d1f209fb685e459ef1b6d1c5f98c3, type: 3}
+      interiorClip: {fileID: 8300000, guid: 7dc78d4249dde1742b92b74c1fe38aa2, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9571429, y: 1.0328571}
+    - exteriorClip: {fileID: 8300000, guid: e22bf5b20ccdcba4a9959d42ff4dc369, type: 3}
+      interiorClip: {fileID: 8300000, guid: e76e341a9048b7541bd540c73d2c9253, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9514286, y: 1.0285714}
+    - exteriorClip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
+      interiorClip: {fileID: 8300000, guid: 3b1d324a7d6a81741948c61f1dff2535, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.9457143, y: 1.0242857}
+    - exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 1
+      interiorVolume: 0.82
+      pitchRange: {x: 0.94, y: 1.02}
+    idle:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.95
+      interiorVolume: 0.75
+      pitchRange: {x: 0.92, y: 1.08}
+    accelSweep:
+      exteriorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      interiorClip: {fileID: 8300000, guid: 8c112ec7ec7d3474e823d745c4ee84da, type: 3}
+      exteriorVolume: 0.3
+      interiorVolume: 0.18
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    decelSweep:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 0.22
+      interiorVolume: 0.14
+      playbackWindow01: {x: 0.08, y: 0.92}
+      pitchRange: {x: 0.98, y: 1.02}
+    accelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    accelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelLow:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelMid:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    decelHigh:
+      exteriorClip: {fileID: 0}
+      interiorClip: {fileID: 0}
+      exteriorVolume: 1
+      interiorVolume: 0.75
+      pitchRange: {x: 0.98, y: 1.02}
+    limiter:
+      exteriorClip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
+      interiorClip: {fileID: 8300000, guid: 9efa1615defacae4cad301247af276fa, type: 3}
+      exteriorVolume: 0.72
+      interiorVolume: 0.55
+      pitchRange: {x: 0.96, y: 1.04}
+    reverse:
+      exteriorClip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
+      interiorClip: {fileID: 8300000, guid: edf02e7d60d7346479c27da9d2dd59a6, type: 3}
+      exteriorVolume: 0.65
+      interiorVolume: 0.5
+      pitchRange: {x: 0.65, y: 1}
+    accelFromIdle:
+      clip: {fileID: 0}
+      volume: 0.75
+      pitchRange: {x: 0.96, y: 1.04}
+    shift:
+      duckAmount: 0.28
+      duckDuration: 0.12
+      cooldown: 0.08
+      pitchDrop: 0.12
+      shiftUp:
+        clip: {fileID: 8300000, guid: fb9e6b18de0c2a649b9d5894a9fe1103, type: 3}
+        volume: 0.9
+        pitchRange: {x: 0.96, y: 1.04}
+      shiftDown:
+        clip: {fileID: 8300000, guid: f9d1191a8a2265c4d81fbb980897e44f, type: 3}
+        volume: 0.8
+        pitchRange: {x: 0.96, y: 1.04}
+    turbo:
+      strength: 0.55
+      spoolAttack: 8
+      spoolRelease: 5
+      whistleStartRpm01: 0.48
+      whistleStartThrottle: 0.42
+      blowOffThrottleDrop: 0.38
+      blowOffMinSpool: 0.32
+      spool:
+        exteriorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        interiorClip: {fileID: 8300000, guid: b11e6eb3ae52ef848aa456cef1c45517, type: 3}
+        exteriorVolume: 0.22
+        interiorVolume: 0.12
+        pitchRange: {x: 0.9, y: 1.12}
+      whistle:
+        exteriorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        interiorClip: {fileID: 8300000, guid: 1c78998cb6c26344a8bb3e21c29d51a2, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.07
+        pitchRange: {x: 0.95, y: 1.12}
+      blowOff:
+        clip: {fileID: 8300000, guid: a5df3f60d2685674dab571fb00dc1184, type: 3}
+        volume: 0.4
+        pitchRange: {x: 0.96, y: 1.04}
+    sweetener:
+      intake:
+        exteriorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        interiorClip: {fileID: 8300000, guid: 73b626d2a28428845a4d485606300d90, type: 3}
+        exteriorVolume: 0.1
+        interiorVolume: 0.08
+        pitchRange: {x: 0.98, y: 1.02}
+      drivetrain:
+        exteriorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        interiorClip: {fileID: 8300000, guid: 81381bee94740744caffd269a8ef3035, type: 3}
+        exteriorVolume: 0.08
+        interiorVolume: 0.06
+        pitchRange: {x: 0.98, y: 1.02}
+      sputter:
+        exteriorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        interiorClip: {fileID: 8300000, guid: c8c873a641178ea48b95f9abdcd51556, type: 3}
+        exteriorVolume: 0.14
+        interiorVolume: 0.1
+        pitchRange: {x: 0.99, y: 1.01}
+      crackle:
+        clip: {fileID: 8300000, guid: 12c4a6c29f4ec564eb504ed3efee870f, type: 3}
+        volume: 0.22
+        pitchRange: {x: 0.96, y: 1.04}
+      sparkChatter:
+        clip: {fileID: 8300000, guid: de37773b8d3847948979bd4ddfae4815, type: 3}
+        volume: 0.16
+        pitchRange: {x: 0.96, y: 1.04}
+      enableLiftOffCrackles: 1
+      crackleMinRpm01: 0.4
+      crackleChancePerSecond: 1.8
+      sputterMinRpm01: 0.3
+      sputterThrottleUpper: 0.14
+      sputterVolume: 0.1
+      sparkChatterChancePerSecond: 0.6
+    skid:
+      skid:
+        exteriorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        interiorClip: {fileID: 8300000, guid: 7ffc09b6507cee54bb93f1fba7a06f62, type: 3}
+        exteriorVolume: 0.45
+        interiorVolume: 0.16
+        pitchRange: {x: 0.9, y: 1.08}
+      slipThreshold: 0.18
+      fullSlip: 0.75

@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385a147c2eb717842a4a360e1f0eb4b8, type: 3}
+  m_Script: {fileID: 11500000, guid: d707a516fffe3cf468ff39a86bc355df, type: 3}
   m_Name: StarterCarStats
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.VehicleStatsData
   vehicleId: rmcar26
   displayName: RMCar26
-  archetype: 3
+  archetype: 0
   drivetrain: 1
   horsepower: 320
-  maxMotorTorque: 540
+  maxMotorTorque: 620
   maxBrakeTorque: 4800
-  maxSpeedKph: 136
+  maxSpeedKph: 245
   torqueCurve:
     serializedVersion: 2
     m_Curve:
@@ -81,45 +81,51 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   idleRPM: 900
-  maxRPM: 5800
-  shiftUpRPM: 5000
-  shiftDownRPM: 1800
-  finalDriveRatio: 3.85
+  maxRPM: 7800
+  shiftUpRPM: 7350
+  shiftDownRPM: 2300
+  finalDriveRatio: 3.75
   gearRatios:
   - 0
-  - 2.35
-  - 1.82
-  - 1.42
-  - 1.08
-  - 0.92
-  - 0.74
+  - 3.1
+  - 2.05
+  - 1.52
+  - 1.18
+  - 0.94
+  - 0.76
   defaultMass: 1480
   weightDistributionFront: 0.52
-  centerOfMassHeight: -0.48
-  centerOfMassOffset: {x: 0, y: -0.48, z: 0.03}
+  centerOfMassHeight: -0.54
+  centerOfMassOffset: {x: 0, y: -0.54, z: 0.04}
+  linearDamping: 0.02
+  angularDamping: 0.05
   spring: 30000
   damper: 3900
   suspensionDistance: 0.18
   antiRollForce: 3200
-  maxSteerAngle: 20.5
-  highSpeedSteerReduction: 0.18
-  steeringResponse: 72
-  forwardStiffness: 1.28
-  sidewaysStiffness: 1.45
-  frontGrip: 1
-  rearGrip: 1
+  maxSteerAngle: 32
+  highSpeedSteerReduction: 0.38
+  steeringResponse: 94
+  forwardStiffness: 1.3
+  sidewaysStiffness: 1.58
+  frontGrip: 1.06
+  rearGrip: 0.98
   traction: 1
   brakeGrip: 1
   slipAngle: 15
-  recoveryRate: 3.5
-  highSpeedStability: 1
-  downforce: 34
-  lateralGripAssist: 1.15
-  handbrakeGripMultiplier: 0.5
+  recoveryRate: 4
+  highSpeedStability: 0.86
+  downforce: 38
+  lateralGripAssist: 0.95
+  handbrakeGripMultiplier: 0.42
   resetLift: 1.2
-  driftAssist: 0.5
-  counterSteerAssist: 0.6
-  yawStability: 0.4
+  driftAssist: 0.72
+  counterSteerAssist: 0.42
+  yawStability: 0.32
   nitrousGripAssist: 0.15
-  baseValue: 15000
+  uiSpeed: 5
+  uiHandling: 5
+  uiPower: 5
+  uiWeight: 5
   repairCostPerDamagePoint: 20
+  baseValue: 15000

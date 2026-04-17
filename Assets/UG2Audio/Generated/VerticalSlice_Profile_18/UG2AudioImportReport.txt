@@ -1,0 +1,52 @@
+UG2 Audio Import Report
+Source root: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2
+speed2.exe: C:/Users/Marc Badua/Downloads/NFS Underground (complete)2/speed2.exe
+ABK banks: 176
+GIN streams: 84
+CSI registries: 8
+MXB mix maps: 4
+FX zones: 12
+Engine profiles: 41
+
+Engine profile mappings:
+00 HondaS2000_Church | GIN_HondaS2000_Church.gin | GIN_S2000_Church_DCL.gin | CAR_00_ENG_MB_SPU.abk | CAR_00_ENG_MB_EE.abk | SWTN_CAR_00_MB.abk
+01 Ferrari_360 | GIN_Ferrari_360.gin | GIN_Ferrari_360_DCL.gin | CAR_01_ENG_MB_SPU.abk | CAR_01_ENG_MB_EE.abk | SWTN_CAR_01_MB.abk
+02 Trueno_AE86 | GIN_Trueno_AE86.gin | GIN_Trueno_DCL.gin | CAR_02_ENG_MB_SPU.abk | CAR_02_ENG_MB_EE.abk | SWTN_CAR_02_MB.abk
+03 Honda_S2000_5zigen | GIN_Honda_S2000_5zigen.gin | GIN_Honda_S2000_5zigen_DCL.gin | CAR_03_ENG_MB_SPU.abk | CAR_03_ENG_MB_EE.abk | SWTN_CAR_03_MB.abk
+04 Honda_S2000_Spugen | GIN_Honda_S2000_Spugen.gin | GIN_Honda_S2000_Spugen_DCL.gin | CAR_04_ENG_MB_SPU.abk | CAR_04_ENG_MB_EE.abk | SWTN_CAR_04_MB.abk
+05 Honda_S2000_spliced | GIN_Honda_S2000_spliced.gin | GIN_HONDA_S2000_Apex_DCL.gin | CAR_05_ENG_MB_SPU.abk | CAR_05_ENG_MB_EE.abk | SWTN_CAR_05_MB.abk
+06 MitsEclipse_2000 | GIN_MitsEclipse_2000.gin | GIN_Eclipse_2000_DCL.gin | CAR_06_ENG_MB_SPU.abk | CAR_06_ENG_MB_EE.abk | SWTN_CAR_06_MB.abk
+07 Nissan_300ZX_Street | GIN_Nissan_300ZX_Street.gin | GIN_Nissan_350ZX_Jason_DCL.gin | CAR_07_ENG_MB_SPU.abk | CAR_07_ENG_MB_EE.abk | SWTN_CAR_07_MB.abk
+08 Eclipse_5zigen | GIN_Eclipse_5zigen.gin | GIN_Eclipse_2000_DCL.gin | CAR_08_ENG_MB_SPU.abk | CAR_08_ENG_MB_EE.abk | SWTN_CAR_08_MB.abk
+09 Nissan_Skyline | GIN_Nissan_Skyline.gin | GIN_Nissan_350ZX_Jason_DCL.gin | CAR_09_ENG_MB_SPU.abk | CAR_09_ENG_MB_EE.abk | SWTN_CAR_09_MB.abk
+10 Mazda_RX7 | GIN_Mazda_RX7.gin | GIN_Mazda_RX7_DCL.gin | CAR_10_ENG_MB_SPU.abk | CAR_10_ENG_MB_EE.abk | SWTN_CAR_10_MB.abk
+11 RX8_Ramp_v1_CD | GIN_RX8_Ramp_v1_CD.gin |  | CAR_11_ENG_MB_SPU.abk | CAR_11_ENG_MB_EE.abk | SWTN_CAR_11_MB.abk
+12 Mustang_Drag | GIN_Mustang_Drag.gin | GIN_Mustang_Drag_DCL.gin | CAR_12_ENG_MB_SPU.abk | CAR_12_ENG_MB_EE.abk | SWTN_CAR_12_MB.abk
+13 Bronco_Comp | GIN_Bronco_Comp.gin | GIN_Bronco_DCL.gin | CAR_13_ENG_MB_SPU.abk | CAR_13_ENG_MB_EE.abk | SWTN_CAR_13_MB.abk
+14 MustSal_Ramp_V2_CD | GIN_MustSal_Ramp_V2_CD.gin |  | CAR_14_ENG_MB_SPU.abk | CAR_14_ENG_MB_EE.abk | SWTN_CAR_14_MB.abk
+15 WRXSTi_Pull_09 | GIN_WRXSTi_Pull_09.gin |  | CAR_15_ENG_MB_SPU.abk | CAR_15_ENG_MB_EE.abk | SWTN_CAR_15_MB.abk
+16 WRX_Street | GIN_WRX_Street.gin | GIN_WRX_Street_DCL.gin | CAR_16_ENG_MB_SPU.abk | CAR_16_ENG_MB_EE.abk | SWTN_CAR_16_MB.abk
+17 WRX_2F2F | GIN_WRX_2F2F.gin | GIN_Honda_S2000_2f2f_DCL.gin | CAR_17_ENG_MB_SPU.abk | CAR_17_ENG_MB_EE.abk | SWTN_CAR_17_MB.abk
+18 Nissan_240SX | GIN_Nissan_240SX.gin | GIN_Nissan_350ZX_Jason_DCL.gin | CAR_18_ENG_MB_SPU.abk | CAR_18_ENG_MB_EE.abk | SWTN_CAR_18_MB.abk
+19 Toyota_GTS | GIN_Toyota_GTS.gin | GIN_Toyota_GTS_DCL.gin | CAR_19_ENG_MB_SPU.abk | CAR_19_ENG_MB_EE.abk | SWTN_CAR_19_MB.abk
+20 Honda_Prelude | GIN_Honda_Prelude.gin | GIN_Honda_Prelude_DCL.gin | CAR_20_ENG_MB_SPU.abk | CAR_20_ENG_MB_EE.abk | SWTN_CAR_20_MB.abk
+21 VW_Scirocco | GIN_VW_Scirocco.gin | GIN_VW_Scirocco_DCL.gin | CAR_21_ENG_MB_SPU.abk | CAR_21_ENG_MB_EE.abk | SWTN_CAR_21_MB.abk
+22 Honda_S2000_APEX | GIN_Honda_S2000_APEX.gin | GIN_HONDA_S2000_Apex_DCL.gin | CAR_22_ENG_MB_SPU.abk | CAR_22_ENG_MB_EE.abk | SWTN_CAR_22_MB.abk
+23 Mazda_Miata | GIN_Mazda_Miata.gin | GIN_Mazda_Miata_DCL.gin | CAR_23_ENG_MB_SPU.abk | CAR_23_ENG_MB_EE.abk | SWTN_CAR_23_MB.abk
+24 VW_Drag_GTi | GIN_VW_Drag_GTi.gin | GIN_VW_Drag_GTi_DCL.gin | CAR_24_ENG_MB_SPU.abk | CAR_24_ENG_MB_EE.abk | SWTN_CAR_24_MB.abk
+25 G35_350ZX_Comp_v2_AB | GIN_G35_350ZX_Comp_v2_AB.gin | GIN_Nissan_350ZX_Jason_DCL.gin | CAR_25_ENG_MB_SPU.abk | CAR_25_ENG_MB_EE.abk | SWTN_CAR_25_MB.abk
+26 350Z_01d_shrt2 | GIN_350Z_01d_shrt2.gin |  | CAR_26_ENG_MB_SPU.abk | CAR_26_ENG_MB_EE.abk | SWTN_CAR_26_MB.abk
+27 350Z_Jason_shrt2 | GIN_350Z_Jason_shrt2.gin | GIN_Nissan_350ZX_Jason_DCL.gin | CAR_27_ENG_MB_SPU.abk | CAR_27_ENG_MB_EE.abk | SWTN_CAR_27_MB.abk
+28 VR6_Jetta_M3 | GIN_VR6_Jetta_M3.gin | GIN_VW_Jetta_M4_DCL.gin | CAR_28_ENG_MB_SPU.abk | CAR_28_ENG_MB_EE.abk | SWTN_CAR_28_MB.abk
+29 VW_Cabriolet | GIN_VW_Cabriolet.gin |  | CAR_29_ENG_MB_SPU.abk | CAR_29_ENG_MB_EE.abk | SWTN_CAR_29_MB.abk
+30 VR6_Jetta_M4 | GIN_VR6_Jetta_M4.gin | GIN_VW_Jetta_M4_DCL.gin | CAR_30_ENG_MB_SPU.abk | CAR_30_ENG_MB_EE.abk | SWTN_CAR_30_MB.abk
+31 FordFocus_Road | GIN_FordFocus_Road.gin |  | CAR_31_ENG_MB_SPU.abk | CAR_31_ENG_MB_EE.abk | SWTN_CAR_31_MB.abk
+32 FordFocus_comp2 | GIN_FordFocus_comp2.gin |  | CAR_32_ENG_MB_SPU.abk | CAR_32_ENG_MB_EE.abk | SWTN_CAR_32_MB.abk
+33 Protege_Ramp_V2_CD | GIN_Protege_Ramp_V2_CD.gin | GIN_Protege_Lev2_DCL.gin | CAR_33_ENG_MB_SPU.abk | CAR_33_ENG_MB_EE.abk | SWTN_CAR_33_MB.abk
+34 Protege_Ramp_Lev2_CD | GIN_Protege_Ramp_Lev2_CD.gin | GIN_Protege_Lev2_DCL.gin | CAR_34_ENG_MB_SPU.abk | CAR_34_ENG_MB_EE.abk | SWTN_CAR_34_MB.abk
+35 Mustang_Nscr_COMP | GIN_Mustang_Nscr_COMP.gin | GIN_Mustang_Saleen_DCL.gin | CAR_35_ENG_MB_SPU.abk | CAR_35_ENG_MB_EE.abk | SWTN_CAR_35_MB.abk
+36 Cavel_v1_Base | GIN_Cavel_v1_Base.gin | GIN_Cavel_DCL.gin | CAR_36_ENG_MB_SPU.abk | CAR_36_ENG_MB_EE.abk | SWTN_CAR_36_MB.abk
+37 Cavel_v1_Lev1 | GIN_Cavel_v1_Lev1.gin | GIN_Cavel_DCL.gin | CAR_37_ENG_MB_SPU.abk | CAR_37_ENG_MB_EE.abk | SWTN_CAR_37_MB.abk
+38 Hummer | GIN_Hummer.gin |  | CAR_38_ENG_MB_SPU.abk | CAR_38_ENG_MB_EE.abk | SWTN_CAR_38_MB.abk
+39 Porsche_Cayenne | GIN_Porsche_Cayenne.gin | GIN_Porsche_Cayenne_DCL.gin | CAR_39_ENG_MB_SPU.abk | CAR_39_ENG_MB_EE.abk | SWTN_CAR_39_MB.abk
+40 Acura_ITR | GIN_Acura_ITR.gin | GIN_Acura_ITR_DCL.gin | CAR_40_ENG_MB_SPU.abk | CAR_40_ENG_MB_EE.abk | SWTN_CAR_40_MB.abk
