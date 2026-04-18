@@ -28,7 +28,7 @@ namespace Underground.Vehicle.Editor
         private string  _lastResult = "";
 
         // ── Menu entry ───────────────────────────────────────────────────────
-        [MenuItem("Underground/Vehicles/Create New Vehicle")]
+        [MenuItem("Full Throttle/Vehicles/Create New Vehicle")]
         public static void ShowWindow()
         {
             var window = GetWindow<UndergroundVehicleCreator>("New Vehicle");

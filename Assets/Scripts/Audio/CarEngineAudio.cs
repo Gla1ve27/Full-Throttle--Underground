@@ -227,7 +227,7 @@ namespace Underground.Audio
         [SerializeField] protected bool debugShiftInProgress;
         [SerializeField] protected string debugLoopWeights;
         [SerializeField] protected string debugContinuityHint;
-        [SerializeField] protected bool logLoopDiagnostics = true;
+        [SerializeField] protected bool logLoopDiagnostics;
         [SerializeField] protected float loopLogInterval = 0.12f;
 
         private string lastLoggedDominantLoops;
@@ -264,7 +264,7 @@ namespace Underground.Audio
         private float onThrottleBankTarget;
         private float onThrottleBlend;
         private float turboSpool01;
-        private float conflictScanTimer;
+        private bool competingSourcesDisabled;
         private float lastAnyOneShotTime = -999f;
         private float lastBlowOffTime = -999f;
         private float lastThrottleBlipTime = -999f;
@@ -319,14 +319,6 @@ namespace Underground.Audio
             loopSelectionFreezeTimer = Mathf.Max(0f, loopSelectionFreezeTimer - dt);
             upshiftMidBoostTimer = Mathf.Max(0f, upshiftMidBoostTimer - dt);
             timeSinceLastGearChange += dt;
-            conflictScanTimer -= dt;
-
-            if (disableCompetingVehicleSources && conflictScanTimer <= 0f)
-            {
-                conflictScanTimer = 1.25f;
-                DisableCompetingAudioSources();
-            }
-
             UpdateTelemetry(dt);
             DetectGearChangeFallback();
             UpdateMainEngine(dt);
@@ -1354,6 +1346,13 @@ namespace Underground.Audio
             {
                 return;
             }
+
+            if (competingSourcesDisabled)
+            {
+                return;
+            }
+
+            competingSourcesDisabled = true;
 
             AudioSource[] sources = rootVehicle.GetComponentsInChildren<AudioSource>(true);
             for (int i = 0; i < sources.Length; i++)

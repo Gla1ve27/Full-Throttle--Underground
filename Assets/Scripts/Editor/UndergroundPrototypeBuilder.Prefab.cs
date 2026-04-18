@@ -109,7 +109,7 @@ namespace Underground.EditorTools
             return AssetDatabase.LoadAssetAtPath<GameObject>(PlayerCarPrefabPath);
         }
 
-        [MenuItem("Underground/Audio/Create Starter Car Audio Bank", priority = 70)]
+        [MenuItem("Full Throttle/Audio/Create Starter Car Audio Bank", priority = 70)]
         public static void CreateStarterCarAudioBankFromTopMenu()
         {
             EnsureProjectFolders();

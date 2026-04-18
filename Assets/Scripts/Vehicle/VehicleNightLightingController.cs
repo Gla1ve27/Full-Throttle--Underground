@@ -61,6 +61,8 @@ namespace Underground.Vehicle
         [Header("Effects")]
         [Tooltip("Optional prefab (like FX_Light_Beam_01) to spawn on headlights.")]
         [SerializeField] private GameObject headlightBeamPrefab;
+        [SerializeField] private float referenceLookupInterval = 5f;
+        [SerializeField] private float trafficLightingUpdateInterval = 0.12f;
 
         // ─────────────────────────────────────────────────────────────────────
         //  Runtime State
@@ -81,7 +83,19 @@ namespace Underground.Vehicle
 
         private bool rigCreated;
         private float nextLookupTime;
+        private float nextTrafficLightingUpdateTime;
         private bool _headlightsForceOn;
+        private bool lightingStateInitialized;
+        private bool lastHeadlightsOn;
+        private bool lastTailsOn;
+        private bool lastBrakesOn;
+        private bool lastReverseOn;
+        private float lastHeadIntensity = -1f;
+        private float lastBrakeIntensity = -1f;
+        private float lastTailEmissive = -1f;
+        private float lastBrakeEmissive = -1f;
+        private float lastReverseEmissive = -1f;
+        private LightShadows lastHeadlightShadowMode = (LightShadows)(-1);
 
         // Emissive material caching
         private static readonly int EmissiveColorId = Shader.PropertyToID("_EmissiveColor");
@@ -118,6 +132,7 @@ namespace Underground.Vehicle
         public void RebuildLightingRig()
         {
             DestroyLightingRig();
+            ResetLightingStateCache();
             EnsureLightingRig();
         }
 
@@ -143,8 +158,18 @@ namespace Underground.Vehicle
         {
             if (Time.unscaledTime >= nextLookupTime)
             {
-                nextLookupTime = Time.unscaledTime + 1f;
+                nextLookupTime = Time.unscaledTime + Mathf.Max(1f, referenceLookupInterval);
                 ResolveReferences();
+            }
+
+            if (trafficLighting && Time.unscaledTime < nextTrafficLightingUpdateTime)
+            {
+                return;
+            }
+
+            if (trafficLighting)
+            {
+                nextTrafficLightingUpdateTime = Time.unscaledTime + Mathf.Max(0.03f, trafficLightingUpdateInterval);
             }
 
             EnsureLightingRig();
@@ -235,6 +260,7 @@ namespace Underground.Vehicle
             reverselights = null;
             headlightBeams = null;
             rigCreated = false;
+            ResetLightingStateCache();
         }
 
         private void EnsureLightingRig()
@@ -460,7 +486,13 @@ namespace Underground.Vehicle
             float headIntensity = headlightsOn
                 ? (nightActive ? headlightIntensity : headlightIntensity * daytimeDimFactor)
                 : 0f;
-            ApplyLightGroup(headlights, headlightsOn, headIntensity);
+            if (!lightingStateInitialized || headlightsOn != lastHeadlightsOn || !Approximately(headIntensity, lastHeadIntensity))
+            {
+                ApplyLightGroup(headlights, headlightsOn, headIntensity);
+                lastHeadlightsOn = headlightsOn;
+                lastHeadIntensity = headIntensity;
+            }
+
             UpdateHeadlightShadows();
             
             // Toggle physical light beams
@@ -477,18 +509,51 @@ namespace Underground.Vehicle
 
             // ── Tail lights (on when headlights are on) ──
             bool tailsOn = headlightsOn;
-            ApplyLightGroup(taillights, tailsOn, taillightIntensity);
-            ApplyEmissiveGroup(tailLightEmissiveRenderers, tailsOn ? emissiveTailMultiplier : 0f);
+            float tailEmissive = tailsOn ? emissiveTailMultiplier : 0f;
+            if (!lightingStateInitialized || tailsOn != lastTailsOn)
+            {
+                ApplyLightGroup(taillights, tailsOn, taillightIntensity);
+                lastTailsOn = tailsOn;
+            }
+
+            if (!lightingStateInitialized || !Approximately(tailEmissive, lastTailEmissive))
+            {
+                ApplyEmissiveGroup(tailLightEmissiveRenderers, tailEmissive);
+                lastTailEmissive = tailEmissive;
+            }
 
             // ── Brake lights (independent of headlights — always visible when braking) ──
             bool brakesOn = brakeFactor > 0.01f;
             float brakeIntensity = brakeLightIntensity * brakeFactor;
-            ApplyLightGroup(brakelights, brakesOn, brakeIntensity);
-            ApplyEmissiveGroup(brakeLightEmissiveRenderers, brakesOn ? emissiveBrakeMultiplier * brakeFactor : 0f);
+            float brakeEmissive = brakesOn ? emissiveBrakeMultiplier * brakeFactor : 0f;
+            if (!lightingStateInitialized || brakesOn != lastBrakesOn || !Approximately(brakeIntensity, lastBrakeIntensity))
+            {
+                ApplyLightGroup(brakelights, brakesOn, brakeIntensity);
+                lastBrakesOn = brakesOn;
+                lastBrakeIntensity = brakeIntensity;
+            }
+
+            if (!lightingStateInitialized || !Approximately(brakeEmissive, lastBrakeEmissive))
+            {
+                ApplyEmissiveGroup(brakeLightEmissiveRenderers, brakeEmissive);
+                lastBrakeEmissive = brakeEmissive;
+            }
 
             // ── Reverse lights ──
-            ApplyLightGroup(reverselights, isReversing, reverseLightIntensity);
-            ApplyEmissiveGroup(reverseLightEmissiveRenderers, isReversing ? emissiveReverseMultiplier : 0f);
+            float reverseEmissive = isReversing ? emissiveReverseMultiplier : 0f;
+            if (!lightingStateInitialized || isReversing != lastReverseOn)
+            {
+                ApplyLightGroup(reverselights, isReversing, reverseLightIntensity);
+                lastReverseOn = isReversing;
+            }
+
+            if (!lightingStateInitialized || !Approximately(reverseEmissive, lastReverseEmissive))
+            {
+                ApplyEmissiveGroup(reverseLightEmissiveRenderers, reverseEmissive);
+                lastReverseEmissive = reverseEmissive;
+            }
+
+            lightingStateInitialized = true;
         }
 
         private void ApplyLightGroup(Light[] group, bool enabled, float intensity)
@@ -514,6 +579,11 @@ namespace Underground.Vehicle
             }
 
             LightShadows mode = ResolveHeadlightShadowMode();
+            if (lightingStateInitialized && mode == lastHeadlightShadowMode)
+            {
+                return;
+            }
+
             for (int i = 0; i < headlights.Length; i++)
             {
                 if (headlights[i] != null)
@@ -521,6 +591,8 @@ namespace Underground.Vehicle
                     headlights[i].shadows = mode;
                 }
             }
+
+            lastHeadlightShadowMode = mode;
         }
 
         // ─────────────────────────────────────────────────────────────────────
@@ -549,6 +621,26 @@ namespace Underground.Vehicle
         // ─────────────────────────────────────────────────────────────────────
         //  Input Detection
         // ─────────────────────────────────────────────────────────────────────
+
+        private void ResetLightingStateCache()
+        {
+            lightingStateInitialized = false;
+            lastHeadlightsOn = false;
+            lastTailsOn = false;
+            lastBrakesOn = false;
+            lastReverseOn = false;
+            lastHeadIntensity = -1f;
+            lastBrakeIntensity = -1f;
+            lastTailEmissive = -1f;
+            lastBrakeEmissive = -1f;
+            lastReverseEmissive = -1f;
+            lastHeadlightShadowMode = (LightShadows)(-1);
+        }
+
+        private static bool Approximately(float a, float b)
+        {
+            return Mathf.Abs(a - b) <= 0.01f;
+        }
 
         private float GetBrakeFactor()
         {

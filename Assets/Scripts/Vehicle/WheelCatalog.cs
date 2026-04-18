@@ -5,7 +5,7 @@ namespace Underground.Vehicle
 {
     [CreateAssetMenu(
         fileName = "NewWheelCatalog",
-        menuName = "Underground/Vehicle/Customization/Wheel Catalog")]
+        menuName = "Full Throttle/Vehicle/Customization/Wheel Catalog")]
     public class WheelCatalog : ScriptableObject
     {
         [SerializeField] private List<WheelDefinition> wheels = new List<WheelDefinition>();

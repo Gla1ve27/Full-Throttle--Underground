@@ -24,7 +24,7 @@ namespace Underground.EditorTools
 
         private const string TestBankPath = "Assets/ScriptableObjects/Vehicles/PlayerCar_UG2_Test_AudioBank.asset";
 
-        [MenuItem("Underground/Audio/Create PlayerCar UG2 Test Bank", priority = 71)]
+        [MenuItem("Full Throttle/Audio/Create PlayerCar UG2 Test Bank", priority = 71)]
         public static void CreatePlayerCarTestBank()
         {
             EnsureFolder("Assets/ScriptableObjects");

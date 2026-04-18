@@ -10,7 +10,7 @@ namespace Underground.Vehicle
 {
     [CreateAssetMenu(
         fileName = "NewUpgrade",
-        menuName = "Underground/Vehicle/Upgrade Definition")]
+        menuName = "Full Throttle/Vehicle/Upgrade Definition")]
     public class UpgradeDefinition : ScriptableObject
     {
         [Header("Identity")]

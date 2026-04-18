@@ -13,7 +13,7 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        [MenuItem("Underground/Prefabs/Rebuild Generated Scene Prefabs", priority = 90)]
+        [MenuItem("Full Throttle/Prefabs/Rebuild Generated Scene Prefabs", priority = 90)]
         public static void RebuildGeneratedScenePrefabs()
         {
             EnsureProjectFolders();

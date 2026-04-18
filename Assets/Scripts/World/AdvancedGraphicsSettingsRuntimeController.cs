@@ -12,7 +12,7 @@ namespace Underground.World
     [DefaultExecutionOrder(250)]
     public sealed class AdvancedGraphicsSettingsRuntimeController : MonoBehaviour
     {
-        private const float RefreshIntervalSeconds = 1f;
+        private const float WarmupRefreshIntervalSeconds = 0.5f;
 
         private static AdvancedGraphicsSettingsRuntimeController instance;
 
@@ -60,8 +60,19 @@ namespace Underground.World
 
         private void Update()
         {
-            ResolveSettingsManager();
-            if (pendingApply || sceneWarmupRefreshesRemaining > 0)
+            if (!pendingApply && sceneWarmupRefreshesRemaining <= 0)
+            {
+                return;
+            }
+
+            if (pendingApply)
+            {
+                ResolveSettingsManager();
+                ApplyAllSettings();
+                return;
+            }
+
+            if (Time.unscaledTime >= nextRefreshTime)
             {
                 ApplyAllSettings();
             }
@@ -72,6 +83,7 @@ namespace Underground.World
             ResolveSettingsManager();
             pendingApply = true;
             sceneWarmupRefreshesRemaining = 3;
+            nextRefreshTime = Time.unscaledTime + WarmupRefreshIntervalSeconds;
             ApplyAllSettings();
         }
 
@@ -112,6 +124,7 @@ namespace Underground.World
             if (sceneWarmupRefreshesRemaining > 0)
             {
                 sceneWarmupRefreshesRemaining--;
+                nextRefreshTime = Time.unscaledTime + WarmupRefreshIntervalSeconds;
             }
 
             ApplyQualityAndDisplaySettings();

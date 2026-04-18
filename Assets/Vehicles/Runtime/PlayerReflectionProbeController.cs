@@ -28,8 +28,11 @@ namespace Underground.Vehicle
         public float nightMultiplier = 0.3f;
 
         [Header("Re-capture Timing")]
-        [Tooltip("Seconds between probe re-renders during stable lighting.")]
-        public float updateInterval = 2.5f;
+        [Tooltip("Seconds between probe re-renders during stable lighting. Runtime captures are disabled by default for stable frame pacing.")]
+        public float updateInterval = 30f;
+
+        [Tooltip("Keep disabled during gameplay. Reflection probe renders are visible CPU/GPU spikes.")]
+        public bool allowRuntimeCaptures;
 
         [Tooltip("Fraction of day (0-1) around dawn/dusk where capture is blocked.")]
         [Range(0.02f, 0.15f)]
@@ -75,7 +78,7 @@ namespace Underground.Vehicle
 
             // Periodic re-render, but never during sky transitions
             _timer += Time.deltaTime;
-            if (_timer >= updateInterval && !IsMidTransition())
+            if (allowRuntimeCaptures && _timer >= updateInterval && !IsMidTransition())
             {
                 _probe.RenderProbe();
                 _timer = 0f;
@@ -101,7 +104,10 @@ namespace Underground.Vehicle
         public void OnDayNightTransitionComplete()
         {
             EnforceSettings();
-            _probe.RenderProbe();
+            if (allowRuntimeCaptures)
+            {
+                _probe.RenderProbe();
+            }
             _timer = 0f;
         }
 
@@ -112,6 +118,8 @@ namespace Underground.Vehicle
             if (_probe == null) return;
             _probe.blendDistance = maxBlendDistance;
             _probe.importance    = 1;
+            _probe.mode = ReflectionProbeMode.Baked;
+            _probe.refreshMode = ReflectionProbeRefreshMode.ViaScripting;
             // Do not force intensity here — let Update() lerp it
         }
 

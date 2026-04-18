@@ -7,7 +7,7 @@ namespace FullThrottle.Audio.Editor
 {
     public static class RadioSystemSetupWizard
     {
-        [MenuItem("Full Throttle/Setup Radio System In Scene")]
+        [MenuItem("Full Throttle/Audio/Setup Radio System In Scene")]
         public static void SetupRadioSystem()
         {
             // ── 1. Create RuntimeRadioManager ──────────────────────────

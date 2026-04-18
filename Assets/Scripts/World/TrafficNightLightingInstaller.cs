@@ -6,17 +6,24 @@ namespace Underground.World
 {
     public class TrafficNightLightingInstaller : MonoBehaviour
     {
-        [SerializeField] private float scanInterval = 1f;
+        [SerializeField] private bool continuousScan;
+        [SerializeField] private float scanInterval = 5f;
 
         private float nextScanTime;
 
         private void Start()
         {
             InstallLighting();
+            Invoke(nameof(InstallLighting), 0.25f);
         }
 
         private void Update()
         {
+            if (!continuousScan)
+            {
+                return;
+            }
+
             if (Time.unscaledTime < nextScanTime)
             {
                 return;

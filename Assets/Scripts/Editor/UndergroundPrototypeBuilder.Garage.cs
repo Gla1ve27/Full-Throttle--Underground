@@ -232,7 +232,7 @@ namespace Underground.EditorTools
             GameObject showroomRoot = new GameObject(rootName);
             CreateGarageEnvironment(showroomRoot.transform, floorMaterial, backWallMaterial, leftWallMaterial, rightWallMaterial, ceilingMaterial, platformMaterial, accentMaterial, trimMaterial, backdropTexture);
             CreateGarageLighting(showroomRoot.transform);
-            CreateGarageReflectionProbe(showroomRoot.transform);
+            RemoveGeneratedReflectionProbes(showroomRoot.transform);
             AttachGlobalVolume(showroomRoot.transform, "GarageGlobalVolume", ProjectGarageVolumeProfilePath);
 
             if (configureCamera)
@@ -442,23 +442,6 @@ namespace Underground.EditorTools
                 lightComponent.spotAngle = spotAngle;
                 lightComponent.innerSpotAngle = spotAngle * 0.6f;
             }
-        }
-
-        private static void CreateGarageReflectionProbe(Transform parent)
-        {
-            GameObject probeObject = new GameObject("GarageReflectionProbe");
-            probeObject.transform.SetParent(parent, false);
-            probeObject.transform.localPosition = new Vector3(0f, 2.9f, 1.4f);
-
-            ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
-            probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;
-            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.NoTimeSlicing;
-            probe.size = new Vector3(30f, 10f, 26f);
-            probe.boxProjection = true;
-            probe.intensity = 1.1f;
-            probe.importance = 1000;
-            probe.cullingMask = GetGarageReflectionProbeMask();
         }
 
         private static GarageUiBuild CreateGarageShowroomUi(Transform parent)
@@ -678,17 +661,6 @@ namespace Underground.EditorTools
         }
 
 
-
-        private static int GetGarageReflectionProbeMask()
-        {
-            int worldStaticLayer = LayerMask.NameToLayer("WorldStatic");
-            if (worldStaticLayer < 0)
-            {
-                return ~0;
-            }
-
-            return 1 << worldStaticLayer;
-        }
 
         private static void SetGarageMaterialTexture(Material material, Texture texture)
         {

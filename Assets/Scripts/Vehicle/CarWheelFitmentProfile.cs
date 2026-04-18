@@ -4,7 +4,7 @@ namespace Underground.Vehicle
 {
     [CreateAssetMenu(
         fileName = "NewCarWheelFitmentProfile",
-        menuName = "Underground/Vehicle/Customization/Car Wheel Fitment Profile")]
+        menuName = "Full Throttle/Vehicle/Customization/Car Wheel Fitment Profile")]
     public class CarWheelFitmentProfile : ScriptableObject
     {
         [Header("Vehicle")]

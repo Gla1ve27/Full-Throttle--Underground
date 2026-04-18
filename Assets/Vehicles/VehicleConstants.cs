@@ -41,7 +41,7 @@ namespace Underground.Vehicle
         public const string ReverseLightsRootName = ReverseLightsRoot;
 
         // ── Editor Menu Paths ────────────────────────────────────────────────
-        public const string UndergroundMenuRoot = "Underground/";
-        public const string VehicleMenuRoot     = "Underground/Vehicles/";
+        public const string UndergroundMenuRoot = "Full Throttle/";
+        public const string VehicleMenuRoot     = "Full Throttle/Vehicles/";
     }
 }

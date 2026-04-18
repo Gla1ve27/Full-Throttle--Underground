@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ImportEasyRoadsHDRP
 {
-    [MenuItem("Tools/Fix EasyRoads HDRP Shaders")]
+    [MenuItem("Full Throttle/Project/Fix EasyRoads HDRP Shaders")]
     public static void ImportHDRP14()
     {
         string packagePath = "Assets/EasyRoads3D/SRP Support Packages/HDRP_14_0_4.unitypackage";

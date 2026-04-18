@@ -18,8 +18,6 @@ namespace Underground.Vehicle
 {
     public class PlayerCarAppearanceController : MonoBehaviour
     {
-        private const string GameplayReflectionProbeName = "GameplayReflectionProbe";
-
         [SerializeField] private PersistentProgressManager progressManager;
         [SerializeField] private VehicleDynamicsController vehicle;
         [SerializeField] private Transform modelRoot;
@@ -344,9 +342,6 @@ namespace Underground.Vehicle
 
         private void RefreshReflections()
         {
-            // Update Global Illumination
-            DynamicGI.UpdateEnvironment();
-
             // Notify real visible renderers to refresh their probe anchors.
             // Do NOT resurrect helper collision/proxy renderers.
             Renderer[] renderers = GetComponentsInChildren<Renderer>(true);

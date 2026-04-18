@@ -18,7 +18,3 @@ MonoBehaviour:
   rewardMoney: 4000
   rewardReputation: 60
   laps: 1
-  nightOnly: 1
-  entryFee: 0
-  minReputation: 200
-  allowsCarWager: 1

@@ -112,7 +112,7 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Underground/Project/Import/FCG URP Package")]
+        [MenuItem("Full Throttle/Project/Import/FCG URP Package")]
         public static void ImportFcgUrpPackage()
         {
             string absolutePackagePath = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), FcgUrpPackagePath);
@@ -126,19 +126,19 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("FCG Import Started", "Imported the FCG URP package. After Unity refreshes, rerun the prototype builder.", "OK");
         }
 
-        [MenuItem("Underground/Project/Import/FCG HDRP Package")]
+        [MenuItem("Full Throttle/Project/Import/FCG HDRP Package")]
         public static void ImportFcgHdrpPackage()
         {
             ImportLocalUnityPackage(FcgHdrpPackagePath, "FCG HDRP");
         }
 
-        [MenuItem("Underground/Project/Import/Retro Car HDRP Package")]
+        [MenuItem("Full Throttle/Project/Import/Retro Car HDRP Package")]
         public static void ImportSimpleRetroHdrpPackage()
         {
             ImportLocalUnityPackage(SimpleRetroHdrpPackagePath, "Retro Car HDRP");
         }
 
-        [MenuItem("Underground/Project/Apply HDRP Pipeline", priority = 10)]
+        [MenuItem("Full Throttle/Project/Apply HDRP Pipeline", priority = 10)]
         public static void ApplyHdrpRenderPipelineFromMenu()
         {
             ApplyHdrpRenderPipeline(true);

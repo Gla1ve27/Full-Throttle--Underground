@@ -18,6 +18,8 @@ namespace Underground.UI
         [SerializeField] private Color raceMarkerColor = new Color(1f, 0.33f, 0.75f, 0.95f);
         [SerializeField] private Color garageMarkerColor = new Color(0.25f, 0.88f, 1f, 0.95f);
         [SerializeField] private Color respawnMarkerColor = new Color(1f, 1f, 1f, 0.95f);
+        [SerializeField] private bool periodicallyRefreshMarkers;
+        [SerializeField] private float markerRefreshInterval = 10f;
 
         private readonly List<RadarMarker> markers = new List<RadarMarker>();
         private float nextRefreshTime;
@@ -50,10 +52,10 @@ namespace Underground.UI
                 return;
             }
 
-            if (Time.unscaledTime >= nextRefreshTime)
+            if (periodicallyRefreshMarkers && Time.unscaledTime >= nextRefreshTime)
             {
                 RebuildMarkers();
-                nextRefreshTime = Time.unscaledTime + 1.5f;
+                nextRefreshTime = Time.unscaledTime + Mathf.Max(1f, markerRefreshInterval);
             }
 
             UpdatePlayerMarker();

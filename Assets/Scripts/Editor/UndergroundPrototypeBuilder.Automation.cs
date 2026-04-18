@@ -22,19 +22,19 @@ namespace Underground.EditorTools
 {
     public static partial class UndergroundPrototypeBuilder
     {
-        [MenuItem("Underground/Rebuild Full Game", priority = 1)]
+        [MenuItem("Full Throttle/Rebuild Full Game", priority = 1)]
         public static void RebuildFullGameFromTopMenu()
         {
             ReloadAllGeneratedContent();
         }
 
-        [MenuItem("Underground/Build Full Game", priority = 2)]
+        [MenuItem("Full Throttle/Build Full Game", priority = 2)]
         public static void BuildFullGameFromTopMenu()
         {
             RebuildFullGameFromTopMenu();
         }
 
-        [MenuItem("Underground/Reload All", priority = 3)]
+        [MenuItem("Full Throttle/Reload All", priority = 3)]
         public static void ReloadAllGeneratedContent()
         {
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
@@ -49,7 +49,46 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("Full Game Reloaded", "Rebuilt and reloaded the generated scenes, prefabs, starter data, and rendering setup.", "OK");
         }
 
-        [MenuItem("Underground/World/Rebuild World Scene", priority = 20)]
+        [MenuItem("Full Throttle/Playtest/Open World Scene (No Rebuild)", priority = 10)]
+        public static void OpenWorldSceneWithoutRebuild()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                return;
+            }
+
+            OpenReloadedScene(WorldScenePath);
+        }
+
+        [MenuItem("Full Throttle/Playtest/Reload Active Managed Scene (No Rebuild)", priority = 11)]
+        public static void ReloadActiveManagedSceneWithoutRebuild()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            {
+                return;
+            }
+
+            OpenReloadedScene(ResolveManagedSceneToReload(SceneManager.GetActiveScene().path));
+        }
+
+        [MenuItem("Full Throttle/Project/Remove Generated Realtime GI And Probes", priority = 13)]
+        public static void RemoveGeneratedRealtimeLightingFromOpenScene()
+        {
+            GameObject[] roots = SceneManager.GetActiveScene().GetRootGameObjects();
+            for (int i = 0; i < roots.Length; i++)
+            {
+                if (roots[i] != null)
+                {
+                    RemoveGeneratedReflectionProbes(roots[i].transform);
+                }
+            }
+
+            Lightmapping.realtimeGI = false;
+            Lightmapping.bakedGI = false;
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        }
+
+        [MenuItem("Full Throttle/World/Rebuild World Scene", priority = 20)]
         public static void RebuildWorldScene()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
@@ -61,7 +100,7 @@ namespace Underground.EditorTools
             EditorUtility.DisplayDialog("World Ready", "Built the world scene with FCG huge-city automation when available.", "OK");
         }
 
-        [MenuItem("Underground/World/Rebuild Open Scene World", priority = 21)]
+        [MenuItem("Full Throttle/World/Rebuild Open Scene World", priority = 21)]
         public static void RebuildOpenSceneWorld()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
@@ -70,7 +109,7 @@ namespace Underground.EditorTools
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
-        [MenuItem("Underground/UI/Rebuild Main Menu Scene", priority = 40)]
+        [MenuItem("Full Throttle/UI/Rebuild Main Menu Scene", priority = 40)]
         public static void RebuildMainMenuSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out _, out _, out _);
@@ -79,7 +118,7 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Underground/UI/Rebuild Garage Scene", priority = 41)]
+        [MenuItem("Full Throttle/UI/Rebuild Garage Scene", priority = 41)]
         public static void RebuildGarageSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out UpgradeDefinition engineUpgrade, out _, out _, out _);
@@ -88,7 +127,7 @@ namespace Underground.EditorTools
             AssetDatabase.Refresh();
         }
 
-        [MenuItem("Underground/UI/Rebuild HUD In Open Scene", priority = 42)]
+        [MenuItem("Full Throttle/UI/Rebuild HUD In Open Scene", priority = 42)]
         public static void RebuildHudInOpenScene()
         {
             GameObject uiRoot = GetOrCreateSceneObject("UndergroundUI");
@@ -97,7 +136,7 @@ namespace Underground.EditorTools
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
-        [MenuItem("Underground/Races/Rebuild Race Layout In Open Scene", priority = 60)]
+        [MenuItem("Full Throttle/Races/Rebuild Race Layout In Open Scene", priority = 60)]
         public static void RebuildRaceLayoutInOpenScene()
         {
             PreparePrototypeAssets(out _, out _, out RaceDefinition dayRace, out RaceDefinition nightRace, out RaceDefinition wagerRace);
@@ -116,7 +155,7 @@ namespace Underground.EditorTools
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
 
-        [MenuItem("Underground/Systems/Place Runtime Systems In Open Scene", priority = 80)]
+        [MenuItem("Full Throttle/Systems/Place Runtime Systems In Open Scene", priority = 80)]
         public static void PlaceRuntimeSystemsInOpenScene()
         {
             EnsureProjectFolders();
@@ -264,7 +303,7 @@ namespace Underground.EditorTools
 
             WorldAnchorSet anchors = ResolveWorldAnchors();
             GameObject playerCar = CreatePlayerCarInstance(gameplayRoot, playerCarPrefab, anchors.playerSpawnPose);
-            CreateDynamicWorldReflectionProbe(gameplayRoot, playerCar.transform);
+            RemoveGeneratedReflectionProbes(generatedRoot.transform);
             CreateFollowCameraUnder(generatedRoot.transform, playerCar);
             Canvas preservedHudCanvas = uiRoot.GetComponentInChildren<Canvas>(true);
             if (preservedHudCanvas != null)
@@ -288,12 +327,13 @@ namespace Underground.EditorTools
             RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
             RenderSettings.ambientIntensity = 1.0f;
             RenderSettings.defaultReflectionMode = UnityEngine.Rendering.DefaultReflectionMode.Skybox;
-            RenderSettings.reflectionIntensity = 1.0f;
+            RenderSettings.reflectionIntensity = 0.65f;
             RenderSettings.fog = true; 
-            
-            Lightmapping.realtimeGI = true;
-            Lightmapping.bakedGI = true;
-            DynamicGI.UpdateEnvironment();
+
+            // Keep generated scenes lightweight. Author GlobalVolume / lighting manually
+            // instead of letting the rebuild path re-enable realtime GI every time.
+            Lightmapping.realtimeGI = false;
+            Lightmapping.bakedGI = false;
             EditorSceneManager.MarkSceneDirty(scene);
         }
 
@@ -364,71 +404,31 @@ namespace Underground.EditorTools
             worldSystems.transform.SetParent(parent, false);
         }
 
-        private static ReflectionProbe CreateOrRefreshSceneReflectionProbe(Transform parent, Vector3 center, Vector3 size)
+        private static void RemoveGeneratedReflectionProbes(Transform root)
         {
-            Transform existing = parent.Find("SceneReflectionProbe");
-            if (existing != null)
-            {
-                Object.DestroyImmediate(existing.gameObject);
-            }
-
-            GameObject probeObject = new GameObject("SceneReflectionProbe");
-            probeObject.transform.SetParent(parent, false);
-            probeObject.transform.localPosition = center;
-
-            ReflectionProbe probe = probeObject.AddComponent<ReflectionProbe>();
-            probe.mode = UnityEngine.Rendering.ReflectionProbeMode.Realtime;
-            probe.refreshMode = UnityEngine.Rendering.ReflectionProbeRefreshMode.OnAwake;
-            probe.timeSlicingMode = UnityEngine.Rendering.ReflectionProbeTimeSlicingMode.IndividualFaces;
-            
-            // Safe property set for Shape
-            SetPropertyIfPresent(probe, "shape", 1); // 1 = Sphere in most versions
-            
-            // Radius 120 to match the previous influence size
-            const float defaultRadius = 120f;
-            var radiusField = typeof(ReflectionProbe).GetProperty("sphereRadius") ?? typeof(ReflectionProbe).GetProperty("radius");
-            if (radiusField != null) radiusField.SetValue(probe, defaultRadius);
-            
-            probe.size = size; // Fallback
-            probe.center = Vector3.zero;
-            probe.boxProjection = false; 
-            probe.intensity = 0.6f;
-            probe.importance = 10;
-
-            // Inject HDRP specific data to prevent blowout
-            Type hdProbeDataType = FindType("UnityEngine.Rendering.HighDefinition.HDAdditionalReflectionData, Unity.RenderPipelines.HighDefinition.Runtime");
-            if (hdProbeDataType != null)
-            {
-                Component hdProbeData = probe.gameObject.GetComponent(hdProbeDataType) ?? probe.gameObject.AddComponent(hdProbeDataType);
-                SetPropertyIfPresent(hdProbeData, "multiplier", 0.6f);
-                SetPropertyIfPresent(hdProbeData, "weight", 1.0f);
-            }
-
-            int playerVehicleLayer = LayerMask.NameToLayer("PlayerVehicle");
-            probe.cullingMask = playerVehicleLayer >= 0 ? ~(1 << playerVehicleLayer) : ~0;
-            return probe;
-        }
-
-        private static void CreateDynamicWorldReflectionProbe(Transform parent, Transform target)
-        {
-            if (parent == null || target == null)
+            if (root == null)
             {
                 return;
             }
 
-            ReflectionProbe probe = CreateOrRefreshSceneReflectionProbe(parent, target.localPosition + new Vector3(0f, 5f, 0f), new Vector3(120f, 36f, 120f));
-            if (probe == null)
+            ReflectionProbe[] probes = root.GetComponentsInChildren<ReflectionProbe>(true);
+            for (int i = probes.Length - 1; i >= 0; i--)
             {
-                return;
-            }
+                ReflectionProbe probe = probes[i];
+                if (probe == null)
+                {
+                    continue;
+                }
 
-            PlayerReflectionProbeController controller = GetOrAddComponent<PlayerReflectionProbeController>(probe.gameObject);
-            SetObjectReference(controller, "target", target);
-            SetVector3Value(controller, "probeOffset", new Vector3(0f, 5f, 0f));
-            SetVector3Value(controller, "probeSize", new Vector3(120f, 36f, 120f));
-            SetFloatValue(controller, "snapDistance", 10f);
-            SetFloatValue(controller, "refreshInterval", 0.2f);
-            SetFloatValue(controller, "minMoveDistance", 6f);
+                string name = probe.gameObject.name;
+                if (name == "SceneReflectionProbe" ||
+                    name == "GarageReflectionProbe" ||
+                    name == "GameplayReflectionProbe" ||
+                    name == "RuntimeVehicleReflectionProbe")
+                {
+                    Object.DestroyImmediate(probe.gameObject);
+                }
+            }
         }
 
         private static bool TryGenerateHugeFcgCity(Transform parent)

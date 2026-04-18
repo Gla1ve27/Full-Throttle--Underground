@@ -42,7 +42,7 @@ namespace Underground.EditorTools
             }
         }
 
-        [MenuItem("Underground/Project/Convert Vehicle Materials To HDRP", priority = 12)]
+        [MenuItem("Full Throttle/Project/Convert Vehicle Materials To HDRP", priority = 12)]
         public static void ConvertMaterialsFromMenu()
         {
             ConvertMaterials(true);

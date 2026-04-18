@@ -4,7 +4,7 @@ namespace Underground.Vehicle
 {
     [CreateAssetMenu(
         fileName = "NewWheelDefinition",
-        menuName = "Underground/Vehicle/Customization/Wheel Definition")]
+        menuName = "Full Throttle/Vehicle/Customization/Wheel Definition")]
     public class WheelDefinition : ScriptableObject
     {
         [Header("Identity")]

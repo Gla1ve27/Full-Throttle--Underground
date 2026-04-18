@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 // during Play Mode is both useless and causes InvalidOperationException errors.
 public class ForzaLightingSetup : EditorWindow
 {
-    [MenuItem("Tools/Full-Throttle/Apply Forza Lighting (Day)")]
+    [MenuItem("Full Throttle/Lighting/Apply Forza Lighting (Day)")]
     public static void ApplyDayLighting()
     {
         if (Application.isPlaying)
@@ -24,7 +24,7 @@ public class ForzaLightingSetup : EditorWindow
         ApplyLighting(true);
     }
 
-    [MenuItem("Tools/Full-Throttle/Apply Forza Lighting (Night)")]
+    [MenuItem("Full Throttle/Lighting/Apply Forza Lighting (Night)")]
     public static void ApplyNightLighting()
     {
         if (Application.isPlaying)

@@ -288,7 +288,7 @@ namespace Underground.UI
         {
             VSyncEnabled = enabled;
             PlayerPrefs.SetInt(VSyncKey, VSyncEnabled ? 1 : 0);
-            QualitySettings.vSyncCount = VSyncEnabled ? 1 : 0;
+            ApplyFramePacingSettings();
             NotifySettingsChanged();
         }
 
@@ -816,7 +816,13 @@ namespace Underground.UI
 
             Resolution resolution = availableResolutions[Mathf.Clamp(ResolutionIndex, 0, availableResolutions.Length - 1)];
             Screen.SetResolution(resolution.width, resolution.height, Fullscreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+            ApplyFramePacingSettings();
+        }
+
+        private void ApplyFramePacingSettings()
+        {
             QualitySettings.vSyncCount = VSyncEnabled ? 1 : 0;
+            Application.targetFrameRate = VSyncEnabled ? -1 : 60;
         }
 
         private void ApplyShadowQuality()

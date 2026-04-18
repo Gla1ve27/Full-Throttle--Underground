@@ -15,7 +15,7 @@ namespace Underground.EditorTools
         private const string HdrpGlobalSettingsAssetPath = "Assets/HDRPDefaultResources/HDRenderPipelineGlobalSettings.asset";
 
 
-        [MenuItem("Underground/Project/Enable Post Processing", priority = 11)]
+        [MenuItem("Full Throttle/Project/Enable Post Processing", priority = 11)]
         public static void EnableSsrRendererFeaturesFromMenu()
         {
             EnsureProjectFolders();

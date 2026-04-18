@@ -136,3 +136,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   components:
   - {fileID: -5056177679757201940}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

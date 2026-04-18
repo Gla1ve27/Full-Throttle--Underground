@@ -33,7 +33,7 @@ namespace Underground.EditorTools
             }
         }
 
-        [MenuItem("Underground/Project/Convert Project To HDRP", priority = 9)]
+        [MenuItem("Full Throttle/Project/Convert Project To HDRP", priority = 9)]
         public static void ConvertProjectToHdrpNow()
         {
             SessionState.SetBool(ConversionQueuedKey, true);

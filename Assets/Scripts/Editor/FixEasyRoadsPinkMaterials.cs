@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FixEasyRoadsPinkMaterials
 {
-    [MenuItem("Tools/Fix EasyRoads Pink Materials (HDRP 17+)")]
+    [MenuItem("Full Throttle/Project/Fix EasyRoads Pink Materials (HDRP 17+)")]
     public static void FixMaterials()
     {
         string[] searchFolders = new string[] { "Assets/EasyRoads3D", "Assets/EasyRoads3D Assets", "Assets/EasyRoads3D scenes" };

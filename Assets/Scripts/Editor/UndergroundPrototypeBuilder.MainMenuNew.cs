@@ -31,7 +31,7 @@ namespace Underground.EditorTools
             EditorApplication.delayCall += TryAutoBuildMainMenuNewScene;
         }
 
-        [MenuItem("Underground/UI/Rebuild Main Menu New Scene", priority = 43)]
+        [MenuItem("Full Throttle/UI/Rebuild Main Menu New Scene", priority = 43)]
         public static void RebuildMainMenuNewSceneFromTopMenu()
         {
             PreparePrototypeAssets(out GameObject playerCarPrefab, out _, out _, out _, out _);

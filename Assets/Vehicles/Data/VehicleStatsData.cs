@@ -10,7 +10,7 @@ namespace Underground.Vehicle
 {
     [CreateAssetMenu(
         fileName = "NewVehicleStats",
-        menuName = "Underground/Vehicle/Vehicle Stats Data")]
+        menuName = "Full Throttle/Vehicle/Vehicle Stats Data")]
     public class VehicleStatsData : ScriptableObject
     {
         // ── Identity (legacy compat — source of truth is VehicleDefinition) ─────────────

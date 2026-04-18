@@ -1,4 +1,5 @@
 using UnityEngine;
+using Underground.Vehicle;
 using Underground.World;
 
 namespace Underground.AI
@@ -27,6 +28,9 @@ namespace Underground.AI
                 GameObject trafficCar = Instantiate(trafficPrefabs[index], point.position, point.rotation);
                 VehicleReflectionRuntimeController reflectionController = trafficCar.GetComponent<VehicleReflectionRuntimeController>() ?? trafficCar.AddComponent<VehicleReflectionRuntimeController>();
                 reflectionController.Configure(false);
+
+                VehicleNightLightingController lightingController = trafficCar.GetComponent<VehicleNightLightingController>() ?? trafficCar.AddComponent<VehicleNightLightingController>();
+                lightingController.ConfigureForTraffic(false);
             }
         }
     }
