@@ -14,7 +14,7 @@ namespace Underground.Garage
     {
         [SerializeField] private Transform displayRoot;
         [SerializeField] private PersistentProgressManager progressManager;
-        [SerializeField] private VehicleDynamicsController vehicle;
+        [SerializeField] private Underground.Vehicle.V2.VehicleControllerV2 vehicle;
         [SerializeField] private Rigidbody vehicleBody;
         [SerializeField] private InputReader vehicleInput;
         [SerializeField] private CarRespawn respawn;
@@ -29,9 +29,9 @@ namespace Underground.Garage
 
         private float activeShowroomBodyDrop;
 
-        public event Action<VehicleDynamicsController> VehicleChanged;
+        public event Action<Underground.Vehicle.V2.VehicleControllerV2> VehicleChanged;
 
-        public VehicleDynamicsController CurrentVehicle => vehicle;
+        public Underground.Vehicle.V2.VehicleControllerV2 CurrentVehicle => vehicle;
         public string CurrentCarId => appearanceController != null && !string.IsNullOrEmpty(appearanceController.CurrentCarId)
             ? appearanceController.CurrentCarId
             : (progressManager != null ? PlayerCarCatalog.MigrateCarId(progressManager.CurrentOwnedCarId) : string.Empty);
@@ -56,7 +56,7 @@ namespace Underground.Garage
 
             if (vehicle == null)
             {
-                vehicle = GetComponentInChildren<VehicleDynamicsController>(true);
+                vehicle = GetComponentInChildren<Underground.Vehicle.V2.VehicleControllerV2>(true);
             }
 
             if (vehicle != null && vehicleBody == null)
@@ -142,7 +142,7 @@ namespace Underground.Garage
         {
             if (vehicle == null)
             {
-                vehicle = GetComponentInChildren<VehicleDynamicsController>(true);
+                vehicle = GetComponentInChildren<Underground.Vehicle.V2.VehicleControllerV2>(true);
             }
 
             if (vehicle == null)
@@ -377,6 +377,25 @@ namespace Underground.Garage
                 respawn.enabled = false;
             }
 
+            if (appearanceController == null && vehicle != null)
+            {
+                appearanceController = vehicle.GetComponent<PlayerCarAppearanceController>();
+            }
+
+            if (appearanceController != null)
+            {
+                appearanceController.SetShowroomPresentationMode(true);
+            }
+
+            Underground.Vehicle.V2.VehicleSetupBridge setupBridge = vehicle != null
+                ? vehicle.GetComponent<Underground.Vehicle.V2.VehicleSetupBridge>()
+                : null;
+            if (setupBridge != null)
+            {
+                setupBridge.enabled = false;
+                Debug.Log("[Showroom] Disabled VehicleSetupBridge on garage preview car.");
+            }
+
             if (vehicleBody != null)
             {
                 vehicleBody.linearVelocity = Vector3.zero;
@@ -385,7 +404,7 @@ namespace Underground.Garage
                 vehicleBody.constraints = RigidbodyConstraints.FreezeAll;
             }
 
-            VehicleAudioController audioController = GetComponentInChildren<VehicleAudioController>(true);
+            Underground.Audio.V2.VehicleAudioControllerV2 audioController = GetComponentInChildren<Underground.Audio.V2.VehicleAudioControllerV2>(true);
             if (audioController != null)
             {
                 audioController.enabled = false;
@@ -433,3 +452,4 @@ namespace Underground.Garage
         }
     }
 }
+

@@ -39,7 +39,7 @@ namespace Underground.World
                 return false;
             }
 
-            if (target.GetComponent<VehicleDynamicsController>() != null || target.GetComponent<PlayerCarAppearanceController>() != null)
+            if (target.GetComponent<Underground.Vehicle.V2.VehicleControllerV2>() != null || target.GetComponent<PlayerCarAppearanceController>() != null)
             {
                 return true;
             }
@@ -301,3 +301,4 @@ namespace Underground.World
         }
     }
 }
+

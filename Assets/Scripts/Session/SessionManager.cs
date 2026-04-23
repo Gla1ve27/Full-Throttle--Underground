@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Underground.Core.Architecture;
 using Underground.Save;
+using Underground.TimeSystem;
 
 namespace Underground.Session
 {
@@ -53,7 +54,7 @@ namespace Underground.Session
 
         }
 
-        public void BankSession(float worldTime = 12f)
+        public void BankSession(float worldTime = PackageTimeOfDayUtility.DefaultDuskNightHour)
         {
             if (persistentProgress == null)
             {
@@ -67,8 +68,9 @@ namespace Underground.Session
             SessionMoney = 0;
             SessionReputation = 0;
 
-            persistentProgress.SaveNow(worldTime, garageSceneName);
-            ServiceLocator.EventBus.Publish(new SessionBankedEvent(moneyBanked, reputationBanked, worldTime));
+            float savedWorldTime = PackageTimeOfDayUtility.ConstrainToDuskNightHours(worldTime);
+            persistentProgress.SaveNow(savedWorldTime, garageSceneName);
+            ServiceLocator.EventBus.Publish(new SessionBankedEvent(moneyBanked, reputationBanked, savedWorldTime));
         }
 
         [Obsolete("Vehicle totalled flow removed for milestone 1")]

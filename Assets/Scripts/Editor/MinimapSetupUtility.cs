@@ -103,14 +103,25 @@ namespace FullThrottle.EditorTools
             }
             else
             {
-                renderTexture.width = 512;
-                renderTexture.height = 512;
-                renderTexture.depth = 16;
-                renderTexture.useMipMap = false;
-                renderTexture.autoGenerateMips = false;
-                renderTexture.filterMode = FilterMode.Bilinear;
-                renderTexture.wrapMode = TextureWrapMode.Clamp;
-                EditorUtility.SetDirty(renderTexture);
+                bool changed = false;
+                if (renderTexture.width != 512 || renderTexture.height != 512 || renderTexture.depth != 16)
+                {
+                    renderTexture.Release();
+                    renderTexture.width = 512;
+                    renderTexture.height = 512;
+                    renderTexture.depth = 16;
+                    changed = true;
+                }
+
+                if (renderTexture.useMipMap != false) { renderTexture.useMipMap = false; changed = true; }
+                if (renderTexture.autoGenerateMips != false) { renderTexture.autoGenerateMips = false; changed = true; }
+                if (renderTexture.filterMode != FilterMode.Bilinear) { renderTexture.filterMode = FilterMode.Bilinear; changed = true; }
+                if (renderTexture.wrapMode != TextureWrapMode.Clamp) { renderTexture.wrapMode = TextureWrapMode.Clamp; changed = true; }
+
+                if (changed)
+                {
+                    EditorUtility.SetDirty(renderTexture);
+                }
             }
 
             return renderTexture;

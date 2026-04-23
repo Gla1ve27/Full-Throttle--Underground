@@ -93,7 +93,7 @@ namespace Underground.EditorTools
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
             ComposeGarageBackdropForMenu(playerCarPrefab);
 
@@ -103,6 +103,7 @@ namespace Underground.EditorTools
             SetStringValue(menuController, "quickRaceSceneName", "World");
 
             Canvas canvas = CreateMainMenuCanvas();
+            EnsureRadioPopupOnCanvas(canvas);
             GameObject mainMenuUI = CreatePanelRoot(canvas.transform, MainMenuNewMarkerName);
 
             MainMenuFlowManager flowManager = mainMenuUI.AddComponent<MainMenuFlowManager>();
@@ -125,7 +126,7 @@ namespace Underground.EditorTools
         {
             ClearMainMenuNewRootsExceptPreservedUi(scene);
 
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
             ComposeGarageBackdropForMenu(playerCarPrefab);
 
@@ -187,6 +188,7 @@ namespace Underground.EditorTools
 
             MenuInputHandler inputHandler = mainMenuUI.GetComponent<MenuInputHandler>() ?? mainMenuUI.AddComponent<MenuInputHandler>();
             SetObjectReference(inputHandler, "flowManager", flowManager);
+            EnsureRadioPopupOnCanvas(canvas);
 
             EditorSceneManager.MarkSceneDirty(scene);
         }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_18_last_night_lockup_13
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_18_last_night_lockup_13
+  actId: act_04_crown_night
+  chapterNumber: 18
+  title: Last Night In Lockup 13
+  districtId: city_core
+  narrativePurpose: Final sacred garage scene.
+  requiredReputation: 6200
+  requiredChapterIds:
+  - chapter_17_upper_world
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 2a9060fdfe3d2654a8183095192ff704, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 8ee9bc032c020484aa952098f22437cb, type: 2}
+  garageBeat: {fileID: 11400000, guid: b3b9e7c75fb97bc47b89aed0fea21d4b, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 0bd404df1c37fc140aeb7d7c4fe1b7eb, type: 2}
+  moneyReward: 0
+  reputationReward: 500
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_19_crown_of_the_night

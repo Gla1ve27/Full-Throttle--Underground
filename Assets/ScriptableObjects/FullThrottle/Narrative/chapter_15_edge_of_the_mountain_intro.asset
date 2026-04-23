@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167bea02a263b7f41b7856498cf2da2c, type: 3}
+  m_Name: chapter_15_edge_of_the_mountain_intro
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTNarrativeBeatDefinition
+  beatId: chapter_15_edge_of_the_mountain_intro
+  chapterId: chapter_15_edge_of_the_mountain
+  title: Edge Of The Mountain
+  beatType: 0
+  blocksGameplay: 1
+  cameraRigTag: 
+  musicSting: {fileID: 0}
+  voiceOver: {fileID: 0}
+  minimumDuration: 3
+  cinematicDirection: Night mountain run. No crowd needed. The road is enough.
+  dialogue:
+  - characterId: thomas_cabanit
+    displayName: Thomas Cabanit
+    line: Don't chase the edge unless you know what you are willing to leave there.
+    delayAfter: 0.65
+  radioCopy: 

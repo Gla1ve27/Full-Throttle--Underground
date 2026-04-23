@@ -4,6 +4,8 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FullThrottle.SacredCore.Camera;
+using FullThrottle.SacredCore.Garage;
 using Underground.Garage;
 using Underground.Progression;
 using Underground.UI;
@@ -23,14 +25,22 @@ namespace Underground.EditorTools
         private static void ComposeGarageShowroomScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade)
         {
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.05f, 0f, true);
-            ConfigureShowroomController(backdrop.showroomController, true, 146f, -0.22f, 0f);
+
+            // Phase 5: FT garage directors replace legacy GarageManager
+            GameObject directorsRoot = new GameObject("FT_GarageDirectors");
+            FTGarageDirector garageDirector = directorsRoot.AddComponent<FTGarageDirector>();
+            FTGarageShowroomDirector showroomDirector = directorsRoot.AddComponent<FTGarageShowroomDirector>();
+            FTGarageCameraDirector cameraDirector = directorsRoot.AddComponent<FTGarageCameraDirector>();
+            SetObjectReference(showroomDirector, "displayAnchor", backdrop.displayRoot.transform);
+            SetObjectReference(showroomDirector, "displayParent", backdrop.displayRoot.transform);
+            SetObjectReference(cameraDirector, "showroomAnchor", backdrop.displayRoot.transform);
 
             GameObject systemsRoot = new GameObject("GarageSystems");
-            GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
-            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
+            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();
 
             Canvas canvas = CreateCanvas("GarageCanvas");
             GarageUiBuild uiBuild = CreateGarageShowroomUi(canvas.transform);
+            EnsureRadioPopupOnCanvas(canvas);
             GarageUIController garageUi = canvas.gameObject.AddComponent<GarageUIController>();
 
             UpgradePurchaseAction upgradeAction = uiBuild.upgradeButton.gameObject.AddComponent<UpgradePurchaseAction>();
@@ -38,9 +48,8 @@ namespace Underground.EditorTools
             SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
 
             SerializedObject uiSo = new SerializedObject(garageUi);
-            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
-            uiSo.FindProperty("showroomController").objectReferenceValue = backdrop.showroomController;
-            uiSo.FindProperty("displayedVehicle").objectReferenceValue = backdrop.vehicle;
+            uiSo.FindProperty("garageManager").objectReferenceValue = garageDirector;
+            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
             uiSo.FindProperty("moneyText").objectReferenceValue = uiBuild.moneyText;
             uiSo.FindProperty("reputationText").objectReferenceValue = uiBuild.reputationText;
             uiSo.FindProperty("currentCarText").objectReferenceValue = uiBuild.currentCarText;
@@ -80,18 +89,25 @@ namespace Underground.EditorTools
                 Object.DestroyImmediate(roots[i]);
             }
 
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
 
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "GarageShowroom", "DisplayTurntable", 1.05f, 0f, true);
-            ConfigureShowroomController(backdrop.showroomController, true, 146f, -0.22f, 0f);
+
+            // Phase 5: FT garage directors replace legacy GarageManager
+            GameObject directorsRoot = new GameObject("FT_GarageDirectors");
+            FTGarageDirector garageDirector = directorsRoot.AddComponent<FTGarageDirector>();
+            FTGarageShowroomDirector showroomDirector = directorsRoot.AddComponent<FTGarageShowroomDirector>();
+            FTGarageCameraDirector cameraDirector = directorsRoot.AddComponent<FTGarageCameraDirector>();
+            SetObjectReference(showroomDirector, "displayAnchor", backdrop.displayRoot.transform);
+            SetObjectReference(showroomDirector, "displayParent", backdrop.displayRoot.transform);
+            SetObjectReference(cameraDirector, "showroomAnchor", backdrop.displayRoot.transform);
 
             GameObject systemsRoot = new GameObject("GarageSystems");
-            GarageManager garageManager = systemsRoot.AddComponent<GarageManager>();
-            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();            SetObjectReference(upgradeSystem, "playerVehicle", backdrop.vehicle);
+            UpgradeSystem upgradeSystem = systemsRoot.AddComponent<UpgradeSystem>();
 
             Canvas canvas = preservedCanvas != null ? preservedCanvas : CreateCanvas("GarageCanvas");
-            ConfigureGarageShowroomUi(canvas, backdrop, garageManager, upgradeSystem, engineUpgrade);
+            ConfigureGarageShowroomUi(canvas, backdrop, garageDirector, upgradeSystem, engineUpgrade);
 
             EditorSceneManager.MarkSceneDirty(scene);
         }
@@ -101,7 +117,6 @@ namespace Underground.EditorTools
             RemoveExistingGarageBackdrop();
             ConfigureGarageBackdropCamera();
             GarageBackdropBuild backdrop = ComposeGarageBackdrop(playerCarPrefab, "MainMenuGarageBackdrop", "MenuDisplayTurntable", 1.05f, 0f, false);
-            ConfigureShowroomController(backdrop.showroomController, false, 146f, -0.22f, 0f);
         }
 
         private static Canvas FindPreservedGarageCanvas()
@@ -141,7 +156,7 @@ namespace Underground.EditorTools
         private static void ConfigureGarageShowroomUi(
             Canvas canvas,
             GarageBackdropBuild backdrop,
-            GarageManager garageManager,
+            FTGarageDirector garageDirector,
             UpgradeSystem upgradeSystem,
             UpgradeDefinition engineUpgrade)
         {
@@ -189,10 +204,10 @@ namespace Underground.EditorTools
                 SetObjectReference(upgradeAction, "upgradeDefinition", engineUpgrade);
             }
 
-            uiSo.FindProperty("garageManager").objectReferenceValue = garageManager;            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
-            uiSo.FindProperty("showroomController").objectReferenceValue = backdrop.showroomController;
-            uiSo.FindProperty("displayedVehicle").objectReferenceValue = backdrop.vehicle;
+            uiSo.FindProperty("garageManager").objectReferenceValue = garageDirector;
+            uiSo.FindProperty("engineUpgradeAction").objectReferenceValue = upgradeAction;
             uiSo.ApplyModifiedPropertiesWithoutUndo();
+            EnsureRadioPopupOnCanvas(canvas);
             EditorUtility.SetDirty(garageUi);
         }
 
@@ -242,34 +257,7 @@ namespace Underground.EditorTools
 
             GameObject displayRoot = new GameObject(displayRootName);
             displayRoot.transform.position = new Vector3(0f, 0f, displayZ);
-            GameObject car = (GameObject)PrefabUtility.InstantiatePrefab(playerCarPrefab);
-            car.transform.SetParent(displayRoot.transform, false);
-            car.transform.localPosition = new Vector3(0f, 0.65f, 0f);
-            car.transform.localRotation = Quaternion.identity;
-
-            VehicleDynamicsController vehicle = car.GetComponent<VehicleDynamicsController>();
-            GarageShowroomController showroomController = displayRoot.AddComponent<GarageShowroomController>();
-            SetObjectReference(showroomController, "displayRoot", displayRoot.transform);
-            SetObjectReference(showroomController, "vehicle", vehicle);
-            SetObjectReference(showroomController, "vehicleBody", car.GetComponent<Rigidbody>());
-            SetObjectReference(showroomController, "vehicleInput", car.GetComponent<VehicleInput>());
-            SetObjectReference(showroomController, "respawn", car.GetComponent<CarRespawn>());
-            SetFloatValue(showroomController, "autoRotateSpeed", autoRotateSpeed);
-
-            return new GarageBackdropBuild(showroomRoot, displayRoot, showroomController, car, vehicle);
-        }
-
-        private static void ConfigureShowroomController(GarageShowroomController showroomController, bool allowMouseRotation, float initialYaw, float showroomBodyDrop, float autoRotateSpeed)
-        {
-            if (showroomController == null)
-            {
-                return;
-            }
-
-            SetBoolValue(showroomController, "allowMouseRotation", allowMouseRotation);
-            SetFloatValue(showroomController, "initialYaw", initialYaw);
-            SetFloatValue(showroomController, "showroomBodyDrop", showroomBodyDrop);
-            SetFloatValue(showroomController, "autoRotateSpeed", autoRotateSpeed);
+            return new GarageBackdropBuild(showroomRoot, displayRoot);
         }
 
         private static void RemoveExistingGarageBackdrop()
@@ -818,20 +806,14 @@ namespace Underground.EditorTools
 
         private readonly struct GarageBackdropBuild
         {
-            public GarageBackdropBuild(GameObject environmentRoot, GameObject displayRoot, GarageShowroomController showroomController, GameObject car, VehicleDynamicsController vehicle)
+            public GarageBackdropBuild(GameObject environmentRoot, GameObject displayRoot)
             {
                 this.environmentRoot = environmentRoot;
                 this.displayRoot = displayRoot;
-                this.showroomController = showroomController;
-                this.car = car;
-                this.vehicle = vehicle;
             }
 
             public readonly GameObject environmentRoot;
             public readonly GameObject displayRoot;
-            public readonly GarageShowroomController showroomController;
-            public readonly GameObject car;
-            public readonly VehicleDynamicsController vehicle;
         }
 
         private struct GarageUiBuild

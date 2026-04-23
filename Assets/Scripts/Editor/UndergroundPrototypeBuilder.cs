@@ -71,6 +71,7 @@ namespace Underground.EditorTools
             EnsureProjectFolders();
             ConfigureProjectSettings();
             ConfigureTagsAndLayers();
+            ApplyLatestFullThrottleCoreChanges(rebuildGeneratedPrefabs: true);
 
             if (!HasImportedFcg())
             {
@@ -85,6 +86,16 @@ namespace Underground.EditorTools
             RaceDefinition wagerRace = CreateOrUpdateWagerRace();
 
             GameObject playerCarPrefab = CreateOrUpdatePlayerCarPrefab(starterStats, preserveExistingAsset: true);
+
+            // Wire the generated prefab to the starter definition so the spawn director can use it
+            FullThrottle.SacredCore.Vehicle.FTCarDefinition starterDef = AssetDatabase.LoadAssetAtPath<FullThrottle.SacredCore.Vehicle.FTCarDefinition>("Assets/ScriptableObjects/FullThrottle/Cars/starter_01.asset");
+            if (starterDef != null)
+            {
+                starterDef.worldPrefab = playerCarPrefab;
+                EditorUtility.SetDirty(starterDef);
+            }
+            ConfigureKnownFTCarDefinitions(playerCarPrefab);
+
             CreateSceneSupportPrefabs(preserveExistingAssets: true);
 
             CreateBootstrapScene(preserveExistingScene: true);

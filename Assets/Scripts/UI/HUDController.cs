@@ -7,19 +7,31 @@ using Underground.Session;
 using Underground.TimeSystem;
 using Underground.Race;
 using Underground.Vehicle;
+using Underground.Vehicle.V2;
 
 namespace Underground.UI
 {
+    public enum HudInstrumentMode
+    {
+        DigitalTach,
+        AnalogueSpeedometer
+    }
+
     public class HUDController : MonoBehaviour
     {
-        [SerializeField] private VehicleDynamicsController vehicle;
-        [SerializeField] private GearboxSystem gearbox;
+        [SerializeField] private VehicleControllerV2 vehicleV2;
         [SerializeField] private SessionManager session;
         [SerializeField] private PersistentProgressManager progress;
         [SerializeField] private TimeOfDay packageTimeOfDay;
         [SerializeField] private GameSettingsManager settingsManager;
 
+        [Header("Instrument Mode")]
+        [SerializeField] private HudInstrumentMode instrumentMode = HudInstrumentMode.DigitalTach;
+        [SerializeField] private RectTransform digitalInstrumentRoot;
+        [SerializeField] private RectTransform analogueInstrumentRoot;
+
         [Header("Text")]
+        [SerializeField] private TachometerHudDisplay tachometer;
         [SerializeField] private global::Speedometer speedometer;
         [SerializeField] private TMP_Text speedText;
         [SerializeField] private TMP_Text gearText;
@@ -48,10 +60,14 @@ namespace Underground.UI
 
             attachedCanvas = GetComponent<Canvas>();
             ResolveViewReferences();
+            ApplyInstrumentMode();
         }
 
         public void BindView(
+            TachometerHudDisplay tachometerValue,
             global::Speedometer speedometerValue,
+            RectTransform digitalRootValue,
+            RectTransform analogueRootValue,
             TMP_Text speedValue,
             TMP_Text gearValue,
             TMP_Text bankValue,
@@ -63,7 +79,10 @@ namespace Underground.UI
             Image speedGaugeValue,
             Image speedGlowValue)
         {
+            tachometer = tachometerValue;
             speedometer = speedometerValue;
+            digitalInstrumentRoot = digitalRootValue;
+            analogueInstrumentRoot = analogueRootValue;
             speedText = speedValue;
             gearText = gearValue;
             bankMoneyText = bankValue;
@@ -74,11 +93,26 @@ namespace Underground.UI
             challengeText = challengeValue;
             speedGaugeFill = speedGaugeValue;
             speedGaugeGlowFill = speedGlowValue;
+            ApplyInstrumentMode();
         }
 
         public void RefreshViewBindings()
         {
             ResolveViewReferences();
+            ApplyInstrumentMode();
+        }
+
+        public HudInstrumentMode InstrumentMode => instrumentMode;
+
+        public void SetInstrumentMode(HudInstrumentMode mode)
+        {
+            if (instrumentMode == mode)
+            {
+                return;
+            }
+
+            instrumentMode = mode;
+            ApplyInstrumentMode();
         }
 
         private void OnEnable()
@@ -113,49 +147,54 @@ namespace Underground.UI
                 }
             }
 
-            if (speedometer == null || clockText == null || racePromptRoot == null)
+            if (tachometer == null || clockText == null || racePromptRoot == null)
             {
                 ResolveViewReferences();
+                ApplyInstrumentMode();
             }
 
-            if (vehicle == null || vehicle.Rigidbody == null || !vehicle.CompareTag("Player"))
+            
+            bool hasV2 = vehicleV2 != null && vehicleV2.IsInitialized && vehicleV2.enabled; if (!hasV2) { ResolveVehicleReferences(); hasV2 = vehicleV2 != null && vehicleV2.IsInitialized && vehicleV2.enabled; }
+
+            int speedKph;
+            float maxSpeedKph;
+            if (hasV2)
             {
-                ResolveVehicleReferences();
+                speedKph = Mathf.RoundToInt(Mathf.Abs(vehicleV2.State.ForwardSpeedKph));
+                maxSpeedKph = vehicleV2.RuntimeStats != null ? Mathf.Max(1f, vehicleV2.RuntimeStats.MaxSpeedKph) : 260f;
             }
-
-            // FIX: Use Abs(ForwardSpeedKph) so needle and text both use the same
-            // forward-only speed value. Previously Speedometer.cs used
-            // linearVelocity.magnitude which includes lateral drift — mismatch fixed.
-            int speedKph = vehicle != null ? Mathf.RoundToInt(Mathf.Abs(vehicle.ForwardSpeedKph)) : 0;
-            float maxSpeedKph = vehicle != null && vehicle.RuntimeStats != null
-                ? Mathf.Max(1f, vehicle.RuntimeStats.MaxSpeedKph)
-                : 260f;
+            
+            else
+            {
+                speedKph = 0;
+                maxSpeedKph = 260f;
+            }
             float normalizedSpeed = (float)speedKph / maxSpeedKph;
+            bool analogueMode = instrumentMode == HudInstrumentMode.AnalogueSpeedometer;
 
-            // FIX: Drive both the needle and text from HUD so they always match.
-            // Push maxSpeed to the Speedometer so the needle arc scales correctly.
-            if (speedometer != null)
+            if (analogueMode && speedometer != null)
             {
-                if (vehicle != null && speedometer.target != vehicle.Rigidbody)
+                Rigidbody activeRb = hasV2 ? vehicleV2.Rigidbody : null;
+                if (activeRb != null && speedometer.target != activeRb)
                 {
-                    speedometer.target = vehicle.Rigidbody;
+                    speedometer.target = activeRb;
                 }
 
-                // FIX: Do not override speedometer.maxSpeed with the vehicle's max speed.
-                // The visual dial texture is physically printed up to a fixed number (e.g. 260). 
-                // Overriding it causes the needle to calculate its angle against a smaller maximum, reading too high.
-                // speedometer.maxSpeed = maxSpeedKph; 
-                speedometer.SetSpeed(speedKph); // needle + legacy label, both in sync
+                speedometer.SetSpeed(speedKph);
             }
 
             if (speedText != null)
             {
-                speedText.text = speedKph.ToString();
+                speedText.text = analogueMode ? speedKph.ToString() : string.Empty;
             }
 
-            if (gearText != null && gearbox != null)
+            if (gearText != null && analogueMode)
             {
-                gearText.text = vehicle != null && vehicle.IsReversing ? "R" : gearbox.CurrentGear.ToString();
+                if (hasV2)
+                {
+                    gearText.text = vehicleV2.State.IsReversing ? "R" : vehicleV2.State.Gear.ToString();
+                }
+                
             }
 
             if (progress != null)
@@ -195,7 +234,7 @@ namespace Underground.UI
             {
                 float worldTime = packageTimeOfDay != null
                     ? PackageTimeOfDayUtility.GetHours(packageTimeOfDay)
-                    : (progress != null ? progress.WorldTimeOfDay : 12f);
+                    : (progress != null ? progress.WorldTimeOfDay : PackageTimeOfDayUtility.DefaultDuskNightHour);
                 clockText.text = FormatGameClock(worldTime);
             }
 
@@ -203,13 +242,13 @@ namespace Underground.UI
 
             if (speedGaugeFill != null)
             {
-                speedGaugeFill.fillAmount = Mathf.Lerp(0.1f, 0.86f, normalizedSpeed);
+                speedGaugeFill.fillAmount = analogueMode ? Mathf.Lerp(0.1f, 0.86f, normalizedSpeed) : 0f;
                 speedGaugeFill.color = Color.Lerp(new Color(0.24f, 0.62f, 1f, 0.88f), new Color(1f, 0.38f, 0.46f, 0.98f), normalizedSpeed);
             }
 
             if (speedGaugeGlowFill != null)
             {
-                speedGaugeGlowFill.fillAmount = Mathf.Lerp(0.14f, 0.92f, normalizedSpeed);
+                speedGaugeGlowFill.fillAmount = analogueMode ? Mathf.Lerp(0.14f, 0.92f, normalizedSpeed) : 0f;
             }
         }
 
@@ -234,6 +273,29 @@ namespace Underground.UI
             }
         }
 
+        private void ApplyInstrumentMode()
+        {
+            bool digitalMode = instrumentMode == HudInstrumentMode.DigitalTach;
+
+            if (digitalInstrumentRoot != null)
+            {
+                digitalInstrumentRoot.gameObject.SetActive(digitalMode);
+            }
+            else if (tachometer != null)
+            {
+                tachometer.gameObject.SetActive(digitalMode);
+            }
+
+            if (analogueInstrumentRoot != null)
+            {
+                analogueInstrumentRoot.gameObject.SetActive(!digitalMode);
+            }
+            else if (speedometer != null)
+            {
+                speedometer.gameObject.SetActive(!digitalMode);
+            }
+        }
+
         private static int GetReputationLevel(int totalReputation)
         {
             return Mathf.Max(1, (totalReputation / 500) + 1);
@@ -246,29 +308,37 @@ namespace Underground.UI
 
         private void ResolveVehicleReferences()
         {
-            VehicleDynamicsController playerVehicle = FindPlayerVehicle();
-            if (playerVehicle != null)
+            // Try V2 first
+            if (vehicleV2 == null || !vehicleV2.IsInitialized)
             {
-                vehicle = playerVehicle;
-            }
-            else if (vehicle == null)
-            {
-                vehicle = FindFirstObjectByType<VehicleDynamicsController>();
-            }
-
-            if (vehicle != null)
-            {
-                gearbox = vehicle.GetComponent<GearboxSystem>() ?? gearbox;
-            }
-            else
-            {
-                gearbox ??= FindFirstObjectByType<GearboxSystem>();
+                VehicleControllerV2[] v2s = FindObjectsByType<VehicleControllerV2>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+                for (int i = 0; i < v2s.Length; i++)
+                {
+                    if (v2s[i] != null && v2s[i].CompareTag("Player") && v2s[i].IsInitialized)
+                    {
+                        vehicleV2 = v2s[i];
+                        break;
+                    }
+                }
             }
         }
 
         private void ResolveViewReferences()
         {
+            if (digitalInstrumentRoot == null)
+            {
+                digitalInstrumentRoot = FindDescendant(transform, "DigitalTachRoot") as RectTransform;
+            }
+
+            if (analogueInstrumentRoot == null)
+            {
+                analogueInstrumentRoot = FindDescendant(transform, "AnalogueSpeedometerRoot") as RectTransform;
+            }
+
+            tachometer ??= GetComponentInChildren<TachometerHudDisplay>(true);
             speedometer ??= GetComponentInChildren<global::Speedometer>(true);
+
+            gearText ??= FindText("AnalogueGearValue");
             gearText ??= FindText("GearValue");
             bankMoneyText ??= FindText("LevelDetail");
             sessionMoneyText ??= FindText("SessionMoney");
@@ -323,9 +393,9 @@ namespace Underground.UI
             return null;
         }
 
-        private static VehicleDynamicsController FindPlayerVehicle()
+        private static VehicleControllerV2 FindPlayerVehicle()
         {
-            VehicleDynamicsController[] vehicles = FindObjectsByType<VehicleDynamicsController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+            VehicleControllerV2[] vehicles = FindObjectsByType<VehicleControllerV2>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
             for (int i = 0; i < vehicles.Length; i++)
             {
                 if (vehicles[i] != null && vehicles[i].CompareTag("Player"))
@@ -383,3 +453,6 @@ namespace Underground.UI
         }
     }
 }
+
+
+

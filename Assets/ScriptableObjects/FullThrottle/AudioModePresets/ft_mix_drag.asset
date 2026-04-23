@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7778c4d2b36ecef48a83fa9ac8281dff, type: 3}
+  m_Name: ft_mix_drag
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTAudioModePreset
+  mode: 3
+  snapshot: {fileID: 0}
+  transitionSeconds: 0.32
+  engineCore: 1.18
+  engineDecel: 0.82
+  sweetener: 1.02
+  turbo: 1.12
+  shift: 1.14
+  skid: 0.72
+  worldBed: 0.58
+  engineCoreParameter: CarEngineCoreVol
+  engineDecelParameter: CarEngineDecelVol
+  sweetenerParameter: CarSweetenerVol
+  turboParameter: CarTurboVol
+  shiftParameter: CarShiftVol
+  skidParameter: CarSkidVol
+  worldBedParameter: WorldBedVol

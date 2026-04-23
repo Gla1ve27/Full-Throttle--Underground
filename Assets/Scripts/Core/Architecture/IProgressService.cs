@@ -22,7 +22,7 @@ namespace Underground.Core.Architecture
         void RegisterUpgrade(string upgradeId);
         void RegisterRaceCompletion(string raceId);
         bool IsRaceUnlocked(string raceId);
-        void SaveNow(float worldTime = 12f, string garageScene = "Garage");
+        void SaveNow(float worldTime = Underground.TimeSystem.PackageTimeOfDayUtility.DefaultDuskNightHour, string garageScene = "Garage");
         void LoadFromDisk();
         void SetWorldTime(float worldTime);
         void ResetToDefaults();

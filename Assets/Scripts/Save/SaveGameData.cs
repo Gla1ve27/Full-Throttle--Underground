@@ -12,7 +12,7 @@ namespace Underground.Save
         public List<string> ownedCarIds = new List<string>();
         public List<string> purchasedUpgradeIds = new List<string>();
         public List<string> completedRaceIds = new List<string>();
-        public float worldTimeOfDay = 12f;
+        public float worldTimeOfDay = 21f;
         public string lastGarageScene = "Garage";
     }
 }

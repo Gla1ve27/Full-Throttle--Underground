@@ -7,6 +7,17 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using FullThrottle.SacredCore.Audio;
+using FullThrottle.SacredCore.Campaign;
+using FullThrottle.SacredCore.Career;
+using FullThrottle.SacredCore.Economy;
+using FullThrottle.SacredCore.Garage;
+using FullThrottle.SacredCore.Progression;
+using FullThrottle.SacredCore.Race;
+using FullThrottle.SacredCore.Runtime;
+using FullThrottle.SacredCore.Save;
+using FullThrottle.SacredCore.Vehicle;
+using FullThrottle.SacredCore.World;
 using Underground.AI;
 using Underground.Core;
 using Underground.Garage;
@@ -37,6 +48,12 @@ namespace Underground.EditorTools
         [MenuItem("Full Throttle/Reload All", priority = 3)]
         public static void ReloadAllGeneratedContent()
         {
+            if (EditorApplication.isPlaying)
+            {
+                Debug.LogWarning("[UndergroundPrototypeBuilder] Cannot rebuild or reload scenes while in Play Mode. Please exit Play Mode first.");
+                return;
+            }
+
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             {
                 return;
@@ -52,6 +69,12 @@ namespace Underground.EditorTools
         [MenuItem("Full Throttle/Playtest/Open World Scene (No Rebuild)", priority = 10)]
         public static void OpenWorldSceneWithoutRebuild()
         {
+            if (EditorApplication.isPlaying)
+            {
+                Debug.LogWarning("[UndergroundPrototypeBuilder] Cannot switch scenes while in Play Mode using this tool.");
+                return;
+            }
+
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             {
                 return;
@@ -63,6 +86,12 @@ namespace Underground.EditorTools
         [MenuItem("Full Throttle/Playtest/Reload Active Managed Scene (No Rebuild)", priority = 11)]
         public static void ReloadActiveManagedSceneWithoutRebuild()
         {
+            if (EditorApplication.isPlaying)
+            {
+                Debug.LogWarning("[UndergroundPrototypeBuilder] Cannot switch scenes while in Play Mode using this tool.");
+                return;
+            }
+
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             {
                 return;
@@ -161,7 +190,7 @@ namespace Underground.EditorTools
             EnsureProjectFolders();
             ConfigureProjectSettings();
             ConfigureTagsAndLayers();
-            EnsureRuntimeRoot(false);
+            EnsureFTRuntimeRoot(false);
             EnsureWorldSystems(GetOrCreateSceneObject("UndergroundGameplay").transform);
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
         }
@@ -201,9 +230,13 @@ namespace Underground.EditorTools
                 NightRacePath,
                 WagerRacePath,
                 RuntimeRootPrefabPath,
+                RuntimeRadioManagerPrefabPath,
                 WorldSystemsPrefabPath,
                 FollowCameraPrefabPath,
                 HudPrefabPath,
+                FullThrottleCampaignPath,
+                Car27HeroAudioProfilePath,
+                Reizan350ZDefinitionPath,
                 ProjectHdrpAssetPath,
                 ProjectWorldVolumeProfilePath,
                 ProjectGarageVolumeProfilePath,
@@ -272,7 +305,7 @@ namespace Underground.EditorTools
 
         private static void ComposeWorldScene(Scene scene, GameObject playerCarPrefab, RaceDefinition dayRace, RaceDefinition nightRace, RaceDefinition wagerRace, Transform preservedUiRoot)
         {
-            EnsureRuntimeRoot(false);
+            EnsureFTRuntimeRoot(false);
 
             GameObject generatedRoot = RecreateSceneObject("UndergroundGenerated");
             Transform systemsRoot = CreateEmptyChild(generatedRoot.transform, "UndergroundSystems", Vector3.zero);
@@ -317,6 +350,10 @@ namespace Underground.EditorTools
             CreateGarageEntranceUnder(gameplayRoot, anchors.garagePose);
             CreateRespawnCheckpointUnder(gameplayRoot, anchors.respawnPose);
 
+            // Phase 5: FTSpawnPoint markers for spawn resolver
+            CreateFTSpawnPointUnder(gameplayRoot, "FT_Spawn_player_start", "player_start", true, anchors.playerSpawnPose);
+            CreateFTSpawnPointUnder(gameplayRoot, "FT_Spawn_garage_exit", "garage_exit", false, anchors.garagePose);
+
             Transform raceRoot = CreateEmptyChild(gameplayRoot, "RaceLayout", Vector3.zero);
             CreateRaceStartUnder(raceRoot, "Industrial Sprint", dayRace, anchors.dayRacePose);
             CreateRaceStartUnder(raceRoot, "Midnight Run", nightRace, anchors.nightRacePose);
@@ -347,7 +384,7 @@ namespace Underground.EditorTools
             TimeOfDay packageTimeOfDay = systemsRoot.GetComponentInChildren<TimeOfDay>(true);
             if (packageTimeOfDay != null)
             {
-                PackageTimeOfDayUtility.SetHours(packageTimeOfDay, 14f);
+                PackageTimeOfDayUtility.SetHours(packageTimeOfDay, PackageTimeOfDayUtility.DefaultDuskNightHour);
             }
 
             Light sunLight = systemsRoot.GetComponentInChildren<Light>(true);
@@ -357,25 +394,76 @@ namespace Underground.EditorTools
             }
         }
 
-        private static void EnsureRuntimeRoot(bool includeBootstrapLoader)
+        /// <summary>
+        /// Phase 5: Uses the FT sacred-core runtime root (FT_RuntimeRoot) with FTBootstrap
+        /// instead of legacy RuntimeRoot with PersistentProgressManager.
+        /// </summary>
+        private static void EnsureFTRuntimeRoot(bool includeBootstrapLoader)
         {
-            GameObject runtimeRoot = GameObject.Find("RuntimeRoot");
+            // Remove legacy root if present
+            GameObject legacyRoot = GameObject.Find("RuntimeRoot");
+            if (legacyRoot != null)
+            {
+                Object.DestroyImmediate(legacyRoot);
+            }
+
+            GameObject runtimeRoot = GameObject.Find("FT_RuntimeRoot");
             if (runtimeRoot == null)
             {
                 GameObject runtimeRootPrefab = CreateOrUpdateRuntimeRootPrefab();
                 runtimeRoot = runtimeRootPrefab != null
                     ? (GameObject)PrefabUtility.InstantiatePrefab(runtimeRootPrefab)
-                    : new GameObject("RuntimeRoot");
-                runtimeRoot.name = "RuntimeRoot";
+                    : new GameObject("FT_RuntimeRoot");
+                runtimeRoot.name = "FT_RuntimeRoot";
             }
 
-            GetOrAddComponent<PersistentRuntimeRoot>(runtimeRoot);
-            GetOrAddComponent<SaveSystem>(runtimeRoot);
-            GetOrAddComponent<PersistentProgressManager>(runtimeRoot);
+            // Ensure core FT services are present
+            GetOrAddComponent<FTBootstrap>(runtimeRoot);
+            GetOrAddComponent<FTRuntimeRoot>(runtimeRoot);
+            GetOrAddComponent<FTServiceRegistry>(runtimeRoot);
+            GetOrAddComponent<FTSaveGateway>(runtimeRoot);
+            GetOrAddComponent<FTCarRegistry>(runtimeRoot);
+            GetOrAddComponent<FTAudioProfileRegistry>(runtimeRoot);
+            GetOrAddComponent<FTSelectedCarRuntime>(runtimeRoot);
+            GetOrAddComponent<FTWorldTravelDirector>(runtimeRoot);
+            GetOrAddComponent<FTCareerDirector>(runtimeRoot);
+            GetOrAddComponent<FTRiskEconomyDirector>(runtimeRoot);
+            GetOrAddComponent<FTHeatDirector>(runtimeRoot);
+            GetOrAddComponent<FTWagerDirector>(runtimeRoot);
+            GetOrAddComponent<FTRivalDirector>(runtimeRoot);
+            FTCampaignDirector campaign = GetOrAddComponent<FTCampaignDirector>(runtimeRoot);
+            GetOrAddComponent<FTNarrativeDirector>(runtimeRoot);
+            GetOrAddComponent<FTProgressionDirector>(runtimeRoot);
+            GetOrAddComponent<FTAudioIdentityDirector>(runtimeRoot);
+            GetOrAddComponent<FTAudioRosterValidator>(runtimeRoot);
+            GetOrAddComponent<FTSacredCoreHealthCheck>(runtimeRoot);
+            GetOrAddComponent<FTGameContext>(runtimeRoot);
             AddRuntimeSessionManager(runtimeRoot);
-            GetOrAddComponent<VehicleOwnershipSystem>(runtimeRoot);
             GameSettingsManager settingsManager = GetOrAddComponent<GameSettingsManager>(runtimeRoot);
             SetObjectReference(settingsManager, "audioMixer", LoadSlimUiMixer());
+            SetObjectReference(campaign, "campaign", LoadFullThrottleCampaign());
+            EnsureRuntimeRadioOnObject(runtimeRoot);
+            SetObjectReference(runtimeRoot.GetComponent<FTBootstrap>(), "saveGateway", runtimeRoot.GetComponent<FTSaveGateway>());
+            AssignBehaviourArray(runtimeRoot.GetComponent<FTBootstrap>(), "serviceBehaviours",
+                runtimeRoot.GetComponent<FTRuntimeRoot>(),
+                runtimeRoot.GetComponent<FTServiceRegistry>(),
+                runtimeRoot.GetComponent<FTSaveGateway>(),
+                runtimeRoot.GetComponent<FTCarRegistry>(),
+                runtimeRoot.GetComponent<FTAudioProfileRegistry>(),
+                runtimeRoot.GetComponent<FTSelectedCarRuntime>(),
+                runtimeRoot.GetComponent<FTWorldTravelDirector>(),
+                runtimeRoot.GetComponent<FTCareerDirector>(),
+                runtimeRoot.GetComponent<FTRiskEconomyDirector>(),
+                runtimeRoot.GetComponent<FTHeatDirector>(),
+                runtimeRoot.GetComponent<FTWagerDirector>(),
+                runtimeRoot.GetComponent<FTRivalDirector>(),
+                runtimeRoot.GetComponent<FTCampaignDirector>(),
+                runtimeRoot.GetComponent<FTNarrativeDirector>(),
+                runtimeRoot.GetComponent<FTProgressionDirector>(),
+                runtimeRoot.GetComponent<FTAudioIdentityDirector>(),
+                runtimeRoot.GetComponent<FTAudioRosterValidator>(),
+                runtimeRoot.GetComponent<FTSacredCoreHealthCheck>(),
+                runtimeRoot.GetComponent<FTGameContext>());
 
             BootstrapSceneLoader loader = runtimeRoot.GetComponent<BootstrapSceneLoader>();
             if (includeBootstrapLoader)
@@ -385,6 +473,56 @@ namespace Underground.EditorTools
             else if (loader != null)
             {
                 Object.DestroyImmediate(loader);
+            }
+
+            // ── Wire FTCarRegistry with all car definitions from disk ──
+            FTCarRegistry carRegistry = runtimeRoot.GetComponent<FTCarRegistry>();
+            if (carRegistry != null)
+            {
+                string carsFolder = "Assets/ScriptableObjects/FullThrottle/Cars";
+                if (AssetDatabase.IsValidFolder(carsFolder))
+                {
+                    string[] guids = AssetDatabase.FindAssets("t:FTCarDefinition", new[] { carsFolder });
+                    SerializedObject carRegSo = new SerializedObject(carRegistry);
+                    SerializedProperty carsProp = carRegSo.FindProperty("cars");
+                    carsProp.ClearArray();
+                    for (int i = 0; i < guids.Length; i++)
+                    {
+                        string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                        FTCarDefinition def = AssetDatabase.LoadAssetAtPath<FTCarDefinition>(assetPath);
+                        if (def != null)
+                        {
+                            carsProp.InsertArrayElementAtIndex(carsProp.arraySize);
+                            carsProp.GetArrayElementAtIndex(carsProp.arraySize - 1).objectReferenceValue = def;
+                        }
+                    }
+                    carRegSo.ApplyModifiedPropertiesWithoutUndo();
+                }
+            }
+
+            // ── Wire FTAudioProfileRegistry with all audio profiles from disk ──
+            FTAudioProfileRegistry audioRegistry = runtimeRoot.GetComponent<FTAudioProfileRegistry>();
+            if (audioRegistry != null)
+            {
+                string audioFolder = "Assets/ScriptableObjects/FullThrottle/AudioProfiles";
+                if (AssetDatabase.IsValidFolder(audioFolder))
+                {
+                    string[] guids = AssetDatabase.FindAssets("t:FTVehicleAudioProfile", new[] { audioFolder });
+                    SerializedObject audioRegSo = new SerializedObject(audioRegistry);
+                    SerializedProperty profilesProp = audioRegSo.FindProperty("profiles");
+                    profilesProp.ClearArray();
+                    for (int i = 0; i < guids.Length; i++)
+                    {
+                        string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                        FTVehicleAudioProfile profile = AssetDatabase.LoadAssetAtPath<FTVehicleAudioProfile>(assetPath);
+                        if (profile != null)
+                        {
+                            profilesProp.InsertArrayElementAtIndex(profilesProp.arraySize);
+                            profilesProp.GetArrayElementAtIndex(profilesProp.arraySize - 1).objectReferenceValue = profile;
+                        }
+                    }
+                    audioRegSo.ApplyModifiedPropertiesWithoutUndo();
+                }
             }
         }
 
@@ -470,11 +608,13 @@ namespace Underground.EditorTools
 
         private static void RemoveImportedSkyOverrides()
         {
-            DestroySceneObjectsWithComponent("DayNight");
+            // Only destroy stray DayNight / ShiftAtRuntime objects that are NOT inside
+            // our managed WorldSystems hierarchy (where we intentionally place DayNight).
+            DestroySceneObjectsWithComponent("DayNight", excludeUnderParentName: "WorldSystems");
             DestroySceneObjectsWithComponent("ShiftAtRuntime");
         }
 
-        private static void DestroySceneObjectsWithComponent(string componentTypeName)
+        private static void DestroySceneObjectsWithComponent(string componentTypeName, string excludeUnderParentName = null)
         {
             if (string.IsNullOrWhiteSpace(componentTypeName))
             {
@@ -495,10 +635,26 @@ namespace Underground.EditorTools
                 .ToArray();
             for (int i = 0; i < components.Length; i++)
             {
-                if (components[i] != null)
+                if (components[i] == null) continue;
+
+                // Skip objects that are children of the excluded parent
+                if (!string.IsNullOrEmpty(excludeUnderParentName))
                 {
-                    Object.DestroyImmediate(components[i].gameObject);
+                    Transform check = components[i].transform;
+                    bool isUnderExcluded = false;
+                    while (check != null)
+                    {
+                        if (check.name == excludeUnderParentName)
+                        {
+                            isUnderExcluded = true;
+                            break;
+                        }
+                        check = check.parent;
+                    }
+                    if (isUnderExcluded) continue;
                 }
+
+                Object.DestroyImmediate(components[i].gameObject);
             }
         }
 
@@ -583,7 +739,6 @@ namespace Underground.EditorTools
             cameraObject.transform.rotation = Quaternion.Euler(12f, 0f, 0f);
 
             VehicleCameraFollow follow = GetOrAddComponent<VehicleCameraFollow>(cameraObject);
-            SetObjectReference(follow, "targetVehicle", playerCar.GetComponent<VehicleDynamicsController>());
             SetObjectReference(follow, "target", playerCar.transform.Find("CameraTarget"));
             SetObjectReference(follow, "targetBody", playerCar.GetComponent<Rigidbody>());
         }
@@ -601,6 +756,17 @@ namespace Underground.EditorTools
 
             StylizedHudComposer composer = GetOrAddComponent<StylizedHudComposer>(hudObject);
             composer.Compose();
+            EnsureRadioPopupOnCanvas(hudObject.GetComponent<Canvas>());
+        }
+
+        private static void CreateFTSpawnPointUnder(Transform parent, string objectName, string spawnPointId, bool defaultForScene, Pose pose)
+        {
+            GameObject spawnPointObject = new GameObject(objectName);
+            spawnPointObject.transform.SetParent(parent, false);
+            spawnPointObject.transform.SetPositionAndRotation(pose.position, pose.rotation);
+            FTSpawnPoint spawnPoint = spawnPointObject.AddComponent<FTSpawnPoint>();
+            spawnPoint.spawnPointId = spawnPointId;
+            spawnPoint.defaultForScene = defaultForScene;
         }
 
         private static void CreateGarageEntranceUnder(Transform parent, Pose pose)
@@ -627,6 +793,10 @@ namespace Underground.EditorTools
             checkpoint.AddComponent<RespawnPointTrigger>();
         }
 
+        /// <summary>
+        /// Phase 5: Race starts now use FTSpawnPoint markers instead of legacy RaceManager.
+        /// FTRaceDirector owns race state centrally from the runtime root.
+        /// </summary>
         private static void CreateRaceStartUnder(Transform parent, string name, RaceDefinition definition, Pose pose)
         {
             GameObject start = new GameObject(name);
@@ -637,8 +807,12 @@ namespace Underground.EditorTools
             collider.isTrigger = true;
             collider.size = new Vector3(10f, 3f, 4f);
 
-            RaceManager raceManager = start.AddComponent<RaceManager>();
-            SetObjectReference(raceManager, "activeRace", definition);
+            // FT spawn point marker for the spawn resolver
+            FTSpawnPoint spawnPoint = start.AddComponent<FTSpawnPoint>();
+            spawnPoint.spawnPointId = $"race_{definition?.raceId ?? name.ToLowerInvariant().Replace(" ", "_")}";
+            spawnPoint.defaultForScene = false;
+
+            // Keep legacy RaceStartTrigger for backward compat with existing scene logic
             start.AddComponent<RaceStartTrigger>();
 
             GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);

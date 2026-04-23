@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bde87cf3ae3ad54a8cba3cf64f2a10b, type: 3}
+  m_Name: reizan_350z
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTCarDefinition
+  carId: reizan_350z
+  displayName: Reizan 350Z
+  vehicleClass: Starter Hero
+  driveType: RWD
+  engineCharacterTag: turbo_i4_hero
+  audioProfileId: car_27_hero_stock
+  garagePreviewRevStyle: true-profile-preview
+  forcedInductionType: Turbo
+  audioFamilyTag: car_27
+  starterOwned: 1
+  haloCar: 0
+  worldPrefab: {fileID: 514037285254658882, guid: 98885c3bdfec55040a0b59ebdf07e2ff, type: 3}
+  visualPrefab: {fileID: 919132149155446097, guid: 6fd457b9c3a976f4f8bcd806facc2ef0, type: 3}
+  editorVisualPrefabPath: Assets/Blender3DByBads/350z.fbx
+  garageEuler: {x: 0, y: 220, z: 0}
+  garageCameraOffset: {x: 0, y: 1.3, z: -5.4}
+  feel:
+    acceleration: 5.2
+    topSpeed: 5
+    handling: 5.2
+    driftBias: 0.38
+    repairMultiplier: 1

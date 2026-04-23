@@ -1,13 +1,20 @@
+using FullThrottle.SacredCore.Audio;
+using FullThrottle.SacredCore.Campaign;
+using FullThrottle.SacredCore.Career;
+using FullThrottle.SacredCore.Economy;
+using FullThrottle.SacredCore.Garage;
+using FullThrottle.SacredCore.Progression;
+using FullThrottle.SacredCore.Race;
+using FullThrottle.SacredCore.Runtime;
+using FullThrottle.SacredCore.Save;
+using FullThrottle.SacredCore.Vehicle;
+using FullThrottle.SacredCore.World;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
-using Underground.Core;
-using Underground.Progression;
-using Underground.Save;
 using Underground.UI;
 using Underground.Vehicle;
-using Underground.World;
 
 namespace Underground.EditorTools
 {
@@ -32,6 +39,10 @@ namespace Underground.EditorTools
             CreateOrUpdateHudPrefab(preserveExistingAssets);
         }
 
+        /// <summary>
+        /// Phase 5 migration: RuntimeRoot prefab now uses the FT sacred-core service stack
+        /// instead of legacy PersistentProgressManager / VehicleOwnershipSystem / SaveSystem.
+        /// </summary>
         private static GameObject CreateOrUpdateRuntimeRootPrefab(bool preserveExistingAsset = false)
         {
             if (preserveExistingAsset && AssetExistsAtPath<GameObject>(RuntimeRootPrefabPath))
@@ -39,15 +50,115 @@ namespace Underground.EditorTools
                 return AssetDatabase.LoadAssetAtPath<GameObject>(RuntimeRootPrefabPath);
             }
 
-            GameObject root = new GameObject("RuntimeRoot");
-            root.AddComponent<PersistentRuntimeRoot>();
-            root.AddComponent<SaveSystem>();
-            root.AddComponent<PersistentProgressManager>();
-            AddRuntimeSessionManager(root);
-            root.AddComponent<VehicleOwnershipSystem>();
+            GameObject root = new GameObject("FT_RuntimeRoot");
 
+            // ── Sacred-core bootstrap and persistence ──
+            FTBootstrap bootstrap = root.AddComponent<FTBootstrap>();
+            FTRuntimeRoot runtimeRoot = root.AddComponent<FTRuntimeRoot>();
+            FTServiceRegistry serviceRegistry = root.AddComponent<FTServiceRegistry>();
+            FTSaveGateway saveGateway = root.AddComponent<FTSaveGateway>();
+
+            // ── Registries ──
+            FTCarRegistry carRegistry = root.AddComponent<FTCarRegistry>();
+            FTAudioProfileRegistry audioRegistry = root.AddComponent<FTAudioProfileRegistry>();
+
+            // ── Selected car truth ──
+            FTSelectedCarRuntime selectedCar = root.AddComponent<FTSelectedCarRuntime>();
+
+            // ── World travel ──
+            FTWorldTravelDirector worldTravel = root.AddComponent<FTWorldTravelDirector>();
+
+            // ── Career / economy / race pressure ──
+            FTCareerDirector career = root.AddComponent<FTCareerDirector>();
+            FTRiskEconomyDirector risk = root.AddComponent<FTRiskEconomyDirector>();
+            FTHeatDirector heat = root.AddComponent<FTHeatDirector>();
+            FTWagerDirector wager = root.AddComponent<FTWagerDirector>();
+            FTRivalDirector rival = root.AddComponent<FTRivalDirector>();
+            FTCampaignDirector campaign = root.AddComponent<FTCampaignDirector>();
+            FTNarrativeDirector narrative = root.AddComponent<FTNarrativeDirector>();
+            FTProgressionDirector progression = root.AddComponent<FTProgressionDirector>();
+
+            // ── Audio identity ──
+            FTAudioIdentityDirector audioIdentity = root.AddComponent<FTAudioIdentityDirector>();
+            FTAudioRosterValidator audioValidator = root.AddComponent<FTAudioRosterValidator>();
+
+            // ── Validation ──
+            FTSacredCoreHealthCheck healthCheck = root.AddComponent<FTSacredCoreHealthCheck>();
+            FTGameContext context = root.AddComponent<FTGameContext>();
+
+            // ── Session (optional legacy compat) ──
+            AddRuntimeSessionManager(root);
+
+            // ── Settings (audio mixer) ──
             GameSettingsManager settingsManager = root.AddComponent<GameSettingsManager>();
             SetObjectReference(settingsManager, "audioMixer", LoadSlimUiMixer());
+            SetObjectReference(campaign, "campaign", LoadFullThrottleCampaign());
+            EnsureRuntimeRadioOnObject(root);
+
+            // ── Wire bootstrap ──
+            SetObjectReference(bootstrap, "saveGateway", saveGateway);
+            AssignBehaviourArray(bootstrap, "serviceBehaviours",
+                runtimeRoot,
+                serviceRegistry,
+                saveGateway,
+                carRegistry,
+                audioRegistry,
+                selectedCar,
+                worldTravel,
+                career,
+                risk,
+                heat,
+                wager,
+                rival,
+                campaign,
+                narrative,
+                progression,
+                audioIdentity,
+                audioValidator,
+                healthCheck,
+                context);
+
+            // ── Wire FTCarRegistry with all car definitions from disk ──
+            string carsFolder = "Assets/ScriptableObjects/FullThrottle/Cars";
+            if (AssetDatabase.IsValidFolder(carsFolder))
+            {
+                string[] guids = AssetDatabase.FindAssets("t:FTCarDefinition", new[] { carsFolder });
+                SerializedObject carRegSo = new SerializedObject(carRegistry);
+                SerializedProperty carsProp = carRegSo.FindProperty("cars");
+                carsProp.ClearArray();
+                for (int i = 0; i < guids.Length; i++)
+                {
+                    string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                    FTCarDefinition def = AssetDatabase.LoadAssetAtPath<FTCarDefinition>(assetPath);
+                    if (def != null)
+                    {
+                        carsProp.InsertArrayElementAtIndex(carsProp.arraySize);
+                        carsProp.GetArrayElementAtIndex(carsProp.arraySize - 1).objectReferenceValue = def;
+                    }
+                }
+                carRegSo.ApplyModifiedPropertiesWithoutUndo();
+            }
+
+            // ── Wire FTAudioProfileRegistry with all audio profiles from disk ──
+            string audioFolder = "Assets/ScriptableObjects/FullThrottle/AudioProfiles";
+            if (AssetDatabase.IsValidFolder(audioFolder))
+            {
+                string[] guids = AssetDatabase.FindAssets("t:FTVehicleAudioProfile", new[] { audioFolder });
+                SerializedObject audioRegSo = new SerializedObject(audioRegistry);
+                SerializedProperty profilesProp = audioRegSo.FindProperty("profiles");
+                profilesProp.ClearArray();
+                for (int i = 0; i < guids.Length; i++)
+                {
+                    string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+                    FTVehicleAudioProfile profile = AssetDatabase.LoadAssetAtPath<FTVehicleAudioProfile>(assetPath);
+                    if (profile != null)
+                    {
+                        profilesProp.InsertArrayElementAtIndex(profilesProp.arraySize);
+                        profilesProp.GetArrayElementAtIndex(profilesProp.arraySize - 1).objectReferenceValue = profile;
+                    }
+                }
+                audioRegSo.ApplyModifiedPropertiesWithoutUndo();
+            }
 
             PrefabUtility.SaveAsPrefabAsset(root, RuntimeRootPrefabPath);
             Object.DestroyImmediate(root);
@@ -62,29 +173,26 @@ namespace Underground.EditorTools
             }
 
             GameObject worldSystems = new GameObject("WorldSystems");
-            Transform sunPivot = CreateEmptyChild(worldSystems.transform, "SunPivot", Vector3.zero);
-            Transform moonPivot = CreateEmptyChild(worldSystems.transform, "MoonPivot", Vector3.zero);
 
-            GameObject sunObject = new GameObject("Directional Light");
-            sunObject.transform.SetParent(sunPivot, false);
-            Light sunLight = sunObject.AddComponent<Light>();
-            sunLight.type = LightType.Directional;
-            sunLight.intensity = 0.34f;
-            sunLight.shadows = LightShadows.Soft;
-            sunLight.shadowStrength = 0.88f;
-            // Keep the sun shadow grounded on streets and curbs instead of letting it
-            // "climb" vertical facades when HDRP uses the generated light in gameplay.
-            sunLight.shadowBias = 0.04f;
-            sunLight.shadowNormalBias = 0.2f;
-            sunLight.color = new Color(1f, 0.95f, 0.9f);
-
-            GameObject moonObject = new GameObject("Moon Light");
-            moonObject.transform.SetParent(moonPivot, false);
-            Light moonLight = moonObject.AddComponent<Light>();
-            moonLight.type = LightType.Directional;
-            moonLight.intensity = 0.05f;
-            moonLight.color = new Color(0.5f, 0.6f, 1f);
-            moonLight.shadows = LightShadows.None;
+            GameObject dayNightPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Fantastic City Generator/DayNight/DayNight.prefab");
+            if (dayNightPrefab != null)
+            {
+                GameObject dayNightInst = (GameObject)PrefabUtility.InstantiatePrefab(dayNightPrefab, worldSystems.transform);
+                dayNightInst.name = "DayNight";
+                DayNight dayNight = dayNightInst.GetComponent<DayNight>();
+                if (dayNight != null)
+                {
+                    dayNight.duskNightOnly = true;
+                    dayNight.isNight = true;
+                    dayNight.night = true;
+                    dayNight.minimumDuskNightBlend = Mathf.Max(dayNight.minimumDuskNightBlend, 0.72f);
+                    dayNight.syncWithTimeOfDay = true;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("[UndergroundPrototypeBuilder] Could not find DayNight prefab at Assets/Fantastic City Generator/DayNight/DayNight.prefab");
+            }
 
             AttachGlobalVolume(worldSystems.transform, "GlobalVolume", ProjectWorldVolumeProfilePath);
 
@@ -131,10 +239,33 @@ namespace Underground.EditorTools
             StylizedHudComposer composer = canvas.gameObject.AddComponent<StylizedHudComposer>();
             SetObjectReference(composer, "speedometerPrefab", LoadHudSpeedometerPrefab());
             composer.Compose();
+            EnsureRadioPopupOnCanvas(canvas);
 
             PrefabUtility.SaveAsPrefabAsset(canvas.gameObject, HudPrefabPath);
             Object.DestroyImmediate(canvas.gameObject);
             return AssetDatabase.LoadAssetAtPath<GameObject>(HudPrefabPath);
+        }
+
+        /// <summary>
+        /// Utility used by the RuntimeRoot builder to wire FTBootstrap.serviceBehaviours.
+        /// </summary>
+        private static void AssignBehaviourArray(Object target, string propertyName, params MonoBehaviour[] values)
+        {
+            SerializedObject serialized = new SerializedObject(target);
+            SerializedProperty property = serialized.FindProperty(propertyName);
+            if (property == null || !property.isArray)
+            {
+                return;
+            }
+
+            property.arraySize = values.Length;
+            for (int i = 0; i < values.Length; i++)
+            {
+                property.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+            }
+
+            serialized.ApplyModifiedProperties();
+            EditorUtility.SetDirty(target);
         }
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e78b5a3b5fc3f14c94f0f1c757fb518, type: 3}
+  m_Name: act_03_roads_darker
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Story.FTStoryActDefinition
+  actId: act_03_roads_darker
+  title: The Roads Get Darker
+  summary: The city watches, the garage becomes vulnerable, and Thomas tests obsession.
+  requiredReputation: 3000
+  requiredRivalWins: []
+  unlockDistrictIds: []
+  introMonologue: The city watches, the garage becomes vulnerable, and Thomas tests
+    obsession.

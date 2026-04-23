@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_15_edge_of_the_mountain
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_15_edge_of_the_mountain
+  actId: act_03_roads_darker
+  chapterNumber: 15
+  title: Edge Of The Mountain
+  districtId: mountain_fringe
+  narrativePurpose: Marc faces Thomas without losing himself to obsession.
+  requiredReputation: 4800
+  requiredChapterIds:
+  - chapter_14_home_is_not_safe
+  requiredRaceWins: []
+  requiredRivalWins:
+  - rival_thomas_cabanit
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 00a2b37443091234f878cafc93de597d, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 5b2a6e1f8f609f34e98f50137354798f, type: 2}
+  garageBeat: {fileID: 11400000, guid: dbae20716927c0d489b191621b7e330c, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: ff53d02729e706444b617a99eb232f6f, type: 2}
+  moneyReward: 2600
+  reputationReward: 760
+  unlockDistrictIds:
+  - highway_belt
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_16_lance_dc

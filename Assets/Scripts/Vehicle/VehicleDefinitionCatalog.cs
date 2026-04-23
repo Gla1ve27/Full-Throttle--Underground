@@ -210,15 +210,27 @@ namespace Underground.Vehicle
             }
 
 #if UNITY_EDITOR
-            // In editor, scan the asset database
-            string[] guids = UnityEditor.AssetDatabase.FindAssets(
-                "t:VehicleDefinition",
-                new[] { searchRoot });
-
-            List<VehicleDefinition> results = new List<VehicleDefinition>();
-            for (int i = 0; i < guids.Length; i++)
+            // In editor, scan the asset database from both roots
+            string[] searchRoots = new[] { searchRoot, "Assets/Vehicles" };
+            List<string> allGuids = new List<string>();
+            foreach (string root in searchRoots)
             {
-                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
+                if (UnityEditor.AssetDatabase.IsValidFolder(root))
+                {
+                    string[] guids = UnityEditor.AssetDatabase.FindAssets(
+                        "t:VehicleDefinition",
+                        new[] { root });
+                    allGuids.AddRange(guids);
+                }
+            }
+
+            // Deduplicate by GUID
+            HashSet<string> seen = new HashSet<string>();
+            List<VehicleDefinition> results = new List<VehicleDefinition>();
+            foreach (string guid in allGuids)
+            {
+                if (!seen.Add(guid)) continue;
+                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
                 VehicleDefinition def = UnityEditor.AssetDatabase.LoadAssetAtPath<VehicleDefinition>(path);
                 if (def != null)
                 {

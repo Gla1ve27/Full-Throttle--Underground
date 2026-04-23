@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_19_crown_of_the_night
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_19_crown_of_the_night
+  actId: act_04_crown_night
+  chapterNumber: 19
+  title: Crown Of The Night
+  districtId: highway_belt
+  narrativePurpose: Final city-spanning showdown.
+  requiredReputation: 6800
+  requiredChapterIds:
+  - chapter_18_last_night_lockup_13
+  requiredRaceWins: []
+  requiredRivalWins:
+  - rival_ray
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: e91282bd37e13bb4393bb37291bc7590, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: aa55873b92dc2bd4fb9443cfa63e0f0a, type: 2}
+  garageBeat: {fileID: 11400000, guid: 2848939f5380f6441a02fac5ee788253, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: c913152b840e5514ea5a2f2bba2f69ef, type: 2}
+  moneyReward: 5000
+  reputationReward: 1200
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_20_impossible_to_erase

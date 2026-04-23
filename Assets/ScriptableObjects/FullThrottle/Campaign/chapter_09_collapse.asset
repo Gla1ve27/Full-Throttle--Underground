@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_09_collapse
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_09_collapse
+  actId: act_02_pressure_climb
+  chapterNumber: 9
+  title: Collapse
+  districtId: arterial_zone
+  narrativePurpose: Marc suffers a costly downfall.
+  requiredReputation: 2600
+  requiredChapterIds:
+  - chapter_08_mav_cruz
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: cfd512113c65e66439f90b8a090229aa, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 4aa2f080b8b3cd84195a718da9ad48a9, type: 2}
+  garageBeat: {fileID: 11400000, guid: e043967d0be449244b473edf5fe33c22, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 2bee2916e62dd0c4ab1f364ad0a34f04, type: 2}
+  moneyReward: 0
+  reputationReward: 0
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_10_back_from_concrete

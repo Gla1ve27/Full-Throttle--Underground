@@ -158,10 +158,18 @@ MonoBehaviour:
     m_RotationOrder: 4
   update_ambient_intensity: 1
   skyboxMaterial: {fileID: 2100000, guid: e518ff32d1926d84b939d70df5f4451c, type: 2}
+  timeMode: 0
   startTimeOfDay: 22
   fullDayLengthSeconds: 1200
   useInspectorTimeOverride: 0
   inspectorTimeOfDay: 22
+  useLocalRealWorldTime: 1
+  utcOffsetHours: 8
+  smoothVisualTransitions: 1
+  visualTimeResponse: 8
+  duskNightOnly: 1
+  daytimeRedirectHour: 21
+  duskNightAmbientCeiling: 0.18
   sunYaw: 166
   sunRoll: 0
   minSunIntensity: 0.03
@@ -169,7 +177,8 @@ MonoBehaviour:
   daySunColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   sunsetSunColor: {r: 1, g: 0.55, b: 0.28, a: 1}
   nightSunColor: {r: 0.18, g: 0.22, b: 0.32, a: 1}
-  driveSkybox: 1
+  driveSkybox: 0
+  preferHDRPVolumeSkyWhenAvailable: 1
   daySkyTint: {r: 0.55, g: 0.58, b: 0.62, a: 1}
   sunsetSkyTint: {r: 0.55, g: 0.38, b: 0.36, a: 1}
   nightSkyTint: {r: 0.08, g: 0.1, b: 0.16, a: 1}
@@ -190,5 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   display_time: {fileID: 0}
-  time_scale: 1
-  seconds_passed: 0
+  time_scale: 0
+  seconds_passed: 75600

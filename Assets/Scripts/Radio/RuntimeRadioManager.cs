@@ -65,6 +65,9 @@ namespace FullThrottle.Audio
             if (musicSource == null)
                 musicSource = GetComponent<AudioSource>();
 
+            if (nowPlayingPopup == null)
+                nowPlayingPopup = FindFirstObjectByType<RadioNowPlayingPopup>(FindObjectsInactive.Include);
+
             rng = new System.Random(Environment.TickCount);
 
             if (musicSource != null)
@@ -90,7 +93,7 @@ namespace FullThrottle.Audio
             // Re-discover the popup in the new scene if our reference was lost.
             if (nowPlayingPopup == null)
             {
-                nowPlayingPopup = FindFirstObjectByType<RadioNowPlayingPopup>();
+                nowPlayingPopup = FindFirstObjectByType<RadioNowPlayingPopup>(FindObjectsInactive.Include);
             }
         }
 

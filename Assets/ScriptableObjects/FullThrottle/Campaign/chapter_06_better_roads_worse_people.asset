@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_06_better_roads_worse_people
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_06_better_roads_worse_people
+  actId: act_02_pressure_climb
+  chapterNumber: 6
+  title: Better Roads, Worse People
+  districtId: arterial_zone
+  narrativePurpose: Introduce Arterial Zone and bigger money.
+  requiredReputation: 1500
+  requiredChapterIds:
+  - chapter_05_king_of_the_core
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 950fff85171c8af46abd7b6de5b96c12, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: f6006d40b406ae34bb3e405dad0705ca, type: 2}
+  garageBeat: {fileID: 11400000, guid: 041ef04c69061d4459c3dbffbd05e53b, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: a7b750504b2e41347863411bab410488, type: 2}
+  moneyReward: 1300
+  reputationReward: 320
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_07_edds_offer

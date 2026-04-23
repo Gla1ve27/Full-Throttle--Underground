@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167bea02a263b7f41b7856498cf2da2c, type: 3}
+  m_Name: chapter_18_last_night_lockup_13_intro
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTNarrativeBeatDefinition
+  beatId: chapter_18_last_night_lockup_13_intro
+  chapterId: chapter_18_last_night_lockup_13
+  title: Last Night In Lockup 13
+  beatType: 0
+  blocksGameplay: 1
+  cameraRigTag: 
+  musicSting: {fileID: 0}
+  voiceOver: {fileID: 0}
+  minimumDuration: 3
+  cinematicDirection: Marc, Ross, JM, James. No speech. The car says enough.
+  dialogue:
+  - characterId: marc
+    displayName: Marc
+    line: Finish it.
+    delayAfter: 0.65
+  radioCopy: 

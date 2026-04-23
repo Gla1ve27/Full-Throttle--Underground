@@ -7,13 +7,13 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Underground.Core;
-using Underground.Garage;
+using FullThrottle.SacredCore.Garage;
+using FullThrottle.SacredCore.Camera;
 using Underground.Progression;
-using Underground.Save;
 using Underground.UI;
 using Underground.Vehicle;
 using Underground.World;
+using Underground.Core;
 
 namespace Underground.EditorTools
 {
@@ -37,7 +37,7 @@ namespace Underground.EditorTools
                 scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
 
-            CreateRuntimeRoot(true);
+            CreateFTRuntimeRoot(true);
             EditorSceneManager.SaveScene(scene, BootstrapScenePath);
         }
 
@@ -56,6 +56,12 @@ namespace Underground.EditorTools
         {
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(MainMenuScenePath))
             {
+                Scene existingScene = EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Single);
+                RemoveMissingScriptsFromScene(existingScene);
+                EnsureFTRuntimeRoot(false);
+                EnsureEventSystem();
+                EnsureRadioPopupOnCanvas(Object.FindFirstObjectByType<Canvas>(FindObjectsInactive.Include));
+                EditorSceneManager.SaveScene(existingScene, MainMenuScenePath);
                 return;
             }
 
@@ -66,7 +72,7 @@ namespace Underground.EditorTools
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
             ComposeGarageBackdropForMenu(playerCarPrefab);
 
@@ -91,6 +97,7 @@ namespace Underground.EditorTools
                 CreateButton(canvas.transform, "Quit", new Vector2(0f, -140f), menu.QuitGame);
             }
 
+            EnsureRadioPopupOnCanvas(Object.FindFirstObjectByType<Canvas>(FindObjectsInactive.Include));
             EditorSceneManager.SaveScene(scene, MainMenuScenePath);
         }
 
@@ -105,7 +112,7 @@ namespace Underground.EditorTools
             Scene scene = EditorSceneManager.OpenScene(MainMenuScenePath, OpenSceneMode.Single);
             RemoveMissingScriptsFromScene(scene);
 
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
             ComposeGarageBackdropForMenu(playerCarPrefab);
 
@@ -134,9 +141,14 @@ namespace Underground.EditorTools
                 SetObjectReference(binder, "menuController", menu);
             }
 
+            EnsureRadioPopupOnCanvas(Object.FindFirstObjectByType<Canvas>(FindObjectsInactive.Include));
             EditorSceneManager.SaveScene(scene, MainMenuScenePath);
         }
 
+        /// <summary>
+        /// Phase 5: Garage scene now uses FTGarageDirector + FTGarageShowroomDirector
+        /// instead of legacy GarageManager + GarageShowroomController.
+        /// </summary>
         private static void CreateGarageScene(GameObject playerCarPrefab, UpgradeDefinition engineUpgrade, bool preserveExistingScene = false)
         {
             if (preserveExistingScene && AssetExistsAtPath<SceneAsset>(GarageScenePath))
@@ -148,7 +160,7 @@ namespace Underground.EditorTools
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             EnsureEventSystem();
             ComposeGarageShowroomScene(playerCarPrefab, engineUpgrade);
             EditorSceneManager.SaveScene(scene, GarageScenePath);
@@ -167,14 +179,19 @@ namespace Underground.EditorTools
             };
         }
 
-        private static void CreateRuntimeRoot(bool includeBootstrapLoader)
+        /// <summary>
+        /// Phase 5: Uses FT_RuntimeRoot with the sacred-core service stack
+        /// instead of legacy RuntimeRoot with PersistentProgressManager.
+        /// </summary>
+        private static void CreateFTRuntimeRoot(bool includeBootstrapLoader)
         {
             GameObject runtimeRootPrefab = CreateOrUpdateRuntimeRootPrefab();
             GameObject runtimeRoot = runtimeRootPrefab != null
                 ? (GameObject)PrefabUtility.InstantiatePrefab(runtimeRootPrefab)
-                : new GameObject("RuntimeRoot");
+                : new GameObject("FT_RuntimeRoot");
 
-            runtimeRoot.name = "RuntimeRoot";
+            runtimeRoot.name = "FT_RuntimeRoot";
+            EnsureRuntimeRadioOnObject(runtimeRoot);
             if (includeBootstrapLoader)
             {
                 ConfigureBootstrapSceneLoader(runtimeRoot.AddComponent<BootstrapSceneLoader>());

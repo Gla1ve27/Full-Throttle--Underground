@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_10_back_from_concrete
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_10_back_from_concrete
+  actId: act_02_pressure_climb
+  chapterNumber: 10
+  title: Back From The Concrete
+  districtId: arterial_zone
+  narrativePurpose: Rebuild Marc through grind and discipline.
+  requiredReputation: 2600
+  requiredChapterIds:
+  - chapter_09_collapse
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: a7f067a77c7eae140b16e2fdf5a9e390, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: d1c7e94833ddd1d459ecff96bf3d86a9, type: 2}
+  garageBeat: {fileID: 11400000, guid: b44e5f89adc730f4681a7d464a2414ff, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: f4dda456cef07c64abfe21d2d1f18156, type: 2}
+  moneyReward: 1600
+  reputationReward: 400
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_11_gold_can_bleed

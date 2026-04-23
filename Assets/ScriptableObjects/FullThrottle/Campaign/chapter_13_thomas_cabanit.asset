@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_13_thomas_cabanit
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_13_thomas_cabanit
+  actId: act_03_roads_darker
+  chapterNumber: 13
+  title: Thomas Cabanit
+  districtId: mountain_fringe
+  narrativePurpose: Introduce Marc's deepest mirror.
+  requiredReputation: 3900
+  requiredChapterIds:
+  - chapter_12_everybodys_watching
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 2bd9d16e2c764384ca91adfb3261e263, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 37053c6e2c71316428c7b50475424b0b, type: 2}
+  garageBeat: {fileID: 11400000, guid: 7c474cae7ff44aa4da80407f1aab729f, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 176d4ca045f74d8409e73b3eba7e0a21, type: 2}
+  moneyReward: 1700
+  reputationReward: 460
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_14_home_is_not_safe

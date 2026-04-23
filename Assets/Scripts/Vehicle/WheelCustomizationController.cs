@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Underground.Vehicle
 {
     [DisallowMultipleComponent]
-    [RequireComponent(typeof(VehicleDynamicsController))]
+    [RequireComponent(typeof(Underground.Vehicle.V2.VehicleControllerV2))]
     public class WheelCustomizationController : MonoBehaviour
     {
         [Header("Data")]
@@ -12,7 +12,7 @@ namespace Underground.Vehicle
         [SerializeField] private CarCustomizationState customizationState = new CarCustomizationState();
 
         [Header("References")]
-        [SerializeField] private VehicleDynamicsController vehicle;
+        [SerializeField] private Underground.Vehicle.V2.VehicleControllerV2 vehicle;
         [SerializeField] private PlayerCarAppearanceController appearanceController;
         [SerializeField] private Transform modelRoot;
 
@@ -381,7 +381,7 @@ namespace Underground.Vehicle
         {
             if (vehicle == null)
             {
-                vehicle = GetComponent<VehicleDynamicsController>();
+                vehicle = GetComponent<Underground.Vehicle.V2.VehicleControllerV2>();
             }
 
             if (appearanceController == null)
@@ -482,3 +482,4 @@ namespace Underground.Vehicle
         }
     }
 }
+

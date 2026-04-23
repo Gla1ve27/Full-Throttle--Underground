@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Underground.Core.Architecture;
 using Underground.Race;
+using Underground.TimeSystem;
 using Underground.Vehicle;
 
 namespace Underground.Save
@@ -22,7 +23,7 @@ namespace Underground.Save
         public IReadOnlyList<string> OwnedCarIds => ownedCarIds;
         public IReadOnlyList<string> PurchasedUpgradeIds => purchasedUpgradeIds;
         public IReadOnlyList<string> CompletedRaceIds => completedRaceIds;
-        public float WorldTimeOfDay { get; private set; } = 12f;
+        public float WorldTimeOfDay { get; private set; } = PackageTimeOfDayUtility.DefaultDuskNightHour;
         private bool hasLoadedSave;
 
         private void Awake()
@@ -133,14 +134,14 @@ namespace Underground.Save
             return !string.IsNullOrEmpty(resolvedRaceId) && completedRaceIds.Contains(resolvedRaceId);
         }
 
-        public void SaveNow(float worldTime = 12f, string garageScene = "Garage")
+        public void SaveNow(float worldTime = PackageTimeOfDayUtility.DefaultDuskNightHour, string garageScene = "Garage")
         {
             if (saveSystem == null)
             {
                 return;
             }
 
-            WorldTimeOfDay = worldTime;
+            WorldTimeOfDay = PackageTimeOfDayUtility.ConstrainToDuskNightHours(worldTime);
 
             SaveGameData data = new SaveGameData
             {
@@ -178,19 +179,19 @@ namespace Underground.Save
             ownedCarIds = data.ownedCarIds ?? new List<string>();
             purchasedUpgradeIds = data.purchasedUpgradeIds ?? new List<string>();
             completedRaceIds = data.completedRaceIds ?? new List<string>();
-            WorldTimeOfDay = data.worldTimeOfDay;
+            WorldTimeOfDay = PackageTimeOfDayUtility.ConstrainToDuskNightHours(data.worldTimeOfDay);
 
             MigrateLegacyCarIds();
             ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
             ServiceLocator.EventBus.Publish(new ReputationChangedEvent(SavedReputation));
             ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
-            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, WorldTimeOfDay >= 20f || WorldTimeOfDay < 6f));
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, PackageTimeOfDayUtility.IsDuskNightHour(WorldTimeOfDay)));
         }
 
         public void SetWorldTime(float worldTime)
         {
-            WorldTimeOfDay = worldTime;
-            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, WorldTimeOfDay >= 20f || WorldTimeOfDay < 6f));
+            WorldTimeOfDay = PackageTimeOfDayUtility.ConstrainToDuskNightHours(worldTime);
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, PackageTimeOfDayUtility.IsDuskNightHour(WorldTimeOfDay)));
         }
 
         public void ResetToDefaults()
@@ -201,13 +202,13 @@ namespace Underground.Save
             ownedCarIds = new List<string>();
             purchasedUpgradeIds = new List<string>();
             completedRaceIds = new List<string>();
-            WorldTimeOfDay = 12f;
+            WorldTimeOfDay = PackageTimeOfDayUtility.DefaultDuskNightHour;
             MigrateLegacyCarIds();
             EnsureDefaultProfile();
             ServiceLocator.EventBus.Publish(new MoneyChangedEvent(SavedMoney));
             ServiceLocator.EventBus.Publish(new ReputationChangedEvent(SavedReputation));
             ServiceLocator.EventBus.Publish(new CurrentCarChangedEvent(CurrentOwnedCarId));
-            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, false));
+            ServiceLocator.EventBus.Publish(new WorldTimeChangedEvent(WorldTimeOfDay, true));
         }
 
         /// <summary>

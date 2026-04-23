@@ -71,7 +71,7 @@ MonoBehaviour:
     m_Value: 7.175879
   compensation:
     m_OverrideState: 1
-    m_Value: -5.76
+    m_Value: 0
   limitMin:
     m_OverrideState: 0
     m_Value: -10
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: VisualEnvironment
   m_EditorClassIdentifier: 
   active: 0
+  m_Version: 1
   skyType:
     m_OverrideState: 1
     m_Value: 1
@@ -238,7 +239,6 @@ MonoBehaviour:
   fogType:
     m_OverrideState: 0
     m_Value: 0
-  m_Version: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,10 +377,10 @@ MonoBehaviour:
     m_Value: 1
   upperHemisphereLuxValue:
     m_OverrideState: 1
-    m_Value: 1.4919653
+    m_Value: 0.2930618
   upperHemisphereLuxColor:
     m_OverrideState: 1
-    m_Value: {x: 0.29544324, y: 0.36710882, z: 0.5}
+    m_Value: {x: 0.5, y: 0.49986687, z: 0.49914467}
   desiredLuxValue:
     m_OverrideState: 0
     m_Value: 20000
@@ -393,9 +393,22 @@ MonoBehaviour:
   includeSunInBaking:
     m_OverrideState: 0
     m_Value: 0
+  m_SkyVersion: 1
+  enableDistortion:
+    m_OverrideState: 0
+    m_Value: 0
+  procedural:
+    m_OverrideState: 0
+    m_Value: 1
+  scrollDirection:
+    m_OverrideState: 0
+    m_Value: 0
+  m_ObsoleteScrollSpeed:
+    m_OverrideState: 0
+    m_Value: 1
   hdriSky:
     m_OverrideState: 1
-    m_Value: {fileID: 8900000, guid: b61416f25d44f5d46b48d349da371782, type: 3}
+    m_Value: {fileID: 8900000, guid: 3675d0c3c874f6b479bab57eb7e68c90, type: 3}
   distortionMode:
     m_OverrideState: 0
     m_Value: 0
@@ -464,19 +477,6 @@ MonoBehaviour:
   rectLightShadow:
     m_OverrideState: 0
     m_Value: 0
-  m_SkyVersion: 1
-  enableDistortion:
-    m_OverrideState: 0
-    m_Value: 0
-  procedural:
-    m_OverrideState: 0
-    m_Value: 1
-  scrollDirection:
-    m_OverrideState: 0
-    m_Value: 0
-  m_ObsoleteScrollSpeed:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!114 &4283300698762805023
 MonoBehaviour:
   m_ObjectHideFlags: 3

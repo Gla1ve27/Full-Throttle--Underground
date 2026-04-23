@@ -1,8 +1,12 @@
 using FCG;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 using Underground.TimeSystem;
 using Underground.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Underground.Vehicle
 {
@@ -16,16 +20,17 @@ namespace Underground.Vehicle
     ///  - Reverse lights (active when reversing)
     ///  - HDRP emissive material intensity support
     ///  - Prefab-authored light rigs (HeadlightsRoot, TailLightsRoot, etc.)
-    ///  - Auto-generated lighting rig fallback from model bounds
     ///  - Traffic car support
     /// 
     /// Prefab Convention:
     ///  Place child GameObjects named HeadlightsRoot, TailLightsRoot, BrakeLightsRoot,
     ///  ReverseLightsRoot under the vehicle. Lights within those roots will be discovered
-    ///  automatically. If no authored roots exist, lights are generated from model bounds.
+    ///  automatically. The old auto-generated NightLightingRig fallback is intentionally removed.
     /// </summary>
     public class VehicleNightLightingController : MonoBehaviour
     {
+        private const string LegacyNightLightingRigName = "NightLightingRig";
+
         // ─────────────────────────────────────────────────────────────────────
         //  Configuration
         // ─────────────────────────────────────────────────────────────────────
@@ -61,6 +66,11 @@ namespace Underground.Vehicle
         [Header("Effects")]
         [Tooltip("Optional prefab (like FX_Light_Beam_01) to spawn on headlights.")]
         [SerializeField] private GameObject headlightBeamPrefab;
+        [SerializeField] private bool autoUseDefaultHeadlightBeamPrefab = true;
+        [SerializeField] private string defaultHeadlightBeamPrefabPath = "Assets/PolygonStreetRacer/Prefabs/FX/FX_Light_Beam_01.prefab";
+        [SerializeField] private Vector3 headlightBeamLocalScale = new Vector3(0.72f, 0.72f, 1.75f);
+        [SerializeField] private bool enableHeadlightVolumetrics = true;
+        [SerializeField, Range(0f, 4f)] private float headlightVolumetricDimmer = 1.35f;
         [SerializeField] private float referenceLookupInterval = 5f;
         [SerializeField] private float trafficLightingUpdateInterval = 0.12f;
 
@@ -70,8 +80,8 @@ namespace Underground.Vehicle
 
         private TrafficCar trafficCar;
         private GameSettingsManager settingsManager;
-        private VehicleDynamicsController dynamics;
-        private Transform lightingRig;
+        
+        private V2.VehicleControllerV2 dynamicsV2;
 
         // Light arrays (support N lights per group)
         private Light[] headlights;
@@ -96,6 +106,7 @@ namespace Underground.Vehicle
         private float lastBrakeEmissive = -1f;
         private float lastReverseEmissive = -1f;
         private LightShadows lastHeadlightShadowMode = (LightShadows)(-1);
+        private bool warnedMissingAuthoredRig;
 
         // Emissive material caching
         private static readonly int EmissiveColorId = Shader.PropertyToID("_EmissiveColor");
@@ -144,6 +155,8 @@ namespace Underground.Vehicle
         {
             _emissivePropBlock = new MaterialPropertyBlock();
             ResolveReferences();
+            ResolveDefaultHeadlightBeamPrefab();
+            DestroyLegacyNightLightingRigChildren();
             SubscribeToAppearanceChanges();
             EnsureLightingRig();
             ApplyLighting(false);
@@ -172,6 +185,7 @@ namespace Underground.Vehicle
                 nextTrafficLightingUpdateTime = Time.unscaledTime + Mathf.Max(0.03f, trafficLightingUpdateInterval);
             }
 
+            DestroyLegacyNightLightingRigChildren();
             EnsureLightingRig();
             bool nightActive = PackageTimeOfDayUtility.IsNight(packageTimeOfDay);
             ApplyLighting(nightActive);
@@ -236,9 +250,11 @@ namespace Underground.Vehicle
                 settingsManager = FindFirstObjectByType<GameSettingsManager>();
             }
 
-            if (dynamics == null)
+            
+
+            if (dynamicsV2 == null)
             {
-                dynamics = GetComponent<VehicleDynamicsController>();
+                dynamicsV2 = GetComponent<V2.VehicleControllerV2>();
             }
         }
 
@@ -248,19 +264,36 @@ namespace Underground.Vehicle
 
         private void DestroyLightingRig()
         {
-            if (lightingRig != null)
-            {
-                Object.Destroy(lightingRig.gameObject);
-            }
-
-            lightingRig = null;
+            DestroyLegacyNightLightingRigChildren();
             headlights = null;
             taillights = null;
             brakelights = null;
             reverselights = null;
             headlightBeams = null;
             rigCreated = false;
+            warnedMissingAuthoredRig = false;
             ResetLightingStateCache();
+        }
+
+        private void DestroyLegacyNightLightingRigChildren()
+        {
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                Transform child = transform.GetChild(i);
+                if (child == null || child.name != LegacyNightLightingRigName)
+                {
+                    continue;
+                }
+
+                if (Application.isPlaying)
+                {
+                    Destroy(child.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(child.gameObject);
+                }
+            }
         }
 
         private void EnsureLightingRig()
@@ -270,18 +303,29 @@ namespace Underground.Vehicle
                 return;
             }
 
+            DestroyLegacyNightLightingRigChildren();
+
             // Try to discover prefab-authored light rigs first
             if (TryDiscoverAuthoredLightRig())
             {
                 rigCreated = true;
+                ConfigureHeadlightsForNightUse();
+                SpawnLightBeams();
                 return;
             }
 
-            // Fallback: create auto-generated rig from model bounds
-            CreateAutoGeneratedRig();
+            headlights = System.Array.Empty<Light>();
+            taillights = System.Array.Empty<Light>();
+            brakelights = System.Array.Empty<Light>();
+            reverselights = System.Array.Empty<Light>();
+            headlightBeams = System.Array.Empty<GameObject>();
             rigCreated = true;
-            
-            SpawnLightBeams();
+
+            if (!warnedMissingAuthoredRig && !trafficLighting)
+            {
+                warnedMissingAuthoredRig = true;
+                Debug.LogWarning($"[VehicleNightLightingController] No authored light roots found on '{name}'. Old '{LegacyNightLightingRigName}' fallback is disabled; add HeadlightsRoot/TailLightsRoot/BrakeLightsRoot/ReverseLightsRoot if this vehicle needs runtime lights.", this);
+            }
         }
 
         /// <summary>
@@ -329,142 +373,41 @@ namespace Underground.Vehicle
 
         private void SpawnLightBeams()
         {
-            if (headlightBeamPrefab == null || headlights == null || headlights.Length == 0) return;
+            if (headlights == null || headlights.Length == 0)
+            {
+                return;
+            }
 
             headlightBeams = new GameObject[headlights.Length];
             for (int i = 0; i < headlights.Length; i++)
             {
                 if (headlights[i] == null) continue;
+
+                Transform existing = headlights[i].transform.Find("HeadlightBeam_Runtime");
+                if (existing != null)
+                {
+                    existing.localScale = headlightBeamLocalScale;
+                    existing.gameObject.SetActive(false);
+                    headlightBeams[i] = existing.gameObject;
+                    continue;
+                }
+
+                if (headlightBeamPrefab == null)
+                {
+                    continue;
+                }
                 
-                // Instantiate the beam as a child of the headlight
                 GameObject beam = Instantiate(headlightBeamPrefab, headlights[i].transform);
+                beam.name = "HeadlightBeam_Runtime";
                 beam.transform.localPosition = Vector3.zero;
                 beam.transform.localRotation = Quaternion.identity;
+                beam.transform.localScale = headlightBeamLocalScale;
                 beam.SetActive(false);
                 headlightBeams[i] = beam;
             }
         }
 
-        private void CreateAutoGeneratedRig()
-        {
-            if (lightingRig != null)
-            {
-                Object.Destroy(lightingRig.gameObject);
-            }
 
-            GameObject rigObject = new GameObject("NightLightingRig");
-            lightingRig = rigObject.transform;
-            lightingRig.SetParent(transform, false);
-
-            if (!TryGetModelBounds(out Vector3 localMin, out Vector3 localMax))
-            {
-                localMin = new Vector3(-0.8f, 0.1f, -1.8f);
-                localMax = new Vector3(0.8f, 1.1f, 1.8f);
-            }
-
-            float width = localMax.x - localMin.x;
-            float height = localMax.y - localMin.y;
-            float frontZ = localMax.z;
-            float rearZ = localMin.z;
-            
-            // Default placements (clamped to the far corners for realism)
-            float leftX = localMin.x + (width * 0.12f);
-            float rightX = localMax.x - (width * 0.12f);
-            float headlightY = localMin.y + (height * 0.35f);
-            float taillightY = localMin.y + (height * 0.40f);
-            float headZ = localMax.z + 0.1f;
-            float tailZ = localMin.z - 0.1f;
-
-            // DYNAMIC SEARCH: Try to find actual Light meshes in the model
-            Vector3? meshHeadL = FindBestMeshCenter("head", true, true);
-            Vector3? meshHeadR = FindBestMeshCenter("head", false, true);
-            Vector3? meshBrakeL = FindBestMeshCenter("brake", true, false) ?? FindBestMeshCenter("tail", true, false);
-            Vector3? meshBrakeR = FindBestMeshCenter("brake", false, false) ?? FindBestMeshCenter("tail", false, false);
-            Vector3? meshReverseL = FindBestMeshCenter("reverse", true, false);
-            Vector3? meshReverseR = FindBestMeshCenter("reverse", false, false);
-
-            // ── Headlights ──
-            Vector3 posHeadL = meshHeadL ?? new Vector3(leftX, headlightY, headZ);
-            Vector3 posHeadR = meshHeadR ?? new Vector3(rightX, headlightY, headZ);
-            
-            Light lHead = CreateLight("HeadlightLeft", LightType.Spot, posHeadL,
-                Quaternion.Euler(2f, 0f, 0f), new Color(1f, 0.96f, 0.95f), headlightIntensity, headlightRange);
-            Light rHead = CreateLight("HeadlightRight", LightType.Spot, posHeadR,
-                Quaternion.Euler(2f, 0f, 0f), new Color(1f, 0.96f, 0.95f), headlightIntensity, headlightRange);
-
-            ConfigureSpotLight(lHead);
-            ConfigureSpotLight(rHead);
-            headlights = new[] { lHead, rHead };
-
-            // ── Tail lights (Soft ambient glow) ──
-            Vector3 posTailL = meshBrakeL ?? new Vector3(leftX, taillightY, tailZ);
-            Vector3 posTailR = meshBrakeR ?? new Vector3(rightX, taillightY, tailZ);
-
-            // Shift them slightly back so they don't clip inside the bumper
-            if (meshBrakeL.HasValue) posTailL += Vector3.back * 0.05f;
-            if (meshBrakeR.HasValue) posTailR += Vector3.back * 0.05f;
-
-            Light lTail = CreateLight("TaillightLeft", LightType.Point, posTailL,
-                Quaternion.identity, new Color(1f, 0.12f, 0.05f), taillightIntensity * 1.5f, 6.0f);
-            Light rTail = CreateLight("TaillightRight", LightType.Point, posTailR,
-                Quaternion.identity, new Color(1f, 0.12f, 0.05f), taillightIntensity * 1.5f, 6.0f);
-            SetNoShadows(lTail);
-            SetNoShadows(rTail);
-            taillights = new[] { lTail, rTail };
-
-            // ── Brake lights (Wider brighter flood) ──
-            Light lBrake = CreateLight("BrakelightLeft", LightType.Point, posTailL,
-                Quaternion.identity, new Color(1f, 0.05f, 0.02f), brakeLightIntensity * 1.8f, 10.0f);
-            Light rBrake = CreateLight("BrakelightRight", LightType.Point, posTailR,
-                Quaternion.identity, new Color(1f, 0.05f, 0.02f), brakeLightIntensity * 1.8f, 10.0f);
-            SetNoShadows(lBrake);
-            SetNoShadows(rBrake);
-            brakelights = new[] { lBrake, rBrake };
-
-            // ── Reverse lights ──
-            Vector3 posRevL = meshReverseL ?? new Vector3(leftX, taillightY - 0.1f, tailZ);
-            Vector3 posRevR = meshReverseR ?? new Vector3(rightX, taillightY - 0.1f, tailZ);
-            
-            Light lReverse = CreateLight("ReverseLightLeft", LightType.Point, posRevL,
-                Quaternion.identity, new Color(1f, 1f, 1f), reverseLightIntensity * 1.5f, 5.0f);
-            Light rReverse = CreateLight("ReverseLightRight", LightType.Point, posRevR,
-                Quaternion.identity, new Color(1f, 1f, 1f), reverseLightIntensity * 1.5f, 5.0f);
-            SetNoShadows(lReverse);
-            SetNoShadows(rReverse);
-            reverselights = new[] { lReverse, rReverse };
-        }
-
-        private Vector3? FindBestMeshCenter(string keyword, bool leftSide, bool front)
-        {
-            Renderer[] renderers = (modelRoot != null ? modelRoot : transform).GetComponentsInChildren<Renderer>(true);
-            float bestScore = -1f;
-            Vector3? bestCenter = null;
-
-            foreach (var r in renderers)
-            {
-                string n = r.name.ToLowerInvariant();
-                if (!n.Contains(keyword)) continue;
-
-                // Simple parity check
-                bool meshIsLeft = r.transform.localPosition.x < -0.01f || n.Contains("left") || n.Contains("_l");
-                bool meshIsFront = r.transform.localPosition.z > 0.01f || n.Contains("front") || n.Contains("head");
-
-                if (meshIsLeft != leftSide || (keyword != "head" && meshIsFront != front)) continue;
-
-                // Score based on name clarity
-                float score = 0;
-                if (n.Contains("light")) score += 10;
-                if (n.Contains("glass") || n.Contains("lens")) score += 5;
-
-                if (score > bestScore)
-                {
-                    bestScore = score;
-                    bestCenter = transform.InverseTransformPoint(r.bounds.center);
-                }
-            }
-
-            return bestCenter;
-        }
 
         // ─────────────────────────────────────────────────────────────────────
         //  Lighting Application — Every Frame
@@ -673,11 +616,13 @@ namespace Underground.Vehicle
 
         private bool GetIsReversing()
         {
-            // Player car: check dynamics controller
-            if (dynamics != null)
+            // V2 controller first
+            if (dynamicsV2 != null && dynamicsV2.IsInitialized && dynamicsV2.enabled)
             {
-                return dynamics.IsReversing;
+                return dynamicsV2.State.IsReversing;
             }
+
+            
 
             // Traffic car: check negative forward velocity
             if (vehicleBody != null)
@@ -713,96 +658,62 @@ namespace Underground.Vehicle
         //  Light Creation Helpers
         // ─────────────────────────────────────────────────────────────────────
 
-        private Light CreateLight(string name, LightType type, Vector3 localPosition,
-            Quaternion localRotation, Color color, float intensity, float range)
-        {
-            GameObject lightObject = new GameObject(name);
-            lightObject.transform.SetParent(lightingRig, false);
-            lightObject.transform.localPosition = localPosition;
-            lightObject.transform.localRotation = localRotation;
 
-            Light lightComponent = lightObject.AddComponent<Light>();
-            if (lightComponent == null)
+
+        private void ConfigureHeadlightsForNightUse()
+        {
+            if (headlights == null)
             {
-                Debug.LogWarning($"[VehicleNightLightingController] Failed to add Light to {name}.");
-                return null;
+                return;
             }
 
-            lightComponent.type = type;
-            lightComponent.color = color;
-            lightComponent.intensity = intensity;
-            lightComponent.range = range;
-            lightComponent.enabled = false;
-            return lightComponent;
-        }
-
-        private void ConfigureSpotLight(Light spot)
-        {
-            if (spot == null) return;
-            spot.spotAngle = headlightSpotAngle;
-            spot.innerSpotAngle = headlightSpotAngle * 0.6f;
-            spot.shadows = ResolveHeadlightShadowMode();
-        }
-
-        private static void SetNoShadows(Light light)
-        {
-            if (light != null)
+            for (int i = 0; i < headlights.Length; i++)
             {
-                light.shadows = LightShadows.None;
+                Light headlight = headlights[i];
+                if (headlight == null)
+                {
+                    continue;
+                }
+
+                headlight.type = LightType.Spot;
+                headlight.range = Mathf.Max(headlight.range, headlightRange);
+                headlight.spotAngle = Mathf.Max(headlight.spotAngle, headlightSpotAngle);
+                headlight.innerSpotAngle = Mathf.Max(headlight.innerSpotAngle, headlightSpotAngle * 0.55f);
+                headlight.color = new Color(1f, 0.96f, 0.9f);
+                headlight.shadows = ResolveHeadlightShadowMode();
+
+                if (enableHeadlightVolumetrics)
+                {
+                    HDAdditionalLightData hd = headlight.GetComponent<HDAdditionalLightData>();
+                    if (hd == null)
+                    {
+                        hd = headlight.gameObject.AddComponent<HDAdditionalLightData>();
+                    }
+
+                    hd.volumetricDimmer = headlightVolumetricDimmer;
+                    hd.fadeDistance = Mathf.Max(hd.fadeDistance, headlightRange * 1.6f);
+                    hd.volumetricFadeDistance = Mathf.Max(hd.volumetricFadeDistance, headlightRange * 1.25f);
+                }
             }
         }
+
+        private void ResolveDefaultHeadlightBeamPrefab()
+        {
+#if UNITY_EDITOR
+            if (!autoUseDefaultHeadlightBeamPrefab || headlightBeamPrefab != null || string.IsNullOrEmpty(defaultHeadlightBeamPrefabPath))
+            {
+                return;
+            }
+
+            headlightBeamPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(defaultHeadlightBeamPrefabPath);
+#endif
+        }
+
 
         // ─────────────────────────────────────────────────────────────────────
         //  Model Bounds Discovery
         // ─────────────────────────────────────────────────────────────────────
 
-        private bool TryGetModelBounds(out Vector3 localMin, out Vector3 localMax)
-        {
-            Renderer[] renderers = (modelRoot != null ? modelRoot : transform).GetComponentsInChildren<Renderer>(true);
-            bool hasBounds = false;
-            localMin = Vector3.zero;
-            localMax = Vector3.zero;
-
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                Renderer renderer = renderers[i];
-                if (renderer == null || !renderer.enabled)
-                {
-                    continue;
-                }
-
-                Bounds bounds = renderer.bounds;
-                Vector3[] corners =
-                {
-                    new Vector3(bounds.min.x, bounds.min.y, bounds.min.z),
-                    new Vector3(bounds.min.x, bounds.min.y, bounds.max.z),
-                    new Vector3(bounds.min.x, bounds.max.y, bounds.min.z),
-                    new Vector3(bounds.min.x, bounds.max.y, bounds.max.z),
-                    new Vector3(bounds.max.x, bounds.min.y, bounds.min.z),
-                    new Vector3(bounds.max.x, bounds.min.y, bounds.max.z),
-                    new Vector3(bounds.max.x, bounds.max.y, bounds.min.z),
-                    new Vector3(bounds.max.x, bounds.max.y, bounds.max.z)
-                };
-
-                for (int cornerIndex = 0; cornerIndex < corners.Length; cornerIndex++)
-                {
-                    Vector3 localCorner = transform.InverseTransformPoint(corners[cornerIndex]);
-                    if (!hasBounds)
-                    {
-                        localMin = localCorner;
-                        localMax = localCorner;
-                        hasBounds = true;
-                    }
-                    else
-                    {
-                        localMin = Vector3.Min(localMin, localCorner);
-                        localMax = Vector3.Max(localMax, localCorner);
-                    }
-                }
-            }
-
-            return hasBounds;
-        }
 
         // ─────────────────────────────────────────────────────────────────────
         //  Deep Find Helper
@@ -835,3 +746,4 @@ namespace Underground.Vehicle
         }
     }
 }
+

@@ -24,10 +24,10 @@ namespace Underground.World
         {
             HashSet<int> processedTargets = new HashSet<int>();
 
-            VehicleDynamicsController[] vehicles = Object.FindObjectsByType<VehicleDynamicsController>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            Underground.Vehicle.V2.VehicleControllerV2[] vehicles = Object.FindObjectsByType<Underground.Vehicle.V2.VehicleControllerV2>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             for (int index = 0; index < vehicles.Length; index++)
             {
-                VehicleDynamicsController vehicle = vehicles[index];
+                Underground.Vehicle.V2.VehicleControllerV2 vehicle = vehicles[index];
                 if (vehicle == null || vehicle.GetComponent<PlayerCarAppearanceController>() != null)
                 {
                     continue;
@@ -72,3 +72,4 @@ namespace Underground.World
         }
     }
 }
+

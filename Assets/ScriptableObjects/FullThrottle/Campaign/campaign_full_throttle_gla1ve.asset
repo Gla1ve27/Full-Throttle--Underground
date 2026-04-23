@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d3bd2d0e5029548819d480c4a3f69c, type: 3}
+  m_Name: campaign_full_throttle_gla1ve
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignDefinition
+  campaignId: full_throttle_gla1ve
+  title: Full Throttle
+  protagonistRealName: Marc Badua
+  protagonistStreetName: Gla1ve
+  thesis: A nobody becomes a name that changes what the city respects.
+  chapters:
+  - {fileID: 11400000, guid: b0e235c0c2ff68f4396fa94ef44eb6e9, type: 2}
+  - {fileID: 11400000, guid: 5a61ffde24917614e963bb82654afc2f, type: 2}
+  - {fileID: 11400000, guid: 78a79a4a31e7a7d448c48a9696997a97, type: 2}
+  - {fileID: 11400000, guid: 56cb63357c002f848a94fc62be52a022, type: 2}
+  - {fileID: 11400000, guid: 04574297c77722f42a1088358b7b94a9, type: 2}
+  - {fileID: 11400000, guid: 811f96fad5873bc45b56d781b2585bee, type: 2}
+  - {fileID: 11400000, guid: ecb8e0a5ad60231459ad1ea95ca65d35, type: 2}
+  - {fileID: 11400000, guid: 57d7ee66398f80b41a8a8f6af42cc4fc, type: 2}
+  - {fileID: 11400000, guid: 7801b0e6814ffb440bcc33fe10eec0c9, type: 2}
+  - {fileID: 11400000, guid: 53d3d57a3db903648842950d142c9c41, type: 2}
+  - {fileID: 11400000, guid: e7a5cd81455c2a84aa4747ac99500f8a, type: 2}
+  - {fileID: 11400000, guid: b5443f90c5ae683429ba8d6adab7999a, type: 2}
+  - {fileID: 11400000, guid: 1fa9293712ebc8a4dae38ef4b4b07979, type: 2}
+  - {fileID: 11400000, guid: ef5e79d6a6e852546b1821d99659254e, type: 2}
+  - {fileID: 11400000, guid: 0f58de8d96fb0a04d9df180e42ffa69a, type: 2}
+  - {fileID: 11400000, guid: 52f56fb43a98963469c5f3bdeb68e499, type: 2}
+  - {fileID: 11400000, guid: 0d72d2c07d1cf1347baf8356cca0d1cc, type: 2}
+  - {fileID: 11400000, guid: be23e59f81aa9ad4aa218845d9f27538, type: 2}
+  - {fileID: 11400000, guid: 1e845b67fae3aac45875675f9f04f79b, type: 2}
+  - {fileID: 11400000, guid: c848ae6582d8d8d4b896aac8f87eafb9, type: 2}
+  - {fileID: 11400000, guid: b821c6f2acae6224683defd09b73f935, type: 2}

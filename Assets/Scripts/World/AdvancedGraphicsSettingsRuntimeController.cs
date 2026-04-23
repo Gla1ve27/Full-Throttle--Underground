@@ -13,6 +13,9 @@ namespace Underground.World
     public sealed class AdvancedGraphicsSettingsRuntimeController : MonoBehaviour
     {
         private const float WarmupRefreshIntervalSeconds = 0.5f;
+        private const int WorldTrafficRuntimeCap = 16;
+        private const int WorldMaxAntiAliasing = 2;
+        private const float WorldMaxLodBias = 0.75f;
 
         private static AdvancedGraphicsSettingsRuntimeController instance;
 
@@ -139,12 +142,13 @@ namespace Underground.World
             // with HDRP's Volume-based fog. This resolves the white horizon/black sky bug.
             RenderSettings.fog = false;
 
-            QualitySettings.antiAliasing = settingsManager.FullScreenAntiAliasing switch
+            int requestedAntiAliasing = settingsManager.FullScreenAntiAliasing switch
             {
                 0 => 0,
                 1 => 2,
                 _ => 4
             };
+            QualitySettings.antiAliasing = Mathf.Min(requestedAntiAliasing, WorldMaxAntiAliasing);
 
             QualitySettings.anisotropicFiltering = settingsManager.TextureFiltering switch
             {
@@ -153,12 +157,13 @@ namespace Underground.World
                 _ => AnisotropicFiltering.ForceEnable
             };
 
-            QualitySettings.lodBias = settingsManager.WorldDetail switch
+            float requestedLodBias = settingsManager.WorldDetail switch
             {
                 0 => 0.6f,
                 1 => 1f,
                 _ => 1.6f
             };
+            QualitySettings.lodBias = Mathf.Min(requestedLodBias, WorldMaxLodBias);
 
             QualitySettings.maximumLODLevel = settingsManager.WorldDetail switch
             {
@@ -200,7 +205,7 @@ namespace Underground.World
                     continue;
                 }
 
-                if (lodGroup.GetComponentInParent<VehicleDynamicsController>() == null &&
+                if (lodGroup.GetComponentInParent<Underground.Vehicle.V2.VehicleControllerV2>() == null &&
                     lodGroup.GetComponentInParent<TrafficCar>() == null)
                 {
                     continue;
@@ -214,6 +219,9 @@ namespace Underground.World
         private void ApplyTrafficSettings()
         {
             Transform[] transforms = FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            Camera mainCamera = Camera.main;
+            Vector3 focus = mainCamera != null ? mainCamera.transform.position : Vector3.zero;
+            System.Collections.Generic.List<Transform> traffic = new System.Collections.Generic.List<Transform>(64);
             for (int index = 0; index < transforms.Length; index++)
             {
                 Transform candidate = transforms[index];
@@ -227,7 +235,30 @@ namespace Underground.World
                     continue;
                 }
 
-                candidate.gameObject.SetActive(settingsManager.CrowdsEnabled);
+                traffic.Add(candidate);
+            }
+
+            traffic.Sort((left, right) =>
+            {
+                float leftDistance = left != null ? (left.position - focus).sqrMagnitude : float.MaxValue;
+                float rightDistance = right != null ? (right.position - focus).sqrMagnitude : float.MaxValue;
+                return leftDistance.CompareTo(rightDistance);
+            });
+
+            int activeBudget = settingsManager.CrowdsEnabled ? WorldTrafficRuntimeCap : 0;
+            for (int index = 0; index < traffic.Count; index++)
+            {
+                Transform candidate = traffic[index];
+                if (candidate == null)
+                {
+                    continue;
+                }
+
+                bool shouldBeActive = index < activeBudget;
+                if (candidate.gameObject.activeSelf != shouldBeActive)
+                {
+                    candidate.gameObject.SetActive(shouldBeActive);
+                }
             }
         }
 
@@ -536,3 +567,4 @@ namespace Underground.World
         }
     }
 }
+

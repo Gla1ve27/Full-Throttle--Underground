@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_04_first_blood
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_04_first_blood
+  actId: act_01_unknown_name
+  chapterNumber: 4
+  title: First Blood
+  districtId: city_core
+  narrativePurpose: Marc humiliates one of King's trusted runners.
+  requiredReputation: 750
+  requiredChapterIds:
+  - chapter_03_lockup_13
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: f37c11997be83684e8707fa01c8cd07b, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 5da09a155959fc3459d101d88aa1c15b, type: 2}
+  garageBeat: {fileID: 11400000, guid: df3d41361edb9bc4bbc577a8aec9ae4e, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 9f4591c0499a4044b91a3ccba6bb6d63, type: 2}
+  moneyReward: 1100
+  reputationReward: 300
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_05_king_of_the_core

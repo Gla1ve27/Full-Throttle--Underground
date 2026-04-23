@@ -25,12 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2309671740925911801}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &74343649395529621
 MonoBehaviour:
@@ -67,11 +68,20 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 51e3cf8896e503b47984f524006bf3e4, type: 2}
   - {fileID: 2100000, guid: 20f38d0d2624dd442b62f5e73e72fc23, type: 2}
   volumeProfile_Day: {fileID: 11400000, guid: 4b809e1fdcb76ea40aff443e11b59643, type: 2}
-  volumeProfile_Night: {fileID: 11400000, guid: 801da2eb7411f4d4f8d220bf9e77bdee,
-    type: 2}
+  volumeProfile_Night: {fileID: 11400000, guid: 801da2eb7411f4d4f8d220bf9e77bdee, type: 2}
   directionalLight: {fileID: 0}
-  isNight: 0
-  night: 0
+  driveVolumeBlend: 1
+  createRuntimeBlendVolumes: 1
+  syncWithTimeOfDay: 1
+  dawnStartHour: 5
+  fullDayHour: 7
+  duskStartHour: 17.5
+  fullNightHour: 20
+  volumeBlendResponse: 4
+  duskNightOnly: 1
+  minimumDuskNightBlend: 0.72
+  isNight: 1
+  night: 1
   isSpotLights: 1
   _spotLights: 1
   intenseMoonLight: 800
@@ -82,6 +92,7 @@ MonoBehaviour:
   _temperatureSunLight: 6600
   temperatureMoonLight: 9500
   _temperatureMoonLight: 9500
+  lockLighting: 1
 --- !u!114 &4703262292448163768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,12 +100,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2309671740925911801}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGlobal: 1
+  m_IsGlobal: 1
   priority: 0
   blendDistance: 0
   weight: 1

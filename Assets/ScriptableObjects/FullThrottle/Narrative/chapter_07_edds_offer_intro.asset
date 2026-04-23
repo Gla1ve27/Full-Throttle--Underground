@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167bea02a263b7f41b7856498cf2da2c, type: 3}
+  m_Name: chapter_07_edds_offer_intro
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTNarrativeBeatDefinition
+  beatId: chapter_07_edds_offer_intro
+  chapterId: chapter_07_edds_offer
+  title: Edd's Offer
+  beatType: 0
+  blocksGameplay: 1
+  cameraRigTag: 
+  musicSting: {fileID: 0}
+  voiceOver: {fileID: 0}
+  minimumDuration: 3
+  cinematicDirection: Edd offers access to a bigger event with a price hidden under
+    it.
+  dialogue:
+  - characterId: edd_ricapor
+    displayName: Edd Ricapor
+    line: There's money in the city tonight. Question is how much of yourself you're
+      willing to spend getting it.
+    delayAfter: 0.65
+  radioCopy: 

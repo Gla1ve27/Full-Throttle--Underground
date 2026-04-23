@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &514037285254658882
 GameObject:
@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 6132848918832189269}
   - component: {fileID: 2505189675401864525}
   - component: {fileID: 3380637014679951067}
-  - component: {fileID: 1552560372699505951}
-  - component: {fileID: 2231084773035967756}
-  - component: {fileID: 809734022828408424}
-  - component: {fileID: 1502441785226098341}
+  - component: {fileID: 5266958504418100894}
+  - component: {fileID: 5906401243489723490}
+  - component: {fileID: 5023393691037775724}
+  - component: {fileID: 478384522314508018}
   - component: {fileID: 5469488680233034531}
-  - component: {fileID: 336901455497432056}
-  - component: {fileID: 9176548049799030135}
+  - component: {fileID: 5670038452006637187}
+  - component: {fileID: 4345971834011489819}
   m_Layer: 8
   m_Name: PlayerCar
   m_TagString: Player
@@ -44,6 +44,7 @@ Transform:
   - {fileID: 5667126758971674213}
   - {fileID: 6568442864178502620}
   - {fileID: 7616886838766299432}
+  - {fileID: 8644942667513319967}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2505189675401864525
@@ -94,7 +95,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1552560372699505951
+--- !u!114 &5266958504418100894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,27 +104,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 514037285254658882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2829995154887b841b577bc8891c2cb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e022f9b3036efb41b937ef712ca0d08, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.VehicleInput
-  steeringAxis: Horizontal
-  throttleAxis: Vertical
-  handbrakeKey: 32
-  resetKey: 114
-  reverseKey: 115
-  alternateReverseKey: 274
-  upshiftKey: 304
-  alternateUpshiftKey: 303
-  downshiftKey: 306
-  alternateDownshiftKey: 305
-  steeringResponsiveness: 8.5
-  throttleAttack: 14
-  throttleRelease: 18
-  brakeAttack: 18
-  brakeRelease: 22
-  reverseDoubleTapWindow: 0.3
-  analogDeadZone: 0.08
---- !u!114 &2231084773035967756
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTPlayerVehicleBinder
+  rigidBody: {fileID: 0}
+  wheelColliders: []
+  definitionReceivers: []
+  startupFreezeFrames: 3
+  startupGroundProbe: 5
+--- !u!114 &5906401243489723490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,70 +121,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 514037285254658882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3d1929ae19c1c4a84ff41e2f0fb8d8, type: 3}
+  m_Script: {fileID: 11500000, guid: e3136515144749c4cb7adf732fb98da9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.EngineModel
-  normalizedTorqueCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.24
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.2
-      value: 0.42
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.45
-      value: 0.62
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.68
-      value: 0.74
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.86
-      value: 0.72
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.56
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &809734022828408424
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTDriverInput
+  readLegacyInput: 1
+  handbrakeKey: 304
+  alternateHandbrakeKey: 32
+--- !u!114 &5023393691037775724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,25 +136,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 514037285254658882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d3f3770ed0885f459e2a6a0b2df2f1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 65a85ed3a5ad4f1478eb80dfcccdc134, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.GearboxSystem
-  useManualTransmission: 0
-  minTimeBetweenShifts: 0.42
-  upshiftDuration: 0.16
-  downshiftLockoutAfterUpshift: 0.72
-  minimumUpshiftSpeedKph: 18
-  minimumSpeedGainPerGearKph: 22
-  fullThrottleUpshiftRpm01: 0.92
-  cruiseUpshiftRpm01: 0.78
-  coastUpshiftRpm01: 0.7
-  normalDownshiftRpm01: 0.34
-  kickdownThrottle: 0.82
-  kickdownRpm01: 0.56
-  postUpshiftRpmFloor01: 0.42
-  lowerGearSafetyRpm01: 0.93
-  throttleLiftHoldRpm01: 0.26
---- !u!114 &1502441785226098341
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTVehicleTelemetry
+--- !u!114 &478384522314508018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,130 +148,144 @@ MonoBehaviour:
   m_GameObject: {fileID: 514037285254658882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd5552c174bf37048a8edba92f0ff2ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f1632650002f5149b2f4df45cc0750e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.VehicleDynamicsController
-  baseStats: {fileID: 11400000, guid: 9a6d28aa7cbd504418fb36575d917653, type: 2}
-  runtimeStats:
-    Archetype: 0
-    Drivetrain: 1
-    Horsepower: 0
-    MaxMotorTorque: 0
-    MaxBrakeTorque: 0
-    MaxSpeedKph: 0
-    TorqueCurve:
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTVehicleController
+  body: {fileID: 0}
+  driverInput: {fileID: 0}
+  telemetry: {fileID: 0}
+  wheels:
+  - wheel: {fileID: 2925844934705129034}
+    visual: {fileID: 7784072474473088492}
+    steer: 1
+    motor: 1
+    brake: 1
+    rear: 0
+  - wheel: {fileID: 3203769092556100798}
+    visual: {fileID: 2652345236119362777}
+    steer: 1
+    motor: 1
+    brake: 1
+    rear: 0
+  - wheel: {fileID: 2886581419751172732}
+    visual: {fileID: 8350466502205901130}
+    steer: 0
+    motor: 1
+    brake: 1
+    rear: 1
+  - wheel: {fileID: 1133065202368732573}
+    visual: {fileID: 3179665769105359135}
+    steer: 0
+    motor: 1
+    brake: 1
+    rear: 1
+  powertrain:
+    idleRPM: 900
+    redlineRPM: 7200
+    maxMotorTorque: 1550
+    maxSpeedKph: 235
+    torqueCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.55
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.35
+        value: 0.95
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.72
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.72
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    IdleRPM: 0
-    MaxRPM: 0
-    FinalDriveRatio: 0
-    MaxSteerAngle: 0
-    HighSpeedSteerReduction: 0
-    SteeringResponse: 0
-    Mass: 0
-    WeightDistributionFront: 0
-    CenterOfMassHeight: 0
-    CenterOfMassOffset: {x: 0, y: 0, z: 0}
-    Spring: 0
-    Damper: 0
-    SuspensionDistance: 0
-    AntiRollForce: 0
-    ForwardStiffness: 0
-    SidewaysStiffness: 0
-    FrontGrip: 0
-    RearGrip: 0
-    Traction: 0
-    BrakeGrip: 0
-    SlipAngle: 0
-    RecoveryRate: 0
-    HighSpeedStability: 0
-    Downforce: 0
-    LateralGripAssist: 0
-    HandbrakeGripMultiplier: 0
-    ResetLift: 0
-    DriftAssist: 0
-    CounterSteerAssist: 0
-    YawStability: 0
-    NitrousGripAssist: 0
-  startupUpgrades: []
-  input: {fileID: 1552560372699505951}
-  engineModel: {fileID: 2231084773035967756}
-  gearbox: {fileID: 809734022828408424}
-  centerOfMassReference: {fileID: 645477095242658505}
-  wheels:
-  - axleId: Front
-    leftSide: 1
-    collider: {fileID: 2925844934705129034}
-    mesh: {fileID: 7784072474473088492}
-    steer: 1
-    drive: 0
-    handbrake: 0
-  - axleId: Front
-    leftSide: 0
-    collider: {fileID: 3203769092556100798}
-    mesh: {fileID: 2652345236119362777}
-    steer: 1
-    drive: 0
-    handbrake: 0
-  - axleId: Rear
-    leftSide: 1
-    collider: {fileID: 2886581419751172732}
-    mesh: {fileID: 8350466502205901130}
-    steer: 0
-    drive: 1
-    handbrake: 1
-  - axleId: Rear
-    leftSide: 0
-    collider: {fileID: 1133065202368732573}
-    mesh: {fileID: 3179665769105359135}
-    steer: 0
-    drive: 1
-    handbrake: 1
-  maxHandbrakeTorque: 6500
-  poweredHandbrakeTorqueScale: 0.28
-  reverseEngageSpeedKph: 3
-  reverseReleaseSpeedKph: 1.5
-  reverseHoldToEngageDelay: 0.12
-  aerodynamicDragCoefficient: 0.36
-  lowSpeedAssistEntryKph: 12
-  lowSpeedStopSnapKph: 0.85
-  lowSpeedCoastDeceleration: 4.5
-  lowSpeedLateralDamping: 3.5
-  lowSpeedAngularDamping: 2.4
-  motorTorqueResponse: 2600
-  baseLoadGripBias: 0.92
-  maxLoadGripBias: 1.08
-  slipGripPenalty: 0.18
-  slideSlipAngleThreshold: 15
-  fullSlideSlipAngle: 28
-  slideSideFrictionMultiplier: 0.7
-  slideForwardFrictionMultiplier: 0.96
-  lowSpeedSteerLock: 34
-  highSpeedSteerLock: 7.5
-  steeringAuthorityHighSpeedFloor: 0.38
-  stableGearboxRpmResponse: 14
-  launchWheelSlipRpmInfluence: 0.01
-  wheelSlipRpmInfluence: 0.03
-  fullWheelRpmInfluenceSpeedKph: 65
-  shiftTorqueCut: 0.38
-  handbrakeDriftWindow: 0.45
-  driftSustainWindow: 0.35
-  rearGripDriftMultiplier: 0.38
-  driftYawAssist: 0.82
-  driftSpeedPreservation: 0.985
-  handbrakeSlideRearGripMultiplier: 0.24
-  powerSlideRearGripMultiplier: 0.55
-  donutRearGripMultiplier: 0.18
-  donutYawAssist: 3.6
-  handbrakeRevTargetRpm01: 0.72
-  wallGlanceSpeedRetention: 0.9
-  wallBounceImpulse: 2.25
-  longitudinalTransferRate: 0.12
-  lateralTransferRate: 0.1
-  transferSmoothSpeed: 5
+  gearbox:
+    finalDrive: 3.7
+    shiftUpRpm01: 0.88
+    shiftDownRpm01: 0.32
+    shiftDelay: 0.16
+    reverseRatio: -3.1
+    forwardRatios:
+    - 3.1
+    - 2.1
+    - 1.52
+    - 1.16
+    - 0.93
+    - 0.78
+  steering:
+    lowSpeedAngle: 34
+    highSpeedAngle: 12
+    highSpeedKph: 180
+    response: 10
+  brakes:
+    brakeTorque: 4200
+    handbrakeTorque: 8200
+    reverseMotorTorque: 850
+    absEnabled: 1
+    absSlipThreshold: 0.34
+    absMinBrakeScale: 0.42
+    absMinimumSpeedKph: 18
+  grip:
+    forwardStiffness: 1.18
+    sidewaysStiffness: 1.08
+    highSpeedGripLoss: 0.12
+    tractionControlEnabled: 1
+    tractionSlipThreshold: 0.38
+    tractionMinTorqueScale: 0.55
+    tractionMinimumSpeedKph: 8
+  drift:
+    driftBias: 0.35
+    handbrakeRearGrip: 0.28
+    handbrakeRearForwardGrip: 0.52
+    throttleRearGrip: 0.68
+    minimumDriftSpeedKph: 26
+  enableSteeringYawAssist: 1
+  lowSpeedYawAuthority: 1.35
+  highSpeedYawAuthority: 0.35
+  yawAssistStartSpeedKph: 4
+  yawAssistFullSpeedKph: 55
+  lowSpeedTargetYawRate: 1.75
+  highSpeedTargetYawRate: 0.74
+  steeringLateralDamping: 0.022
+  driftAssistMinSpeedKph: 24
+  handbrakeDriftYawAuthority: 3.35
+  throttleDriftYawAuthority: 1.1
+  throttleDriftThreshold: 0.72
+  driftSteerThreshold: 0.24
+  enableABS: 1
+  enableTractionControl: 1
+  enableStabilityControl: 1
+  stabilityMinimumSpeedKph: 45
+  stabilityYawDamping: 0.58
+  stabilitySlipThreshold: 0.42
+  stabilityLateralDamping: 0.035
 --- !u!114 &5469488680233034531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +318,9 @@ MonoBehaviour:
   emissiveReverseMultiplier: 4
   daytimeDimFactor: 0.35
   headlightBeamPrefab: {fileID: 0}
---- !u!114 &336901455497432056
+  referenceLookupInterval: 5
+  trafficLightingUpdateInterval: 0.12
+--- !u!114 &5670038452006637187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,14 +329,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 514037285254658882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8091933f9668fcd4f8fa72dd7a49c8ed, type: 3}
+  m_Script: {fileID: 11500000, guid: a590183733a96f546a3971d03dd82251, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Vehicle.CarRespawn
-  vehicle: {fileID: 1502441785226098341}
-  input: {fileID: 1552560372699505951}
-  defaultRespawnPoint: {fileID: 6568442864178502620}
-  fallBelowY: -25
---- !u!114 &9176548049799030135
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Vehicle.FTRespawnDirector
+  vehicle: {fileID: 0}
+  input: {fileID: 0}
+  safePoseRecordInterval: 0.75
+  minimumSafeSpeedKph: 8
+--- !u!114 &4345971834011489819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,96 +415,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6132848918832189269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1601532533316168828
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7489184974877177364}
-  - component: {fileID: 8940868742854271602}
-  - component: {fileID: 3005842439687928177}
-  m_Layer: 0
-  m_Name: Mesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7489184974877177364
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601532533316168828}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.021283388, y: -0.00013843179, z: -0.0010608435}
-  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2652345236119362777}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8940868742854271602
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601532533316168828}
-  m_Mesh: {fileID: -78122290439093665, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
---- !u!23 &3005842439687928177
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601532533316168828}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2536129956081578877
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,96 +517,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6132848918832189269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3091982163650650424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5349149044856043888}
-  - component: {fileID: 8083394499761452836}
-  - component: {fileID: 6663980415179787303}
-  m_Layer: 0
-  m_Name: Mesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5349149044856043888
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3091982163650650424}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.021283388, y: -0.00013843179, z: -0.0010608435}
-  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8350466502205901130}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8083394499761452836
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3091982163650650424}
-  m_Mesh: {fileID: 5056564515923819001, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
---- !u!23 &6663980415179787303
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3091982163650650424}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &3110520211053179611
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,96 +678,6 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
---- !u!1 &4873587478670861114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 774056305322895327}
-  - component: {fileID: 1887482005251125421}
-  - component: {fileID: 5812760855893378086}
-  m_Layer: 0
-  m_Name: Mesh
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &774056305322895327
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873587478670861114}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.021283388, y: -0.00013843179, z: -0.0010608435}
-  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3179665769105359135}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1887482005251125421
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873587478670861114}
-  m_Mesh: {fileID: 1550026729220326002, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
---- !u!23 &5812760855893378086
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873587478670861114}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5311912700315038804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,9 +687,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7616886838766299432}
-  - component: {fileID: 3829094013952973074}
+  - component: {fileID: 5229091444405217120}
+  - component: {fileID: 8583679208085704692}
+  - component: {fileID: 3188322311124444543}
+  - component: {fileID: 7909159837942820308}
+  - component: {fileID: 82564161323393900}
+  - component: {fileID: 2897132333895325405}
   m_Layer: 0
-  m_Name: AudioRoot
+  m_Name: FTVehicleAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1047,7 +715,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6132848918832189269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3829094013952973074
+--- !u!114 &5229091444405217120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1056,220 +724,82 @@ MonoBehaviour:
   m_GameObject: {fileID: 5311912700315038804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35bb2be452da28441a28e9970c8e48f3, type: 3}
+  m_Script: {fileID: 11500000, guid: cb9f548c003b24546ad5da686be94d52, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Underground.Audio.VehicleAudioController
-  gearbox: {fileID: 809734022828408424}
-  vehicle: {fileID: 1502441785226098341}
-  input: {fileID: 1552560372699505951}
-  sourceRoot: {fileID: 0}
-  useExternalTelemetry: 0
-  externalCurrentRPM: 900
-  externalNormalizedRPM: 0
-  externalThrottleInput: 0
-  externalGear: 1
-  externalSpeedKph: 0
-  externalGrounded: 1
-  externalSlipAmount: 0
-  fallbackIdleRPM: 900
-  fallbackMaxRPM: 7800
-  fallbackRedlineRPM: 7300
-  idleLoop:
-    label: Idle
-    clip: {fileID: 8300000, guid: 171488b089a2d7249b2cbebe8571ce5d, type: 3}
-    referenceRPM: 900
-    minRPM: 650
-    maxRPM: 1500
-    baseVolume: 0.72
-    basePitch: 1
-    throttleAggression: 0.25
-  onThrottleLoops:
-  - label: Low On
-    clip: {fileID: 8300000, guid: 033e493931991a449b80f25507807e52, type: 3}
-    referenceRPM: 1800
-    minRPM: 1050
-    maxRPM: 3000
-    baseVolume: 0.74
-    basePitch: 1
-    throttleAggression: 0.35
-  - label: Mid On
-    clip: {fileID: 8300000, guid: 237d364d3823a594ea2b4ca4005dd631, type: 3}
-    referenceRPM: 3900
-    minRPM: 2400
-    maxRPM: 5600
-    baseVolume: 0.84
-    basePitch: 1
-    throttleAggression: 0.65
-  - label: High On
-    clip: {fileID: 8300000, guid: 3d17d4704c6586346826e520bce3155e, type: 3}
-    referenceRPM: 6100
-    minRPM: 4700
-    maxRPM: 7600
-    baseVolume: 0.92
-    basePitch: 1
-    throttleAggression: 0.85
-  topLoop:
-    label: Top/Redline On
-    clip: {fileID: 8300000, guid: d4e2948b1ec919b45a29444066028cbb, type: 3}
-    referenceRPM: 7350
-    minRPM: 6500
-    maxRPM: 8200
-    baseVolume: 0.82
-    basePitch: 1
-    throttleAggression: 1
-  offThrottleLoops:
-  - label: Low Off
-    clip: {fileID: 8300000, guid: e57d1f209fb685e459ef1b6d1c5f98c3, type: 3}
-    referenceRPM: 1800
-    minRPM: 1100
-    maxRPM: 3000
-    baseVolume: 0.48
-    basePitch: 1
-    throttleAggression: 0.2
-  - label: Mid Off
-    clip: {fileID: 8300000, guid: e22bf5b20ccdcba4a9959d42ff4dc369, type: 3}
-    referenceRPM: 3900
-    minRPM: 2500
-    maxRPM: 5600
-    baseVolume: 0.55
-    basePitch: 1
-    throttleAggression: 0.25
-  - label: High Off
-    clip: {fileID: 8300000, guid: 55d224de6ac0f55489ef141f00c95a2d, type: 3}
-    referenceRPM: 6100
-    minRPM: 4800
-    maxRPM: 7600
-    baseVolume: 0.58
-    basePitch: 1
-    throttleAggression: 0.3
-  dominantEngineLoopLimit: 2
-  engineBusVolumeCeiling: 0.92
-  minimumEngineBedVolume: 0.32
-  rpmBandOverlapExpansion: 0.25
-  offThrottleEngineFloor: 0.34
-  idleThrottleSuppression: 0.36
-  throttleOnThreshold: 0.18
-  throttleOffThreshold: 0.1
-  onOffBankBlendResponse: 11
-  throttleFullTone: 0.78
-  topLoopThrottleThreshold: 0.42
-  highRpmAggressionBoost: 0.36
-  loopPitchClamp: {x: 0.72, y: 1.38}
-  pitchClampFadeRange: 0.16
-  keepEngineLoopsRunning: 1
-  repairLoopSeamsAtRuntime: 1
-  loopBoundaryCrossfadeMs: 8
-  loopSelectionFreezeDuration: 0.1
-  audioRpmDeadband: 18
-  rpmRiseResponse: 24
-  rpmFallResponse: 10
-  throttleResponse: 18
-  speedResponse: 10
-  volumeResponse: 16
-  pitchResponse: 18
-  shiftVolumeDuck: 0.24
-  shiftDuckDuration: 0.11
-  shiftPitchDip: 0.035
-  shiftUp:
-    clip: {fileID: 0}
-    volume: 0.65
-    pitchRange: {x: 0.96, y: 1.04}
-    minInterval: 0.08
-  shiftDown:
-    clip: {fileID: 0}
-    volume: 0.65
-    pitchRange: {x: 0.96, y: 1.04}
-    minInterval: 0.08
-  throttleBlip:
-    clip: {fileID: 0}
-    volume: 0.65
-    pitchRange: {x: 0.96, y: 1.04}
-    minInterval: 0.08
-  enableSoftLimiter: 1
-  limiterEnter01: 0.955
-  limiterVolumePulse: 0.08
-  limiterPulseHz: 13
-  turboSpool:
-    label: Turbo Spool
-    clip: {fileID: 0}
-    volume: 0.2
-    minPitch: 0.85
-    maxPitch: 1.35
-    fadeResponse: 10
-  turboBlowOff:
-    clip: {fileID: 0}
-    volume: 0.65
-    pitchRange: {x: 0.96, y: 1.04}
-    minInterval: 0.08
-  intake:
-    label: Intake
-    clip: {fileID: 0}
-    volume: 0.18
-    minPitch: 0.9
-    maxPitch: 1.3
-    fadeResponse: 10
-  gearWhine:
-    label: Gear Whine
-    clip: {fileID: 0}
-    volume: 0.12
-    minPitch: 0.8
-    maxPitch: 1.45
-    fadeResponse: 10
-  exhaustPop:
-    clip: {fileID: 0}
-    volume: 0.65
-    pitchRange: {x: 0.96, y: 1.04}
-    minInterval: 0.08
-  exhaustPopChancePerSecond: 0.25
-  blowOffThrottleDrop: 0.38
-  blowOffMinSpool: 0.42
-  oneShotGlobalCooldown: 0.12
-  tireRolling:
-    label: Tire Rolling
-    clip: {fileID: 0}
-    volume: 0.17
-    minPitch: 0.8
-    maxPitch: 1.2
-    fadeResponse: 10
-  skidLoop:
-    label: Skid
-    clip: {fileID: 0}
-    volume: 0.28
-    minPitch: 0.92
-    maxPitch: 1.08
-    fadeResponse: 10
-  minimumSkidSpeedKph: 36
-  handbrakeSkidMinSpeedKph: 18
-  launchSkidMuteSpeedKph: 42
-  launchThrottleSuppression: 0.42
-  skidSlipThreshold: 0.38
-  fullSkidSlip: 0.95
-  skidAttackResponse: 8
-  skidReleaseResponse: 20
-  masterVolume: 0.9
-  spatialBlend: 0.78
-  minDistance: 3
-  maxDistance: 55
-  outputGroup: {fileID: 0}
-  fallbackMixerGroupName: SFX
-  disableCompetingVehicleSources: 1
-  cameraMode: 0
-  interiorVolumeScale: 0.82
-  interiorPitchScale: 0.96
-  interiorAuxScale: 0.58
-  showDebugState: 0
-  logConflictScan: 0
-  currentStateName: ''
-  engineMixDiagnostic: ''
-  activeEngineLoopCount: 0
-  dominantEngineLoops: ''
-  debugCurrentRPM: 0
-  debugAudioRPM: 0
-  debugOnThrottleBlend: 0
-  debugShiftDuckAmount: 0
-  debugShiftInProgress: 0
-  debugLoopWeights: ''
-  debugContinuityHint: ''
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTVehicleAudioDirector
+  carDefinition: {fileID: 0}
+  telemetry: {fileID: 0}
+  audioRoot: {fileID: 0}
+  logLoopState: 0
+  loopLogInterval: 0.25
+--- !u!114 &8583679208085704692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311912700315038804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962dc3bbf0393f0488edcd8595274c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTEngineAudioFeed
+  telemetry: {fileID: 0}
+  driverInput: {fileID: 0}
+  body: {fileID: 0}
+--- !u!114 &3188322311124444543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311912700315038804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9cf7005f6b8b4489979a00bffb0e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTEngineLoopMixer
+  dominantLoopLimit: 3
+  overlapExpansion: 0.36
+  topEntryRPM01: 0.91
+--- !u!114 &7909159837942820308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311912700315038804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4ae936adf107245b0af5c23565134f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTShiftAudioDirector
+--- !u!114 &82564161323393900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311912700315038804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3b1003403f9b443a7278f327c33da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTTurboAudioDirector
+--- !u!114 &2897132333895325405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311912700315038804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adea4a1066ca114b83734a2a03bf374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTSurfaceAudioDirector
+  minimumSkidSpeedKph: 32
+  fullSkidSlip: 0.9
 --- !u!1 &5976286965928952587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,9 +896,221 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7489184974877177364}
+  - {fileID: 4793136934336547375}
   m_Father: {fileID: 4421681990514820943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6357579489404275675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8644942667513319967}
+  - component: {fileID: 3300842329648884333}
+  - component: {fileID: 685092777481008197}
+  - component: {fileID: 968474262392651252}
+  - component: {fileID: 7349965044794441757}
+  - component: {fileID: 4488709933322004934}
+  - component: {fileID: 1664668976278978379}
+  m_Layer: 0
+  m_Name: FTVehicleAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8644942667513319967
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6132848918832189269}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3300842329648884333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9f548c003b24546ad5da686be94d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTVehicleAudioDirector
+  carDefinition: {fileID: 0}
+  telemetry: {fileID: 0}
+  audioRoot: {fileID: 0}
+  logLoopState: 0
+  loopLogInterval: 0.25
+--- !u!114 &685092777481008197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962dc3bbf0393f0488edcd8595274c45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTEngineAudioFeed
+  telemetry: {fileID: 0}
+  driverInput: {fileID: 0}
+  body: {fileID: 0}
+--- !u!114 &968474262392651252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9cf7005f6b8b4489979a00bffb0e74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTEngineLoopMixer
+  dominantLoopLimit: 3
+  overlapExpansion: 0.36
+  topEntryRPM01: 0.91
+--- !u!114 &7349965044794441757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4ae936adf107245b0af5c23565134f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTShiftAudioDirector
+--- !u!114 &4488709933322004934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3b1003403f9b443a7278f327c33da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTTurboAudioDirector
+--- !u!114 &1664668976278978379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357579489404275675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adea4a1066ca114b83734a2a03bf374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTSurfaceAudioDirector
+  minimumSkidSpeedKph: 32
+  fullSkidSlip: 0.9
+--- !u!1 &6367632468641903345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3158559085326958913}
+  - component: {fileID: 8103123963080164298}
+  - component: {fileID: 7938255930557052984}
+  m_Layer: 0
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3158559085326958913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367632468641903345}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.021283388, y: -0.00013843179, z: -0.0010608435}
+  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3179665769105359135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8103123963080164298
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367632468641903345}
+  m_Mesh: {fileID: 1550026729220326002, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
+--- !u!23 &7938255930557052984
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367632468641903345}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7301254243811217109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5349149044856043888}
+  - {fileID: 4516861924474644031}
   m_Father: {fileID: 4421681990514820943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7476338999433929909
@@ -1436,6 +1178,186 @@ Transform:
   - {fileID: 4734005354463970185}
   m_Father: {fileID: 6132848918832189269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7558029841219771922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4516861924474644031}
+  - component: {fileID: 6880343657505285545}
+  - component: {fileID: 1166531703402216384}
+  m_Layer: 0
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4516861924474644031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558029841219771922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.021283388, y: -0.00013843179, z: -0.0010608435}
+  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8350466502205901130}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6880343657505285545
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558029841219771922}
+  m_Mesh: {fileID: 5056564515923819001, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
+--- !u!23 &1166531703402216384
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558029841219771922}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7828669900842436255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4793136934336547375}
+  - component: {fileID: 5665684344676437969}
+  - component: {fileID: 5920109550457250333}
+  m_Layer: 0
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4793136934336547375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828669900842436255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.021283388, y: -0.00013843179, z: -0.0010608435}
+  m_LocalScale: {x: 1.0469582, y: 1.0469582, z: 1.0469582}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2652345236119362777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5665684344676437969
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828669900842436255}
+  m_Mesh: {fileID: -78122290439093665, guid: 3131eb239467945468ca6245f35c2ba1, type: 3}
+--- !u!23 &5920109550457250333
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7828669900842436255}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e0e036b90fa4b344bbf87358cb31022f, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8148601389612133231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,7 +1458,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 774056305322895327}
+  - {fileID: 3158559085326958913}
   m_Father: {fileID: 4421681990514820943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8960525337556532901

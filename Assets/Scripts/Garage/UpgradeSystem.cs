@@ -1,13 +1,14 @@
 using UnityEngine;
 using Underground.Save;
-using Underground.Vehicle; // UpgradeDefinition, VehicleDynamicsController
+using Underground.Vehicle;
+using Underground.Vehicle.V2;
 
 namespace Underground.Garage
 {
     public class UpgradeSystem : MonoBehaviour
     {
         [SerializeField] private PersistentProgressManager progressManager;
-        [SerializeField] private VehicleDynamicsController playerVehicle;
+        [SerializeField] private VehicleControllerV2 playerVehicleV2;
 
         private void Awake()
         {
@@ -16,15 +17,22 @@ namespace Underground.Garage
                 progressManager = FindFirstObjectByType<PersistentProgressManager>();
             }
 
-            if (playerVehicle == null)
+            if (playerVehicleV2 == null)
             {
-                playerVehicle = FindFirstObjectByType<VehicleDynamicsController>();
+                playerVehicleV2 = FindFirstObjectByType<VehicleControllerV2>();
             }
         }
 
         public bool PurchaseAndApplyUpgrade(UpgradeDefinition definition)
         {
-            if (definition == null || progressManager == null || playerVehicle == null)
+            if (definition == null || progressManager == null)
+            {
+                return false;
+            }
+
+            bool hasV2 = playerVehicleV2 != null && playerVehicleV2.IsInitialized && playerVehicleV2.enabled;
+
+            if (!hasV2)
             {
                 return false;
             }
@@ -45,7 +53,9 @@ namespace Underground.Garage
             }
 
             progressManager.RegisterUpgrade(definition.upgradeId);
-            playerVehicle.ApplyUpgrade(definition);
+
+            playerVehicleV2.ApplyUpgrade(definition);
+
             progressManager.SaveNow();
             return true;
         }

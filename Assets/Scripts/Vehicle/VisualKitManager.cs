@@ -17,7 +17,7 @@ namespace Underground.Vehicle
     /// actual visual swap mechanics.
     /// 
     /// Usage:
-    ///  1. Attach to the vehicle root (same object as VehicleDynamicsController)
+    ///  1. Attach to the vehicle root (same object as Underground.Vehicle.V2.VehicleControllerV2)
     ///  2. Assign the VehicleDefinition (or auto-resolved from catalog)
     ///  3. Call ResolveActiveKit() to determine which kit to apply
     ///  4. PlayerCarAppearanceController reads ActiveKit to decide the visual prefab
@@ -33,7 +33,7 @@ namespace Underground.Vehicle
 
         [Header("References")]
         [SerializeField] private PersistentProgressManager progressManager;
-        [SerializeField] private VehicleDynamicsController dynamics;
+        [SerializeField] private Underground.Vehicle.V2.VehicleControllerV2 dynamics;
 
         // ─────────────────────────────────────────────────────────────────────
         //  State
@@ -292,8 +292,9 @@ namespace Underground.Vehicle
 
             if (dynamics == null)
             {
-                dynamics = GetComponent<VehicleDynamicsController>();
+                dynamics = GetComponent<Underground.Vehicle.V2.VehicleControllerV2>();
             }
         }
     }
 }
+

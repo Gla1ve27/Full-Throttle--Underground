@@ -1,10 +1,11 @@
 using UnityEngine;
+using Underground.Vehicle.V2;
 
 namespace Underground.Vehicle
 {
     public class CarRespawn : MonoBehaviour
     {
-        [SerializeField] private VehicleDynamicsController vehicle;
+        [SerializeField] private VehicleControllerV2 vehicleV2;
         [SerializeField] private InputReader input;
         [SerializeField] private Transform defaultRespawnPoint;
         [SerializeField] private float fallBelowY = -25f;
@@ -13,9 +14,9 @@ namespace Underground.Vehicle
 
         private void Awake()
         {
-            if (vehicle == null)
+            if (vehicleV2 == null)
             {
-                vehicle = GetComponent<VehicleDynamicsController>();
+                vehicleV2 = GetComponent<VehicleControllerV2>();
             }
 
             if (input == null)
@@ -51,12 +52,15 @@ namespace Underground.Vehicle
 
         public void RespawnToLastPoint()
         {
-            if (vehicle == null || currentRespawnPoint == null)
+            if (currentRespawnPoint == null)
             {
                 return;
             }
 
-            vehicle.ResetVehicle(currentRespawnPoint);
+            if (vehicleV2 != null && vehicleV2.IsInitialized && vehicleV2.enabled)
+            {
+                vehicleV2.ResetVehicle(currentRespawnPoint);
+            }
         }
     }
 }

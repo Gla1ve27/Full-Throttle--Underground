@@ -3,6 +3,10 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FullThrottle.SacredCore.Race;
+using FullThrottle.SacredCore.Vehicle;
+using FullThrottle.SacredCore.World;
+using FullThrottle.SacredCore.HUD;
 using Underground.AI;
 using Underground.Race;
 using Underground.TimeSystem;
@@ -40,7 +44,7 @@ namespace Underground.EditorTools
             }
 
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             GameObject systemsRoot = new GameObject("TestSceneSystems");
             EnsureWorldSystems(systemsRoot.transform);
             RenderSettings.skybox = LoadDaySkyboxMaterial();
@@ -102,7 +106,7 @@ namespace Underground.EditorTools
                 UnityEngine.Object.DestroyImmediate(roots[i]);
             }
 
-            CreateRuntimeRoot(false);
+            CreateFTRuntimeRoot(false);
             GameObject systemsRoot = new GameObject("TestSceneSystems");
             EnsureWorldSystems(systemsRoot.transform);
             RenderSettings.skybox = LoadDaySkyboxMaterial();
@@ -146,7 +150,6 @@ namespace Underground.EditorTools
             {
                 follow = cameraObject.AddComponent<VehicleCameraFollow>();
             }
-            SetObjectReference(follow, "targetVehicle", playerCar.GetComponent<VehicleDynamicsController>());
             SetObjectReference(follow, "target", playerCar.transform.Find("CameraTarget"));
             SetObjectReference(follow, "targetBody", playerCar.GetComponent<Rigidbody>());
         }
@@ -171,6 +174,10 @@ namespace Underground.EditorTools
             CreateObstacle(new Vector3(-10f, 0.4f, 120f), new Vector3(8f, 0.8f, 8f));
         }
 
+        /// <summary>
+        /// Phase 5: Garage entrance trigger kept for world → garage scene transition.
+        /// This is not in the quarantine list — it is a simple trigger.
+        /// </summary>
         private static void CreateGarageEntrance()
         {
             GameObject entrance = new GameObject("GarageEntrance");
@@ -192,6 +199,11 @@ namespace Underground.EditorTools
             checkpoint.AddComponent<RespawnPointTrigger>();
         }
 
+        /// <summary>
+        /// Phase 5: Race starts now use FTSpawnPoint marker instead of legacy RaceManager + RaceStartTrigger.
+        /// The legacy RaceDefinition asset is still created for backward compat, but the scene object
+        /// uses a simple trigger collider with an FTSpawnPoint marker. FTRaceDirector owns race state.
+        /// </summary>
         private static void CreateRaceStart(Vector3 position, RaceDefinition definition, string name)
         {
             GameObject start = new GameObject(name);
@@ -200,9 +212,11 @@ namespace Underground.EditorTools
             collider.isTrigger = true;
             collider.size = new Vector3(10f, 3f, 4f);
             start.transform.position = position;
-            RaceManager raceManager = start.AddComponent<RaceManager>();
-            SetObjectReference(raceManager, "activeRace", definition);
-            start.AddComponent<RaceStartTrigger>();
+
+            // Place an FT spawn point marker so the spawn resolver can find race locations
+            FTSpawnPoint spawnPoint = start.AddComponent<FTSpawnPoint>();
+            spawnPoint.spawnPointId = $"race_{definition?.raceId ?? name.ToLowerInvariant()}";
+            spawnPoint.defaultForScene = false;
         }
 
         private static void CreateTrafficLoop()
@@ -283,8 +297,24 @@ namespace Underground.EditorTools
             RefreshPreservedHudCanvas(hudObject.GetComponent<Canvas>());
         }
 
+        /// <summary>
+        /// Phase 5: HUD preservation searches for FTHUDDirector first,
+        /// then falls back to legacy HUDController and named canvases.
+        /// </summary>
         private static Canvas FindPreservedHudCanvas()
         {
+            // FT preferred path
+            FTHUDDirector ftHud = UnityEngine.Object.FindFirstObjectByType<FTHUDDirector>(FindObjectsInactive.Include);
+            if (ftHud != null)
+            {
+                Canvas ftHudCanvas = ftHud.GetComponent<Canvas>();
+                if (ftHudCanvas != null)
+                {
+                    return ftHudCanvas;
+                }
+            }
+
+            // Legacy fallback
             HUDController hudController = UnityEngine.Object.FindFirstObjectByType<HUDController>(FindObjectsInactive.Include);
             if (hudController != null)
             {
@@ -330,6 +360,7 @@ namespace Underground.EditorTools
             StylizedHudComposer composer = hudCanvas.GetComponent<StylizedHudComposer>() ?? hudCanvas.gameObject.AddComponent<StylizedHudComposer>();
             SetObjectReference(composer, "speedometerPrefab", LoadHudSpeedometerPrefab());
             composer.Compose();
+            EnsureRadioPopupOnCanvas(hudCanvas);
         }
 
         private static void CreateObstacle(Vector3 position, Vector3 scale)

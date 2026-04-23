@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_05_king_of_the_core
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_05_king_of_the_core
+  actId: act_01_unknown_name
+  chapterNumber: 5
+  title: King Of The Core
+  districtId: city_core
+  narrativePurpose: End Act I with the first district boss race.
+  requiredReputation: 1200
+  requiredChapterIds:
+  - chapter_04_first_blood
+  requiredRaceWins: []
+  requiredRivalWins:
+  - rival_king_serrano
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 124c8ce7398b5774bbd0ac3639b2bc6c, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 3b9a9394fdbd3fa409df9eb71ec7c707, type: 2}
+  garageBeat: {fileID: 11400000, guid: f940e5f38c6f8084b82962af529f527f, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: df656829e88138247a67ad53acb9a198, type: 2}
+  moneyReward: 1800
+  reputationReward: 500
+  unlockDistrictIds:
+  - arterial_zone
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_06_better_roads_worse_people

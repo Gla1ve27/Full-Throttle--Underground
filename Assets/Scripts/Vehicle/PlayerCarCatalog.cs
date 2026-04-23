@@ -190,21 +190,6 @@ namespace Underground.Vehicle
             { "Car 8", "arcade_car_8" },
             { "Car 9", "arcade_car_9" },
             { "Car 10", "arcade_car_10" },
-
-            // ── Lore-friendly → old ID reverse bridge (transition period) ──
-            { "solstice_type_s",       "rmcar26" },
-            { "zodic_s_classic",       "simple_retro_car" },
-            { "maverick_vengeance_srt", "arcade_car_7" },
-            { "protoso_c16",           "arcade_car_2" },
-            { "weaver_pup_s",          "arcade_car_3" },
-            { "stratos_element_9",     "arcade_car_1" },
-            { "reizan_gt_rb",          "arcade_car_4" },
-            { "reizan_icon_iv",        "arcade_car_5" },
-            { "uruk_grinder_4x4",      "arcade_car_8" },
-            { "reizan_vanguard_34",    "arcade_car_6" },
-            { "cyro_monolith",         "american_sedan" },
-            { "hanse_executive",       "american_sedan_stylized" },
-            { "reizan_350z",           "reizan_350z" },
         };
 
         // ------------------------------------------------------------------
@@ -284,35 +269,35 @@ namespace Underground.Vehicle
                 "rmcar26",
                 "RMCar26",
                 "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26.prefab",
-                null,
+                "Assets/ScriptableObjects/Vehicles/StarterCarStats.asset",
                 RMCar26Wheels,
                 -0.16f),
             new PlayerCarDefinition(
                 "rmcar26_b",
                 "RMCar26 B",
                 "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26_B.prefab",
-                null,
+                "Assets/ScriptableObjects/Vehicles/StarterCarStats.asset",
                 RMCar26_B_Wheels,
                 -0.16f),
             new PlayerCarDefinition(
                 "rmcar26_c",
                 "RMCar26 C",
                 "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26_C.prefab",
-                null,
+                "Assets/ScriptableObjects/Vehicles/StarterCarStats.asset",
                 RMCar26_C_Wheels,
                 -0.16f),
             new PlayerCarDefinition(
                 "rmcar26_d",
                 "RMCar26 D",
                 "Assets/RealisticMobileCars - Pro3DModels/RMCar26/Prefabs/RMCar26_D.prefab",
-                null,
+                "Assets/ScriptableObjects/Vehicles/StarterCarStats.asset",
                 RMCar26_D_Wheels,
                 -0.16f),
             new PlayerCarDefinition(
                 "reizan_350z",
                 "Reizan 350Z",
                 "Assets/Blender3DByBads/350z.fbx",
-                null,
+                "Assets/ScriptableObjects/Vehicles/StarterCarStats.asset",
                 Reizan350ZWheels,
                 -0.16f
             ),

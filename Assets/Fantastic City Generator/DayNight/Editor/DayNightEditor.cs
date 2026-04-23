@@ -30,16 +30,27 @@ public class DayNightEditor : Editor
             }
 
 
+            if (dayNight.duskNightOnly)
+            {
+                EditorGUILayout.HelpBox("Full Throttle dusk/night lock is enabled. The Day button is disabled so the world cannot snap to daytime.", MessageType.Info);
+            }
+
+            EditorGUI.BeginDisabledGroup(dayNight.duskNightOnly);
             if (GUILayout.Button("Day"))
             {
                 dayNight.isNight = false;
+                dayNight.night = false;
+                dayNight.ChangeMaterial();
             }
+            EditorGUI.EndDisabledGroup();
 
             GUILayout.Space(5);
 
             if (GUILayout.Button("Night"))
             {
                 dayNight.isNight = true;
+                dayNight.night = true;
+                dayNight.ChangeMaterial();
             }
             
             GUILayout.Space(5);
@@ -76,13 +87,6 @@ public class DayNightEditor : Editor
                 GUILayout.Space(20);
             }
 
-
-
-            if (dayNight.night != dayNight.isNight)
-            {
-                dayNight.night = dayNight.isNight;
-                dayNight.ChangeMaterial();
-            }
 
 
             if (dayNight.isNight)
@@ -140,12 +144,6 @@ public class DayNightEditor : Editor
     private void OnEnable()
     {
         dayNight = (DayNight)target;
-
-        if (PrefabUtility.GetPrefabAssetType(dayNight.gameObject) != PrefabAssetType.NotAPrefab)
-            PrefabUtility.UnpackPrefabInstance((GameObject)dayNight.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.AutomatedAction);
-
-        dayNight.ChangeMaterial();
-
     }
 
  

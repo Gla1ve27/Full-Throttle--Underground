@@ -1,4 +1,8 @@
 using TMPro;
+using FullThrottle.SacredCore.Garage;
+using FullThrottle.SacredCore.Runtime;
+using FullThrottle.SacredCore.Save;
+using FullThrottle.SacredCore.Vehicle;
 using UnityEngine;
 using UnityEngine.UI;
 using Underground.Garage;
@@ -11,9 +15,14 @@ namespace Underground.UI
     {
         [SerializeField] private PersistentProgressManager progressManager;
         [SerializeField] private GarageManager garageManager;
+        [SerializeField] private FTGarageDirector ftGarageDirector;
+        [SerializeField] private FTGarageShowroomDirector ftShowroomDirector;
+        [SerializeField] private FTSelectedCarRuntime ftSelectedCarRuntime;
+        [SerializeField] private FTCarRegistry ftCarRegistry;
+        [SerializeField] private FTSaveGateway ftSaveGateway;
         [SerializeField] private UpgradePurchaseAction engineUpgradeAction;
         [SerializeField] private GarageShowroomController showroomController;
-        [SerializeField] private VehicleDynamicsController displayedVehicle;
+        [SerializeField] private Underground.Vehicle.V2.VehicleControllerV2 displayedVehicle;
         [SerializeField] private TMP_Text moneyText;
         [SerializeField] private TMP_Text reputationText;
         [SerializeField] private TMP_Text currentCarText;
@@ -62,9 +71,10 @@ namespace Underground.UI
 
             if (displayedVehicle == null)
             {
-                displayedVehicle = FindFirstObjectByType<VehicleDynamicsController>();
+                displayedVehicle = FindFirstObjectByType<Underground.Vehicle.V2.VehicleControllerV2>();
             }
 
+            ResolveFTReferences();
             ResolveButtons();
             RemoveLegacyBankButton();
             BindButtons();
@@ -104,6 +114,11 @@ namespace Underground.UI
 
         public void Refresh()
         {
+            if (TryRefreshFT())
+            {
+                return;
+            }
+
             if (progressManager == null)
             {
                 progressManager = FindFirstObjectByType<PersistentProgressManager>();
@@ -120,7 +135,7 @@ namespace Underground.UI
             }
 
             string resolvedCarId = ResolveCurrentCarId();
-            VehicleDynamicsController activeVehicle = showroomController != null && showroomController.CurrentVehicle != null
+            Underground.Vehicle.V2.VehicleControllerV2 activeVehicle = showroomController != null && showroomController.CurrentVehicle != null
                 ? showroomController.CurrentVehicle
                 : displayedVehicle;
             displayedVehicle = activeVehicle;
@@ -183,6 +198,13 @@ namespace Underground.UI
         public void ExitGarage()
         {
             SetStatus("Leaving garage...");
+            ResolveFTReferences();
+            if (ftGarageDirector != null)
+            {
+                ftGarageDirector.ContinueToWorld();
+                return;
+            }
+
             garageManager?.ExitGarageToWorld();
         }
 
@@ -201,6 +223,15 @@ namespace Underground.UI
 
         public void SelectPreviousCar()
         {
+            ResolveFTReferences();
+            if (ftGarageDirector != null)
+            {
+                string carId = ftGarageDirector.BrowsePreviousOwnedCar();
+                SetStatus($"Selected {ResolveFTDisplayName(carId)}.");
+                Refresh();
+                return;
+            }
+
             bool changed = showroomController != null && showroomController.SelectPreviousCar();
             if (changed)
             {
@@ -212,6 +243,15 @@ namespace Underground.UI
 
         public void SelectNextCar()
         {
+            ResolveFTReferences();
+            if (ftGarageDirector != null)
+            {
+                string carId = ftGarageDirector.BrowseNextOwnedCar();
+                SetStatus($"Selected {ResolveFTDisplayName(carId)}.");
+                Refresh();
+                return;
+            }
+
             bool changed = showroomController != null && showroomController.SelectNextCar();
             if (changed)
             {
@@ -247,7 +287,7 @@ namespace Underground.UI
 
             BindButton(repairButton, RepairCar);
             BindButton(upgradeButton, BuyEngineUpgrade);
-            BindButton(continueButton, ExitGarage);
+            BindExclusiveButton(continueButton, ExitGarage);
             BindButton(rotateLeftButton, SelectPreviousCar);
             BindButton(rotateRightButton, SelectNextCar);
             buttonsBound = true;
@@ -273,6 +313,17 @@ namespace Underground.UI
             button.onClick.AddListener(action);
         }
 
+        private void BindExclusiveButton(Button button, UnityEngine.Events.UnityAction action)
+        {
+            if (button == null || action == null)
+            {
+                return;
+            }
+
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(action);
+        }
+
         private Button FindButton(string objectName)
         {
             Button[] buttons = GetComponentsInChildren<Button>(true);
@@ -287,7 +338,7 @@ namespace Underground.UI
             return null;
         }
 
-        private void HandleVehicleChanged(VehicleDynamicsController newVehicle)
+        private void HandleVehicleChanged(Underground.Vehicle.V2.VehicleControllerV2 newVehicle)
         {
             displayedVehicle = newVehicle;
             Refresh();
@@ -295,6 +346,12 @@ namespace Underground.UI
 
         private string ResolveCurrentCarId()
         {
+            ResolveFTReferences();
+            if (ftSelectedCarRuntime != null && !string.IsNullOrEmpty(ftSelectedCarRuntime.CurrentCarId))
+            {
+                return ftSelectedCarRuntime.CurrentCarId;
+            }
+
             if (showroomController != null && !string.IsNullOrEmpty(showroomController.CurrentCarId))
             {
                 return showroomController.CurrentCarId;
@@ -314,6 +371,80 @@ namespace Underground.UI
             }
 
             return resolvedCarId;
+        }
+
+        private bool TryRefreshFT()
+        {
+            ResolveFTReferences();
+            if (ftSelectedCarRuntime == null || ftCarRegistry == null || ftSaveGateway == null)
+            {
+                return false;
+            }
+
+            string carId = ftSelectedCarRuntime.CurrentCarId;
+            if (string.IsNullOrEmpty(carId))
+            {
+                return false;
+            }
+
+            FTCarDefinition selectedCar = ftCarRegistry.Get(carId);
+            if (selectedCar == null)
+            {
+                return false;
+            }
+
+            if (moneyText != null) moneyText.text = $"Money: {ftSaveGateway.Profile.bankMoney}";
+            if (reputationText != null) reputationText.text = $"Reputation: {ftSaveGateway.Profile.reputation}";
+            if (currentCarText != null) currentCarText.text = $"Current Car: {selectedCar.displayName}";
+            if (displayNameText != null) displayNameText.text = selectedCar.displayName.ToUpperInvariant();
+            if (brandText != null) brandText.text = "UNDERGROUND GARAGE";
+
+            if (accelerationFill != null) accelerationFill.fillAmount = Mathf.Clamp01(selectedCar.feel.acceleration / 10f);
+            if (topSpeedFill != null) topSpeedFill.fillAmount = Mathf.Clamp01(selectedCar.feel.topSpeed / 10f);
+            if (handlingFill != null) handlingFill.fillAmount = Mathf.Clamp01(selectedCar.feel.handling / 10f);
+            if (ratingText != null)
+            {
+                float rating = (selectedCar.feel.acceleration + selectedCar.feel.topSpeed + selectedCar.feel.handling) / 3f;
+                ratingText.text = rating.ToString("0.00");
+            }
+
+            lastResolvedCarId = carId;
+            return true;
+        }
+
+        private string ResolveFTDisplayName(string carId)
+        {
+            ResolveFTReferences();
+            FTCarDefinition car = ftCarRegistry != null ? ftCarRegistry.Get(carId) : null;
+            return car != null ? car.displayName : carId;
+        }
+
+        private void ResolveFTReferences()
+        {
+            if (ftGarageDirector == null)
+            {
+                ftGarageDirector = FindFirstObjectByType<FTGarageDirector>();
+            }
+
+            if (ftShowroomDirector == null)
+            {
+                ftShowroomDirector = FindFirstObjectByType<FTGarageShowroomDirector>();
+            }
+
+            if (ftSelectedCarRuntime == null && !FTServices.TryGet(out ftSelectedCarRuntime))
+            {
+                ftSelectedCarRuntime = FindFirstObjectByType<FTSelectedCarRuntime>();
+            }
+
+            if (ftCarRegistry == null && !FTServices.TryGet(out ftCarRegistry))
+            {
+                ftCarRegistry = FindFirstObjectByType<FTCarRegistry>();
+            }
+
+            if (ftSaveGateway == null && !FTServices.TryGet(out ftSaveGateway))
+            {
+                ftSaveGateway = FindFirstObjectByType<FTSaveGateway>();
+            }
         }
     }
 }

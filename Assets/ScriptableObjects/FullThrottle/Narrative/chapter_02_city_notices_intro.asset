@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 167bea02a263b7f41b7856498cf2da2c, type: 3}
+  m_Name: chapter_02_city_notices_intro
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTNarrativeBeatDefinition
+  beatId: chapter_02_city_notices_intro
+  chapterId: chapter_02_city_notices
+  title: The City Notices
+  beatType: 0
+  blocksGameplay: 1
+  cameraRigTag: 
+  musicSting: {fileID: 0}
+  voiceOver: {fileID: 0}
+  minimumDuration: 3
+  cinematicDirection: King watches clips of Marc's win and laughs like it means nothing.
+  dialogue:
+  - characterId: king_serrano
+    displayName: King Serrano
+    line: These streets don't hand out names. They bury them.
+    delayAfter: 0.65
+  radioCopy: 

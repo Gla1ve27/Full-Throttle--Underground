@@ -1,0 +1,244 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b129260cebdef644ba0b6ba522258561, type: 3}
+  m_Name: rival_stock
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Audio.FTVehicleAudioProfile
+  audioProfileId: rival_stock
+  audioFamilyTag: 
+  dedicatedHeroProfile: 1
+  devEmergencyFallback: 0
+  familyBaseProfile: {fileID: 0}
+  inheritsFamily: 0
+  idle:
+    clip: {fileID: 0}
+    volume: 0.75
+    referenceRPM: 900
+    minRPM: 650
+    maxRPM: 1500
+    basePitch: 1
+  lowAccel:
+    clip: {fileID: 0}
+    volume: 0.74
+    referenceRPM: 1900
+    minRPM: 1050
+    maxRPM: 2950
+    basePitch: 1
+  midAccel:
+    clip: {fileID: 0}
+    volume: 0.78
+    referenceRPM: 3650
+    minRPM: 2750
+    maxRPM: 5450
+    basePitch: 1
+  highAccel:
+    clip: {fileID: 0}
+    volume: 0.76
+    referenceRPM: 5700
+    minRPM: 4700
+    maxRPM: 7100
+    basePitch: 1
+  topRedline:
+    clip: {fileID: 0}
+    volume: 0.62
+    referenceRPM: 7400
+    minRPM: 7000
+    maxRPM: 8150
+    basePitch: 1
+  lowDecel:
+    clip: {fileID: 0}
+    volume: 0.52
+    referenceRPM: 1900
+    minRPM: 1150
+    maxRPM: 3000
+    basePitch: 1
+  midDecel:
+    clip: {fileID: 0}
+    volume: 0.5
+    referenceRPM: 3650
+    minRPM: 2850
+    maxRPM: 5450
+    basePitch: 1
+  highDecel:
+    clip: {fileID: 0}
+    volume: 0.46
+    referenceRPM: 5700
+    minRPM: 4850
+    maxRPM: 7100
+    basePitch: 1
+  shiftUp:
+    clip: {fileID: 0}
+    volume: 0.72
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.08
+  shiftDown:
+    clip: {fileID: 0}
+    volume: 0.66
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.08
+  throttleLift:
+    clip: {fileID: 0}
+    volume: 0.2
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.18
+  intake:
+    clip: {fileID: 0}
+    volume: 0.08
+    referenceRPM: 3000
+    minRPM: 1000
+    maxRPM: 4500
+    basePitch: 1
+  turboSpool:
+    clip: {fileID: 0}
+    volume: 0.18
+    referenceRPM: 3000
+    minRPM: 1000
+    maxRPM: 4500
+    basePitch: 1
+  turboBlowoff:
+    clip: {fileID: 0}
+    volume: 0.36
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.45
+  drivetrainWhine:
+    clip: {fileID: 0}
+    volume: 0.055
+    referenceRPM: 3000
+    minRPM: 1000
+    maxRPM: 4500
+    basePitch: 1
+  skidTire:
+    clip: {fileID: 0}
+    volume: 0.34
+    referenceRPM: 3000
+    minRPM: 1000
+    maxRPM: 4500
+    basePitch: 1
+  turboWhistle:
+    clip: {fileID: 0}
+    volume: 0.08
+    referenceRPM: 3000
+    minRPM: 1000
+    maxRPM: 4500
+    basePitch: 1
+  sweetenerSputterLoop:
+    clip: {fileID: 0}
+    volume: 0.035
+    referenceRPM: 3600
+    minRPM: 2200
+    maxRPM: 7600
+    basePitch: 1
+  sweetenerCrackle:
+    clip: {fileID: 0}
+    volume: 0.18
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.08
+  sparkChatter:
+    clip: {fileID: 0}
+    volume: 0.08
+    pitchRange: {x: 0.96, y: 1.04}
+    cooldown: 0.12
+  crackleMinRPM01: 0.48
+  crackleChancePerSecond: 1.8
+  sputterMinRPM01: 0.34
+  sputterThrottleUpper: 0.16
+  sparkChatterChancePerSecond: 0.18
+  accelSweep:
+    enabled: 0
+    clip: {fileID: 0}
+    volume: 0.18
+    playbackWindow01: {x: 0.03, y: 0.97}
+    pitchCorrectionRange: {x: 0.98, y: 1.02}
+    seekResponse: 6
+    resyncThresholdSeconds: 0.65
+  decelSweep:
+    enabled: 0
+    clip: {fileID: 0}
+    volume: 0.14
+    playbackWindow01: {x: 0.03, y: 0.97}
+    pitchCorrectionRange: {x: 0.98, y: 1.02}
+    seekResponse: 6
+    resyncThresholdSeconds: 0.65
+  interiorExterior:
+    interiorBlend: 0
+    exteriorSpatialBlend: 0.65
+    interiorSpatialBlend: 0.22
+    interiorEngineScale: 0.82
+    interiorSweetenerScale: 0.72
+    interiorWorldScale: 0.55
+  modePresets:
+    freeRoam: {fileID: 11400000, guid: fb71c11b6fc3d58449025b451e14283f, type: 2}
+    race: {fileID: 11400000, guid: 2ae225bd6ea40504db980035bfa68fe4, type: 2}
+    drift: {fileID: 11400000, guid: dc20a83b8991552468e766d640234710, type: 2}
+    drag: {fileID: 11400000, guid: dcb2419bf5d49004d84b3395f06f799a, type: 2}
+    garage: {fileID: 11400000, guid: ef648906f1b5dbf44bc05b0c7589db0e, type: 2}
+  limiter:
+    enterRPM01: 0.955
+    volumePulse: 0.06
+    pulseHz: 12
+  response:
+    rpmRiseResponse: 8.5
+    rpmFallResponse: 7
+    throttleResponse: 13
+    volumeResponse: 13
+    pitchResponse: 6.5
+    pitchClamp: {x: 0.74, y: 1.24}
+    minimumBedVolume: 0.32
+    bedProtectionBoost: 0.2
+    shiftDuck: 0.12
+    shiftDuckDuration: 0.08
+    shiftPitchDip: 0.008
+  garagePreview:
+    revStyle: restrained
+    previewThrottle: 0.35
+    revRiseSeconds: 0.8
+    revFallSeconds: 1
+  upgradeModifiers:
+  - stage: 0
+    toneFullness: 1
+    shiftAggression: 1
+    inductionLoudness: 1
+    turboResponse: 1
+    backfireIntensity: 0.5
+    limiterHarshness: 1
+    overrunCharacter: 1
+  - stage: 1
+    toneFullness: 1.05
+    shiftAggression: 1
+    inductionLoudness: 1.08
+    turboResponse: 1
+    backfireIntensity: 0.5
+    limiterHarshness: 1
+    overrunCharacter: 1
+  - stage: 2
+    toneFullness: 1.1
+    shiftAggression: 1.12
+    inductionLoudness: 1.18
+    turboResponse: 1
+    backfireIntensity: 0.5
+    limiterHarshness: 1
+    overrunCharacter: 1
+  - stage: 3
+    toneFullness: 1.18
+    shiftAggression: 1.25
+    inductionLoudness: 1.35
+    turboResponse: 1
+    backfireIntensity: 0.5
+    limiterHarshness: 1.18
+    overrunCharacter: 1
+  - stage: 4
+    toneFullness: 1.24
+    shiftAggression: 1.35
+    inductionLoudness: 1.45
+    turboResponse: 1.22
+    backfireIntensity: 0.5
+    limiterHarshness: 1.28
+    overrunCharacter: 1

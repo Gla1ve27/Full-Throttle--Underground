@@ -19,14 +19,14 @@ MonoBehaviour:
     and engaging."
   archetype: 3
   drivetrain: 1
-  visualPrefabPath: Assets/Blender3DByBads/350z.prefab
+  visualPrefabPath: Assets/Blender3DByBads/350z.fbx
   statsAssetPath: Assets/FullThrottle/Vehicles/reizan_350z/Data/reizan_350z_Stats.asset
   stats: {fileID: 11400000, guid: beac501a26cd850459ef89315f503d74, type: 2}
   wheelMapping:
-    frontLeftPath: Wheel_FL
-    frontRightPath: Wheel_FR
-    rearLeftPath: Wheel_LR
-    rearRightPath: Wheel_RR
+    frontLeftPath: wheel1
+    frontRightPath: wheel2
+    rearLeftPath: wheel3
+    rearRightPath: wheel4
   showroomBodyDrop: -0.16
   useDetachedWheelVisuals: 1
   reputationRequired: 0

@@ -19,7 +19,7 @@ namespace Underground.Vehicle
     public class PlayerCarAppearanceController : MonoBehaviour
     {
         [SerializeField] private PersistentProgressManager progressManager;
-        [SerializeField] private VehicleDynamicsController vehicle;
+        [SerializeField] private Underground.Vehicle.V2.VehicleControllerV2 vehicle;
         [SerializeField] private Transform modelRoot;
         [SerializeField] private string currentCarId;
         [SerializeField] private string currentCarDisplayName;
@@ -76,10 +76,23 @@ namespace Underground.Vehicle
         private void Awake()
         {
             ResolveReferences();
+
+            if (GetComponentInParent<GarageShowroomController>() == null)
+            {
+                showroomPresentationMode = false;
+            }
         }
 
         private void Start()
         {
+            // In gameplay scenes, VehicleSetupBridge is the authoritative startup path.
+            // Let the bridge choose/apply the active car once services and scene objects are ready.
+            // This avoids a first-frame stale apply followed by a second forced swap.
+            if (!IsGarageShowroomContext() && GetComponent<Underground.Vehicle.V2.VehicleSetupBridge>() != null)
+            {
+                return;
+            }
+
             ApplyCurrentSelection();
         }
 
@@ -87,10 +100,22 @@ namespace Underground.Vehicle
         {
             ResolveReferences();
 
-            string targetCarId = progressManager != null && !string.IsNullOrEmpty(progressManager.CurrentOwnedCarId)
-                ? progressManager.CurrentOwnedCarId
-                : PlayerCarCatalog.StarterCarId;
+            string targetCarId = PlayerCarCatalog.StarterCarId;
 
+            string pendingCarId = !IsGarageShowroomContext()
+                ? VehicleSceneSelectionBridge.PeekPendingCarId()
+                : string.Empty;
+
+            if (!string.IsNullOrEmpty(pendingCarId))
+            {
+                targetCarId = pendingCarId;
+            }
+            else if (progressManager != null && !string.IsNullOrEmpty(progressManager.CurrentOwnedCarId))
+            {
+                targetCarId = progressManager.CurrentOwnedCarId;
+            }
+
+            Debug.Log($"[PlayerCarAppearanceController] ApplyCurrentSelection -> {targetCarId} (showroom={IsGarageShowroomContext()})");
             return ApplyAppearance(targetCarId);
         }
 
@@ -133,8 +158,11 @@ namespace Underground.Vehicle
 
             if (visualPrefab == null)
             {
+                Debug.LogWarning($"[PlayerCarAppearance] No visual prefab could be resolved for '{carId}'.");
                 return false;
             }
+
+            Debug.Log($"[PlayerCarAppearance] Applying '{definition.CarId}' using prefab '{definition.VisualPrefabPath}'. Showroom={IsGarageShowroomContext()}");
 
             ResolveReferences();
             EnsureWheelRoots();
@@ -412,21 +440,11 @@ namespace Underground.Vehicle
 
         private static bool ShouldMatchGameplayWheelLayoutToSource(PlayerCarDefinition definition, bool isGarageShowroom)
         {
-            if (isGarageShowroom || string.IsNullOrEmpty(definition.CarId))
-            {
-                return false;
-            }
-
-            // Cars with shared rear axle compatibility should not force both rear
-            // WheelColliders onto the same imported mesh pivot. We keep their
-            // gameplay wheel layout authored in the controller.
-            if (MatchesAnyToken(definition.CarId, SharedRearAxleCarTokens) || MatchesAnyToken(definition.DisplayName, SharedRearAxleCarTokens))
-            {
-                return false;
-            }
-
-            // We now do this for ALL cars. Physics should adapt to the body, not the other way around.
-            return true;
+            // Post-upgrade stability fix:
+            // moving WheelColliders to match arbitrary imported mesh pivots is what
+            // launches the player car or makes it unstable on scene load.
+            // Keep the authored gameplay wheel layout from the PlayerCar rig instead.
+            return false;
         }
 
         private static WheelRigCompatibility ResolveWheelRigCompatibility(
@@ -619,7 +637,7 @@ namespace Underground.Vehicle
 
             if (vehicle == null)
             {
-                vehicle = GetComponent<VehicleDynamicsController>();
+                vehicle = GetComponent<Underground.Vehicle.V2.VehicleControllerV2>();
             }
 
             if (modelRoot == null)

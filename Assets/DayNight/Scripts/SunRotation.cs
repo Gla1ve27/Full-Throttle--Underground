@@ -1,5 +1,14 @@
+using System;
+using Underground.TimeSystem;
 using Underground.Core.Architecture;
 using UnityEngine;
+
+public enum SunTimeMode
+{
+    GameCycle,
+    RealWorldClock,
+    InspectorOverride
+}
 
 [DefaultExecutionOrder(-100)]
 [DisallowMultipleComponent]
@@ -21,10 +30,21 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
     public Material skyboxMaterial;
 
     [Header("Time")]
+    [SerializeField] private SunTimeMode timeMode = SunTimeMode.GameCycle;
     [SerializeField, Range(0f, 24f)] private float startTimeOfDay = 22f;
     [SerializeField] private float fullDayLengthSeconds = 1200f;
     [SerializeField] private bool useInspectorTimeOverride;
     [SerializeField, Range(0f, 24f)] private float inspectorTimeOfDay = 22f;
+    [SerializeField] private bool useLocalRealWorldTime = true;
+    [SerializeField, Range(-12f, 14f)] private float utcOffsetHours = 8f;
+    [SerializeField] private bool smoothVisualTransitions = true;
+    [SerializeField, Range(0.1f, 30f)] private float visualTimeResponse = 8f;
+
+    [Header("Full Throttle Atmosphere")]
+    [Tooltip("Keeps the world in a NFSU2/NFS 2015 dusk-to-night range. Daytime values are redirected instead of rendered.")]
+    [SerializeField] private bool duskNightOnly = true;
+    [SerializeField, Range(0f, 24f)] private float daytimeRedirectHour = PackageTimeOfDayUtility.DefaultDuskNightHour;
+    [SerializeField, Range(0f, 1f)] private float duskNightAmbientCeiling = 0.18f;
 
     [Header("Sun")]
     [SerializeField] private float sunYaw = 166f;
@@ -36,7 +56,8 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
     [SerializeField] private Color nightSunColor = new Color(0.18f, 0.22f, 0.32f);
 
     [Header("Skybox Response")]
-    [SerializeField] private bool driveSkybox = true;
+    [SerializeField] private bool driveSkybox = false;
+    [SerializeField] private bool preferHDRPVolumeSkyWhenAvailable = true;
     [SerializeField] private Color daySkyTint = new Color(0.55f, 0.58f, 0.62f);
     [SerializeField] private Color sunsetSkyTint = new Color(0.55f, 0.38f, 0.36f);
     [SerializeField] private Color nightSkyTint = new Color(0.08f, 0.1f, 0.16f);
@@ -52,10 +73,14 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
     private TimeWindow lastPublishedWindow;
     private bool hasPublishedWindow;
     private Material appliedSkyboxMaterial;
+    private float visualTimeOfDay = -1f;
+    private DayNight volumeSkyOwner;
+    private float nextVolumeSkyOwnerLookupTime;
+    private bool loggedVolumeSkyHandoff;
 
-    public float TimeOfDay => timeOfDay == null
+    public float TimeOfDay => ConstrainGameplayTime(timeOfDay == null
         ? Mathf.Repeat(startTimeOfDay, 24f)
-        : Mathf.Repeat(timeOfDay.seconds_passed / global::TimeOfDay.seconds_in_day * 24f, 24f);
+        : Mathf.Repeat(timeOfDay.seconds_passed / global::TimeOfDay.seconds_in_day * 24f, 24f));
 
     public TimeWindow CurrentWindow => EvaluateWindow(TimeOfDay);
     public bool IsNight => CurrentWindow == TimeWindow.Night || CurrentWindow == TimeWindow.LateNight;
@@ -71,8 +96,9 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
             timeOfDay.time_scale = 0f;
         }
 
-        float initialTime = progressManager != null ? progressManager.WorldTimeOfDay : startTimeOfDay;
+        float initialTime = ResolveInitialTime();
         SetTimeWithoutPublish(initialTime);
+        visualTimeOfDay = initialTime;
         RegisterAsActive();
         ApplyVisuals(forceSkyRefresh: true);
         PublishTime(force: true);
@@ -108,9 +134,13 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
             }
         }
 
-        if (useInspectorTimeOverride)
+        if (useInspectorTimeOverride || timeMode == SunTimeMode.InspectorOverride)
         {
             SetTimeWithoutPublish(inspectorTimeOfDay);
+        }
+        else if (timeMode == SunTimeMode.RealWorldClock)
+        {
+            SetTimeWithoutPublish(GetRealWorldTimeOfDay());
         }
         else if (fullDayLengthSeconds > 0f)
         {
@@ -128,13 +158,30 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
     public void SetTime(float timeOfDayHours)
     {
         SetTimeWithoutPublish(timeOfDayHours);
+        visualTimeOfDay = ConstrainGameplayTime(timeOfDayHours);
+        ApplyVisuals(forceSkyRefresh: true);
+        PublishTime(force: true);
+    }
+
+    public void SetTimeMode(SunTimeMode mode)
+    {
+        timeMode = mode;
+        if (mode == SunTimeMode.RealWorldClock)
+        {
+            SetTimeWithoutPublish(GetRealWorldTimeOfDay());
+        }
+        else if (mode == SunTimeMode.InspectorOverride)
+        {
+            SetTimeWithoutPublish(inspectorTimeOfDay);
+        }
+
         ApplyVisuals(forceSkyRefresh: true);
         PublishTime(force: true);
     }
 
     private void SetTimeWithoutPublish(float timeOfDayHours)
     {
-        float normalizedHours = Mathf.Repeat(timeOfDayHours, 24f);
+        float normalizedHours = ConstrainGameplayTime(timeOfDayHours);
         if (timeOfDay == null)
         {
             return;
@@ -157,10 +204,15 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
 
     private void ApplyVisuals(bool forceSkyRefresh)
     {
-        float normalizedDay = Mathf.Repeat(TimeOfDay / 24f, 1f);
+        float renderTime = ResolveVisualTime();
+        float normalizedDay = Mathf.Repeat(renderTime / 24f, 1f);
         float ambient = EvaluateAmbient(normalizedDay);
-        float nightBlend = EvaluateNightBlend(TimeOfDay);
-        float sunsetBlend = EvaluateSunsetBlend(TimeOfDay);
+        float nightBlend = EvaluateNightBlend(renderTime);
+        float sunsetBlend = EvaluateSunsetBlend(renderTime);
+        if (duskNightOnly)
+        {
+            ambient = Mathf.Min(ambient, Mathf.Lerp(duskNightAmbientCeiling, 0.045f, nightBlend));
+        }
 
         transform.rotation = Quaternion.Euler(
             MidnightRotation + normalizedDay * 360f,
@@ -187,10 +239,41 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
             RenderSettings.ambientIntensity = ambient;
         }
 
-        if (driveSkybox)
+        if (ShouldDriveSkybox())
         {
             ApplySkybox(nightBlend, sunsetBlend, forceSkyRefresh);
         }
+    }
+
+    private bool ShouldDriveSkybox()
+    {
+        if (!driveSkybox)
+        {
+            return false;
+        }
+
+        if (!preferHDRPVolumeSkyWhenAvailable)
+        {
+            return true;
+        }
+
+        if (volumeSkyOwner == null && Time.unscaledTime >= nextVolumeSkyOwnerLookupTime)
+        {
+            nextVolumeSkyOwnerLookupTime = Time.unscaledTime + 2f;
+            volumeSkyOwner = FindFirstObjectByType<DayNight>();
+        }
+
+        bool hdrpVolumeOwnsSky = volumeSkyOwner != null
+            && volumeSkyOwner.driveVolumeBlend
+            && volumeSkyOwner.HasVolumeProfiles;
+
+        if (hdrpVolumeOwnsSky && !loggedVolumeSkyHandoff && Application.isPlaying)
+        {
+            loggedVolumeSkyHandoff = true;
+            Debug.Log("[DayNight] HDRP Volume profiles are driving the sky. SunRotation will only drive the directional light/time.", this);
+        }
+
+        return !hdrpVolumeOwnsSky;
     }
 
     private float EvaluateAmbient(float normalizedDay)
@@ -204,6 +287,64 @@ public class SunRotation : MonoBehaviour, ITimeOfDayService
         float dawn = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(5f, 8f, hour));
         float dusk = 1f - Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(17f, 20f, hour));
         return Mathf.Clamp01(Mathf.Min(dawn, dusk));
+    }
+
+    private float ResolveInitialTime()
+    {
+        if (useInspectorTimeOverride || timeMode == SunTimeMode.InspectorOverride)
+        {
+            return ConstrainGameplayTime(inspectorTimeOfDay);
+        }
+
+        if (timeMode == SunTimeMode.RealWorldClock)
+        {
+            return ConstrainGameplayTime(GetRealWorldTimeOfDay());
+        }
+
+        float resolved = progressManager != null ? progressManager.WorldTimeOfDay : startTimeOfDay;
+        return ConstrainGameplayTime(resolved);
+    }
+
+    private float ResolveVisualTime()
+    {
+        float target = TimeOfDay;
+        if (!Application.isPlaying || !smoothVisualTransitions || visualTimeOfDay < 0f)
+        {
+            visualTimeOfDay = target;
+            return target;
+        }
+
+        visualTimeOfDay = SmoothCyclicHours(visualTimeOfDay, target, visualTimeResponse, Time.deltaTime);
+        return visualTimeOfDay;
+    }
+
+    private float GetRealWorldTimeOfDay()
+    {
+        DateTime now = useLocalRealWorldTime
+            ? DateTime.Now
+            : DateTime.UtcNow.AddHours(utcOffsetHours);
+
+        return Mathf.Repeat(
+            now.Hour + now.Minute / 60f + now.Second / 3600f + now.Millisecond / 3600000f,
+            24f);
+    }
+
+    private float ConstrainGameplayTime(float hours)
+    {
+        hours = Mathf.Repeat(hours, 24f);
+        if (!duskNightOnly || PackageTimeOfDayUtility.IsDuskNightHour(hours))
+        {
+            return hours;
+        }
+
+        return PackageTimeOfDayUtility.ConstrainToDuskNightHours(daytimeRedirectHour);
+    }
+
+    private static float SmoothCyclicHours(float current, float target, float response, float deltaTime)
+    {
+        float delta = Mathf.DeltaAngle(current * 15f, target * 15f) / 15f;
+        float factor = 1f - Mathf.Exp(-Mathf.Max(0.01f, response) * deltaTime);
+        return Mathf.Repeat(current + delta * factor, 24f);
     }
 
     private void ApplySkybox(float nightBlend, float sunsetBlend, bool forceRefresh)

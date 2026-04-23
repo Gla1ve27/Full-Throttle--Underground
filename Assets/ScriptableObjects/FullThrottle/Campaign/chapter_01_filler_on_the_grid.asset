@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_01_filler_on_the_grid
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_01_filler_on_the_grid
+  actId: act_01_unknown_name
+  chapterNumber: 1
+  title: Filler On The Grid
+  districtId: city_core
+  narrativePurpose: Make the player feel small, broke, and underestimated.
+  requiredReputation: 0
+  requiredChapterIds:
+  - chapter_00_name_before_city
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 809ddd2e6caba0e4386c0a8eb069eb7e, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: b7dde535c050f984b97334c7c2fa5a43, type: 2}
+  garageBeat: {fileID: 11400000, guid: 313b8dea748b20e4cb1221dca97ce61e, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 0082eb87b37a6384cb4178be3accd386, type: 2}
+  moneyReward: 700
+  reputationReward: 180
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_02_city_notices

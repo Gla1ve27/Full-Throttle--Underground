@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_11_gold_can_bleed
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_11_gold_can_bleed
+  actId: act_02_pressure_climb
+  chapterNumber: 11
+  title: Gold Can Bleed
+  districtId: arterial_zone
+  narrativePurpose: Marc defeats Mav and breaks the image wall.
+  requiredReputation: 3200
+  requiredChapterIds:
+  - chapter_10_back_from_concrete
+  requiredRaceWins: []
+  requiredRivalWins:
+  - rival_mav_cruz
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 52ee0695b820f1c4e888a77e315a567d, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 16b630b0e53159c44844b00528b22f43, type: 2}
+  garageBeat: {fileID: 11400000, guid: a337468a202415845a6e6dcd8091ecd1, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 505e89d70559789428b6945ba8d313fb, type: 2}
+  moneyReward: 2300
+  reputationReward: 650
+  unlockDistrictIds:
+  - mountain_fringe
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_12_everybodys_watching

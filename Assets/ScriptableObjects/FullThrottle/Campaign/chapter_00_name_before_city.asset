@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_00_name_before_city
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_00_name_before_city
+  actId: act_00_prologue
+  chapterNumber: 0
+  title: The Name Before The City
+  districtId: city_core
+  narrativePurpose: Introduce Marc Badua, Ross, the city tone, and Lockup 13.
+  requiredReputation: 0
+  requiredChapterIds: []
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 4308c5071d5f8cd4fa1e31e66cda7f5f, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 2b1fd7ec1ac2dc74a8e8ea6a9df3c97d, type: 2}
+  garageBeat: {fileID: 11400000, guid: ffd7beee7db9f7046bcc816005310df7, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: 3d290cf7137a1084dbc7cf0eeb1e2ff6, type: 2}
+  moneyReward: 400
+  reputationReward: 100
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_01_filler_on_the_grid

@@ -12,14 +12,21 @@ namespace Underground.UI
         [SerializeField] private Color panelColor = new Color(0.06f, 0.08f, 0.12f, 0.54f);
         [SerializeField] private Color softTextColor = new Color(0.88f, 0.92f, 1f, 0.92f);
         [SerializeField] private GameObject speedometerPrefab;
+        [Header("Composition")]
+        [SerializeField] private bool composeOnAwake;
 
         private Sprite cachedSprite;
+        private Sprite cachedCircleSprite;
 
         private void Awake()
         {
-            Compose();
+            if (composeOnAwake)
+            {
+                Compose();
+            }
         }
 
+        [ContextMenu("Compose HUD Layout")]
         public void Compose()
         {
             HUDController hudController = GetComponent<HUDController>();
@@ -49,14 +56,23 @@ namespace Underground.UI
 
             BuildTopStatus(root, out TMP_Text levelText, out TMP_Text bankText, out TMP_Text riskText, out TMP_Text nextLevelText, out TMP_Text challengeText, out TMP_Text dayNightText, out Image riskRingFill);
             BuildBottomCenter(root, out TMP_Text sessionMoneyText);
-            BuildSpeedCluster(root, out global::Speedometer speedometer, out TMP_Text gearText, out TMP_Text damageText);
+            BuildInstrumentCluster(
+                root,
+                out TachometerHudDisplay tachometer,
+                out global::Speedometer speedometer,
+                out TMP_Text analogueGearText,
+                out RectTransform digitalRoot,
+                out RectTransform analogueRoot);
             BuildRadar(root, radarController);
             BuildRacePrompt(root);
 
             hudController.BindView(
+                tachometer,
                 speedometer,
+                digitalRoot,
+                analogueRoot,
                 null,
-                gearText,
+                analogueGearText,
                 bankText,
                 sessionMoneyText,
                 levelText,
@@ -137,6 +153,130 @@ namespace Underground.UI
             SetAnchors(objectiveText.rectTransform, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0f, 20f), new Vector2(500f, 24f));
 
             promptRoot.gameObject.SetActive(false);
+        }
+
+        private void BuildInstrumentCluster(
+            RectTransform parent,
+            out TachometerHudDisplay tachometer,
+            out global::Speedometer speedometer,
+            out TMP_Text analogueGearText,
+            out RectTransform digitalRoot,
+            out RectTransform analogueRoot)
+        {
+            RectTransform instrumentRoot = CreateRect("SpeedCluster", parent);
+            ConfigureInstrumentCluster(instrumentRoot, out tachometer, out speedometer, out analogueGearText, out digitalRoot, out analogueRoot);
+        }
+
+        private void ConfigureInstrumentCluster(
+            RectTransform instrumentRoot,
+            out TachometerHudDisplay tachometer,
+            out global::Speedometer speedometer,
+            out TMP_Text analogueGearText,
+            out RectTransform digitalRoot,
+            out RectTransform analogueRoot)
+        {
+            SetAnchors(instrumentRoot, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-34f, 30f), new Vector2(360f, 190f));
+
+            digitalRoot = CreateRect("DigitalTachRoot", instrumentRoot);
+            SetAnchors(digitalRoot, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), Vector2.zero, new Vector2(360f, 116f));
+            ConfigureTachometerCluster(digitalRoot, out tachometer, out _, false);
+
+            analogueRoot = CreateRect("AnalogueSpeedometerRoot", instrumentRoot);
+            Stretch(analogueRoot);
+
+            RectTransform speedometerRect = CreateSpeedometer(analogueRoot, out speedometer);
+            speedometerRect.anchorMin = new Vector2(1f, 0f);
+            speedometerRect.anchorMax = new Vector2(1f, 0f);
+            speedometerRect.pivot = new Vector2(1f, 0f);
+            speedometerRect.anchoredPosition = new Vector2(-6f, 18f);
+
+            RectTransform gearPill = CreateRect("AnalogueGearPill", analogueRoot);
+            SetAnchors(gearPill, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(12f, 72f), new Vector2(72f, 40f));
+            Image gearPillImage = gearPill.gameObject.AddComponent<Image>();
+            gearPillImage.sprite = GetSprite();
+            gearPillImage.color = new Color(0.18f, 0.24f, 0.34f, 0.9f);
+            analogueGearText = CreateText("AnalogueGearValue", gearPill, "1", 18f, FontStyles.Bold, TextAlignmentOptions.Center, Color.white);
+            Stretch(analogueGearText.rectTransform);
+        }
+
+        private void BuildTachometerCluster(RectTransform parent, out TachometerHudDisplay tachometer, out TMP_Text gearText)
+        {
+            RectTransform tachRoot = CreateRect("SpeedCluster", parent);
+            ConfigureTachometerCluster(tachRoot, out tachometer, out gearText);
+        }
+
+        private void ConfigureTachometerCluster(RectTransform tachRoot, out TachometerHudDisplay tachometer, out TMP_Text gearText, bool configureRootTransform = true)
+        {
+            if (configureRootTransform)
+            {
+                SetAnchors(tachRoot, new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(1f, 0f), new Vector2(-34f, 30f), new Vector2(360f, 116f));
+            }
+
+            Image panel = tachRoot.GetComponent<Image>();
+            if (panel == null)
+            {
+                panel = tachRoot.gameObject.AddComponent<Image>();
+            }
+
+            panel.sprite = GetSprite();
+            panel.color = new Color(0.02f, 0.025f, 0.035f, 0.56f);
+
+            RectTransform gearOuter = CreateRect("GearCircle", tachRoot);
+            SetAnchors(gearOuter, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(38f, 16f), new Vector2(48f, 48f));
+            Image gearOuterImage = gearOuter.gameObject.AddComponent<Image>();
+            gearOuterImage.sprite = GetCircleSprite();
+            gearOuterImage.color = new Color(0.09f, 0.88f, 0.31f, 0.96f);
+
+            RectTransform gearInner = CreateRect("GearCircleInner", gearOuter);
+            SetAnchors(gearInner, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(40f, 40f));
+            Image gearInnerImage = gearInner.gameObject.AddComponent<Image>();
+            gearInnerImage.sprite = GetCircleSprite();
+            gearInnerImage.color = new Color(0.015f, 0.025f, 0.02f, 0.94f);
+
+            gearText = CreateText("GearValue", gearOuter, "1", 31f, FontStyles.Bold, TextAlignmentOptions.Center, new Color(0.18f, 1f, 0.45f, 1f));
+            Stretch(gearText.rectTransform);
+
+            TMP_Text rpmText = CreateText("RpmValue", tachRoot, "000", 54f, FontStyles.Bold, TextAlignmentOptions.Left, new Color(0.74f, 0.76f, 0.8f, 0.34f));
+            rpmText.enableAutoSizing = true;
+            rpmText.fontSizeMin = 38f;
+            rpmText.fontSizeMax = 54f;
+            SetAnchors(rpmText.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(76f, -8f), new Vector2(178f, 62f));
+
+            TMP_Text unitText = CreateText("RpmUnit", tachRoot, "km/h", 14f, FontStyles.Bold | FontStyles.Italic, TextAlignmentOptions.Left, new Color(0.45f, 0.48f, 0.53f, 0.82f));
+            SetAnchors(unitText.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(244f, -20f), new Vector2(42f, 18f));
+
+            TMP_Text absText = CreateText("AssistABS", tachRoot, "ABS", 12f, FontStyles.Bold, TextAlignmentOptions.Left, new Color(0.45f, 0.48f, 0.53f, 0.82f));
+            TMP_Text tcrText = CreateText("AssistTCR", tachRoot, "TCR", 12f, FontStyles.Bold, TextAlignmentOptions.Left, new Color(0.45f, 0.48f, 0.53f, 0.82f));
+            TMP_Text stmText = CreateText("AssistSTM", tachRoot, "STM", 12f, FontStyles.Bold, TextAlignmentOptions.Left, new Color(0.45f, 0.48f, 0.53f, 0.82f));
+            SetAnchors(absText.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-26f, -34f), new Vector2(44f, 16f));
+            SetAnchors(tcrText.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-26f, -50f), new Vector2(44f, 16f));
+            SetAnchors(stmText.rectTransform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-26f, -66f), new Vector2(44f, 16f));
+
+            RectTransform barRoot = CreateRect("RpmSegmentBar", tachRoot);
+            SetAnchors(barRoot, new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(7f, 11f), new Vector2(342f, 24f));
+
+            const int segmentCount = 44;
+            Image[] segments = new Image[segmentCount];
+            for (int i = 0; i < segmentCount; i++)
+            {
+                RectTransform segment = CreateRect($"RpmSegment_{i:00}", barRoot);
+                SetAnchors(segment, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(8f + i * 7.45f, 0f), new Vector2(3.2f, 22f));
+                segment.localRotation = Quaternion.Euler(0f, 0f, -8f);
+                Image segmentImage = segment.gameObject.AddComponent<Image>();
+                segmentImage.sprite = GetSprite();
+                segmentImage.color = i >= 38
+                    ? new Color(1f, 0.12f, 0.28f, 0.38f)
+                    : new Color(0.16f, 0.17f, 0.18f, 0.85f);
+                segments[i] = segmentImage;
+            }
+
+            tachometer = tachRoot.GetComponent<TachometerHudDisplay>();
+            if (tachometer == null)
+            {
+                tachometer = tachRoot.gameObject.AddComponent<TachometerHudDisplay>();
+            }
+
+            tachometer.Bind(rpmText, unitText, gearText, absText, tcrText, stmText, segments);
         }
 
         private void BuildSpeedCluster(RectTransform parent, out global::Speedometer speedometer, out TMP_Text gearText, out TMP_Text damageText)
@@ -239,8 +379,22 @@ namespace Underground.UI
 
         private void RepairExistingHud(RectTransform root)
         {
-            Transform speedCluster = FindDescendant(root, "SpeedCluster");
-            EnsureSpeedometer(speedCluster);
+            RectTransform speedCluster = FindDescendant(root, "SpeedCluster") as RectTransform;
+            if (speedCluster == null)
+            {
+                speedCluster = CreateRect("SpeedCluster", root);
+            }
+
+            bool hasDigitalRoot = FindDescendant(speedCluster, "DigitalTachRoot") != null;
+            bool hasAnalogueRoot = FindDescendant(speedCluster, "AnalogueSpeedometerRoot") != null;
+            bool hasTachometer = speedCluster.GetComponentInChildren<TachometerHudDisplay>(true) != null;
+            bool hasSpeedometer = speedCluster.GetComponentInChildren<global::Speedometer>(true) != null;
+            if (!hasDigitalRoot || !hasAnalogueRoot || !hasTachometer || !hasSpeedometer)
+            {
+                ClearChildren(speedCluster);
+                ConfigureInstrumentCluster(speedCluster, out _, out _, out _, out _, out _);
+            }
+
             EnsureClock(root);
             EnsureRacePrompt(root);
         }
@@ -314,6 +468,26 @@ namespace Underground.UI
             BuildRacePrompt(root);
         }
 
+        private void ClearChildren(Transform parent)
+        {
+            if (parent == null)
+            {
+                return;
+            }
+
+            for (int i = parent.childCount - 1; i >= 0; i--)
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(parent.GetChild(i).gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(parent.GetChild(i).gameObject);
+                }
+            }
+        }
+
         private TMP_Text CreateText(string name, Transform parent, string value, float fontSize, FontStyles style, TextAlignmentOptions alignment, Color color)
         {
             RectTransform rect = CreateRect(name, parent);
@@ -341,6 +515,34 @@ namespace Underground.UI
             image.fillClockwise = true;
             image.fillAmount = fillAmount;
             image.color = color;
+        }
+
+        private Sprite GetCircleSprite()
+        {
+            if (cachedCircleSprite != null)
+            {
+                return cachedCircleSprite;
+            }
+
+            const int size = 64;
+            Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+            texture.hideFlags = HideFlags.HideAndDontSave;
+            Vector2 center = new Vector2((size - 1) * 0.5f, (size - 1) * 0.5f);
+            float radius = (size - 1) * 0.5f;
+            for (int y = 0; y < size; y++)
+            {
+                for (int x = 0; x < size; x++)
+                {
+                    float distance = Vector2.Distance(new Vector2(x, y), center);
+                    float alpha = Mathf.Clamp01(radius - distance + 1f);
+                    texture.SetPixel(x, y, new Color(1f, 1f, 1f, alpha));
+                }
+            }
+
+            texture.Apply();
+            cachedCircleSprite = Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), size);
+            cachedCircleSprite.name = "GeneratedHudCircleSprite";
+            return cachedCircleSprite;
         }
 
         private Sprite GetSprite()

@@ -248,7 +248,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetBody: {fileID: 0}
   autoApplyRecommendedSettings: 1
-  appliedPresetVersion: 4
+  appliedPresetVersion: 5
   targetOffset: {x: 0, y: 0.2, z: 0}
   followDistance: 4.06
   highSpeedFollowDistance: 5
@@ -258,6 +258,19 @@ MonoBehaviour:
   highSpeedLookAheadDistance: 6.4
   focusHeight: 0.36
   rotationSharpness: 13.5
+  cameraCycleKey: 99
+  viewMode: 0
+  farChaseDistance: 7.25
+  farChaseHeight: 1.8
+  farChaseLookAhead: 7.5
+  hoodCameraForwardOffset: 1.55
+  hoodCameraHeight: 0.82
+  hoodCameraLookAhead: 12
+  bumperCameraForwardOffset: 2.35
+  bumperCameraHeight: 0.42
+  bumperCameraLookAhead: 13.5
+  mountedViewFieldOfView: 86
+  mountedViewSpeedFieldOfViewAdd: 8
   velocityHeadingBlend: 0.08
   headingResponsiveness: 6
   reverseHeadingDamping: 0.08

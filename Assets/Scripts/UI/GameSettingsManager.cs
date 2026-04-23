@@ -822,7 +822,7 @@ namespace Underground.UI
         private void ApplyFramePacingSettings()
         {
             QualitySettings.vSyncCount = VSyncEnabled ? 1 : 0;
-            Application.targetFrameRate = VSyncEnabled ? -1 : 60;
+            Application.targetFrameRate = VSyncEnabled ? -1 : 90;
         }
 
         private void ApplyShadowQuality()
@@ -836,13 +836,13 @@ namespace Underground.UI
                     break;
                 case 1:
                     QualitySettings.shadows = UnityEngine.ShadowQuality.All;
-                    QualitySettings.shadowDistance = 90f;
-                    QualitySettings.shadowCascades = 2;
+                    QualitySettings.shadowDistance = 35f;
+                    QualitySettings.shadowCascades = 1;
                     break;
                 default:
                     QualitySettings.shadows = UnityEngine.ShadowQuality.All;
-                    QualitySettings.shadowDistance = 220f;
-                    QualitySettings.shadowCascades = 4;
+                    QualitySettings.shadowDistance = 55f;
+                    QualitySettings.shadowCascades = 1;
                     break;
             }
         }

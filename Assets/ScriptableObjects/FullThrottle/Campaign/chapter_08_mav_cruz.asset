@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926a6e86d306a674386dd88776d9b0ac, type: 3}
+  m_Name: chapter_08_mav_cruz
+  m_EditorClassIdentifier: Assembly-CSharp::FullThrottle.SacredCore.Campaign.FTCampaignChapterDefinition
+  chapterId: chapter_08_mav_cruz
+  actId: act_02_pressure_climb
+  chapterNumber: 8
+  title: Mav Cruz
+  districtId: arterial_zone
+  narrativePurpose: Introduce status, polish, and image as a rival force.
+  requiredReputation: 2300
+  requiredChapterIds:
+  - chapter_07_edds_offer
+  requiredRaceWins: []
+  requiredRivalWins: []
+  requiredRaces: []
+  optionalRaces: []
+  roamingOutrunRivals: []
+  introBeat: {fileID: 11400000, guid: 6ec87c2e67a21944f8d313aa4c67f078, type: 2}
+  preRaceBeat: {fileID: 0}
+  postRaceBeat: {fileID: 11400000, guid: 09fe5ed753e1fb44087eba668fc7d7d9, type: 2}
+  garageBeat: {fileID: 11400000, guid: 63e6a90928eb3ec4b8ef12d7ac91d995, type: 2}
+  radioFollowUpBeat: {fileID: 11400000, guid: be798619a63404f49990fe729330fd6a, type: 2}
+  moneyReward: 1500
+  reputationReward: 380
+  unlockDistrictIds: []
+  unlockRewardIds: []
+  unlockChapterIds:
+  - chapter_09_collapse
